@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#X#",
+    "X#X",
+    "#X#"
+  ],
+  "key": {
+    "X": {
+      "tag": "c:diamond_dusts"
+    },
+    "#": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "result": {
+    "item": "assortech:energy_crystal_dust",
+    "count": 8
+  }
+}

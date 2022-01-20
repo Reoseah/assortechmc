@@ -1,0 +1,195 @@
+package assortech;
+
+import assortech.block.*;
+import assortech.block.entity.CableBlockEntity;
+import assortech.block.entity.ElectricFurnaceBlockEntity;
+import assortech.block.entity.GeneratorBlockEntity;
+import assortech.block.entity.SolarPanelBlockEntity;
+import assortech.feature.RubberFoliagePlacer;
+import assortech.mixin.FoliagePlacerTypeInvoker;
+import assortech.screen.ElectricFurnaceScreenHandler;
+import assortech.screen.GeneratorScreenHandler;
+import assortech.screen.SolarPanelScreenHandler;
+import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricMaterialBuilder;
+import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
+import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
+import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
+import net.minecraft.block.*;
+import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
+import net.minecraft.screen.ScreenHandlerType;
+import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.state.property.Properties;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.collection.DataPool;
+import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.intprovider.UniformIntProvider;
+import net.minecraft.util.registry.BuiltinRegistries;
+import net.minecraft.util.registry.Registry;
+import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.world.gen.feature.Feature;
+import net.minecraft.world.gen.feature.TreeFeatureConfig;
+import net.minecraft.world.gen.feature.size.TwoLayersFeatureSize;
+import net.minecraft.world.gen.foliage.FoliagePlacerType;
+import net.minecraft.world.gen.stateprovider.BlockStateProvider;
+import net.minecraft.world.gen.stateprovider.SimpleBlockStateProvider;
+import net.minecraft.world.gen.stateprovider.WeightedBlockStateProvider;
+import net.minecraft.world.gen.trunk.StraightTrunkPlacer;
+import team.reborn.energy.api.EnergyStorage;
+
+public class Assortech implements ModInitializer {
+    @Override
+    public void onInitialize() {
+        Registry.register(Registry.BLOCK, id("rubber_log"), AtBlocks.RUBBER_LOG);
+        Registry.register(Registry.BLOCK, id("resin_rubber_log"), AtBlocks.RESIN_RUBBER_LOG);
+        Registry.register(Registry.BLOCK, id("rubber_leaves"), AtBlocks.RUBBER_LEAVES);
+        Registry.register(Registry.BLOCK, id("rubber_sapling"), AtBlocks.RUBBER_SAPLING);
+        Registry.register(Registry.BLOCK, id("tin_ore"), AtBlocks.TIN_ORE);
+        Registry.register(Registry.BLOCK, id("deepslate_tin_ore"), AtBlocks.DEEPSLATE_TIN_ORE);
+        Registry.register(Registry.BLOCK, id("tin_block"), AtBlocks.TIN_BLOCK);
+        Registry.register(Registry.BLOCK, id("bronze_block"), AtBlocks.BRONZE_BLOCK);
+        Registry.register(Registry.BLOCK, id("machine"), AtBlocks.MACHINE);
+        Registry.register(Registry.BLOCK, id("generator"), AtBlocks.GENERATOR);
+        Registry.register(Registry.BLOCK, id("solar_panel"), AtBlocks.SOLAR_PANEL);
+        Registry.register(Registry.BLOCK, id("electric_furnace"), AtBlocks.ELECTRIC_FURNACE);
+        Registry.register(Registry.BLOCK, id("copper_wire"), AtBlocks.COPPER_WIRE);
+        Registry.register(Registry.BLOCK, id("copper_cable"), AtBlocks.COPPER_CABLE);
+
+        FlammableBlockRegistry.getDefaultInstance().add(AtBlocks.RUBBER_LOG, 5, 5);
+        FlammableBlockRegistry.getDefaultInstance().add(AtBlocks.RESIN_RUBBER_LOG, 5, 5);
+
+        Registry.register(Registry.BLOCK_ENTITY_TYPE, id("generator"), AtBlockEntityTypes.GENERATOR);
+        Registry.register(Registry.BLOCK_ENTITY_TYPE, id("solar_panel"), AtBlockEntityTypes.SOLAR_PANEL);
+        Registry.register(Registry.BLOCK_ENTITY_TYPE, id("electric_furnace"), AtBlockEntityTypes.ELECTRIC_FURNACE);
+        Registry.register(Registry.BLOCK_ENTITY_TYPE, id("cable"), AtBlockEntityTypes.CABLE);
+        EnergyStorage.SIDED.registerForBlockEntity((be, direction) -> be.getEnergyStorage(), AtBlockEntityTypes.GENERATOR);
+        EnergyStorage.SIDED.registerForBlockEntity((be, direction) -> SolarPanelBlockEntity.ENERGY, AtBlockEntityTypes.SOLAR_PANEL);
+        EnergyStorage.SIDED.registerForBlockEntity((be, direction) -> be.getEnergyStorage(), AtBlockEntityTypes.ELECTRIC_FURNACE);
+        EnergyStorage.SIDED.registerForBlockEntity(CableBlockEntity::getEnergyHandler, AtBlockEntityTypes.CABLE);
+
+        Registry.register(Registry.ITEM, id("rubber_log"), new BlockItem(AtBlocks.RUBBER_LOG, new Item.Settings().group(AtItems.GROUP)));
+        Registry.register(Registry.ITEM, id("rubber_leaves"), new BlockItem(AtBlocks.RUBBER_LEAVES, new Item.Settings().group(AtItems.GROUP)));
+        Registry.register(Registry.ITEM, id("rubber_sapling"), new BlockItem(AtBlocks.RUBBER_SAPLING, new Item.Settings().group(AtItems.GROUP)));
+        Registry.register(Registry.ITEM, id("tin_ore"), new BlockItem(AtBlocks.TIN_ORE, new Item.Settings().group(AtItems.GROUP)));
+        Registry.register(Registry.ITEM, id("deepslate_tin_ore"), new BlockItem(AtBlocks.DEEPSLATE_TIN_ORE, new Item.Settings().group(AtItems.GROUP)));
+        Registry.register(Registry.ITEM, id("tin_block"), new BlockItem(AtBlocks.TIN_BLOCK, new Item.Settings().group(AtItems.GROUP)));
+        Registry.register(Registry.ITEM, id("bronze_block"), new BlockItem(AtBlocks.BRONZE_BLOCK, new Item.Settings().group(AtItems.GROUP)));
+        Registry.register(Registry.ITEM, id("machine"), new BlockItem(AtBlocks.MACHINE, new Item.Settings().group(AtItems.GROUP)));
+        Registry.register(Registry.ITEM, id("generator"), new BlockItem(AtBlocks.GENERATOR, new Item.Settings().group(AtItems.GROUP)));
+        Registry.register(Registry.ITEM, id("solar_panel"), new BlockItem(AtBlocks.SOLAR_PANEL, new Item.Settings().group(AtItems.GROUP)));
+        Registry.register(Registry.ITEM, id("electric_furnace"), new BlockItem(AtBlocks.ELECTRIC_FURNACE, new Item.Settings().group(AtItems.GROUP)));
+        Registry.register(Registry.ITEM, id("copper_wire"), new BlockItem(AtBlocks.COPPER_WIRE, new Item.Settings().group(AtItems.GROUP)));
+        Registry.register(Registry.ITEM, id("copper_cable"), new BlockItem(AtBlocks.COPPER_CABLE, new Item.Settings().group(AtItems.GROUP)));
+
+        Registry.register(Registry.ITEM, id("sticky_resin"), AtItems.STICKY_RESIN);
+        Registry.register(Registry.ITEM, id("rubber"), AtItems.RUBBER);
+        Registry.register(Registry.ITEM, id("raw_tin"), AtItems.RAW_TIN);
+        Registry.register(Registry.ITEM, id("tin_ingot"), AtItems.TIN_INGOT);
+        Registry.register(Registry.ITEM, id("bronze_ingot"), AtItems.BRONZE_INGOT);
+        Registry.register(Registry.ITEM, id("tin_nugget"), AtItems.TIN_NUGGET);
+        Registry.register(Registry.ITEM, id("bronze_nugget"), AtItems.BRONZE_NUGGET);
+        Registry.register(Registry.ITEM, id("stone_dust"), AtItems.STONE_DUST);
+        Registry.register(Registry.ITEM, id("coal_dust"), AtItems.COAL_DUST);
+        Registry.register(Registry.ITEM, id("iron_dust"), AtItems.IRON_DUST);
+        Registry.register(Registry.ITEM, id("gold_dust"), AtItems.GOLD_DUST);
+        Registry.register(Registry.ITEM, id("diamond_dust"), AtItems.DIAMOND_DUST);
+        Registry.register(Registry.ITEM, id("copper_dust"), AtItems.COPPER_DUST);
+        Registry.register(Registry.ITEM, id("tin_dust"), AtItems.TIN_DUST);
+        Registry.register(Registry.ITEM, id("bronze_dust"), AtItems.BRONZE_DUST);
+        Registry.register(Registry.ITEM, id("energy_crystal_dust"), AtItems.ENERGY_CRYSTAL_DUST);
+        Registry.register(Registry.ITEM, id("circuit"), AtItems.CIRCUIT);
+
+        Registry.register(Registry.FOLIAGE_PLACER_TYPE, id("rubber"), AtFoliagePlacers.RUBBER);
+
+        Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, id("rubber_tree"), AtFeatures.RUBBER_TREE);
+
+        AtScreenHandlerTypes.init();
+    }
+
+    public static Identifier id(String path) {
+        return new Identifier("assortech", path);
+    }
+
+    public static class AtBlocks {
+        private static final Material UNMOVABLE_WOOD = new FabricMaterialBuilder(MapColor.OAK_TAN).blocksPistons().burnable().build();
+
+        private static final AbstractBlock.Settings RUBBER_LOG_SETTINGS = FabricBlockSettings.of(Material.WOOD, state -> state.get(PillarBlock.AXIS) == Direction.Axis.Y ? MapColor.YELLOW : MapColor.BROWN).strength(2F).sounds(BlockSoundGroup.WOOD);
+        private static final AbstractBlock.Settings UNMOVABLE_RUBBER_LOG_SETTINGS = FabricBlockSettings.of(UNMOVABLE_WOOD, MapColor.YELLOW).ticksRandomly().strength(2F).sounds(BlockSoundGroup.WOOD);
+        private static final AbstractBlock.Settings TIN_SETTINGS = FabricBlockSettings.of(Material.METAL, MapColor.LIGHT_GRAY).strength(3F, 6F).sounds(BlockSoundGroup.METAL);
+        private static final AbstractBlock.Settings BRONZE_SETTINGS = FabricBlockSettings.of(Material.METAL, MapColor.ORANGE).strength(3F, 6F).sounds(BlockSoundGroup.METAL);
+        private static final AbstractBlock.Settings MACHINE_SETTINGS = FabricBlockSettings.of(Material.METAL).strength(3F, 6F).sounds(BlockSoundGroup.METAL).requiresTool();
+
+        public static final Block RUBBER_LOG = new PillarBlock(RUBBER_LOG_SETTINGS);
+        public static final Block RESIN_RUBBER_LOG = new RubberSappingLogBlock(UNMOVABLE_RUBBER_LOG_SETTINGS);
+        public static final Block RUBBER_LEAVES = new LeavesBlock(FabricBlockSettings.copyOf(Blocks.JUNGLE_LEAVES));
+        public static final Block RUBBER_SAPLING = new RubberSaplingBlock(FabricBlockSettings.copyOf(Blocks.JUNGLE_SAPLING));
+        public static final Block TIN_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(3F));
+        public static final Block DEEPSLATE_TIN_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(4.5F, 3F));
+        public static final Block TIN_BLOCK = new Block(TIN_SETTINGS);
+        public static final Block BRONZE_BLOCK = new Block(BRONZE_SETTINGS);
+        public static final Block MACHINE = new Block(MACHINE_SETTINGS);
+
+        public static final Block GENERATOR = new GeneratorBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 15 : 0));
+        public static final Block SOLAR_PANEL = new SolarPanelBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).mapColor(MapColor.LAPIS_BLUE));
+        public static final Block ELECTRIC_FURNACE = new ElectricFurnaceBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 15 : 0));
+
+        public static final Block COPPER_WIRE = new CableBlock(1, FabricBlockSettings.of(Material.METAL).strength(0.5F).sounds(BlockSoundGroup.WOOL).breakByHand(true));
+        public static final Block COPPER_CABLE = new CableBlock(2, FabricBlockSettings.of(Material.METAL).strength(0.5F).breakByHand(true));
+    }
+
+    public static class AtItems {
+        public static final ItemGroup GROUP = FabricItemGroupBuilder.build(id("main"), () -> new ItemStack(AtBlocks.MACHINE));
+
+        public static final Item STICKY_RESIN = new Item(new Item.Settings().group(GROUP));
+        public static final Item RUBBER = new Item(new Item.Settings().group(GROUP));
+        public static final Item RAW_TIN = new Item(new Item.Settings().group(GROUP));
+        public static final Item TIN_INGOT = new Item(new Item.Settings().group(GROUP));
+        public static final Item BRONZE_INGOT = new Item(new Item.Settings().group(GROUP));
+        public static final Item TIN_NUGGET = new Item(new Item.Settings().group(GROUP));
+        public static final Item BRONZE_NUGGET = new Item(new Item.Settings().group(GROUP));
+        public static final Item STONE_DUST = new Item(new Item.Settings().group(GROUP));
+        public static final Item COAL_DUST = new Item(new Item.Settings().group(GROUP));
+        public static final Item IRON_DUST = new Item(new Item.Settings().group(GROUP));
+        public static final Item GOLD_DUST = new Item(new Item.Settings().group(GROUP));
+        public static final Item DIAMOND_DUST = new Item(new Item.Settings().group(GROUP));
+        public static final Item COPPER_DUST = new Item(new Item.Settings().group(GROUP));
+        public static final Item TIN_DUST = new Item(new Item.Settings().group(GROUP));
+        public static final Item BRONZE_DUST = new Item(new Item.Settings().group(GROUP));
+        public static final Item ENERGY_CRYSTAL_DUST = new Item(new Item.Settings().group(GROUP));
+        public static final Item CIRCUIT = new Item(new Item.Settings().group(GROUP));
+    }
+
+    public static class AtBlockEntityTypes {
+        public static final BlockEntityType<GeneratorBlockEntity> GENERATOR = FabricBlockEntityTypeBuilder.create(GeneratorBlockEntity::new, AtBlocks.GENERATOR).build();
+        public static final BlockEntityType<SolarPanelBlockEntity> SOLAR_PANEL = FabricBlockEntityTypeBuilder.create(SolarPanelBlockEntity::new, AtBlocks.SOLAR_PANEL).build();
+        public static final BlockEntityType<ElectricFurnaceBlockEntity> ELECTRIC_FURNACE = FabricBlockEntityTypeBuilder.create(ElectricFurnaceBlockEntity::new, AtBlocks.ELECTRIC_FURNACE).build();
+        public static final BlockEntityType<CableBlockEntity> CABLE = FabricBlockEntityTypeBuilder.create(CableBlockEntity::new, AtBlocks.COPPER_WIRE, AtBlocks.COPPER_CABLE).build();
+    }
+
+    public static class AtFoliagePlacers {
+        public static final FoliagePlacerType<RubberFoliagePlacer> RUBBER = FoliagePlacerTypeInvoker.create(RubberFoliagePlacer.CODEC);
+    }
+
+    public static class AtFeatures {
+        private static final WeightedBlockStateProvider RUBBER_LOGS = new WeightedBlockStateProvider(new DataPool.Builder<BlockState>().add(AtBlocks.RUBBER_LOG.getDefaultState(), 4).add(AtBlocks.RESIN_RUBBER_LOG.getDefaultState(), 1).add(AtBlocks.RESIN_RUBBER_LOG.getDefaultState().with(RubberSappingLogBlock.FACING, Direction.SOUTH), 1).add(AtBlocks.RESIN_RUBBER_LOG.getDefaultState().with(RubberSappingLogBlock.FACING, Direction.WEST), 1).add(AtBlocks.RESIN_RUBBER_LOG.getDefaultState().with(RubberSappingLogBlock.FACING, Direction.EAST), 1));
+        private static final SimpleBlockStateProvider RUBBER_LEAVES = BlockStateProvider.of(AtBlocks.RUBBER_LEAVES);
+
+        public static final ConfiguredFeature<TreeFeatureConfig, ?> RUBBER_TREE = Feature.TREE.configure(new TreeFeatureConfig.Builder(RUBBER_LOGS, new StraightTrunkPlacer(5, 2, 0), RUBBER_LEAVES, new RubberFoliagePlacer(UniformIntProvider.create(2, 2), UniformIntProvider.create(1, 1), 5), new TwoLayersFeatureSize(1, 0, 1)).build());
+    }
+
+    public static class AtScreenHandlerTypes {
+        public static final ScreenHandlerType<GeneratorScreenHandler> GENERATOR = ScreenHandlerRegistry.registerSimple(Assortech.id("generator"), GeneratorScreenHandler::new);
+        public static final ScreenHandlerType<SolarPanelScreenHandler> SOLAR_PANEL = ScreenHandlerRegistry.registerSimple(Assortech.id("solar_panel"), SolarPanelScreenHandler::new);
+        public static final ScreenHandlerType<ElectricFurnaceScreenHandler> ELECTRIC_FURNACE = ScreenHandlerRegistry.registerSimple(Assortech.id("electric_furnace"), ElectricFurnaceScreenHandler::new);
+
+        private static void init() {
+            // just initializes static fields
+        }
+    }
+}

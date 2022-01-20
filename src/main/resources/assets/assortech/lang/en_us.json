@@ -1,0 +1,39 @@
+{
+  "itemGroup.assortech.main": "Assortech",
+
+  "block.assortech.rubber_log": "Rubber Log",
+  "block.assortech.resin_rubber_log": "Sapping Rubber Log",
+  "block.assortech.rubber_leaves": "Rubber Tree Leaves",
+  "block.assortech.rubber_sapling": "Rubber Tree Sapling",
+  "block.assortech.tin_ore": "Tin Ore",
+  "block.assortech.deepslate_tin_ore": "Deepslate Tin Ore",
+  "block.assortech.tin_block": "Block of Tin",
+  "block.assortech.bronze_block": "Block of Bronze",
+  "block.assortech.machine": "Machine Block",
+
+  "block.assortech.generator": "Generator",
+  "block.assortech.solar_panel": "Solar Panel",
+  "block.assortech.electric_furnace": "Electric Furnace",
+  "block.assortech.copper_wire": "Copper Wire",
+  "block.assortech.copper_cable": "Copper Cable",
+
+  "item.assortech.sticky_resin": "Sticky Resin",
+  "item.assortech.rubber": "Rubber",
+  "item.assortech.raw_tin": "Raw Tin",
+  "item.assortech.tin_ingot": "Tin Ingot",
+  "item.assortech.bronze_ingot": "Bronze Ingot",
+  "item.assortech.bronze_nugget": "Bronze Nugget",
+  "item.assortech.tin_nugget": "Tin Nugget",
+  "item.assortech.stone_dust": "Stone Dust",
+  "item.assortech.coal_dust": "Coal Dust",
+  "item.assortech.iron_dust": "Iron Dust",
+  "item.assortech.gold_dust": "Gold Dust",
+  "item.assortech.diamond_dust": "Diamond Dust",
+  "item.assortech.copper_dust": "Copper Dust",
+  "item.assortech.tin_dust": "Tin Dust",
+  "item.assortech.bronze_dust": "Bronze Dust",
+  "item.assortech.energy_crystal_dust": "Energy Crystal Blend",
+  "item.assortech.circuit": "Circuit",
+
+  "container.assortech.energy": "%s / %s EU"
+}

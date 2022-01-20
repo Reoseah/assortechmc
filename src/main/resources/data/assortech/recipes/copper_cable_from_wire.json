@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "assortech:copper_wire"
+    },
+    {
+      "tag": "c:rubber"
+    }
+  ],
+  "result": {
+    "item": "assortech:copper_cable"
+  }
+}

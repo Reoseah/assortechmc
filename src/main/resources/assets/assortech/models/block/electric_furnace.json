@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/orientable_with_bottom",
+  "textures": {
+    "top": "assortech:block/machine",
+    "front": "assortech:block/electric_furnace_front",
+    "side": "assortech:block/electric_furnace_side",
+    "bottom": "assortech:block/machine_bottom"
+  }
+}

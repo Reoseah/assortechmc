@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "tag": "c:bronze_dusts"
+  },
+  "result": "assortech:bronze_ingot"
+}

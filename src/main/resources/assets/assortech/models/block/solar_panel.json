@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "top": "assortech:block/solar_panel",
+    "side": "assortech:block/generator_side",
+    "bottom": "assortech:block/machine_bottom"
+  }
+}
