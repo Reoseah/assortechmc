@@ -10,9 +10,16 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
+import net.fabricmc.fabric.api.object.builder.v1.client.model.FabricModelPredicateProviderRegistry;
 import net.minecraft.client.color.world.BiomeColors;
 import net.minecraft.client.color.world.FoliageColors;
+import net.minecraft.client.item.UnclampedModelPredicateProvider;
 import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.world.ClientWorld;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.item.ItemStack;
+import org.jetbrains.annotations.Nullable;
+import team.reborn.energy.api.base.SimpleBatteryItem;
 
 @Environment(EnvType.CLIENT)
 public class AssortechClient implements ClientModInitializer {
@@ -22,6 +29,18 @@ public class AssortechClient implements ClientModInitializer {
 
         ColorProviderRegistry.BLOCK.register((state, world, pos, tintIndex) -> applyRubberTreeTint(world != null && pos != null ? BiomeColors.getFoliageColor(world, pos) : FoliageColors.getDefaultColor()), Assortech.AtBlocks.RUBBER_LEAVES);
         ColorProviderRegistry.ITEM.register((stack, tintIndex) -> applyRubberTreeTint(FoliageColors.getDefaultColor()), Assortech.AtBlocks.RUBBER_LEAVES);
+
+        FabricModelPredicateProviderRegistry.register(Assortech.id("energy"), new UnclampedModelPredicateProvider() {
+            @Override
+            public float unclampedCall(ItemStack stack, @Nullable ClientWorld world, @Nullable LivingEntity entity, int seed) {
+                return SimpleBatteryItem.getStoredEnergyUnchecked(stack);
+            }
+
+            @Override
+            public float call(ItemStack stack, @Nullable ClientWorld world, @Nullable LivingEntity entity, int seed) {
+                return this.unclampedCall(stack, world, entity, seed);
+            }
+        });
 
         ScreenRegistry.register(Assortech.AtScreenHandlerTypes.GENERATOR, GeneratorScreen::new);
         ScreenRegistry.register(Assortech.AtScreenHandlerTypes.SOLAR_PANEL, SolarPanelScreen::new);

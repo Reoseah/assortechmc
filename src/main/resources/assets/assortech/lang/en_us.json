@@ -43,6 +43,8 @@
   "item.assortech.bronze_chestplate": "Bronze Chestplate",
   "item.assortech.bronze_leggings": "Bronze Leggings",
   "item.assortech.bronze_boots": "Bronze Boots",
+  "item.assortech.rechargeable_battery": "Rechargeable Battery",
+  "item.assortech.energy_crystal": "Energy Crystal",
 
   "container.assortech.energy": "%s / %s EU"
 }

@@ -8,6 +8,8 @@ import assortech.block.entity.SolarPanelBlockEntity;
 import assortech.feature.RubberFoliagePlacer;
 import assortech.item.AccessibleAxeItem;
 import assortech.item.AccessiblePickaxeItem;
+import assortech.item.EnergyCrystalItem;
+import assortech.item.RechargeableBatteryItem;
 import assortech.item.material.AssortechArmorMaterials;
 import assortech.item.material.AssortechToolMaterials;
 import assortech.mixin.FoliagePlacerTypeInvoker;
@@ -24,12 +26,12 @@ import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.fluid.Fluids;
 import net.minecraft.item.*;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Rarity;
 import net.minecraft.util.collection.DataPool;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
@@ -118,6 +120,8 @@ public class Assortech implements ModInitializer {
         Registry.register(Registry.ITEM, id("bronze_leggings"), AtItems.BRONZE_LEGGINGS);
         Registry.register(Registry.ITEM, id("bronze_boots"), AtItems.BRONZE_BOOTS);
 
+        Registry.register(Registry.ITEM, id("rechargeable_battery"), AtItems.RECHARGEABLE_BATTERY);
+        Registry.register(Registry.ITEM, id("energy_crystal"), AtItems.ENERGY_CRYSTAL);
 
         Registry.register(Registry.FOLIAGE_PLACER_TYPE, id("rubber"), AtFoliagePlacers.RUBBER);
 
@@ -190,6 +194,8 @@ public class Assortech implements ModInitializer {
         public static final Item BRONZE_CHESTPLATE = new ArmorItem(AssortechArmorMaterials.BRONZE, EquipmentSlot.CHEST, settings());
         public static final Item BRONZE_LEGGINGS = new ArmorItem(AssortechArmorMaterials.BRONZE, EquipmentSlot.LEGS, settings());
         public static final Item BRONZE_BOOTS = new ArmorItem(AssortechArmorMaterials.BRONZE, EquipmentSlot.FEET, settings());
+        public static final Item RECHARGEABLE_BATTERY = new RechargeableBatteryItem(settings().maxCount(16).rarity(Rarity.RARE));
+        public static final Item ENERGY_CRYSTAL = new EnergyCrystalItem(settings().maxCount(16).rarity(Rarity.RARE));
     }
 
     public static class AtBlockEntityTypes {

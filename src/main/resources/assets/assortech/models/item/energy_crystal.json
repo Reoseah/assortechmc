@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "assortech:item/energy_crystal"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "assortech:energy": 100000
+      },
+      "model": "assortech:item/energy_crystal_1"
+    },
+    {
+      "predicate": {
+        "assortech:energy": 350000
+      },
+      "model": "assortech:item/energy_crystal_2"
+    },
+    {
+      "predicate": {
+        "assortech:energy": 650000
+      },
+      "model": "assortech:item/energy_crystal_3"
+    },
+    {
+      "predicate": {
+        "assortech:energy": 900000
+      },
+      "model": "assortech:item/energy_crystal_4"
+    }
+  ]
+}
