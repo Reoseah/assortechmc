@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " X ",
+    "R#R"
+  ],
+  "key": {
+    "#": {
+      "tag": "c:machine_blocks"
+    },
+    "X": {
+      "tag": "c:circuits"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "result": {
+    "item": "assortech:electric_furnace"
+  }
+}

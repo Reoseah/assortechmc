@@ -6,6 +6,10 @@ import assortech.block.entity.ElectricFurnaceBlockEntity;
 import assortech.block.entity.GeneratorBlockEntity;
 import assortech.block.entity.SolarPanelBlockEntity;
 import assortech.feature.RubberFoliagePlacer;
+import assortech.item.AccessibleAxeItem;
+import assortech.item.AccessiblePickaxeItem;
+import assortech.item.material.AssortechArmorMaterials;
+import assortech.item.material.AssortechToolMaterials;
 import assortech.mixin.FoliagePlacerTypeInvoker;
 import assortech.screen.ElectricFurnaceScreenHandler;
 import assortech.screen.GeneratorScreenHandler;
@@ -19,10 +23,9 @@ import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
+import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.fluid.Fluids;
+import net.minecraft.item.*;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.state.property.Properties;
@@ -73,19 +76,19 @@ public class Assortech implements ModInitializer {
         EnergyStorage.SIDED.registerForBlockEntity((be, direction) -> be.getEnergyStorage(), AtBlockEntityTypes.ELECTRIC_FURNACE);
         EnergyStorage.SIDED.registerForBlockEntity(CableBlockEntity::getEnergyHandler, AtBlockEntityTypes.CABLE);
 
-        Registry.register(Registry.ITEM, id("rubber_log"), new BlockItem(AtBlocks.RUBBER_LOG, new Item.Settings().group(AtItems.GROUP)));
-        Registry.register(Registry.ITEM, id("rubber_leaves"), new BlockItem(AtBlocks.RUBBER_LEAVES, new Item.Settings().group(AtItems.GROUP)));
-        Registry.register(Registry.ITEM, id("rubber_sapling"), new BlockItem(AtBlocks.RUBBER_SAPLING, new Item.Settings().group(AtItems.GROUP)));
-        Registry.register(Registry.ITEM, id("tin_ore"), new BlockItem(AtBlocks.TIN_ORE, new Item.Settings().group(AtItems.GROUP)));
-        Registry.register(Registry.ITEM, id("deepslate_tin_ore"), new BlockItem(AtBlocks.DEEPSLATE_TIN_ORE, new Item.Settings().group(AtItems.GROUP)));
-        Registry.register(Registry.ITEM, id("tin_block"), new BlockItem(AtBlocks.TIN_BLOCK, new Item.Settings().group(AtItems.GROUP)));
-        Registry.register(Registry.ITEM, id("bronze_block"), new BlockItem(AtBlocks.BRONZE_BLOCK, new Item.Settings().group(AtItems.GROUP)));
-        Registry.register(Registry.ITEM, id("machine"), new BlockItem(AtBlocks.MACHINE, new Item.Settings().group(AtItems.GROUP)));
-        Registry.register(Registry.ITEM, id("generator"), new BlockItem(AtBlocks.GENERATOR, new Item.Settings().group(AtItems.GROUP)));
-        Registry.register(Registry.ITEM, id("solar_panel"), new BlockItem(AtBlocks.SOLAR_PANEL, new Item.Settings().group(AtItems.GROUP)));
-        Registry.register(Registry.ITEM, id("electric_furnace"), new BlockItem(AtBlocks.ELECTRIC_FURNACE, new Item.Settings().group(AtItems.GROUP)));
-        Registry.register(Registry.ITEM, id("copper_wire"), new BlockItem(AtBlocks.COPPER_WIRE, new Item.Settings().group(AtItems.GROUP)));
-        Registry.register(Registry.ITEM, id("copper_cable"), new BlockItem(AtBlocks.COPPER_CABLE, new Item.Settings().group(AtItems.GROUP)));
+        Registry.register(Registry.ITEM, id("rubber_log"), new BlockItem(AtBlocks.RUBBER_LOG, AtItems.settings()));
+        Registry.register(Registry.ITEM, id("rubber_leaves"), new BlockItem(AtBlocks.RUBBER_LEAVES, AtItems.settings()));
+        Registry.register(Registry.ITEM, id("rubber_sapling"), new BlockItem(AtBlocks.RUBBER_SAPLING, AtItems.settings()));
+        Registry.register(Registry.ITEM, id("tin_ore"), new BlockItem(AtBlocks.TIN_ORE, AtItems.settings()));
+        Registry.register(Registry.ITEM, id("deepslate_tin_ore"), new BlockItem(AtBlocks.DEEPSLATE_TIN_ORE, AtItems.settings()));
+        Registry.register(Registry.ITEM, id("tin_block"), new BlockItem(AtBlocks.TIN_BLOCK, AtItems.settings()));
+        Registry.register(Registry.ITEM, id("bronze_block"), new BlockItem(AtBlocks.BRONZE_BLOCK, AtItems.settings()));
+        Registry.register(Registry.ITEM, id("machine"), new BlockItem(AtBlocks.MACHINE, AtItems.settings()));
+        Registry.register(Registry.ITEM, id("generator"), new BlockItem(AtBlocks.GENERATOR, AtItems.settings()));
+        Registry.register(Registry.ITEM, id("solar_panel"), new BlockItem(AtBlocks.SOLAR_PANEL, AtItems.settings()));
+        Registry.register(Registry.ITEM, id("electric_furnace"), new BlockItem(AtBlocks.ELECTRIC_FURNACE, AtItems.settings()));
+        Registry.register(Registry.ITEM, id("copper_wire"), new BlockItem(AtBlocks.COPPER_WIRE, AtItems.settings()));
+        Registry.register(Registry.ITEM, id("copper_cable"), new BlockItem(AtBlocks.COPPER_CABLE, AtItems.settings()));
 
         Registry.register(Registry.ITEM, id("sticky_resin"), AtItems.STICKY_RESIN);
         Registry.register(Registry.ITEM, id("rubber"), AtItems.RUBBER);
@@ -104,6 +107,17 @@ public class Assortech implements ModInitializer {
         Registry.register(Registry.ITEM, id("bronze_dust"), AtItems.BRONZE_DUST);
         Registry.register(Registry.ITEM, id("energy_crystal_dust"), AtItems.ENERGY_CRYSTAL_DUST);
         Registry.register(Registry.ITEM, id("circuit"), AtItems.CIRCUIT);
+
+        Registry.register(Registry.ITEM, id("bronze_sword"), AtItems.BRONZE_SWORD);
+        Registry.register(Registry.ITEM, id("bronze_shovel"), AtItems.BRONZE_SHOVEL);
+        Registry.register(Registry.ITEM, id("bronze_pickaxe"), AtItems.BRONZE_PICKAXE);
+        Registry.register(Registry.ITEM, id("bronze_axe"), AtItems.BRONZE_AXE);
+        Registry.register(Registry.ITEM, id("bronze_hoe"), AtItems.BRONZE_HOE);
+        Registry.register(Registry.ITEM, id("bronze_helmet"), AtItems.BRONZE_HELMET);
+        Registry.register(Registry.ITEM, id("bronze_chestplate"), AtItems.BRONZE_CHESTPLATE);
+        Registry.register(Registry.ITEM, id("bronze_leggings"), AtItems.BRONZE_LEGGINGS);
+        Registry.register(Registry.ITEM, id("bronze_boots"), AtItems.BRONZE_BOOTS);
+
 
         Registry.register(Registry.FOLIAGE_PLACER_TYPE, id("rubber"), AtFoliagePlacers.RUBBER);
 
@@ -146,23 +160,36 @@ public class Assortech implements ModInitializer {
     public static class AtItems {
         public static final ItemGroup GROUP = FabricItemGroupBuilder.build(id("main"), () -> new ItemStack(AtBlocks.MACHINE));
 
-        public static final Item STICKY_RESIN = new Item(new Item.Settings().group(GROUP));
-        public static final Item RUBBER = new Item(new Item.Settings().group(GROUP));
-        public static final Item RAW_TIN = new Item(new Item.Settings().group(GROUP));
-        public static final Item TIN_INGOT = new Item(new Item.Settings().group(GROUP));
-        public static final Item BRONZE_INGOT = new Item(new Item.Settings().group(GROUP));
-        public static final Item TIN_NUGGET = new Item(new Item.Settings().group(GROUP));
-        public static final Item BRONZE_NUGGET = new Item(new Item.Settings().group(GROUP));
-        public static final Item STONE_DUST = new Item(new Item.Settings().group(GROUP));
-        public static final Item COAL_DUST = new Item(new Item.Settings().group(GROUP));
-        public static final Item IRON_DUST = new Item(new Item.Settings().group(GROUP));
-        public static final Item GOLD_DUST = new Item(new Item.Settings().group(GROUP));
-        public static final Item DIAMOND_DUST = new Item(new Item.Settings().group(GROUP));
-        public static final Item COPPER_DUST = new Item(new Item.Settings().group(GROUP));
-        public static final Item TIN_DUST = new Item(new Item.Settings().group(GROUP));
-        public static final Item BRONZE_DUST = new Item(new Item.Settings().group(GROUP));
-        public static final Item ENERGY_CRYSTAL_DUST = new Item(new Item.Settings().group(GROUP));
-        public static final Item CIRCUIT = new Item(new Item.Settings().group(GROUP));
+        private static Item.Settings settings() {
+            return new Item.Settings().group(GROUP);
+        }
+
+        public static final Item STICKY_RESIN = new Item(settings());
+        public static final Item RUBBER = new Item(settings());
+        public static final Item RAW_TIN = new Item(settings());
+        public static final Item TIN_INGOT = new Item(settings());
+        public static final Item BRONZE_INGOT = new Item(settings());
+        public static final Item TIN_NUGGET = new Item(settings());
+        public static final Item BRONZE_NUGGET = new Item(settings());
+        public static final Item STONE_DUST = new Item(settings());
+        public static final Item COAL_DUST = new Item(settings());
+        public static final Item IRON_DUST = new Item(settings());
+        public static final Item GOLD_DUST = new Item(settings());
+        public static final Item DIAMOND_DUST = new Item(settings());
+        public static final Item COPPER_DUST = new Item(settings());
+        public static final Item TIN_DUST = new Item(settings());
+        public static final Item BRONZE_DUST = new Item(settings());
+        public static final Item ENERGY_CRYSTAL_DUST = new Item(settings());
+        public static final Item CIRCUIT = new Item(settings());
+        public static final Item BRONZE_SWORD = new SwordItem(AssortechToolMaterials.BRONZE, 3, -2.4F, settings());
+        public static final Item BRONZE_SHOVEL = new ShovelItem(AssortechToolMaterials.BRONZE, 1.5F, -3.0F, settings());
+        public static final Item BRONZE_PICKAXE = new AccessiblePickaxeItem(AssortechToolMaterials.BRONZE, 1, -2.8F, settings());
+        public static final Item BRONZE_AXE = new AccessibleAxeItem(AssortechToolMaterials.BRONZE, 6, -3.1F, settings());
+        public static final Item BRONZE_HOE = new AccessibleAxeItem(AssortechToolMaterials.BRONZE, -2, -1.0F, settings());
+        public static final Item BRONZE_HELMET = new ArmorItem(AssortechArmorMaterials.BRONZE, EquipmentSlot.HEAD, settings());
+        public static final Item BRONZE_CHESTPLATE = new ArmorItem(AssortechArmorMaterials.BRONZE, EquipmentSlot.CHEST, settings());
+        public static final Item BRONZE_LEGGINGS = new ArmorItem(AssortechArmorMaterials.BRONZE, EquipmentSlot.LEGS, settings());
+        public static final Item BRONZE_BOOTS = new ArmorItem(AssortechArmorMaterials.BRONZE, EquipmentSlot.FEET, settings());
     }
 
     public static class AtBlockEntityTypes {
