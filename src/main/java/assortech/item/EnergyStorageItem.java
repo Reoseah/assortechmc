@@ -1,10 +1,17 @@
 package assortech.item;
 
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.world.World;
 import team.reborn.energy.api.base.SimpleBatteryItem;
+
+import java.util.List;
 
 public abstract class EnergyStorageItem extends Item implements SimpleBatteryItem, CustomDurabilityItem {
     public EnergyStorageItem(Item.Settings settings) {
@@ -21,6 +28,15 @@ public abstract class EnergyStorageItem extends Item implements SimpleBatteryIte
             stacks.add(full);
         }
     }
+
+    @Override
+    public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext context) {
+        super.appendTooltip(stack, world, tooltip, context);
+        if (stack.getCount() == 1) {
+            tooltip.add(new TranslatableText("container.assortech.energy", this.getStoredEnergy(stack), this.getEnergyCapacity()).formatted(Formatting.ITALIC, Formatting.GRAY));
+        }
+    }
+
 
     @Override
     public boolean hasDurabilityBar(ItemStack stack) {

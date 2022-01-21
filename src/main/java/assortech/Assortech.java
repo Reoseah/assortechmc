@@ -1,10 +1,7 @@
 package assortech;
 
 import assortech.block.*;
-import assortech.block.entity.CableBlockEntity;
-import assortech.block.entity.ElectricFurnaceBlockEntity;
-import assortech.block.entity.GeneratorBlockEntity;
-import assortech.block.entity.SolarPanelBlockEntity;
+import assortech.block.entity.*;
 import assortech.feature.RubberFoliagePlacer;
 import assortech.item.AccessibleAxeItem;
 import assortech.item.AccessiblePickaxeItem;
@@ -13,8 +10,11 @@ import assortech.item.RechargeableBatteryItem;
 import assortech.item.material.AssortechArmorMaterials;
 import assortech.item.material.AssortechToolMaterials;
 import assortech.mixin.FoliagePlacerTypeInvoker;
+import assortech.recipe.CraftingMachineRecipe;
+import assortech.recipe.MaceratorRecipe;
 import assortech.screen.ElectricFurnaceScreenHandler;
 import assortech.screen.GeneratorScreenHandler;
+import assortech.screen.MaceratorScreenHandler;
 import assortech.screen.SolarPanelScreenHandler;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
@@ -27,6 +27,8 @@ import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.*;
+import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.recipe.RecipeType;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.state.property.Properties;
@@ -62,7 +64,9 @@ public class Assortech implements ModInitializer {
         Registry.register(Registry.BLOCK, id("machine"), AtBlocks.MACHINE);
         Registry.register(Registry.BLOCK, id("generator"), AtBlocks.GENERATOR);
         Registry.register(Registry.BLOCK, id("solar_panel"), AtBlocks.SOLAR_PANEL);
+        Registry.register(Registry.BLOCK, id("battery_box"), AtBlocks.BATTERY_BOX);
         Registry.register(Registry.BLOCK, id("electric_furnace"), AtBlocks.ELECTRIC_FURNACE);
+        Registry.register(Registry.BLOCK, id("macerator"), AtBlocks.MACERATOR);
         Registry.register(Registry.BLOCK, id("copper_wire"), AtBlocks.COPPER_WIRE);
         Registry.register(Registry.BLOCK, id("copper_cable"), AtBlocks.COPPER_CABLE);
 
@@ -72,10 +76,12 @@ public class Assortech implements ModInitializer {
         Registry.register(Registry.BLOCK_ENTITY_TYPE, id("generator"), AtBlockEntityTypes.GENERATOR);
         Registry.register(Registry.BLOCK_ENTITY_TYPE, id("solar_panel"), AtBlockEntityTypes.SOLAR_PANEL);
         Registry.register(Registry.BLOCK_ENTITY_TYPE, id("electric_furnace"), AtBlockEntityTypes.ELECTRIC_FURNACE);
+        Registry.register(Registry.BLOCK_ENTITY_TYPE, id("macerator"), AtBlockEntityTypes.MACERATOR);
         Registry.register(Registry.BLOCK_ENTITY_TYPE, id("cable"), AtBlockEntityTypes.CABLE);
         EnergyStorage.SIDED.registerForBlockEntity((be, direction) -> be.getEnergyStorage(), AtBlockEntityTypes.GENERATOR);
         EnergyStorage.SIDED.registerForBlockEntity((be, direction) -> SolarPanelBlockEntity.ENERGY, AtBlockEntityTypes.SOLAR_PANEL);
         EnergyStorage.SIDED.registerForBlockEntity((be, direction) -> be.getEnergyStorage(), AtBlockEntityTypes.ELECTRIC_FURNACE);
+        EnergyStorage.SIDED.registerForBlockEntity((be, direction) -> be.getEnergyStorage(), AtBlockEntityTypes.MACERATOR);
         EnergyStorage.SIDED.registerForBlockEntity(CableBlockEntity::getEnergyHandler, AtBlockEntityTypes.CABLE);
 
         Registry.register(Registry.ITEM, id("rubber_log"), new BlockItem(AtBlocks.RUBBER_LOG, AtItems.settings()));
@@ -88,7 +94,9 @@ public class Assortech implements ModInitializer {
         Registry.register(Registry.ITEM, id("machine"), new BlockItem(AtBlocks.MACHINE, AtItems.settings()));
         Registry.register(Registry.ITEM, id("generator"), new BlockItem(AtBlocks.GENERATOR, AtItems.settings()));
         Registry.register(Registry.ITEM, id("solar_panel"), new BlockItem(AtBlocks.SOLAR_PANEL, AtItems.settings()));
+        Registry.register(Registry.ITEM, id("battery_box"), new BlockItem(AtBlocks.BATTERY_BOX, AtItems.settings()));
         Registry.register(Registry.ITEM, id("electric_furnace"), new BlockItem(AtBlocks.ELECTRIC_FURNACE, AtItems.settings()));
+        Registry.register(Registry.ITEM, id("macerator"), new BlockItem(AtBlocks.MACERATOR, AtItems.settings()));
         Registry.register(Registry.ITEM, id("copper_wire"), new BlockItem(AtBlocks.COPPER_WIRE, AtItems.settings()));
         Registry.register(Registry.ITEM, id("copper_cable"), new BlockItem(AtBlocks.COPPER_CABLE, AtItems.settings()));
 
@@ -123,6 +131,10 @@ public class Assortech implements ModInitializer {
         Registry.register(Registry.ITEM, id("rechargeable_battery"), AtItems.RECHARGEABLE_BATTERY);
         Registry.register(Registry.ITEM, id("energy_crystal"), AtItems.ENERGY_CRYSTAL);
 
+        Registry.register(Registry.RECIPE_TYPE, id("macerating"), AtRecipeTypes.MACERATING);
+
+        Registry.register(Registry.RECIPE_SERIALIZER, id("macerating"), AtRecipeSerializers.MACERATING);
+
         Registry.register(Registry.FOLIAGE_PLACER_TYPE, id("rubber"), AtFoliagePlacers.RUBBER);
 
         Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, id("rubber_tree"), AtFeatures.RUBBER_TREE);
@@ -155,7 +167,9 @@ public class Assortech implements ModInitializer {
 
         public static final Block GENERATOR = new GeneratorBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 15 : 0));
         public static final Block SOLAR_PANEL = new SolarPanelBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).mapColor(MapColor.LAPIS_BLUE));
+        public static final Block BATTERY_BOX = new BatteryBoxBlock(FabricBlockSettings.copyOf(MACHINE).mapColor(MapColor.SPRUCE_BROWN));
         public static final Block ELECTRIC_FURNACE = new ElectricFurnaceBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 15 : 0));
+        public static final Block MACERATOR = new MaceratorBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 15 : 0));
 
         public static final Block COPPER_WIRE = new CableBlock(1, FabricBlockSettings.of(Material.METAL).strength(0.5F).sounds(BlockSoundGroup.WOOL).breakByHand(true));
         public static final Block COPPER_CABLE = new CableBlock(2, FabricBlockSettings.of(Material.METAL).strength(0.5F).breakByHand(true));
@@ -202,7 +216,17 @@ public class Assortech implements ModInitializer {
         public static final BlockEntityType<GeneratorBlockEntity> GENERATOR = FabricBlockEntityTypeBuilder.create(GeneratorBlockEntity::new, AtBlocks.GENERATOR).build();
         public static final BlockEntityType<SolarPanelBlockEntity> SOLAR_PANEL = FabricBlockEntityTypeBuilder.create(SolarPanelBlockEntity::new, AtBlocks.SOLAR_PANEL).build();
         public static final BlockEntityType<ElectricFurnaceBlockEntity> ELECTRIC_FURNACE = FabricBlockEntityTypeBuilder.create(ElectricFurnaceBlockEntity::new, AtBlocks.ELECTRIC_FURNACE).build();
+        public static final BlockEntityType<MaceratorBlockEntity> MACERATOR = FabricBlockEntityTypeBuilder.create(MaceratorBlockEntity::new, AtBlocks.MACERATOR).build();
         public static final BlockEntityType<CableBlockEntity> CABLE = FabricBlockEntityTypeBuilder.create(CableBlockEntity::new, AtBlocks.COPPER_WIRE, AtBlocks.COPPER_CABLE).build();
+    }
+
+    public static class AtRecipeTypes {
+        public static final RecipeType<MaceratorRecipe> MACERATING = new RecipeType<>() {
+        };
+    }
+
+    public static class AtRecipeSerializers {
+        public static final RecipeSerializer<MaceratorRecipe> MACERATING = new CraftingMachineRecipe.Serializer<>(MaceratorRecipe::new, 300);
     }
 
     public static class AtFoliagePlacers {
@@ -220,6 +244,7 @@ public class Assortech implements ModInitializer {
         public static final ScreenHandlerType<GeneratorScreenHandler> GENERATOR = ScreenHandlerRegistry.registerSimple(Assortech.id("generator"), GeneratorScreenHandler::new);
         public static final ScreenHandlerType<SolarPanelScreenHandler> SOLAR_PANEL = ScreenHandlerRegistry.registerSimple(Assortech.id("solar_panel"), SolarPanelScreenHandler::new);
         public static final ScreenHandlerType<ElectricFurnaceScreenHandler> ELECTRIC_FURNACE = ScreenHandlerRegistry.registerSimple(Assortech.id("electric_furnace"), ElectricFurnaceScreenHandler::new);
+        public static final ScreenHandlerType<MaceratorScreenHandler> MACERATOR = ScreenHandlerRegistry.registerSimple(Assortech.id("macerator"), MaceratorScreenHandler::new);
 
         private static void init() {
             // just initializes static fields

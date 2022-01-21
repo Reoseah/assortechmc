@@ -1,0 +1,10 @@
+{
+  "type": "assortech:macerating",
+  "ingredient": {
+    "tag": "c:iron_ores"
+  },
+  "result": {
+    "item": "assortech:iron_dust",
+    "count": 2
+  }
+}

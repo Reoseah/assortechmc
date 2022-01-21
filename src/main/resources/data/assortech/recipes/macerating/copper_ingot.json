@@ -1,0 +1,9 @@
+{
+  "type": "assortech:macerating",
+  "ingredient": {
+    "item": "minecraft:copper_ingot"
+  },
+  "result": {
+    "item": "assortech:copper_dust"
+  }
+}

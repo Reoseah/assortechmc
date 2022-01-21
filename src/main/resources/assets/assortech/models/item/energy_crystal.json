@@ -6,25 +6,25 @@
   "overrides": [
     {
       "predicate": {
-        "assortech:energy": 100000
+        "assortech:energy": 10000
       },
       "model": "assortech:item/energy_crystal_1"
     },
     {
       "predicate": {
-        "assortech:energy": 350000
+        "assortech:energy": 35000
       },
       "model": "assortech:item/energy_crystal_2"
     },
     {
       "predicate": {
-        "assortech:energy": 650000
+        "assortech:energy": 65000
       },
       "model": "assortech:item/energy_crystal_3"
     },
     {
       "predicate": {
-        "assortech:energy": 900000
+        "assortech:energy": 90000
       },
       "model": "assortech:item/energy_crystal_4"
     }

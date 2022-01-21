@@ -1,0 +1,9 @@
+{
+  "type": "assortech:macerating",
+  "ingredient": {
+    "item": "minecraft:iron_ingot"
+  },
+  "result": {
+    "item": "assortech:iron_dust"
+  }
+}

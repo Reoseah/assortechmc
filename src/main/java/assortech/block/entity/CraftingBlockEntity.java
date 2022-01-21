@@ -30,19 +30,16 @@ import java.util.Optional;
  *     }
  * }
  * </pre>
- * <p>
- * P.S. it turned out to be overcomplicated mess once I started to use it both for normal
- * and electric things...
  */
 @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
-public abstract class AtRecipeBlockEntity<R extends Recipe<Inventory>> extends AtInventoryBlockEntity {
+public abstract class CraftingBlockEntity<R extends Recipe<Inventory>> extends AtInventoryBlockEntity {
     protected @Nullable Optional<R> cachedRecipe;
     // progress on current recipe, such as ticks passed or energy consumed, i.e. `cookTime` in furnace
     protected int progress;
     // current recipe duration/required energy/whatever progress is measured in, i.e. `cookTimeTotal` in furnace
     protected int progressTarget;
 
-    protected AtRecipeBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+    protected CraftingBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
     }
 
@@ -95,7 +92,7 @@ public abstract class AtRecipeBlockEntity<R extends Recipe<Inventory>> extends A
         nbt.putShort("Target", (short) this.progressTarget);
     }
 
-    public static <R extends Recipe<Inventory>> void tick(World world, BlockPos pos, BlockState state, AtRecipeBlockEntity<R> be) {
+    public static <R extends Recipe<Inventory>> void tick(World world, BlockPos pos, BlockState state, CraftingBlockEntity<R> be) {
         boolean dirty = false;
         boolean wasActive = be.isActive();
 
@@ -144,9 +141,6 @@ public abstract class AtRecipeBlockEntity<R extends Recipe<Inventory>> extends A
     // call this if any entries change
     protected void resetCachedRecipe(World world) {
         this.cachedRecipe = null;
-        R recipe = this.findRecipe(world);
-        this.progress = 0;
-        this.progressTarget = recipe != null ? this.getProgressTarget(recipe) : 0;
     }
 
     public int getProgress() {

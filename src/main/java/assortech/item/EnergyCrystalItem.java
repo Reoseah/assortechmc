@@ -14,16 +14,16 @@ public class EnergyCrystalItem extends EnergyStorageItem {
 
     @Override
     public long getEnergyCapacity() {
-        return 1000000;
+        return 100000;
     }
 
     @Override
     public long getEnergyMaxInput() {
-        return 512;
+        return 128;
     }
 
     @Override
     public long getEnergyMaxOutput() {
-        return 512;
+        return 128;
     }
 }

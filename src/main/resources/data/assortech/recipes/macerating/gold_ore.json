@@ -1,0 +1,10 @@
+{
+  "type": "assortech:macerating",
+  "ingredient": {
+    "tag": "minecraft:gold_ores"
+  },
+  "result": {
+    "item": "assortech:gold_dust",
+    "count": 2
+  }
+}

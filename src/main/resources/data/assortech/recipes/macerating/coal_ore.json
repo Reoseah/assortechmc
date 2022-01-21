@@ -1,0 +1,10 @@
+{
+  "type": "assortech:macerating",
+  "ingredient": {
+    "tag": "c:coal_ores"
+  },
+  "result": {
+    "item": "assortech:coal_dust",
+    "count": 2
+  }
+}

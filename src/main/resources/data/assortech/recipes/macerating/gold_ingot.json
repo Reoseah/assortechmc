@@ -1,0 +1,9 @@
+{
+  "type": "assortech:macerating",
+  "ingredient": {
+    "item": "minecraft:gold_ingot"
+  },
+  "result": {
+    "item": "assortech:gold_dust"
+  }
+}

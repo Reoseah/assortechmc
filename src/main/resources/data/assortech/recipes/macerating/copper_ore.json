@@ -1,0 +1,10 @@
+{
+  "type": "assortech:macerating",
+  "ingredient": {
+    "tag": "c:copper_ores"
+  },
+  "result": {
+    "item": "assortech:copper_dust",
+    "count": 2
+  }
+}

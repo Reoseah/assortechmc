@@ -1,7 +1,8 @@
 package assortech.block.entity;
 
 import assortech.Assortech;
-import assortech.screen.ElectricFurnaceScreenHandler;
+import assortech.recipe.MaceratorRecipe;
+import assortech.screen.MaceratorScreenHandler;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -10,7 +11,6 @@ import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeType;
-import net.minecraft.recipe.SmeltingRecipe;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
@@ -21,9 +21,9 @@ import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.EnergyStorage;
 import team.reborn.energy.api.EnergyStorageUtil;
 
-public class ElectricFurnaceBlockEntity extends CraftingMachineBlockEntity<SmeltingRecipe> implements SidedInventory {
-    public ElectricFurnaceBlockEntity(BlockPos pos, BlockState state) {
-        super(Assortech.AtBlockEntityTypes.ELECTRIC_FURNACE, pos, state);
+public class MaceratorBlockEntity extends CraftingMachineBlockEntity<MaceratorRecipe> implements SidedInventory {
+    public MaceratorBlockEntity(BlockPos pos, BlockState state) {
+        super(Assortech.AtBlockEntityTypes.MACERATOR, pos, state);
     }
 
     @Override
@@ -33,17 +33,17 @@ public class ElectricFurnaceBlockEntity extends CraftingMachineBlockEntity<Smelt
 
     @Override
     protected int getEnergyConsumption() {
-        return 3;
+        return 2;
     }
 
     @Override
-    protected RecipeType<SmeltingRecipe> getRecipeType() {
-        return RecipeType.SMELTING;
+    protected RecipeType<MaceratorRecipe> getRecipeType() {
+        return Assortech.AtRecipeTypes.MACERATING;
     }
 
     @Override
-    protected int getProgressTarget(SmeltingRecipe recipe) {
-        return recipe.getCookTime() * 130 / 200;
+    protected int getProgressTarget(MaceratorRecipe recipe) {
+        return recipe.getDuration();
     }
 
     @Override
@@ -57,16 +57,15 @@ public class ElectricFurnaceBlockEntity extends CraftingMachineBlockEntity<Smelt
     }
 
     @Override
-    protected boolean canAcceptRecipeOutput(@Nullable SmeltingRecipe recipe) {
-        if (recipe == null
-                || this.inventory.get(0).isEmpty()) {
+    protected boolean canAcceptRecipeOutput(@Nullable MaceratorRecipe recipe) {
+        if (recipe == null || this.inventory.get(0).isEmpty()) {
             return false;
         }
         return this.canAccept(2, recipe.getOutput());
     }
 
     @Override
-    protected void craftRecipe(@Nullable SmeltingRecipe recipe) {
+    protected void craftRecipe(@Nullable MaceratorRecipe recipe) {
         if (this.canAcceptRecipeOutput(recipe)) {
             assert recipe != null;
 
@@ -86,7 +85,7 @@ public class ElectricFurnaceBlockEntity extends CraftingMachineBlockEntity<Smelt
     @Nullable
     @Override
     public ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
-        return new ElectricFurnaceScreenHandler(syncId, this, player);
+        return new MaceratorScreenHandler(syncId, this, player);
     }
 
     public static <R extends Recipe<Inventory>> void tick(World world, BlockPos pos, BlockState state, CraftingMachineBlockEntity<R> be) {

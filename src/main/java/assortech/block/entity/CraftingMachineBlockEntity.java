@@ -1,7 +1,5 @@
 package assortech.block.entity;
 
-import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
-import net.fabricmc.fabric.api.transfer.v1.item.InventoryStorage;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.inventory.Inventory;
@@ -10,24 +8,22 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import team.reborn.energy.api.EnergyStorage;
-import team.reborn.energy.api.EnergyStorageUtil;
 import team.reborn.energy.api.base.SimpleEnergyStorage;
 
-public abstract class ProcessingMachineBlockEntity<R extends Recipe<Inventory>> extends AtRecipeBlockEntity<R> {
+public abstract class CraftingMachineBlockEntity<R extends Recipe<Inventory>> extends CraftingBlockEntity<R> {
     public static final int CAPACITY = 400;
     public static final int TRANSFER_LIMIT = 32;
 
     protected SimpleEnergyStorage energyStorage = new SimpleEnergyStorage(CAPACITY, TRANSFER_LIMIT, 0) {
         @Override
         protected void onFinalCommit() {
-            ProcessingMachineBlockEntity.this.markDirty();
+            CraftingMachineBlockEntity.this.markDirty();
         }
     };
     protected boolean active = false;
 
-    public ProcessingMachineBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+    public CraftingMachineBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
     }
 

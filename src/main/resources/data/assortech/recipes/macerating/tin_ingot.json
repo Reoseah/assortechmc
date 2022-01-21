@@ -1,0 +1,9 @@
+{
+  "type": "assortech:macerating",
+  "ingredient": {
+    "tag": "c:tin_ingots"
+  },
+  "result": {
+    "item": "assortech:tin_dust"
+  }
+}

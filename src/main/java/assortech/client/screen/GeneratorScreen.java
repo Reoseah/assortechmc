@@ -2,7 +2,6 @@ package assortech.client.screen;
 
 import assortech.Assortech;
 import assortech.block.entity.GeneratorBlockEntity;
-import assortech.block.entity.ProcessingMachineBlockEntity;
 import assortech.screen.GeneratorScreenHandler;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
