@@ -54,7 +54,7 @@ public class MaceratorScreen extends HandledScreen<MaceratorScreenHandler> {
         int energy = this.handler.getEnergyDisplay();
         this.drawTexture(matrices, leftX + 51, topY + 56, 176, 31, energy, 10);
         if (this.isPointWithinBounds(51, 56, 20, 10, mouseX, mouseY)) {
-            this.renderTooltip(matrices, new TranslatableText("container.assortech.energy", this.handler.getEnergy(), CraftingMachineBlockEntity.CAPACITY).formatted(Formatting.ITALIC, Formatting.GRAY), mouseX, mouseY);
+            this.renderTooltip(matrices, new TranslatableText("container.assortech.energy", this.handler.getEnergy(), CraftingMachineBlockEntity.CAPACITY).formatted(Formatting.GRAY), mouseX, mouseY);
         }
     }
 }

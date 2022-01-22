@@ -18,13 +18,13 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 /**
- * A simple block thassortech:
+ * A simple block that:
  * <li> drops inventory items when broken, if available
  * <li> set container name when placed, if supported
  * <li> opens gui on right click, if supported
  */
-public abstract class AtInventoryBlock extends BlockWithEntity {
-	protected AtInventoryBlock(Settings settings) {
+public abstract class InventoryBlock extends BlockWithEntity {
+	protected InventoryBlock(Settings settings) {
 		super(settings);
 	}
 

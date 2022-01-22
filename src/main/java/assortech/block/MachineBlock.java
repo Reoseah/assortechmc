@@ -13,7 +13,7 @@ import net.minecraft.util.BlockMirror;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.math.Direction;
 
-public abstract class MachineBlock extends AtInventoryBlock {
+public abstract class MachineBlock extends InventoryBlock {
 	public static final DirectionProperty FACING = HorizontalFacingBlock.FACING;
 	public static final BooleanProperty LIT = Properties.LIT;
 

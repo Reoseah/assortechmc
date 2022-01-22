@@ -24,11 +24,11 @@ import org.jetbrains.annotations.Nullable;
 /**
  * A simple block entity with typical implementation of {@link Inventory} and {@link Nameable}.
  */
-public abstract class AtInventoryBlockEntity extends BlockEntity implements Inventory, NamedScreenHandlerFactory, Nameable {
+public abstract class InventoryBlockEntity extends BlockEntity implements Inventory, NamedScreenHandlerFactory, Nameable {
     protected final DefaultedList<ItemStack> inventory;
     protected @Nullable Text customName;
 
-    protected AtInventoryBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+    protected InventoryBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
         this.inventory = this.createInventory();
     }

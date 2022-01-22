@@ -53,7 +53,7 @@ public class GeneratorScreen extends HandledScreen<GeneratorScreenHandler> {
         this.drawTexture(matrices, leftX + 78, topY + 21, 176, 31, energy, 10);
 
         if (this.isPointWithinBounds(78, 21, 20, 10, mouseX, mouseY)) {
-            this.renderTooltip(matrices, new TranslatableText("container.assortech.energy", this.handler.getEnergy(), GeneratorBlockEntity.CAPACITY).formatted(Formatting.ITALIC, Formatting.GRAY), mouseX, mouseY);
+            this.renderTooltip(matrices, new TranslatableText("container.assortech.energy", this.handler.getEnergy(), GeneratorBlockEntity.CAPACITY).formatted(Formatting.GRAY), mouseX, mouseY);
         }
     }
 }

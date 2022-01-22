@@ -32,7 +32,7 @@ import java.util.Optional;
  * </pre>
  */
 @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
-public abstract class CraftingBlockEntity<R extends Recipe<Inventory>> extends AtInventoryBlockEntity {
+public abstract class CraftingBlockEntity<R extends Recipe<Inventory>> extends InventoryBlockEntity {
     protected @Nullable Optional<R> cachedRecipe;
     // progress on current recipe, such as ticks passed or energy consumed, i.e. `cookTime` in furnace
     protected int progress;

@@ -1,0 +1,10 @@
+{
+  "type": "assortech:compressing",
+  "ingredient": {    
+    "item": "minecraft:sand",
+    "count": 2
+  },
+  "result": {
+    "item": "minecraft:sandstone"
+  }
+}

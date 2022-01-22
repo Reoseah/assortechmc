@@ -2,8 +2,6 @@ package assortech.block.entity;
 
 import assortech.Assortech;
 import assortech.screen.SolarPanelScreenHandler;
-import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
-import net.fabricmc.fabric.api.transfer.v1.item.InventoryStorage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
@@ -20,7 +18,7 @@ import team.reborn.energy.api.EnergyStorage;
 import team.reborn.energy.api.EnergyStorageUtil;
 import team.reborn.energy.api.base.SimpleEnergyStorage;
 
-public class SolarPanelBlockEntity extends AtInventoryBlockEntity implements SidedInventory {
+public class SolarPanelBlockEntity extends InventoryBlockEntity implements SidedInventory {
     public static final int PRODUCTION = 1;
     // for cables to connect to us... we don't store any energy in solar panels
     public static EnergyStorage ENERGY = new EnergyStorage() {

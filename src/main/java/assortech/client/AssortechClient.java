@@ -1,10 +1,7 @@
 package assortech.client;
 
 import assortech.Assortech;
-import assortech.client.screen.ElectricFurnaceScreen;
-import assortech.client.screen.GeneratorScreen;
-import assortech.client.screen.MaceratorScreen;
-import assortech.client.screen.SolarPanelScreen;
+import assortech.client.screen.*;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -47,6 +44,8 @@ public class AssortechClient implements ClientModInitializer {
         ScreenRegistry.register(Assortech.AtScreenHandlerTypes.SOLAR_PANEL, SolarPanelScreen::new);
         ScreenRegistry.register(Assortech.AtScreenHandlerTypes.ELECTRIC_FURNACE, ElectricFurnaceScreen::new);
         ScreenRegistry.register(Assortech.AtScreenHandlerTypes.MACERATOR, MaceratorScreen::new);
+        ScreenRegistry.register(Assortech.AtScreenHandlerTypes.COMPRESSOR, CompressorScreen::new);
+        ScreenRegistry.register(Assortech.AtScreenHandlerTypes.BATTERY_BOX, BatteryBoxScreen::new);
     }
 
     /**

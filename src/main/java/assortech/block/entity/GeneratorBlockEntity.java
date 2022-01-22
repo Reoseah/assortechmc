@@ -19,7 +19,7 @@ import team.reborn.energy.api.EnergyStorage;
 import team.reborn.energy.api.EnergyStorageUtil;
 import team.reborn.energy.api.base.SimpleEnergyStorage;
 
-public class GeneratorBlockEntity extends AtInventoryBlockEntity {
+public class GeneratorBlockEntity extends InventoryBlockEntity {
     public static final int CAPACITY = 4000;
     public static final int TRANSFER_LIMIT = 32;
     public static final int FUEL_PER_TICK = 4;

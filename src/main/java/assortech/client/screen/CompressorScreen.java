@@ -1,7 +1,7 @@
 package assortech.client.screen;
 
 import assortech.block.entity.CraftingMachineBlockEntity;
-import assortech.screen.ElectricFurnaceScreenHandler;
+import assortech.screen.CompressorScreenHandler;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.render.GameRenderer;
@@ -12,10 +12,10 @@ import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 
-public class ElectricFurnaceScreen extends HandledScreen<ElectricFurnaceScreenHandler> {
-    private static final Identifier TEXTURE = new Identifier("assortech:textures/gui/electric_furnace.png");
+public class CompressorScreen extends HandledScreen<CompressorScreenHandler> {
+    private static final Identifier TEXTURE = new Identifier("assortech:textures/gui/compressor.png");
 
-    public ElectricFurnaceScreen(ElectricFurnaceScreenHandler handler, PlayerInventory inventory, Text title) {
+    public CompressorScreen(CompressorScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);
     }
 
