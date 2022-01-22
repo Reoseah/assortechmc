@@ -1,14 +1,11 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "assortech.mixin",
+  "package": "assortech.compatibility.techreborn.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "FoliagePlacerTypeInvoker",
-    "RecipeManagerMixin"
   ],
   "client": [
-    "client.ItemRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

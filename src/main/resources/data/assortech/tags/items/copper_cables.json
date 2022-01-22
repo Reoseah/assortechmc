@@ -1,6 +1,10 @@
 {
   "replace": false,
   "values": [
-    "assortech:copper_cable"
+    "assortech:copper_cable",
+    {
+      "required": false,
+      "id": "techreborn:insulated_copper_cable"
+    }
   ]
 }

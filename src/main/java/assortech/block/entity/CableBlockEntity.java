@@ -6,6 +6,8 @@ import com.google.common.collect.MapMaker;
 import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.inventory.Inventory;
+import net.minecraft.recipe.Recipe;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
@@ -31,6 +33,21 @@ public class CableBlockEntity extends BlockEntity {
 
     public EnergyStorage getEnergyHandler(Direction side) {
         return new EnergyInserter(CableNetwork.of(this.world), pos, side);
+    }
+
+    protected int getTransferLimit() {
+        return 32;
+    }
+
+    protected void onEnergyTransfer(int amount) {
+        this.current += amount;
+    }
+
+    public static void tick(World world, BlockPos pos, BlockState state, CableBlockEntity be) {
+        if (be.current > 0) {
+            be.current = 0;
+            be.markDirty();
+        }
     }
 
     public static class EnergyInserter implements EnergyStorage {
@@ -115,11 +132,22 @@ public class CableBlockEntity extends BlockEntity {
                     }
                     continue;
                 }
-                left -= endpoint.insert(left, transaction);
+                long inserted = endpoint.insert(left, transaction);
+                left -= inserted;
+
+                for (BlockPos cablePos : path.cables) {
+                    BlockEntity cablePosEntity = this.world.getBlockEntity(cablePos);
+                    if (cablePosEntity instanceof CableBlockEntity cable) {
+                        cable.current += inserted;
+                        if (cable.current > cable.getTransferLimit()) {
+                            world.removeBlock(cablePos, false);
+                            break;
+                        }
+                    }
+                }
                 if (left == 0) {
                     break;
                 }
-                // TODO update all cables with passed energy and burn them if needed
             }
 
             return amount - left;

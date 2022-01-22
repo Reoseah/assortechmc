@@ -69,7 +69,7 @@ public class CompressorBlockEntity extends CraftingMachineBlockEntity<Compressor
         if (this.canAcceptRecipeOutput(recipe)) {
             assert recipe != null;
 
-            this.inventory.get(0).decrement(1);
+            this.inventory.get(0).decrement(recipe.getIngredientCount());
 
             ItemStack slot = this.inventory.get(2);
             ItemStack output = recipe.getOutput();
