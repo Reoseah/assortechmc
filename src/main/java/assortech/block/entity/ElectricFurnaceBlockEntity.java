@@ -32,7 +32,7 @@ public class ElectricFurnaceBlockEntity extends CraftingMachineBlockEntity<Smelt
     }
 
     @Override
-    protected int getEnergyConsumption() {
+    protected int getEnergyPerTick() {
         return 3;
     }
 
@@ -42,7 +42,7 @@ public class ElectricFurnaceBlockEntity extends CraftingMachineBlockEntity<Smelt
     }
 
     @Override
-    protected int getProgressTarget(SmeltingRecipe recipe) {
+    protected int getRecipeDuration(SmeltingRecipe recipe) {
         return recipe.getCookTime() * 130 / 200;
     }
 
@@ -52,8 +52,8 @@ public class ElectricFurnaceBlockEntity extends CraftingMachineBlockEntity<Smelt
     }
 
     @Override
-    protected void onCannotProgress() {
-        this.progress = MathHelper.clamp(this.progress - 2, 0, this.progressTarget);
+    protected void onCannotContinue() {
+        this.progress = MathHelper.clamp(this.progress - 2, 0, this.duration);
     }
 
     @Override
@@ -94,7 +94,7 @@ public class ElectricFurnaceBlockEntity extends CraftingMachineBlockEntity<Smelt
         if (itemEnergy != null) {
             EnergyStorageUtil.move(itemEnergy, be.energyStorage, TRANSFER_LIMIT, null);
         }
-        CraftingBlockEntity.tick(world, pos, state, be);
+        CraftingMachineBlockEntity.tick(world, pos, state, be);
     }
 
     private static final int[] TOP_SLOTS = new int[]{0};

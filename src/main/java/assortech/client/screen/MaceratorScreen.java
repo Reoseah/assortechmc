@@ -13,7 +13,7 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 
 public class MaceratorScreen extends HandledScreen<MaceratorScreenHandler> {
-    private static final Identifier TEXTURE = new Identifier("assortech:textures/gui/electric_furnace.png");
+    private static final Identifier TEXTURE = new Identifier("assortech:textures/gui/macerator.png");
 
     public MaceratorScreen(MaceratorScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);

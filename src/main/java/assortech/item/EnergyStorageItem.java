@@ -40,7 +40,7 @@ public abstract class EnergyStorageItem extends Item implements SimpleBatteryIte
 
     @Override
     public boolean hasDurabilityBar(ItemStack stack) {
-        return stack.getCount() == 1 && this.getStoredEnergy(stack) < this.getEnergyCapacity();
+        return stack.getCount() == 1 && 0 < this.getStoredEnergy(stack) && this.getStoredEnergy(stack) < this.getEnergyCapacity();
     }
 
     @Override

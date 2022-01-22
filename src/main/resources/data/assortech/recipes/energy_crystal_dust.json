@@ -1,9 +1,8 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "#X#",
-    "X#X",
-    "#X#"
+    "#X",
+    "X#"
   ],
   "key": {
     "X": {
@@ -15,6 +14,6 @@
   },
   "result": {
     "item": "assortech:energy_crystal_dust",
-    "count": 8
+    "count": 4
   }
 }

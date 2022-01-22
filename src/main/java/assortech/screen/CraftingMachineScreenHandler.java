@@ -34,7 +34,7 @@ public abstract class CraftingMachineScreenHandler extends AtScreenHandler {
         this.addProperty(new ReadProperty(() -> be.isActive() ? 1 : 0));
         this.addProperty(new ReadProperty(be::getEnergy));
         this.addProperty(new ReadProperty(be::getProgress));
-        this.addProperty(new ReadProperty(be::getProgressTarget));
+        this.addProperty(new ReadProperty(be::getRecipeDuration));
     }
 
     @Environment(EnvType.CLIENT)

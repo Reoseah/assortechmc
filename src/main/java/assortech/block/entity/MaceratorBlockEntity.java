@@ -32,7 +32,7 @@ public class MaceratorBlockEntity extends CraftingMachineBlockEntity<MaceratorRe
     }
 
     @Override
-    protected int getEnergyConsumption() {
+    protected int getEnergyPerTick() {
         return 2;
     }
 
@@ -42,7 +42,7 @@ public class MaceratorBlockEntity extends CraftingMachineBlockEntity<MaceratorRe
     }
 
     @Override
-    protected int getProgressTarget(MaceratorRecipe recipe) {
+    protected int getRecipeDuration(MaceratorRecipe recipe) {
         return recipe.getDuration();
     }
 
@@ -52,8 +52,8 @@ public class MaceratorBlockEntity extends CraftingMachineBlockEntity<MaceratorRe
     }
 
     @Override
-    protected void onCannotProgress() {
-        this.progress = MathHelper.clamp(this.progress - 2, 0, this.progressTarget);
+    protected void onCannotContinue() {
+        this.progress = MathHelper.clamp(this.progress - 2, 0, this.duration);
     }
 
     @Override
@@ -93,7 +93,7 @@ public class MaceratorBlockEntity extends CraftingMachineBlockEntity<MaceratorRe
         if (itemEnergy != null) {
             EnergyStorageUtil.move(itemEnergy, be.energyStorage, TRANSFER_LIMIT, null);
         }
-        CraftingBlockEntity.tick(world, pos, state, be);
+        CraftingMachineBlockEntity.tick(world, pos, state, be);
     }
 
     private static final int[] TOP_SLOTS = new int[]{0};

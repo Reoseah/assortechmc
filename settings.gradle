@@ -7,3 +7,6 @@ pluginManagement {
         gradlePluginPortal()
     }
 }
+
+rootProject.name = "assortech"
+include "techreborn-compatibility"

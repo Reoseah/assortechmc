@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "id": "assortech-techreborn-compatibility",
+  "version": "${version}",
+  "name": "TechReborn Compatibility",
+  "description": "Fixes recipe issues between Assortech and TechReborn.",
+  "authors": [
+    "Reoseah"
+  ],
+  "contact": {},
+  "license": "MIT",
+  "environment": "*",
+  "depends": {
+    "assortech": "*",
+    "techreborn": "*"
+  },
+  "custom": {
+    "modmenu": {
+      "parent": "assortech"
+    }
+  }
+}

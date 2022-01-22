@@ -2,7 +2,7 @@
   "type": "assortech:compressing",
   "ingredient": {    
     "tag": "c:energy_crystal_dusts",
-    "count": 8
+    "count": 4
   },
   "result": {
     "item": "assortech:energy_crystal"

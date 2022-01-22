@@ -12,6 +12,7 @@ import assortech.item.material.AssortechToolMaterials;
 import assortech.mixin.FoliagePlacerTypeInvoker;
 import assortech.recipe.CompressorRecipe;
 import assortech.recipe.CraftingMachineRecipe;
+import assortech.recipe.DummyRecipe;
 import assortech.recipe.MaceratorRecipe;
 import assortech.screen.*;
 import net.fabricmc.api.ModInitializer;
@@ -135,9 +136,11 @@ public class Assortech implements ModInitializer {
         Registry.register(Registry.ITEM, id("rechargeable_battery"), AtItems.RECHARGEABLE_BATTERY);
         Registry.register(Registry.ITEM, id("energy_crystal"), AtItems.ENERGY_CRYSTAL);
 
+        Registry.register(Registry.RECIPE_TYPE, id("dummy"), AtRecipeTypes.DUMMY);
         Registry.register(Registry.RECIPE_TYPE, id("macerating"), AtRecipeTypes.MACERATING);
         Registry.register(Registry.RECIPE_TYPE, id("compressing"), AtRecipeTypes.COMPRESSING);
 
+        Registry.register(Registry.RECIPE_SERIALIZER, id("dummy"), AtRecipeSerializers.DUMMY);
         Registry.register(Registry.RECIPE_SERIALIZER, id("macerating"), AtRecipeSerializers.MACERATING);
         Registry.register(Registry.RECIPE_SERIALIZER, id("compressing"), AtRecipeSerializers.COMPRESSING);
 
@@ -214,8 +217,8 @@ public class Assortech implements ModInitializer {
         public static final Item BRONZE_CHESTPLATE = new ArmorItem(AssortechArmorMaterials.BRONZE, EquipmentSlot.CHEST, settings());
         public static final Item BRONZE_LEGGINGS = new ArmorItem(AssortechArmorMaterials.BRONZE, EquipmentSlot.LEGS, settings());
         public static final Item BRONZE_BOOTS = new ArmorItem(AssortechArmorMaterials.BRONZE, EquipmentSlot.FEET, settings());
-        public static final Item RECHARGEABLE_BATTERY = new RechargeableBatteryItem(settings().maxCount(16).rarity(Rarity.RARE));
-        public static final Item ENERGY_CRYSTAL = new EnergyCrystalItem(settings().maxCount(16).rarity(Rarity.RARE));
+        public static final Item RECHARGEABLE_BATTERY = new RechargeableBatteryItem(settings().maxCount(1).rarity(Rarity.RARE));
+        public static final Item ENERGY_CRYSTAL = new EnergyCrystalItem(settings().maxCount(1).rarity(Rarity.RARE));
     }
 
     public static class AtBlockEntityTypes {
@@ -229,6 +232,8 @@ public class Assortech implements ModInitializer {
     }
 
     public static class AtRecipeTypes {
+        public static final RecipeType<DummyRecipe> DUMMY = new RecipeType<>() {
+        };
         public static final RecipeType<MaceratorRecipe> MACERATING = new RecipeType<>() {
         };
         public static final RecipeType<CompressorRecipe> COMPRESSING = new RecipeType<>() {
@@ -236,6 +241,7 @@ public class Assortech implements ModInitializer {
     }
 
     public static class AtRecipeSerializers {
+        public static final RecipeSerializer<DummyRecipe> DUMMY = new DummyRecipe.Serializer();
         public static final RecipeSerializer<MaceratorRecipe> MACERATING = new CraftingMachineRecipe.Serializer<>(MaceratorRecipe::new, 300);
         public static final RecipeSerializer<CompressorRecipe> COMPRESSING = new CraftingMachineRecipe.Serializer<>(CompressorRecipe::new, 400);
     }

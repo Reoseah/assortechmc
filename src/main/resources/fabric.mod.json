@@ -3,7 +3,7 @@
   "id": "assortech",
   "version": "${version}",
   "name": "Assortech",
-  "description": "Adds generators, machines, materials and equipment, all about creating and using electricity. It's spiritual successor to IC2/Exp, GregTech and TechReborn, taking best ideas from these and other mods, while fitting them into visual style and mechanics of modern Minecraft versions.",
+  "description": "Adds generators, machines, materials and equipment, all about creating and using electricity.",
   "authors": [
     "Reoseah"
   ],

@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "assortech:copper_wire"
+      "tag": "assortech:copper_wires"
     },
     {
       "tag": "c:rubber"
