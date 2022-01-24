@@ -2,8 +2,6 @@ package assortech.block;
 
 import assortech.Assortech;
 import assortech.block.entity.BatteryBoxBlockEntity;
-import assortech.block.entity.GeneratorBlockEntity;
-import assortech.block.entity.SolarPanelBlockEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -19,9 +17,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
-import team.reborn.energy.api.EnergyStorage;
-import team.reborn.energy.api.EnergyStorageUtil;
-import team.reborn.energy.api.base.SimpleEnergyStorage;
 
 public class BatteryBoxBlock extends InventoryBlock {
     public static final DirectionProperty FACING = Properties.FACING;

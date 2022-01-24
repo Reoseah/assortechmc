@@ -14,33 +14,33 @@ import net.minecraft.util.BlockRotation;
 import net.minecraft.util.math.Direction;
 
 public abstract class MachineBlock extends InventoryBlock {
-	public static final DirectionProperty FACING = HorizontalFacingBlock.FACING;
-	public static final BooleanProperty LIT = Properties.LIT;
+    public static final DirectionProperty FACING = HorizontalFacingBlock.FACING;
+    public static final BooleanProperty LIT = Properties.LIT;
 
-	protected MachineBlock(AbstractBlock.Settings settings) {
-		super(settings);
-		this.setDefaultState(this.stateManager.getDefaultState()
-				.with(FACING, Direction.NORTH)
-				.with(LIT, false));
-	}
+    protected MachineBlock(AbstractBlock.Settings settings) {
+        super(settings);
+        this.setDefaultState(this.stateManager.getDefaultState()
+                .with(FACING, Direction.NORTH)
+                .with(LIT, false));
+    }
 
-	@Override
-	public BlockState getPlacementState(ItemPlacementContext ctx) {
-		return this.getDefaultState().with(FACING, ctx.getPlayerFacing().getOpposite());
-	}
+    @Override
+    public BlockState getPlacementState(ItemPlacementContext ctx) {
+        return this.getDefaultState().with(FACING, ctx.getPlayerFacing().getOpposite());
+    }
 
-	@Override
-	public BlockState rotate(BlockState state, BlockRotation rotation) {
-		return state.with(FACING, rotation.rotate(state.get(FACING)));
-	}
+    @Override
+    public BlockState rotate(BlockState state, BlockRotation rotation) {
+        return state.with(FACING, rotation.rotate(state.get(FACING)));
+    }
 
-	@Override
-	public BlockState mirror(BlockState state, BlockMirror mirror) {
-		return state.rotate(mirror.getRotation(state.get(FACING)));
-	}
+    @Override
+    public BlockState mirror(BlockState state, BlockMirror mirror) {
+        return state.rotate(mirror.getRotation(state.get(FACING)));
+    }
 
-	@Override
-	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-		builder.add(FACING, LIT);
-	}
+    @Override
+    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+        builder.add(FACING, LIT);
+    }
 }

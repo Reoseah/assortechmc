@@ -30,17 +30,17 @@ public abstract class InventoryBlockEntity extends BlockEntity implements Invent
 
     protected InventoryBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
-        this.inventory = this.createInventory();
+        this.inventory = DefaultedList.ofSize(this.getInventorySize(), ItemStack.EMPTY);
     }
 
-    protected abstract DefaultedList<ItemStack> createInventory();
+    protected abstract int getInventorySize();
 
     public DefaultedList<ItemStack> getInventory() {
         return this.inventory;
     }
 
     /**
-     * Utility method to get Fabric Api-Discovery Api from item in the specified slot.
+     * Utility method to get item api from item in the specified slot.
      */
     protected <T> @Nullable T getItemApi(int slot, ItemApiLookup<T, ContainerItemContext> api) {
         // possibly cache the result?
@@ -124,16 +124,20 @@ public abstract class InventoryBlockEntity extends BlockEntity implements Invent
         this.inventory.clear();
     }
 
+    @Override
     public Text getName() {
         // vanilla uses "container.minecraft.xxx" for container names,
-        // I'm not sure why is that duplication needed
+        // which just duplicates "block.minecraft.xxx"
+        // not sure why is that needed
         return this.customName != null ? this.customName : new TranslatableText(Util.createTranslationKey("block", Registry.BLOCK_ENTITY_TYPE.getId(this.getType())));
     }
 
+    @Override
     public Text getDisplayName() {
         return this.getName();
     }
 
+    @Override
     @Nullable
     public Text getCustomName() {
         return this.customName;

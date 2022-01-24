@@ -2,7 +2,6 @@ package assortech.block;
 
 import assortech.Assortech;
 import assortech.block.entity.CableBlockEntity;
-import assortech.block.entity.CompressorBlockEntity;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;

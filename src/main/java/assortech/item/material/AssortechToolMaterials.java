@@ -1,12 +1,12 @@
 package assortech.item.material;
 
-import java.util.function.Supplier;
-
 import net.fabricmc.fabric.api.tag.TagRegistry;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Lazy;
+
+import java.util.function.Supplier;
 
 public enum AssortechToolMaterials implements ToolMaterial {
     BRONZE(2, 350, 5.5F, 1.5F, 16, () -> Ingredient.fromTag(TagRegistry.item(new Identifier("c:bronze_ingots"))));
@@ -18,7 +18,7 @@ public enum AssortechToolMaterials implements ToolMaterial {
     private final int enchantability;
     private final Lazy<Ingredient> repairIngredient;
 
-    private AssortechToolMaterials(int miningLevel, int itemDurability, float miningSpeed, float attackDamage, int enchantability, Supplier<Ingredient> repairIngredient) {
+    AssortechToolMaterials(int miningLevel, int itemDurability, float miningSpeed, float attackDamage, int enchantability, Supplier<Ingredient> repairIngredient) {
         this.miningLevel = miningLevel;
         this.itemDurability = itemDurability;
         this.miningSpeed = miningSpeed;

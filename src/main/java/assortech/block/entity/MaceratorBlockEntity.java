@@ -12,10 +12,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.screen.ScreenHandler;
-import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.EnergyStorage;
@@ -27,8 +25,8 @@ public class MaceratorBlockEntity extends CraftingMachineBlockEntity<MaceratorRe
     }
 
     @Override
-    protected DefaultedList<ItemStack> createInventory() {
-        return DefaultedList.ofSize(3, ItemStack.EMPTY);
+    protected int getInventorySize() {
+        return 3;
     }
 
     @Override
@@ -44,16 +42,6 @@ public class MaceratorBlockEntity extends CraftingMachineBlockEntity<MaceratorRe
     @Override
     protected int getRecipeDuration(MaceratorRecipe recipe) {
         return recipe.getDuration();
-    }
-
-    @Override
-    protected int getProgressPerTick() {
-        return 1;
-    }
-
-    @Override
-    protected void onCannotContinue() {
-        this.progress = MathHelper.clamp(this.progress - 2, 0, this.duration);
     }
 
     @Override
@@ -91,7 +79,7 @@ public class MaceratorBlockEntity extends CraftingMachineBlockEntity<MaceratorRe
     public static <R extends Recipe<Inventory>> void tick(World world, BlockPos pos, BlockState state, CraftingMachineBlockEntity<R> be) {
         EnergyStorage itemEnergy = be.getItemApi(1, EnergyStorage.ITEM);
         if (itemEnergy != null) {
-            EnergyStorageUtil.move(itemEnergy, be.energyStorage, TRANSFER_LIMIT, null);
+            EnergyStorageUtil.move(itemEnergy, be.energy, Integer.MAX_VALUE, null);
         }
         CraftingMachineBlockEntity.tick(world, pos, state, be);
     }

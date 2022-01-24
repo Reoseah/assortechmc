@@ -2,7 +2,6 @@ package assortech.block;
 
 import assortech.Assortech;
 import assortech.block.entity.CompressorBlockEntity;
-import assortech.block.entity.ElectricFurnaceBlockEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;

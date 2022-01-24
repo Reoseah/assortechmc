@@ -33,7 +33,7 @@ public abstract class EnergyStorageItem extends Item implements SimpleBatteryIte
     public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext context) {
         super.appendTooltip(stack, world, tooltip, context);
         if (stack.getCount() == 1) {
-            tooltip.add(new TranslatableText("container.assortech.energy", this.getStoredEnergy(stack), this.getEnergyCapacity()).formatted(Formatting.ITALIC, Formatting.GRAY));
+            tooltip.add(new TranslatableText("container.assortech.energy", this.getStoredEnergy(stack), this.getEnergyCapacity()).formatted(Formatting.GRAY));
         }
     }
 
@@ -47,5 +47,4 @@ public abstract class EnergyStorageItem extends Item implements SimpleBatteryIte
     public double getDurabilityBarProgress(ItemStack stack) {
         return 1 - ((float) this.getStoredEnergy(stack)) / this.getEnergyCapacity();
     }
-
 }

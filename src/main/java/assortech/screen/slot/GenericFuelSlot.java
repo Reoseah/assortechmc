@@ -6,12 +6,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.screen.slot.Slot;
 
 public class GenericFuelSlot extends Slot {
-	public GenericFuelSlot(Inventory inventory, int index, int x, int y) {
-		super(inventory, index, x, y);
-	}
+    public GenericFuelSlot(Inventory inventory, int index, int x, int y) {
+        super(inventory, index, x, y);
+    }
 
-	@Override
-	public boolean canInsert(ItemStack stack) {
-		return AbstractFurnaceBlockEntity.canUseAsFuel(stack);
-	}
+    @Override
+    public boolean canInsert(ItemStack stack) {
+        return AbstractFurnaceBlockEntity.canUseAsFuel(stack);
+    }
 }

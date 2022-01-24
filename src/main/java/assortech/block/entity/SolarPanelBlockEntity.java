@@ -9,7 +9,6 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ScreenHandler;
-import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
@@ -55,8 +54,8 @@ public class SolarPanelBlockEntity extends InventoryBlockEntity implements Sided
     }
 
     @Override
-    protected DefaultedList<ItemStack> createInventory() {
-        return DefaultedList.ofSize(1, ItemStack.EMPTY);
+    protected int getInventorySize() {
+        return 1;
     }
 
     @Nullable

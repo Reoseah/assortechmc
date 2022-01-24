@@ -1,5 +1,6 @@
 package assortech.block.entity;
 
+import assortech.api.EnergyTier;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.inventory.Inventory;
@@ -11,25 +12,15 @@ import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
-import team.reborn.energy.api.EnergyStorage;
-import team.reborn.energy.api.base.SimpleEnergyStorage;
 
 import java.util.Optional;
 
-public abstract class CraftingMachineBlockEntity<R extends Recipe<Inventory>> extends InventoryBlockEntity {
+public abstract class CraftingMachineBlockEntity<R extends Recipe<Inventory>> extends ElectricInventoryBlockEntity {
     public static final int CAPACITY = 400;
-    public static final int TRANSFER_LIMIT = 32;
 
-    protected SimpleEnergyStorage energyStorage = new SimpleEnergyStorage(CAPACITY, TRANSFER_LIMIT, 0) {
-        @Override
-        protected void onFinalCommit() {
-            CraftingMachineBlockEntity.this.markDirty();
-        }
-    };
     @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
     protected @Nullable Optional<R> cachedRecipe;
     protected int progress;
-    protected int duration;
     protected boolean active = false;
 
     public CraftingMachineBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
@@ -40,36 +31,91 @@ public abstract class CraftingMachineBlockEntity<R extends Recipe<Inventory>> ex
 
     protected abstract int getRecipeDuration(R recipe);
 
-    protected abstract int getProgressPerTick();
-
     protected abstract int getEnergyPerTick();
 
     protected abstract boolean canAcceptRecipeOutput(R recipe);
 
     protected abstract void craftRecipe(R recipe);
 
-    protected abstract void onCannotContinue();
+    public int getProgress() {
+        return this.progress;
+    }
+
+    public int getRecipeDuration() {
+        if (this.cachedRecipe != null && this.cachedRecipe.isPresent()) {
+            this.getRecipeDuration(this.cachedRecipe.get());
+        }
+        return 0;
+    }
+
+    public boolean isActive() {
+        return this.active;
+    }
+
+    @Override
+    protected EnergyTier getEnergyTier() {
+        return EnergyTier.LV;
+    }
+
+    @Override
+    protected int getEnergyCapacity() {
+        return CAPACITY;
+    }
+
+    @Override
+    protected boolean canInsertEnergy() {
+        return true;
+    }
+
+    @Override
+    protected boolean canExtractEnergy() {
+        return false;
+    }
+
+    @Override
+    public void readNbt(NbtCompound nbt) {
+        super.readNbt(nbt);
+        this.progress = nbt.getShort("Progress");
+    }
+
+    @Override
+    public void writeNbt(NbtCompound nbt) {
+        super.writeNbt(nbt);
+        nbt.putShort("Progress", (short) this.progress);
+    }
+
+    @Override
+    public void setStack(int slot, ItemStack stack) {
+        ItemStack previous = this.inventory.get(slot);
+        boolean needsRecipeUpdate = stack.isEmpty() || !stack.isItemEqualIgnoreDamage(previous) || !ItemStack.areNbtEqual(stack, previous);
+
+        this.inventory.set(slot, stack);
+
+        if (needsRecipeUpdate && slot == 0) {
+            this.resetCachedRecipe();
+        }
+    }
 
     public static <R extends Recipe<Inventory>> void tick(World world, BlockPos pos, BlockState state, CraftingMachineBlockEntity<R> be) {
+        ElectricInventoryBlockEntity.tick(world, pos, state, be);
+
         boolean wasActive = be.active;
 
-        if (be.progress > 0 && !be.hasEnergy()) {
-            be.onCannotContinue();
+        if (be.progress > 0 && !be.hasEnergyPerTick()) {
+            be.progress = Math.max(be.progress - 2, 0);
         } else {
             R recipe = be.findRecipe(world);
 
-            if (be.canAcceptRecipeOutput(recipe) && be.hasEnergy()) {
+            if (be.canAcceptRecipeOutput(recipe) && be.hasEnergyPerTick()) {
                 if (!be.active) {
                     be.active = true;
-                    be.duration = be.getRecipeDuration(recipe);
                 }
-                be.energyStorage.amount -= be.getEnergyPerTick();
-                be.progress += be.getProgressPerTick();
-                if (be.progress >= be.duration) {
+                be.energy.amount -= be.getEnergyPerTick();
+                be.progress += 1;
+                if (be.progress >= be.getRecipeDuration(recipe)) {
                     be.craftRecipe(recipe);
 
                     be.progress = 0;
-                    be.duration = be.getRecipeDuration(be.findRecipe(world));
                 }
                 be.markDirty();
             } else if (be.active || be.progress > 0) {
@@ -85,46 +131,9 @@ public abstract class CraftingMachineBlockEntity<R extends Recipe<Inventory>> ex
         }
     }
 
-    @Override
-    public void readNbt(NbtCompound nbt) {
-        super.readNbt(nbt);
-        this.progress = nbt.getShort("Progress");
-        this.duration = nbt.getShort("Target");
-        this.energyStorage.amount = nbt.getLong("Energy");
+    public boolean hasEnergyPerTick() {
+        return this.energy.amount >= this.getEnergyPerTick();
     }
-
-    @Override
-    public void writeNbt(NbtCompound nbt) {
-        super.writeNbt(nbt);
-        nbt.putShort("Progress", (short) this.progress);
-        nbt.putShort("Target", (short) this.duration);
-        nbt.putLong("Energy", this.energyStorage.amount);
-    }
-
-    @Override
-    public void setStack(int slot, ItemStack stack) {
-        ItemStack previous = this.inventory.get(slot);
-        boolean needsRecipeUpdate = stack.isEmpty() || !stack.isItemEqualIgnoreDamage(previous) || !ItemStack.areNbtEqual(stack, previous);
-
-        this.inventory.set(slot, stack);
-
-        if (needsRecipeUpdate && slot == 0) {
-            this.resetCachedRecipe();
-        }
-    }
-
-    public EnergyStorage getEnergyStorage() {
-        return this.energyStorage;
-    }
-
-    public int getEnergy() {
-        return (int) this.energyStorage.amount;
-    }
-
-    public boolean hasEnergy() {
-        return this.energyStorage.amount >= this.getEnergyPerTick();
-    }
-
 
     @SuppressWarnings("OptionalAssignedToNull")
     protected R findRecipe(World world) {
@@ -142,18 +151,6 @@ public abstract class CraftingMachineBlockEntity<R extends Recipe<Inventory>> ex
     protected void resetCachedRecipe() {
         this.cachedRecipe = null;
         this.progress = 0;
-        this.duration = 0;
     }
 
-    public int getProgress() {
-        return this.progress;
-    }
-
-    public int getRecipeDuration() {
-        return this.duration;
-    }
-
-    public boolean isActive() {
-        return this.active;
-    }
 }

@@ -2,7 +2,6 @@ package assortech.screen;
 
 import assortech.Assortech;
 import assortech.block.entity.CompressorBlockEntity;
-import assortech.block.entity.ElectricFurnaceBlockEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.entity.player.PlayerEntity;
