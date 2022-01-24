@@ -1,0 +1,10 @@
+{
+  "type": "assortech:extracting",
+  "ingredient": {
+    "tag": "c:rubber_tree_logs"
+  },
+  "result": {
+    "item": "assortech:rubber"
+  },
+  "experience": 0.1
+}

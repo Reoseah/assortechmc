@@ -1,4 +1,4 @@
-package assortech.client.screen;
+package assortech.screen.client;
 
 import assortech.screen.SolarPanelScreenHandler;
 import com.mojang.blaze3d.systems.RenderSystem;

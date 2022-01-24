@@ -23,7 +23,7 @@ public abstract class CraftingMachineScreenHandler extends AtScreenHandler {
         super(type, syncId, inventory);
 
         this.addQuickTransferSlot(stack -> true, new Slot(inventory, 0, 53, 17));
-        this.addQuickTransferSlot(EnergyStorageUtil::isEnergyStorage, 0, new Slot(inventory, 1, 26, 53));
+        this.addQuickTransferSlot(EnergyStorageUtil::isEnergyStorage, 0, new Slot(inventory, 1, 53, 53));
         this.addSlot(new GenericOutputSlot(inventory, 2, 116, 35));
         this.addPlayerSlots(user);
     }
@@ -60,7 +60,7 @@ public abstract class CraftingMachineScreenHandler extends AtScreenHandler {
 
     @Environment(EnvType.CLIENT)
     public int getEnergyDisplay() {
-        return this.energy * 20 / CraftingMachineBlockEntity.CAPACITY;
+        return this.energy * 13 / CraftingMachineBlockEntity.CAPACITY;
     }
 
     @Environment(EnvType.CLIENT)

@@ -172,7 +172,6 @@ public class CableBlockEntity extends BlockEntity {
         }
     }
 
-
     public static class CablePath {
         public final BlockPos end;
         public final Direction side;
@@ -210,7 +209,7 @@ public class CableBlockEntity extends BlockEntity {
             for (Map.Entry<BlockPos, Link> entry : visited.entrySet()) {
                 BlockPos pos = entry.getKey();
                 Link link = entry.getValue();
-                if (isEndPoint(world, pos, link.side, reverse)) {
+                if (link.previous != null && isEndPoint(world, pos, link.side, reverse)) {
                     List<BlockPos> cableList = new ArrayList<>();
                     BlockPos cable = link.previous;
                     while (cable != null) {
@@ -237,6 +236,9 @@ public class CableBlockEntity extends BlockEntity {
 
         private static boolean isEndPoint(World world, BlockPos pos, Direction side, boolean reverse) {
             if (world.getBlockState(pos).getBlock() instanceof CableBlock) {
+                return false;
+            }
+            if (side == null) {
                 return false;
             }
             EnergyStorage storage = EnergyStorage.SIDED.find(world, pos, side.getOpposite());

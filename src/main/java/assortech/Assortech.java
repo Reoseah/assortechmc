@@ -10,10 +10,7 @@ import assortech.item.RechargeableBatteryItem;
 import assortech.item.material.AssortechArmorMaterials;
 import assortech.item.material.AssortechToolMaterials;
 import assortech.mixin.FoliagePlacerTypeInvoker;
-import assortech.recipe.CompressorRecipe;
-import assortech.recipe.CraftingMachineRecipe;
-import assortech.recipe.DummyRecipe;
-import assortech.recipe.MaceratorRecipe;
+import assortech.recipe.*;
 import assortech.screen.*;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
@@ -26,6 +23,7 @@ import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.*;
+import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.screen.ScreenHandlerType;
@@ -79,6 +77,7 @@ public class Assortech implements ModInitializer {
         Registry.register(Registry.BLOCK_ENTITY_TYPE, id("electric_furnace"), AtBlockEntityTypes.ELECTRIC_FURNACE);
         Registry.register(Registry.BLOCK_ENTITY_TYPE, id("macerator"), AtBlockEntityTypes.MACERATOR);
         Registry.register(Registry.BLOCK_ENTITY_TYPE, id("compressor"), AtBlockEntityTypes.COMPRESSOR);
+        Registry.register(Registry.BLOCK_ENTITY_TYPE, id("extractor"), AtBlockEntityTypes.EXTRACTOR);
         Registry.register(Registry.BLOCK_ENTITY_TYPE, id("battery_box"), AtBlockEntityTypes.BATTERY_BOX);
         Registry.register(Registry.BLOCK_ENTITY_TYPE, id("cable"), AtBlockEntityTypes.CABLE);
         EnergyStorage.SIDED.registerForBlockEntity((be, direction) -> be.getEnergyStorage(), AtBlockEntityTypes.GENERATOR);
@@ -86,6 +85,7 @@ public class Assortech implements ModInitializer {
         EnergyStorage.SIDED.registerForBlockEntity((be, direction) -> be.getEnergyStorage(), AtBlockEntityTypes.ELECTRIC_FURNACE);
         EnergyStorage.SIDED.registerForBlockEntity((be, direction) -> be.getEnergyStorage(), AtBlockEntityTypes.MACERATOR);
         EnergyStorage.SIDED.registerForBlockEntity((be, direction) -> be.getEnergyStorage(), AtBlockEntityTypes.COMPRESSOR);
+        EnergyStorage.SIDED.registerForBlockEntity((be, direction) -> be.getEnergyStorage(), AtBlockEntityTypes.EXTRACTOR);
         EnergyStorage.SIDED.registerForBlockEntity(BatteryBoxBlockEntity::getEnergyHandler, AtBlockEntityTypes.BATTERY_BOX);
         EnergyStorage.SIDED.registerForBlockEntity(CableBlockEntity::getEnergyHandler, AtBlockEntityTypes.CABLE);
 
@@ -141,10 +141,12 @@ public class Assortech implements ModInitializer {
         Registry.register(Registry.RECIPE_TYPE, id("dummy"), AtRecipeTypes.DUMMY);
         Registry.register(Registry.RECIPE_TYPE, id("macerating"), AtRecipeTypes.MACERATING);
         Registry.register(Registry.RECIPE_TYPE, id("compressing"), AtRecipeTypes.COMPRESSING);
+        Registry.register(Registry.RECIPE_TYPE, id("extracting"), AtRecipeTypes.EXTRACTING);
 
         Registry.register(Registry.RECIPE_SERIALIZER, id("dummy"), AtRecipeSerializers.DUMMY);
         Registry.register(Registry.RECIPE_SERIALIZER, id("macerating"), AtRecipeSerializers.MACERATING);
         Registry.register(Registry.RECIPE_SERIALIZER, id("compressing"), AtRecipeSerializers.COMPRESSING);
+        Registry.register(Registry.RECIPE_SERIALIZER, id("extracting"), AtRecipeSerializers.EXTRACTING);
 
         Registry.register(Registry.FOLIAGE_PLACER_TYPE, id("rubber"), AtFoliagePlacers.RUBBER);
 
@@ -230,23 +232,27 @@ public class Assortech implements ModInitializer {
         public static final BlockEntityType<ElectricFurnaceBlockEntity> ELECTRIC_FURNACE = FabricBlockEntityTypeBuilder.create(ElectricFurnaceBlockEntity::new, AtBlocks.ELECTRIC_FURNACE).build();
         public static final BlockEntityType<MaceratorBlockEntity> MACERATOR = FabricBlockEntityTypeBuilder.create(MaceratorBlockEntity::new, AtBlocks.MACERATOR).build();
         public static final BlockEntityType<CompressorBlockEntity> COMPRESSOR = FabricBlockEntityTypeBuilder.create(CompressorBlockEntity::new, AtBlocks.COMPRESSOR).build();
+        public static final BlockEntityType<ExtractorBlockEntity> EXTRACTOR = FabricBlockEntityTypeBuilder.create(ExtractorBlockEntity::new, AtBlocks.EXTRACTOR).build();
         public static final BlockEntityType<BatteryBoxBlockEntity> BATTERY_BOX = FabricBlockEntityTypeBuilder.create(BatteryBoxBlockEntity::new, AtBlocks.BATTERY_BOX).build();
         public static final BlockEntityType<CableBlockEntity> CABLE = FabricBlockEntityTypeBuilder.create(CableBlockEntity::new, AtBlocks.COPPER_WIRE, AtBlocks.COPPER_CABLE).build();
     }
 
     public static class AtRecipeTypes {
-        public static final RecipeType<DummyRecipe> DUMMY = new RecipeType<>() {
-        };
-        public static final RecipeType<MaceratorRecipe> MACERATING = new RecipeType<>() {
-        };
-        public static final RecipeType<CompressorRecipe> COMPRESSING = new RecipeType<>() {
-        };
+        public static final RecipeType<DummyRecipe> DUMMY = new AtRecipeType<>();
+        public static final RecipeType<MaceratorRecipe> MACERATING = new AtRecipeType<>();
+        public static final RecipeType<CompressorRecipe> COMPRESSING = new AtRecipeType<>();
+        public static final RecipeType<ExtractorRecipe> EXTRACTING = new AtRecipeType<>();
+
+        private static class AtRecipeType<T extends Recipe<?>> implements RecipeType<T> {
+            // TODO perhaps put here default EU/tick ?
+        }
     }
 
     public static class AtRecipeSerializers {
         public static final RecipeSerializer<DummyRecipe> DUMMY = new DummyRecipe.Serializer();
         public static final RecipeSerializer<MaceratorRecipe> MACERATING = new CraftingMachineRecipe.Serializer<>(MaceratorRecipe::new, 300);
         public static final RecipeSerializer<CompressorRecipe> COMPRESSING = new CraftingMachineRecipe.Serializer<>(CompressorRecipe::new, 400);
+        public static final RecipeSerializer<ExtractorRecipe> EXTRACTING = new CraftingMachineRecipe.Serializer<>(ExtractorRecipe::new, 400);
     }
 
     public static class AtFoliagePlacers {
@@ -266,6 +272,7 @@ public class Assortech implements ModInitializer {
         public static final ScreenHandlerType<ElectricFurnaceScreenHandler> ELECTRIC_FURNACE = ScreenHandlerRegistry.registerSimple(id("electric_furnace"), ElectricFurnaceScreenHandler::new);
         public static final ScreenHandlerType<MaceratorScreenHandler> MACERATOR = ScreenHandlerRegistry.registerSimple(id("macerator"), MaceratorScreenHandler::new);
         public static final ScreenHandlerType<CompressorScreenHandler> COMPRESSOR = ScreenHandlerRegistry.registerSimple(id("compressor"), CompressorScreenHandler::new);
+        public static final ScreenHandlerType<ExtractorScreenHandler> EXTRACTOR = ScreenHandlerRegistry.registerSimple(id("extractor"), ExtractorScreenHandler::new);
         public static final ScreenHandlerType<BatteryBoxScreenHandler> BATTERY_BOX = ScreenHandlerRegistry.registerSimple(id("battery_box"), BatteryBoxScreenHandler::new);
 
         private static void init() {

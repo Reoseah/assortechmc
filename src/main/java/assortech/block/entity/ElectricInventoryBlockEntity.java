@@ -55,6 +55,11 @@ public abstract class ElectricInventoryBlockEntity extends InventoryBlockEntity 
         be.energy.resetLimits();
     }
 
+    /**
+     * Energy storage that has a limit not only on extraction/insertion per operation,
+     * but on total change between resetting. Limits are supposed to be reset every tick,
+     * thus limiting transfer per tick even if there are multiple energy sources trying to send energy.
+     */
     public static class LimitedEnergyStorage extends SnapshotParticipant<long[]> implements EnergyStorage {
         public final long capacity;
         public final long maxInsert, maxExtract;
@@ -66,7 +71,6 @@ public abstract class ElectricInventoryBlockEntity extends InventoryBlockEntity 
             this.maxInsert = maxInsert;
             this.maxExtract = maxExtract;
         }
-
 
         @Override
         protected long[] createSnapshot() {

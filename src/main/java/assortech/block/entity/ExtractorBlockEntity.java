@@ -1,39 +1,40 @@
 package assortech.block.entity;
 
 import assortech.Assortech;
-import assortech.screen.ElectricFurnaceScreenHandler;
+import assortech.recipe.ExtractorRecipe;
+import assortech.screen.ExtractorScreenHandler;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeType;
-import net.minecraft.recipe.SmeltingRecipe;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
 
-public class ElectricFurnaceBlockEntity extends CraftingMachineBlockEntity<SmeltingRecipe> {
-    public ElectricFurnaceBlockEntity(BlockPos pos, BlockState state) {
-        super(Assortech.AtBlockEntityTypes.ELECTRIC_FURNACE, pos, state);
+public class ExtractorBlockEntity extends CraftingMachineBlockEntity<ExtractorRecipe> implements SidedInventory {
+    public ExtractorBlockEntity(BlockPos pos, BlockState state) {
+        super(Assortech.AtBlockEntityTypes.EXTRACTOR, pos, state);
     }
 
     @Override
-    protected RecipeType<SmeltingRecipe> getRecipeType() {
-        return RecipeType.SMELTING;
+    protected RecipeType<ExtractorRecipe> getRecipeType() {
+        return Assortech.AtRecipeTypes.EXTRACTING;
     }
 
     @Override
     protected int getEnergyPerTick() {
-        return 3;
+        return 2;
     }
 
     @Override
-    protected int getRecipeDuration(SmeltingRecipe recipe) {
-        return recipe.getCookTime() * 130 / 200;
+    protected int getRecipeDuration(ExtractorRecipe recipe) {
+        return recipe.getDuration();
     }
 
     @Override
-    protected boolean canAcceptRecipeOutput(@Nullable SmeltingRecipe recipe) {
+    protected boolean canAcceptRecipeOutput(@Nullable ExtractorRecipe recipe) {
         if (recipe == null || this.inventory.get(0).isEmpty()) {
             return false;
         }
@@ -41,11 +42,11 @@ public class ElectricFurnaceBlockEntity extends CraftingMachineBlockEntity<Smelt
     }
 
     @Override
-    protected void craftRecipe(@Nullable SmeltingRecipe recipe) {
+    protected void craftRecipe(@Nullable ExtractorRecipe recipe) {
         if (this.canAcceptRecipeOutput(recipe)) {
             assert recipe != null;
 
-            this.inventory.get(0).decrement(1);
+            this.inventory.get(0).decrement(recipe.getIngredientCount());
 
             ItemStack slot = this.inventory.get(2);
             ItemStack output = recipe.getOutput();
@@ -57,10 +58,9 @@ public class ElectricFurnaceBlockEntity extends CraftingMachineBlockEntity<Smelt
         }
     }
 
-
     @Nullable
     @Override
     public ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
-        return new ElectricFurnaceScreenHandler(syncId, this, player);
+        return new ExtractorScreenHandler(syncId, this, player);
     }
 }

@@ -4,19 +4,27 @@ import assortech.api.EnergyTier;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.inventory.Inventory;
+import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
+import team.reborn.energy.api.EnergyStorage;
+import team.reborn.energy.api.EnergyStorageUtil;
 
 import java.util.Optional;
 
-public abstract class CraftingMachineBlockEntity<R extends Recipe<Inventory>> extends ElectricInventoryBlockEntity {
+public abstract class CraftingMachineBlockEntity<R extends Recipe<Inventory>> extends ElectricInventoryBlockEntity implements SidedInventory {
     public static final int CAPACITY = 400;
+
+    private static final int[] TOP_SLOTS = new int[]{0};
+    private static final int[] BOTTOM_SLOTS = new int[]{2, 1};
+    private static final int[] SIDE_SLOTS = new int[]{1};
 
     @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
     protected @Nullable Optional<R> cachedRecipe;
@@ -41,6 +49,10 @@ public abstract class CraftingMachineBlockEntity<R extends Recipe<Inventory>> ex
         return this.progress;
     }
 
+    public boolean isActive() {
+        return this.active;
+    }
+
     public int getRecipeDuration() {
         if (this.cachedRecipe != null && this.cachedRecipe.isPresent()) {
             this.getRecipeDuration(this.cachedRecipe.get());
@@ -48,8 +60,22 @@ public abstract class CraftingMachineBlockEntity<R extends Recipe<Inventory>> ex
         return 0;
     }
 
-    public boolean isActive() {
-        return this.active;
+    @SuppressWarnings("OptionalAssignedToNull")
+    protected R findRecipe(World world) {
+        if (world == null) {
+            return null;
+        }
+        if (this.cachedRecipe == null) {
+            this.cachedRecipe = world.getRecipeManager().getFirstMatch(this.getRecipeType(), this, world);
+        }
+        return this.cachedRecipe == null ? null : this.cachedRecipe.orElse(null);
+    }
+
+    // call this if any entries change
+    @SuppressWarnings("OptionalAssignedToNull")
+    protected void resetCachedRecipe() {
+        this.cachedRecipe = null;
+        this.progress = 0;
     }
 
     @Override
@@ -85,6 +111,11 @@ public abstract class CraftingMachineBlockEntity<R extends Recipe<Inventory>> ex
     }
 
     @Override
+    protected int getInventorySize() {
+        return 3;
+    }
+
+    @Override
     public void setStack(int slot, ItemStack stack) {
         ItemStack previous = this.inventory.get(slot);
         boolean needsRecipeUpdate = stack.isEmpty() || !stack.isItemEqualIgnoreDamage(previous) || !ItemStack.areNbtEqual(stack, previous);
@@ -98,6 +129,8 @@ public abstract class CraftingMachineBlockEntity<R extends Recipe<Inventory>> ex
 
     public static <R extends Recipe<Inventory>> void tick(World world, BlockPos pos, BlockState state, CraftingMachineBlockEntity<R> be) {
         ElectricInventoryBlockEntity.tick(world, pos, state, be);
+
+        EnergyStorageUtil.move(be.getItemApi(1, EnergyStorage.ITEM), be.energy, Integer.MAX_VALUE, null);
 
         boolean wasActive = be.active;
 
@@ -135,22 +168,26 @@ public abstract class CraftingMachineBlockEntity<R extends Recipe<Inventory>> ex
         return this.energy.amount >= this.getEnergyPerTick();
     }
 
-    @SuppressWarnings("OptionalAssignedToNull")
-    protected R findRecipe(World world) {
-        if (world == null) {
-            return null;
-        }
-        if (this.cachedRecipe == null) {
-            this.cachedRecipe = world.getRecipeManager().getFirstMatch(this.getRecipeType(), this, world);
-        }
-        return this.cachedRecipe == null ? null : this.cachedRecipe.orElse(null);
+    @Override
+    public int[] getAvailableSlots(Direction side) {
+        return switch (side) {
+            case DOWN -> BOTTOM_SLOTS;
+            case UP -> TOP_SLOTS;
+            default -> SIDE_SLOTS;
+        };
     }
 
-    // call this if any entries change
-    @SuppressWarnings("OptionalAssignedToNull")
-    protected void resetCachedRecipe() {
-        this.cachedRecipe = null;
-        this.progress = 0;
+    @Override
+    public boolean canInsert(int slot, ItemStack stack, @Nullable Direction dir) {
+        return switch (slot) {
+            case 2 -> false;
+            case 1 -> EnergyStorageUtil.isEnergyStorage(stack);
+            default -> true;
+        };
     }
 
+    @Override
+    public boolean canExtract(int slot, ItemStack stack, Direction dir) {
+        return true;
+    }
 }

@@ -1,4 +1,4 @@
-package assortech.client.screen;
+package assortech.screen.client;
 
 import assortech.Assortech;
 import assortech.block.entity.BatteryBoxBlockEntity;
