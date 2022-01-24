@@ -47,7 +47,7 @@ public class SolarPanelBlockEntity extends InventoryBlockEntity implements Sided
         }
     };
 
-    public boolean generating = false;
+    public boolean generating = false, skyView = false;
 
     public SolarPanelBlockEntity(BlockPos pos, BlockState state) {
         super(Assortech.AtBlockEntityTypes.SOLAR_PANEL, pos, state);
@@ -83,31 +83,39 @@ public class SolarPanelBlockEntity extends InventoryBlockEntity implements Sided
         return this.generating;
     }
 
-    public static void tick(World world, BlockPos pos, BlockState state, SolarPanelBlockEntity be) {
-        if (world.isSkyVisible(pos.up()) && world.isDay() && world.getAmbientDarkness() == 0) {
-            if (!be.generating) {
-                be.markDirty();
-            }
-            be.generating = true;
-            SimpleEnergyStorage producedEnergy = new SimpleEnergyStorage(PRODUCTION, PRODUCTION, PRODUCTION);
-            producedEnergy.amount = PRODUCTION;
+    public boolean hasSkyView() {
+        return this.skyView;
+    }
 
-            EnergyStorage itemEnergy = be.getItemApi(0, EnergyStorage.ITEM);
-            if (itemEnergy != null) {
-                EnergyStorageUtil.move(producedEnergy, itemEnergy, PRODUCTION, null);
-            }
-            for (Direction side : Direction.values()) {
-                if (producedEnergy.amount == 0) {
-                    break;
+    public static void tick(World world, BlockPos pos, BlockState state, SolarPanelBlockEntity be) {
+        boolean skyView = world.isSkyVisible(pos.up());
+        if (skyView) {
+            if (world.isDay() && world.getAmbientDarkness() == 0) {
+                if (!be.generating) {
+                    be.markDirty();
                 }
-                EnergyStorageUtil.move(producedEnergy, EnergyStorage.SIDED.find(world, pos.offset(side), side.getOpposite()), PRODUCTION, null);
+                be.generating = true;
+                SimpleEnergyStorage producedEnergy = new SimpleEnergyStorage(PRODUCTION, PRODUCTION, PRODUCTION);
+                producedEnergy.amount = PRODUCTION;
+
+                EnergyStorage itemEnergy = be.getItemApi(0, EnergyStorage.ITEM);
+                if (itemEnergy != null) {
+                    EnergyStorageUtil.move(producedEnergy, itemEnergy, PRODUCTION, null);
+                }
+                for (Direction side : Direction.values()) {
+                    if (producedEnergy.amount == 0) {
+                        break;
+                    }
+                    EnergyStorageUtil.move(producedEnergy, EnergyStorage.SIDED.find(world, pos.offset(side), side.getOpposite()), PRODUCTION, null);
+                }
+                return;
             }
-        } else {
-            if (be.generating) {
-                be.markDirty();
-            }
-            be.generating = false;
         }
+        if (be.generating || skyView != be.skyView) {
+            be.markDirty();
+        }
+        be.generating = false;
+        be.skyView = skyView;
     }
 
 }

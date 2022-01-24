@@ -2,6 +2,7 @@ package assortech.screen.client;
 
 import assortech.screen.SolarPanelScreenHandler;
 import com.mojang.blaze3d.systems.RenderSystem;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.util.math.MatrixStack;
@@ -43,6 +44,9 @@ public class SolarPanelScreen extends HandledScreen<SolarPanelScreenHandler> {
 
         if (this.handler.isGenerating()) {
             this.drawTexture(matrices, leftX + 81, topY + 46, 176, 0, 14, 14);
+        } else if (this.handler.hasSkyView()) {
+            int phase = MinecraftClient.getInstance().world.getMoonPhase();
+            this.drawTexture(matrices, leftX + 84, topY + 49, 176, 24 + 8 * phase, 8, 8);
         }
     }
 }

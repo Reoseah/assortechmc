@@ -14,7 +14,7 @@ import net.minecraft.screen.slot.Slot;
 import team.reborn.energy.api.EnergyStorageUtil;
 
 public class SolarPanelScreenHandler extends AtScreenHandler {
-    protected boolean generating;
+    protected boolean generating, skyView;
 
     protected SolarPanelScreenHandler(int syncId, Inventory inventory, PlayerInventory user) {
         super(Assortech.AtScreenHandlerTypes.SOLAR_PANEL, syncId, inventory);
@@ -27,6 +27,7 @@ public class SolarPanelScreenHandler extends AtScreenHandler {
         this(syncId, be, player.getInventory());
 
         this.addProperty(new ReadProperty(() -> be.isGenerating() ? 1 : 0));
+        this.addProperty(new ReadProperty(() -> be.hasSkyView() ? 1 : 0));
     }
 
     @Environment(EnvType.CLIENT)
@@ -34,10 +35,17 @@ public class SolarPanelScreenHandler extends AtScreenHandler {
         this(syncId, new SimpleInventory(1), user);
 
         this.addProperty(new WriteProperty(value -> this.generating = value == 1));
+        this.addProperty(new WriteProperty(value -> this.skyView = value == 1));
     }
 
     @Environment(EnvType.CLIENT)
     public boolean isGenerating() {
         return this.generating;
+    }
+
+
+    @Environment(EnvType.CLIENT)
+    public boolean hasSkyView() {
+        return this.skyView;
     }
 }
