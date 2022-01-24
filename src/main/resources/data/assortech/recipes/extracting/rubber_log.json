@@ -1,7 +1,7 @@
 {
   "type": "assortech:extracting",
   "ingredient": {
-    "tag": "c:rubber_tree_logs"
+    "tag": "c:rubber_logs"
   },
   "result": {
     "item": "assortech:rubber"

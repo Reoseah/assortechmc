@@ -1,6 +1,22 @@
 {
   "replace": false,
   "values": [
-    "assortech:rubber_log"
+    "assortech:rubber_log",
+    {
+      "required": false,
+      "id": "techreborn:rubber_log"
+    },
+    {
+      "required": false,
+      "id": "techreborn:rubber_log_stripped"
+    },
+    {
+      "required": false,
+      "id": "techreborn:rubber_wood"
+    },
+    {
+      "required": false,
+      "id": "techreborn:rubber_wood_stripped"
+    }
   ]
 }

@@ -159,6 +159,10 @@ public class Assortech implements ModInitializer {
         return new Identifier("assortech", path);
     }
 
+    public static class AtMaterials {
+        public static final Material MACHINE = new FabricMaterialBuilder(MapColor.IRON_GRAY).build();
+    }
+
     public static class AtBlocks {
         private static final Material UNMOVABLE_WOOD = new FabricMaterialBuilder(MapColor.OAK_TAN).blocksPistons().burnable().build();
 
@@ -166,7 +170,7 @@ public class Assortech implements ModInitializer {
         private static final AbstractBlock.Settings UNMOVABLE_RUBBER_LOG_SETTINGS = FabricBlockSettings.of(UNMOVABLE_WOOD, MapColor.YELLOW).ticksRandomly().strength(2F).sounds(BlockSoundGroup.WOOD);
         private static final AbstractBlock.Settings TIN_SETTINGS = FabricBlockSettings.of(Material.METAL, MapColor.LIGHT_GRAY).strength(3F, 6F).sounds(BlockSoundGroup.METAL);
         private static final AbstractBlock.Settings BRONZE_SETTINGS = FabricBlockSettings.of(Material.METAL, MapColor.ORANGE).strength(3F, 6F).sounds(BlockSoundGroup.METAL);
-        private static final AbstractBlock.Settings MACHINE_SETTINGS = FabricBlockSettings.of(Material.METAL).strength(3F, 6F).sounds(BlockSoundGroup.METAL).requiresTool();
+        private static final AbstractBlock.Settings MACHINE_SETTINGS = FabricBlockSettings.of(AtMaterials.MACHINE).strength(3F, 6F).sounds(BlockSoundGroup.METAL).requiresTool();
 
         public static final Block RUBBER_LOG = new PillarBlock(RUBBER_LOG_SETTINGS);
         public static final Block RESIN_RUBBER_LOG = new RubberSappingLogBlock(UNMOVABLE_RUBBER_LOG_SETTINGS);

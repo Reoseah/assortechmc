@@ -8,7 +8,9 @@
     "RecipeManagerMixin"
   ],
   "client": [
-    "client.ItemRendererMixin"
+    "client.ItemRendererMixin",
+    "client.BlockModelRendererMixin",
+    "client.BlockRenderInfoMixin"
   ],
   "injectors": {
     "defaultRequire": 1
