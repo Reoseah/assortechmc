@@ -50,5 +50,6 @@
   "item.assortech.rechargeable_battery": "Rechargeable Battery",
   "item.assortech.energy_crystal": "Energy Crystal",
 
-  "container.assortech.energy": "%s / %s EU"
+  "container.assortech.energy_storage": "%s / %s EU",
+  "container.assortech.energy_per_tick": "%s EU/tick"
 }

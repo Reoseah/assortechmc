@@ -87,6 +87,11 @@ public class SolarPanelBlockEntity extends InventoryBlockEntity implements Sided
         return this.skyView;
     }
 
+    @Override
+    public boolean isValid(int slot, ItemStack stack) {
+        return EnergyStorageUtil.isEnergyStorage(stack);
+    }
+
     public static void tick(World world, BlockPos pos, BlockState state, SolarPanelBlockEntity be) {
         boolean skyView = world.isSkyVisible(pos.up());
         if (skyView) {

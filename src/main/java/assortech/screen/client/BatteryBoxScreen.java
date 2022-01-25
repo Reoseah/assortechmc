@@ -48,7 +48,7 @@ public class BatteryBoxScreen extends HandledScreen<BatteryBoxScreenHandler> {
         this.drawTexture(matrices, leftX + 105, topY + 39, 176, 31, energy, 10);
 
         if (this.isPointWithinBounds(105, 39, 20, 10, mouseX, mouseY)) {
-            this.renderTooltip(matrices, new TranslatableText("container.assortech.energy", this.handler.getEnergy(), BatteryBoxBlockEntity.CAPACITY).formatted(Formatting.GRAY), mouseX, mouseY);
+            this.renderTooltip(matrices, new TranslatableText("container.assortech.energy_storage", this.handler.getEnergy(), BatteryBoxBlockEntity.CAPACITY).formatted(Formatting.GRAY), mouseX, mouseY);
         }
     }
 }

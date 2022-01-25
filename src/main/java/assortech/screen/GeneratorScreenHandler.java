@@ -12,6 +12,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
+import net.minecraft.screen.slot.Slot;
+import team.reborn.energy.api.EnergyStorageUtil;
 
 public class GeneratorScreenHandler extends AtScreenHandler {
     protected int fuelLeft, fuelDuration, energy;
@@ -20,6 +22,8 @@ public class GeneratorScreenHandler extends AtScreenHandler {
         super(Assortech.AtScreenHandlerTypes.GENERATOR, syncId, inventory);
 
         this.addQuickTransferSlot(AbstractFurnaceBlockEntity::canUseAsFuel, new GenericFuelSlot(this.inventory, 0, 80, 54));
+        this.addQuickTransferSlot(EnergyStorageUtil::isEnergyStorage, new Slot(inventory, 1, 80, 18));
+
         this.addPlayerSlots(user);
     }
 
@@ -28,16 +32,14 @@ public class GeneratorScreenHandler extends AtScreenHandler {
 
         this.addProperty(new ReadProperty(be::getFuelLeft));
         this.addProperty(new ReadProperty(be::getFuelDuration));
-        this.addProperty(new ReadProperty(be::getEnergy));
     }
 
     @Environment(EnvType.CLIENT)
     public GeneratorScreenHandler(int syncId, PlayerInventory user) {
-        this(syncId, new SimpleInventory(1), user);
+        this(syncId, new SimpleInventory(2), user);
 
         this.addProperty(new WriteProperty(value -> this.fuelLeft = value));
         this.addProperty(new WriteProperty(value -> this.fuelDuration = value));
-        this.addProperty(new WriteProperty(value -> this.energy = value));
     }
 
     @Environment(EnvType.CLIENT)
@@ -49,15 +51,5 @@ public class GeneratorScreenHandler extends AtScreenHandler {
     public int getFuelDisplay() {
         int duration = this.fuelDuration == 0 ? 200 : this.fuelDuration;
         return this.fuelLeft * 13 / duration;
-    }
-
-    @Environment(EnvType.CLIENT)
-    public int getEnergyDisplay() {
-        return this.energy * 20 / GeneratorBlockEntity.CAPACITY;
-    }
-
-    @Environment(EnvType.CLIENT)
-    public int getEnergy() {
-        return this.energy;
     }
 }

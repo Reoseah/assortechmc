@@ -52,6 +52,7 @@ public class Assortech implements ModInitializer {
     public void onInitialize() {
         Registry.register(Registry.BLOCK, id("rubber_log"), AtBlocks.RUBBER_LOG);
         Registry.register(Registry.BLOCK, id("resin_rubber_log"), AtBlocks.RESIN_RUBBER_LOG);
+        // TODO stripped rubber log, rubber wood, stripped rubber wood
         Registry.register(Registry.BLOCK, id("rubber_leaves"), AtBlocks.RUBBER_LEAVES);
         Registry.register(Registry.BLOCK, id("rubber_sapling"), AtBlocks.RUBBER_SAPLING);
         Registry.register(Registry.BLOCK, id("tin_ore"), AtBlocks.TIN_ORE);

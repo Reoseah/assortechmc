@@ -7,6 +7,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.screen.ScreenHandler;
@@ -18,10 +19,13 @@ import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.EnergyStorage;
 import team.reborn.energy.api.EnergyStorageUtil;
 
-public class GeneratorBlockEntity extends ElectricInventoryBlockEntity {
-    public static final int CAPACITY = 4000;
-    public static final int FUEL_PER_TICK = 4;
+public class GeneratorBlockEntity extends ElectricInventoryBlockEntity implements SidedInventory {
     public static final int PRODUCTION = 10;
+    public static final int FUEL_PER_TICK = 4;
+
+    private static final int[] TOP_SLOTS = new int[]{1};
+    private static final int[] BOTTOM_SLOTS = new int[]{0};
+    private static final int[] SIDE_SLOTS = new int[]{0};
 
     protected int fuelLeft, fuelDuration;
 
@@ -31,7 +35,7 @@ public class GeneratorBlockEntity extends ElectricInventoryBlockEntity {
 
     @Override
     protected int getInventorySize() {
-        return 1;
+        return 2;
     }
 
     @Nullable
@@ -47,7 +51,7 @@ public class GeneratorBlockEntity extends ElectricInventoryBlockEntity {
 
     @Override
     protected int getEnergyCapacity() {
-        return CAPACITY;
+        return PRODUCTION;
     }
 
     @Override
@@ -82,6 +86,34 @@ public class GeneratorBlockEntity extends ElectricInventoryBlockEntity {
         return this.fuelDuration;
     }
 
+    @Override
+    public int[] getAvailableSlots(Direction side) {
+        return switch (side) {
+            case DOWN -> BOTTOM_SLOTS;
+            case UP -> TOP_SLOTS;
+            default -> SIDE_SLOTS;
+        };
+    }
+
+    @Override
+    public boolean isValid(int slot, ItemStack stack) {
+        return slot != 1 || EnergyStorageUtil.isEnergyStorage(stack);
+    }
+
+    @Override
+    public boolean canInsert(int slot, ItemStack stack, @Nullable Direction dir) {
+        return switch (slot) {
+            case 0 -> AbstractFurnaceBlockEntity.canUseAsFuel(stack);
+            case 1 -> EnergyStorageUtil.isEnergyStorage(stack);
+            default -> true;
+        };
+    }
+
+    @Override
+    public boolean canExtract(int slot, ItemStack stack, Direction dir) {
+        return slot != 0 || !AbstractFurnaceBlockEntity.canUseAsFuel(stack);
+    }
+
     public static void tick(World world, BlockPos pos, BlockState state, GeneratorBlockEntity be) {
         ElectricInventoryBlockEntity.tick(world, pos, state, be);
 
@@ -90,6 +122,7 @@ public class GeneratorBlockEntity extends ElectricInventoryBlockEntity {
 
         if (be.energy.amount > 0) {
             int max = be.getEnergyTier().transferRate;
+            max -= EnergyStorageUtil.move(be.energy, be.getItemApi(1, EnergyStorage.ITEM), Integer.MAX_VALUE, null);
             for (Direction side : Direction.values()) {
                 max -= EnergyStorageUtil.move(be.energy, EnergyStorage.SIDED.find(world, pos.offset(side), side.getOpposite()), max, null);
                 if (max == 0) {
@@ -98,7 +131,8 @@ public class GeneratorBlockEntity extends ElectricInventoryBlockEntity {
             }
         }
 
-        if (be.fuelLeft <= 0 && be.energy.amount < CAPACITY) {
+        if (be.fuelLeft <= 0 && be.energy.amount < PRODUCTION) {
+            // TODO only consume fuel if there's a consumer...
             ItemStack fuel = be.inventory.get(0);
             int value = AbstractFurnaceBlockEntity.createFuelTimeMap().getOrDefault(fuel.getItem(), 0) / FUEL_PER_TICK;
             if (value > 0) {
@@ -112,8 +146,8 @@ public class GeneratorBlockEntity extends ElectricInventoryBlockEntity {
         }
         if (be.fuelLeft > 0) {
             be.fuelLeft--;
-            if (be.energy.amount < CAPACITY) {
-                be.energy.amount = Math.min(be.energy.amount + PRODUCTION, CAPACITY);
+            if (be.energy.amount < PRODUCTION) {
+                be.energy.amount = Math.min(be.energy.amount + PRODUCTION, PRODUCTION);
             }
             markDirty = true;
         }
