@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "assortech:refined_iron_dust"
+  },
+  "result": "assortech:refined_iron_ingot",
+  "experience": 0
+}

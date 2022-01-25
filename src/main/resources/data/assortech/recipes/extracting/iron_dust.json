@@ -1,0 +1,10 @@
+{
+  "type": "assortech:extracting",
+  "ingredient": {
+    "tag": "c:iron_dusts"
+  },
+  "result": {
+    "item": "assortech:refined_iron_dust"
+  },
+  "experience": 0.1
+}

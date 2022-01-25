@@ -1,0 +1,9 @@
+{
+  "type": "assortech:compressing",
+  "ingredient": {    
+    "item": "assortech:advanced_alloy_compound"
+  },
+  "result": {
+    "item": "assortech:advanced_alloy"
+  }
+}
