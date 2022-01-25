@@ -1,0 +1,9 @@
+{
+  "type": "assortech:compressing",
+  "ingredient": {    
+    "item": "assortech:carbon_mesh"
+  },
+  "result": {
+    "item": "assortech:carbon_plate"
+  }
+}
