@@ -12,7 +12,7 @@ import net.minecraft.util.Identifier;
 
 public enum AssortechArmorMaterials implements ArmorMaterial {
     BRONZE("assortech_bronze", 20, new int[]{2, 5, 6, 2}, 12, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 0.0F, 0.0F, Ingredient.fromTag(TagFactory.ITEM.create(new Identifier("c:bronze_ingots")))),
-    NANO("assortech_nano", 1, new int[]{3, 6, 7, 3}, Integer.MIN_VALUE, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 2.0F, 0.0F, Ingredient.empty());
+    NANO("assortech_nano", 1, new int[]{1, 2, 3, 1}, -1000, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 0.0F, 0.0F, Ingredient.empty());
 
     private static final int[] BASE_DURABILITY = new int[]{13, 15, 16, 11};
     private final String name;

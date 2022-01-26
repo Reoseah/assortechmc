@@ -1,23 +1,21 @@
 package assortech.item;
 
+import assortech.api.EnergyTier;
+
 public class EnergyCrystalItem extends EnergyStorageItem {
+    public static final int CAPACITY = 100000;
+
     public EnergyCrystalItem(Settings settings) {
         super(settings);
     }
 
-
     @Override
     public long getEnergyCapacity() {
-        return 100000;
+        return CAPACITY;
     }
 
     @Override
-    public long getEnergyMaxInput() {
-        return 128;
-    }
-
-    @Override
-    public long getEnergyMaxOutput() {
-        return 128;
+    public EnergyTier getEnergyTier() {
+        return EnergyTier.MEDIUM;
     }
 }

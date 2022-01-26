@@ -57,6 +57,8 @@ public class Assortech implements ModInitializer {
         Registry.register(Registry.BLOCK, id("tin_block"), AtBlocks.TIN_BLOCK);
         Registry.register(Registry.BLOCK, id("bronze_block"), AtBlocks.BRONZE_BLOCK);
         Registry.register(Registry.BLOCK, id("machine"), AtBlocks.MACHINE);
+        Registry.register(Registry.BLOCK, id("advanced_machine"), AtBlocks.ADVANCED_MACHINE);
+        Registry.register(Registry.BLOCK, id("alloy_smeltery"), AtBlocks.ALLOY_SMELTERY);
         Registry.register(Registry.BLOCK, id("generator"), AtBlocks.GENERATOR);
         Registry.register(Registry.BLOCK, id("solar_panel"), AtBlocks.SOLAR_PANEL);
         Registry.register(Registry.BLOCK, id("electric_furnace"), AtBlocks.ELECTRIC_FURNACE);
@@ -95,6 +97,8 @@ public class Assortech implements ModInitializer {
         Registry.register(Registry.ITEM, id("tin_block"), new BlockItem(AtBlocks.TIN_BLOCK, AtItems.settings()));
         Registry.register(Registry.ITEM, id("bronze_block"), new BlockItem(AtBlocks.BRONZE_BLOCK, AtItems.settings()));
         Registry.register(Registry.ITEM, id("machine"), new BlockItem(AtBlocks.MACHINE, AtItems.settings()));
+        Registry.register(Registry.ITEM, id("advanced_machine"), new BlockItem(AtBlocks.ADVANCED_MACHINE, AtItems.settings().rarity(Rarity.RARE)));
+        Registry.register(Registry.ITEM, id("alloy_smeltery"), new BlockItem(AtBlocks.ALLOY_SMELTERY, AtItems.settings()));
         Registry.register(Registry.ITEM, id("generator"), new BlockItem(AtBlocks.GENERATOR, AtItems.settings()));
         Registry.register(Registry.ITEM, id("solar_panel"), new BlockItem(AtBlocks.SOLAR_PANEL, AtItems.settings()));
         Registry.register(Registry.ITEM, id("electric_furnace"), new BlockItem(AtBlocks.ELECTRIC_FURNACE, AtItems.settings()));
@@ -184,6 +188,8 @@ public class Assortech implements ModInitializer {
         private static final AbstractBlock.Settings TIN_SETTINGS = FabricBlockSettings.of(Material.METAL, MapColor.LIGHT_GRAY).strength(3F, 6F).sounds(BlockSoundGroup.METAL);
         private static final AbstractBlock.Settings BRONZE_SETTINGS = FabricBlockSettings.of(Material.METAL, MapColor.ORANGE).strength(3F, 6F).sounds(BlockSoundGroup.METAL);
         private static final AbstractBlock.Settings MACHINE_SETTINGS = FabricBlockSettings.of(AtMaterials.MACHINE).strength(3F, 6F).sounds(BlockSoundGroup.METAL).requiresTool();
+        private static final AbstractBlock.Settings ADVANCED_MACHINE_SETTINGS = FabricBlockSettings.of(AtMaterials.MACHINE).strength(4F, 10F).sounds(BlockSoundGroup.METAL).requiresTool();
+        private static final AbstractBlock.Settings BRICK_DEVICE = FabricBlockSettings.of(Material.STONE, MapColor.RED).luminance(state -> state.get(Properties.LIT) ? 15 : 0).strength(3F, 6F).requiresTool();
 
         public static final Block RUBBER_LOG = new PillarBlock(RUBBER_LOG_SETTINGS);
         public static final Block RESIN_RUBBER_LOG = new RubberLogBlock(UNMOVABLE_RUBBER_LOG_SETTINGS);
@@ -194,6 +200,9 @@ public class Assortech implements ModInitializer {
         public static final Block TIN_BLOCK = new Block(TIN_SETTINGS);
         public static final Block BRONZE_BLOCK = new Block(BRONZE_SETTINGS);
         public static final Block MACHINE = new Block(MACHINE_SETTINGS);
+        public static final Block ADVANCED_MACHINE = new Block(ADVANCED_MACHINE_SETTINGS);
+
+        public static final Block ALLOY_SMELTERY = new AlloySmelteryBlock(FabricBlockSettings.copyOf(BRICK_DEVICE));
 
         public static final Block GENERATOR = new GeneratorBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 15 : 0));
         public static final Block SOLAR_PANEL = new SolarPanelBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).mapColor(MapColor.LAPIS_BLUE));

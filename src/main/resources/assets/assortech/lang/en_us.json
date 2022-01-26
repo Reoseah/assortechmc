@@ -10,6 +10,9 @@
   "block.assortech.tin_block": "Block of Tin",
   "block.assortech.bronze_block": "Block of Bronze",
   "block.assortech.machine": "Machine Block",
+  "block.assortech.advanced_machine": "Advanced Machine Block",
+
+  "block.assortech.alloy_smeltery": "Alloy Smeltery",
 
   "block.assortech.generator": "Generator",
   "block.assortech.solar_panel": "Solar Panel",

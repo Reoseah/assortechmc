@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " A ",
+    "C#C",
+    " A "
+  ],
+  "key": {
+    "#": {
+      "item": "assortech:machine_block"
+    },
+    "C": {
+      "item": "assortech:carbon_plate"
+    },
+    "A": {
+      "item": "assortech:advanced_alloy"
+    }
+  },
+  "result": {
+    "item": "assortech:advanced_machine"
+  }
+}

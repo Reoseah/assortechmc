@@ -1,5 +1,6 @@
 package assortech.item;
 
+import assortech.api.EnergyTier;
 import net.minecraft.item.Item;
 
 public class RechargeableBatteryItem extends EnergyStorageItem {
@@ -13,12 +14,7 @@ public class RechargeableBatteryItem extends EnergyStorageItem {
     }
 
     @Override
-    public long getEnergyMaxInput() {
-        return 32;
-    }
-
-    @Override
-    public long getEnergyMaxOutput() {
-        return 32;
+    public EnergyTier getEnergyTier() {
+        return EnergyTier.LOW;
     }
 }

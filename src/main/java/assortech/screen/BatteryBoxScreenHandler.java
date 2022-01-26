@@ -19,8 +19,8 @@ public class BatteryBoxScreenHandler extends AtScreenHandler {
     protected BatteryBoxScreenHandler(int syncId, Inventory inventory, PlayerInventory user) {
         super(Assortech.AtScreenHandlerTypes.BATTERY_BOX, syncId, inventory);
 
-        this.addQuickTransferSlot(EnergyStorageUtil::isEnergyStorage, new Slot(inventory, 0, 71, 18));
-        this.addQuickTransferSlot(EnergyStorageUtil::isEnergyStorage, new Slot(inventory, 1, 71, 54));
+        this.addQuickTransferSlot(EnergyStorageUtil::isEnergyStorage, new Slot(inventory, 0, 71, 54));
+        this.addQuickTransferSlot(EnergyStorageUtil::isEnergyStorage, new Slot(inventory, 1, 71, 18));
 
         this.addPlayerSlots(user);
     }
