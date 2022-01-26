@@ -9,4 +9,4 @@ pluginManagement {
 }
 
 rootProject.name = "assortech"
-include "techreborn-compatibility"
+// include "techreborn-compatibility"
