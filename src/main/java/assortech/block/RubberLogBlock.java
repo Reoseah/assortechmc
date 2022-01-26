@@ -61,27 +61,24 @@ public class RubberLogBlock extends Block {
     @SuppressWarnings("deprecation")
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hitResult) {
-        if (state.get(HAS_RESIN) && state.get(FACING) == hitResult.getSide()) {
+        if (state.get(HAS_RESIN) && state.get(FACING) == hitResult.getSide() && world.canPlayerModifyAt(player, pos)) {
             world.setBlockState(pos, state.with(HAS_RESIN, false));
             if (!world.isClient()) {
                 ItemStack stack = new ItemStack(Assortech.AtItems.STICKY_RESIN, 1 + world.getRandom().nextInt(3));
-                if (!player.getInventory().insertStack(stack)) {
-                    Direction side = hitResult.getSide();
-                    Random random = world.random;
+                Direction side = hitResult.getSide();
+                Random random = world.random;
 
-                    double x = pos.getX() + 0.5 + 0.5 * side.getOffsetX();
-                    double y = pos.getY() + 0.5 + 0.5 * side.getOffsetY();
-                    double z = pos.getZ() + 0.5 + 0.5 * side.getOffsetZ();
-                    double velocityX = 0.05 * side.getOffsetX() + random.nextFloat(0.05F) - 0.025F;
-                    double velocityY = 0.05 * side.getOffsetY() + random.nextFloat(0.05F) - 0.025F;
-                    double velocityZ = 0.05 * side.getOffsetZ() + random.nextFloat(0.05F) - 0.025F;
+                double x = pos.getX() + 0.5 + 0.5 * side.getOffsetX();
+                double y = pos.getY() + 0.5 + 0.5 * side.getOffsetY();
+                double z = pos.getZ() + 0.5 + 0.5 * side.getOffsetZ();
+                double velocityX = 0.01 * side.getOffsetX() + random.nextFloat(0.01F) - 0.005F;
+                double velocityY = 0.01 * side.getOffsetY() + random.nextFloat(0.01F) - 0.005F;
+                double velocityZ = 0.01 * side.getOffsetZ() + random.nextFloat(0.01F) - 0.005F;
 
-                    ItemEntity entity = new ItemEntity(world, x, y, z, stack);
-                    entity.setVelocity(velocityX, velocityY, velocityZ);
-                    world.spawnEntity(entity);
-                }
+                ItemEntity entity = new ItemEntity(world, x, y, z, stack);
+                entity.setVelocity(velocityX, velocityY, velocityZ);
+                world.spawnEntity(entity);
             }
-
             return ActionResult.SUCCESS;
         }
         return ActionResult.PASS;
