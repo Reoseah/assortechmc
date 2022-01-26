@@ -59,7 +59,7 @@ public class BatteryBoxBlockEntity extends ElectricInventoryBlockEntity {
 
     @Override
     protected EnergyTier getEnergyTier() {
-        return EnergyTier.LV;
+        return EnergyTier.LOW;
     }
 
     @Override

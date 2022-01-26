@@ -1,7 +1,6 @@
 package assortech.screen.client;
 
 import assortech.Assortech;
-import assortech.block.entity.GeneratorBlockEntity;
 import assortech.screen.GeneratorScreenHandler;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
@@ -9,8 +8,6 @@ import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
-import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 
 public class GeneratorScreen extends HandledScreen<GeneratorScreenHandler> {

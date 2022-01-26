@@ -1,6 +1,5 @@
 package assortech;
 
-import assortech.Assortech;
 import assortech.screen.client.*;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;

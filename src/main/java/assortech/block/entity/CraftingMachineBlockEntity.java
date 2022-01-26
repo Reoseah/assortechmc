@@ -80,7 +80,7 @@ public abstract class CraftingMachineBlockEntity<R extends Recipe<Inventory>> ex
 
     @Override
     protected EnergyTier getEnergyTier() {
-        return EnergyTier.LV;
+        return EnergyTier.LOW;
     }
 
     @Override

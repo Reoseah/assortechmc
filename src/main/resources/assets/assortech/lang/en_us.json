@@ -58,5 +58,9 @@
   "item.assortech.energy_crystal": "Energy Crystal",
 
   "container.assortech.energy_storage": "%s / %s EU",
-  "container.assortech.energy_per_tick": "%s EU/tick"
+  "container.assortech.energy_per_tick": "%s EU/tick",
+
+  "category.assortech.macerating": "Macerating",
+  "category.assortech.compressing": "Compressing",
+  "category.assortech.extracting": "Extracting"
 }

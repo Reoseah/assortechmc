@@ -46,7 +46,7 @@ public class GeneratorBlockEntity extends ElectricInventoryBlockEntity implement
 
     @Override
     protected EnergyTier getEnergyTier() {
-        return EnergyTier.LV;
+        return EnergyTier.LOW;
     }
 
     @Override
