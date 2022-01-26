@@ -181,7 +181,7 @@ public class Assortech implements ModInitializer {
         private static final AbstractBlock.Settings MACHINE_SETTINGS = FabricBlockSettings.of(AtMaterials.MACHINE).strength(3F, 6F).sounds(BlockSoundGroup.METAL).requiresTool();
 
         public static final Block RUBBER_LOG = new PillarBlock(RUBBER_LOG_SETTINGS);
-        public static final Block RESIN_RUBBER_LOG = new RubberSappingLogBlock(UNMOVABLE_RUBBER_LOG_SETTINGS);
+        public static final Block RESIN_RUBBER_LOG = new RubberLogBlock(UNMOVABLE_RUBBER_LOG_SETTINGS);
         public static final Block RUBBER_LEAVES = new LeavesBlock(FabricBlockSettings.copyOf(Blocks.JUNGLE_LEAVES));
         public static final Block RUBBER_SAPLING = new RubberSaplingBlock(FabricBlockSettings.copyOf(Blocks.JUNGLE_SAPLING));
         public static final Block TIN_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(3F));
@@ -279,7 +279,7 @@ public class Assortech implements ModInitializer {
     }
 
     public static class AtFeatures {
-        private static final WeightedBlockStateProvider RUBBER_LOGS = new WeightedBlockStateProvider(new DataPool.Builder<BlockState>().add(AtBlocks.RUBBER_LOG.getDefaultState(), 4).add(AtBlocks.RESIN_RUBBER_LOG.getDefaultState(), 1).add(AtBlocks.RESIN_RUBBER_LOG.getDefaultState().with(RubberSappingLogBlock.FACING, Direction.SOUTH), 1).add(AtBlocks.RESIN_RUBBER_LOG.getDefaultState().with(RubberSappingLogBlock.FACING, Direction.WEST), 1).add(AtBlocks.RESIN_RUBBER_LOG.getDefaultState().with(RubberSappingLogBlock.FACING, Direction.EAST), 1));
+        private static final WeightedBlockStateProvider RUBBER_LOGS = new WeightedBlockStateProvider(new DataPool.Builder<BlockState>().add(AtBlocks.RUBBER_LOG.getDefaultState(), 4).add(AtBlocks.RESIN_RUBBER_LOG.getDefaultState(), 1).add(AtBlocks.RESIN_RUBBER_LOG.getDefaultState().with(RubberLogBlock.FACING, Direction.SOUTH), 1).add(AtBlocks.RESIN_RUBBER_LOG.getDefaultState().with(RubberLogBlock.FACING, Direction.WEST), 1).add(AtBlocks.RESIN_RUBBER_LOG.getDefaultState().with(RubberLogBlock.FACING, Direction.EAST), 1));
         private static final SimpleBlockStateProvider RUBBER_LEAVES = BlockStateProvider.of(AtBlocks.RUBBER_LEAVES);
 
         public static final ConfiguredFeature<TreeFeatureConfig, ?> RUBBER_TREE = Feature.TREE.configure(new TreeFeatureConfig.Builder(RUBBER_LOGS, new StraightTrunkPlacer(5, 2, 0), RUBBER_LEAVES, new RubberFoliagePlacer(UniformIntProvider.create(2, 2), UniformIntProvider.create(1, 1), 5), new TwoLayersFeatureSize(1, 0, 1)).build());

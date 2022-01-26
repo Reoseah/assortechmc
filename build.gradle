@@ -75,6 +75,6 @@ dependencies {
         exclude group: "net.fabricmc.fabric-api"
     }
 //    api project(path: ":techreborn-compatibility", configuration: "namedElements")
-    include project(":techreborn-compatibility")
-    implementation project(path: ":techreborn-compatibility", configuration: "namedElements")
+//    include project(":techreborn-compatibility")
+//    implementation project(path: ":techreborn-compatibility", configuration: "namedElements")
 }
