@@ -3,10 +3,7 @@ package assortech;
 import assortech.block.*;
 import assortech.block.entity.*;
 import assortech.feature.RubberFoliagePlacer;
-import assortech.item.AccessibleAxeItem;
-import assortech.item.AccessiblePickaxeItem;
-import assortech.item.EnergyCrystalItem;
-import assortech.item.RechargeableBatteryItem;
+import assortech.item.*;
 import assortech.item.material.AssortechArmorMaterials;
 import assortech.item.material.AssortechToolMaterials;
 import assortech.mixin.FoliagePlacerTypeInvoker;
@@ -143,8 +140,16 @@ public class Assortech implements ModInitializer {
         Registry.register(Registry.ITEM, id("bronze_leggings"), AtItems.BRONZE_LEGGINGS);
         Registry.register(Registry.ITEM, id("bronze_boots"), AtItems.BRONZE_BOOTS);
 
+        Registry.register(Registry.ITEM, id("nano_helmet"), AtItems.NANO_HELMET);
+        Registry.register(Registry.ITEM, id("nano_chestplate"), AtItems.NANO_CHESTPLATE);
+        Registry.register(Registry.ITEM, id("nano_leggings"), AtItems.NANO_LEGGINGS);
+        Registry.register(Registry.ITEM, id("nano_boots"), AtItems.NANO_BOOTS);
+
         Registry.register(Registry.ITEM, id("rechargeable_battery"), AtItems.RECHARGEABLE_BATTERY);
         Registry.register(Registry.ITEM, id("energy_crystal"), AtItems.ENERGY_CRYSTAL);
+
+        ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(AtBlocks.RUBBER_SAPLING.asItem(), 0.3F);
+        ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(AtBlocks.RUBBER_LEAVES.asItem(), 0.3F);
 
         Registry.register(Registry.RECIPE_TYPE, id("dummy"), AtRecipeTypes.DUMMY);
         Registry.register(Registry.RECIPE_TYPE, id("macerating"), AtRecipeTypes.MACERATING);
@@ -241,6 +246,10 @@ public class Assortech implements ModInitializer {
         public static final Item BRONZE_CHESTPLATE = new ArmorItem(AssortechArmorMaterials.BRONZE, EquipmentSlot.CHEST, settings());
         public static final Item BRONZE_LEGGINGS = new ArmorItem(AssortechArmorMaterials.BRONZE, EquipmentSlot.LEGS, settings());
         public static final Item BRONZE_BOOTS = new ArmorItem(AssortechArmorMaterials.BRONZE, EquipmentSlot.FEET, settings());
+        public static final Item NANO_HELMET = new NanoArmorItem(AssortechArmorMaterials.NANO, EquipmentSlot.HEAD, settings().maxDamage(-1).maxCount(1));
+        public static final Item NANO_CHESTPLATE = new NanoArmorItem(AssortechArmorMaterials.NANO, EquipmentSlot.CHEST, settings().maxDamage(-1).maxCount(1));
+        public static final Item NANO_LEGGINGS = new NanoArmorItem(AssortechArmorMaterials.NANO, EquipmentSlot.LEGS, settings().maxDamage(-1).maxCount(1));
+        public static final Item NANO_BOOTS = new NanoArmorItem(AssortechArmorMaterials.NANO, EquipmentSlot.FEET, settings().maxDamage(-1).maxCount(1));
         public static final Item RECHARGEABLE_BATTERY = new RechargeableBatteryItem(settings().maxCount(1).rarity(Rarity.RARE));
         public static final Item ENERGY_CRYSTAL = new EnergyCrystalItem(settings().maxCount(1).rarity(Rarity.RARE));
     }
