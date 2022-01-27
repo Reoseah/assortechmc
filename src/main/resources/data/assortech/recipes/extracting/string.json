@@ -1,0 +1,10 @@
+{
+  "type": "assortech:extracting",
+  "ingredient": {
+    "item": "minecraft:string"
+  },
+  "result": {
+    "item": "assortech:arachnolactame"
+  },
+  "experience": 0.1
+}

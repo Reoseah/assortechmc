@@ -1,0 +1,11 @@
+{
+  "type": "assortech:extracting",
+  "ingredient": {
+    "item": "minecraft:cobweb"
+  },
+  "result": {
+    "item": "assortech:arachnolactame",
+    "count": 4
+  },
+  "experience": 0.5
+}

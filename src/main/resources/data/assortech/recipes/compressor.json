@@ -2,8 +2,8 @@
   "type": "minecraft:crafting_shaped",
   "pattern": [
     " C ",
-    "I#I",
-    " R "
+    "S#S",
+    " P "
   ],
   "key": {
     "#": {
@@ -12,14 +12,14 @@
     "C": {
       "tag": "c:circuits"
     },
-    "R": {
-      "item": "minecraft:redstone"
+    "S": {
+      "item": "minecraft:smooth_stone"
     },
-    "I": {
-      "item": "minecraft:copper_ingot"
+    "P": {
+      "item": "minecraft:piston"
     }
   },
   "result": {
-    "item": "assortech:electric_furnace"
+    "item": "assortech:compressor"
   }
 }

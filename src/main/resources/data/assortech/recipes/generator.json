@@ -1,9 +1,8 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    " C ",
-    "I#I",
-    " R "
+    "RRR",
+    "W#W"
   ],
   "key": {
     "#": {
@@ -12,14 +11,14 @@
     "C": {
       "tag": "c:circuits"
     },
-    "R": {
-      "item": "minecraft:redstone"
+    "W": {
+      "tag": "assortech:copper_cables"
     },
     "I": {
-      "item": "minecraft:copper_ingot"
+      "item": "minecraft:iron_ingot"
     }
   },
   "result": {
-    "item": "assortech:electric_furnace"
+    "item": "assortech:generator"
   }
 }

@@ -13,7 +13,7 @@
       "item": "minecraft:redstone"
     },
     "X": {
-      "item": "assortech:copper_cable"
+      "tag": "assortech:copper_cables"
     }
   },
   "result": {

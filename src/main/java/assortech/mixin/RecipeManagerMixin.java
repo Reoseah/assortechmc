@@ -43,21 +43,15 @@ public abstract class RecipeManagerMixin {
 
     private static Map<Identifier, Recipe<?>> sortRecipes(Map<Identifier, Recipe<?>> map) {
         return map.entrySet().stream()
-                .sorted(Comparator.comparing(value -> value.getValue(), createRecipeComparator()))
+                .sorted(Map.Entry.comparingByValue(createRecipeComparator()))
                 .collect(ImmutableMap.toImmutableMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 
-    private static <C extends Inventory, T extends Recipe<C>> Comparator<T> createRecipeComparator() {
-        // make vanilla recipes show first in recipe lists
-        // I like it this way
-        return Comparator.comparing((T recipe) -> recipe.getId().getNamespace().equals("minecraft"))
-                // then our recipes
-                .thenComparing((T recipe) -> recipe.getId().getNamespace().equals("assortech"))
-                // TechReborn last =.=
-                // hopefully that means if their recipes conflict, they always get overwritten
-                // damn iron furnaces
-                .thenComparing((T recipe) -> !recipe.getId().getNamespace().equals("techreborn"))
-                .thenComparing((T recipe) -> recipe.getOutput().getTranslationKey())
-                .reversed();
+    private static <T extends Recipe<?>> Comparator<T> createRecipeComparator() {
+        // first vanilla
+        return Comparator.comparing((T recipe) -> !recipe.getId().getNamespace().equals("minecraft"))
+                // then our recipes, thus they will override any conflicts
+                // like TechReborn Iron Furnace
+                .thenComparing((T recipe) -> !recipe.getId().getNamespace().equals("assortech"));
     }
 }

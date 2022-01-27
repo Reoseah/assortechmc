@@ -98,7 +98,7 @@ public class Assortech implements ModInitializer {
         Registry.register(Registry.ITEM, id("bronze_block"), new BlockItem(AtBlocks.BRONZE_BLOCK, AtItems.settings()));
         Registry.register(Registry.ITEM, id("machine"), new BlockItem(AtBlocks.MACHINE, AtItems.settings()));
         Registry.register(Registry.ITEM, id("advanced_machine"), new BlockItem(AtBlocks.ADVANCED_MACHINE, AtItems.settings().rarity(Rarity.RARE)));
-        Registry.register(Registry.ITEM, id("alloy_smeltery"), new BlockItem(AtBlocks.ALLOY_SMELTERY, AtItems.settings()));
+        Registry.register(Registry.ITEM, id("alloy_smeltery"), new BlockItem(AtBlocks.ALLOY_SMELTERY, AtItems.settings().group(null)));
         Registry.register(Registry.ITEM, id("generator"), new BlockItem(AtBlocks.GENERATOR, AtItems.settings()));
         Registry.register(Registry.ITEM, id("solar_panel"), new BlockItem(AtBlocks.SOLAR_PANEL, AtItems.settings()));
         Registry.register(Registry.ITEM, id("electric_furnace"), new BlockItem(AtBlocks.ELECTRIC_FURNACE, AtItems.settings()));
@@ -130,9 +130,9 @@ public class Assortech implements ModInitializer {
         Registry.register(Registry.ITEM, id("circuit"), AtItems.CIRCUIT);
         Registry.register(Registry.ITEM, id("advanced_alloy_compound"), AtItems.ADVANCED_ALLOY_COMPOUND);
         Registry.register(Registry.ITEM, id("advanced_alloy"), AtItems.ADVANCED_ALLOY);
-        Registry.register(Registry.ITEM, id("carbon_fibers"), AtItems.CARBON_FIBERS);
-        Registry.register(Registry.ITEM, id("carbon_mesh"), AtItems.CARBON_MESH);
-        Registry.register(Registry.ITEM, id("carbon_plate"), AtItems.CARBON_PLATE);
+        Registry.register(Registry.ITEM, id("arachnolactame"), AtItems.ARACHNOLACTAME);
+        Registry.register(Registry.ITEM, id("hyperstrand"), AtItems.HYPERSRAND);
+        Registry.register(Registry.ITEM, id("hyperweave"), AtItems.HYPERWEAVE);
 
         Registry.register(Registry.ITEM, id("bronze_sword"), AtItems.BRONZE_SWORD);
         Registry.register(Registry.ITEM, id("bronze_shovel"), AtItems.BRONZE_SHOVEL);
@@ -243,9 +243,9 @@ public class Assortech implements ModInitializer {
         public static final Item CIRCUIT = new Item(settings());
         public static final Item ADVANCED_ALLOY_COMPOUND = new Item(settings());
         public static final Item ADVANCED_ALLOY = new Item(settings().rarity(Rarity.RARE));
-        public static final Item CARBON_FIBERS = new Item(settings());
-        public static final Item CARBON_MESH = new Item(settings());
-        public static final Item CARBON_PLATE = new Item(settings().rarity(Rarity.RARE));
+        public static final Item ARACHNOLACTAME = new Item(settings());
+        public static final Item HYPERSRAND = new Item(settings());
+        public static final Item HYPERWEAVE = new Item(settings().rarity(Rarity.RARE));
         public static final Item BRONZE_SWORD = new SwordItem(AssortechToolMaterials.BRONZE, 3, -2.4F, settings());
         public static final Item BRONZE_SHOVEL = new ShovelItem(AssortechToolMaterials.BRONZE, 1.5F, -3.0F, settings());
         public static final Item BRONZE_PICKAXE = new AccessiblePickaxeItem(AssortechToolMaterials.BRONZE, 1, -2.8F, settings());

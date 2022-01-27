@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "DCD",
+    "S#S"
+  ],
+  "key": {
+    "#": {
+      "tag": "c:machine_blocks"
+    },
+    "C": {
+      "tag": "c:circuits"
+    },
+    "S": {
+      "item": "minecraft:smooth_stone"
+    },
+    "D": [
+      {
+        "item": "minecraft:diamond"
+      },
+      {
+        "tag": "c:diamond_dusts"
+      }
+    ]
+  },
+  "result": {
+    "item": "assortech:macerator"
+  }
+}

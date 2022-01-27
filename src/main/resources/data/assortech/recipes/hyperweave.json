@@ -6,10 +6,10 @@
   ],
   "key": {
     "#": {
-      "tag": "c:coal_dusts"
+      "item": "assortech:hyperstrand"
     }
   },
   "result": {
-    "item": "assortech:carbon_fibers"
+    "item": "assortech:hyperweave"
   }
 }

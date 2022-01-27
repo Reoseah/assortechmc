@@ -10,7 +10,7 @@
       "item": "minecraft:iron_ingot"
     },
     "X": {
-      "item": "assortech:copper_cable"
+      "tag": "assortech:copper_cables"
     },
     "R": {
       "item": "minecraft:redstone"

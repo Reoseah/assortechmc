@@ -1,9 +1,8 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    " C ",
-    "I#I",
-    " R "
+    "GCG",
+    "G#G"
   ],
   "key": {
     "#": {
@@ -12,14 +11,11 @@
     "C": {
       "tag": "c:circuits"
     },
-    "R": {
-      "item": "minecraft:redstone"
-    },
-    "I": {
-      "item": "minecraft:copper_ingot"
+    "G": {
+      "item": "minecraft:glass"
     }
   },
   "result": {
-    "item": "assortech:electric_furnace"
+    "item": "assortech:extractor"
   }
 }
