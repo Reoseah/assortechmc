@@ -65,6 +65,7 @@ public class Assortech implements ModInitializer {
         Registry.register(Registry.BLOCK, id("macerator"), AtBlocks.MACERATOR);
         Registry.register(Registry.BLOCK, id("compressor"), AtBlocks.COMPRESSOR);
         Registry.register(Registry.BLOCK, id("extractor"), AtBlocks.EXTRACTOR);
+        Registry.register(Registry.BLOCK, id("molecular_reconstructor"), AtBlocks.MOLECULAR_RECONSTRUCTOR);
         Registry.register(Registry.BLOCK, id("battery_box"), AtBlocks.BATTERY_BOX);
         Registry.register(Registry.BLOCK, id("copper_wire"), AtBlocks.COPPER_WIRE);
         Registry.register(Registry.BLOCK, id("copper_cable"), AtBlocks.COPPER_CABLE);
@@ -105,6 +106,7 @@ public class Assortech implements ModInitializer {
         Registry.register(Registry.ITEM, id("macerator"), new BlockItem(AtBlocks.MACERATOR, AtItems.settings()));
         Registry.register(Registry.ITEM, id("compressor"), new BlockItem(AtBlocks.COMPRESSOR, AtItems.settings()));
         Registry.register(Registry.ITEM, id("extractor"), new BlockItem(AtBlocks.EXTRACTOR, AtItems.settings()));
+        Registry.register(Registry.ITEM, id("molecular_reconstructor"), new BlockItem(AtBlocks.MOLECULAR_RECONSTRUCTOR, AtItems.settings()));
         Registry.register(Registry.ITEM, id("battery_box"), new BlockItem(AtBlocks.BATTERY_BOX, AtItems.settings()));
         Registry.register(Registry.ITEM, id("copper_wire"), new BlockItem(AtBlocks.COPPER_WIRE, AtItems.settings()));
         Registry.register(Registry.ITEM, id("copper_cable"), new BlockItem(AtBlocks.COPPER_CABLE, AtItems.settings()));
@@ -205,6 +207,7 @@ public class Assortech implements ModInitializer {
         public static final Block MACERATOR = new MaceratorBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS));
         public static final Block COMPRESSOR = new CompressorBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS));
         public static final Block EXTRACTOR = new ExtractorBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS));
+        public static final Block MOLECULAR_RECONSTRUCTOR = new MolecularReconstructorBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS));
         public static final Block BATTERY_BOX = new BatteryBoxBlock(FabricBlockSettings.copyOf(MACHINE).mapColor(MapColor.SPRUCE_BROWN));
         public static final Block COPPER_WIRE = new CableBlock(1, FabricBlockSettings.of(Material.METAL).strength(0.5F).sounds(BlockSoundGroup.WOOL).breakByHand(true));
         public static final Block COPPER_CABLE = new CableBlock(2, FabricBlockSettings.of(Material.METAL).strength(0.5F).breakByHand(true));

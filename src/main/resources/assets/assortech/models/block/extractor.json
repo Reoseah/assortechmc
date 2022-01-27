@@ -10,7 +10,7 @@
     "textures": {
         "particle": "assortech:block/extractor_front",
         "down": "assortech:block/machine_bottom",
-        "up": "assortech:block/machine",
+        "up": "assortech:block/extractor_top",
         "north": "assortech:block/extractor_front",
         "east": "assortech:block/machine_side",
         "south": "assortech:block/corrosive_warning",

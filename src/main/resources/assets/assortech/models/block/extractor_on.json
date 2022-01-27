@@ -8,10 +8,10 @@
         }
     },
     "textures": {
-        "particle": "assortech:block/extractor_front_on",
+        "particle": "assortech:block/extractor_front",
         "down": "assortech:block/machine_bottom",
-        "up": "assortech:block/machine",
-        "north": "assortech:block/extractor_front_on",
+        "up": "assortech:block/extractor_top_on",
+        "north": "assortech:block/extractor_front",
         "east": "assortech:block/machine_side",
         "south": "assortech:block/corrosive_warning",
         "west": "assortech:block/machine_side"

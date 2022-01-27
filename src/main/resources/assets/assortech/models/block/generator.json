@@ -3,7 +3,7 @@
   "textures": {
     "top": "assortech:block/machine",
     "front": "assortech:block/generator_front",
-    "side": "assortech:block/generator_side",
+    "side": "assortech:block/machine_side",
     "bottom": "assortech:block/machine_bottom"
   }
 }
