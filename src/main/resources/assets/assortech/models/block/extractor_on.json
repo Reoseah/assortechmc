@@ -12,8 +12,8 @@
         "down": "assortech:block/machine_bottom",
         "up": "assortech:block/machine",
         "north": "assortech:block/extractor_front_on",
-        "east": "assortech:block/corrosive_warning",
-        "south": "assortech:block/machine_side_alt",
-        "west": "assortech:block/corrosive_warning"
+        "east": "assortech:block/machine_side",
+        "south": "assortech:block/corrosive_warning",
+        "west": "assortech:block/machine_side"
     }
 }

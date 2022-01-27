@@ -130,7 +130,7 @@ public class Assortech implements ModInitializer {
         Registry.register(Registry.ITEM, id("circuit"), AtItems.CIRCUIT);
         Registry.register(Registry.ITEM, id("advanced_alloy_compound"), AtItems.ADVANCED_ALLOY_COMPOUND);
         Registry.register(Registry.ITEM, id("advanced_alloy"), AtItems.ADVANCED_ALLOY);
-        Registry.register(Registry.ITEM, id("arachnolactame"), AtItems.ARACHNOLACTAME);
+        Registry.register(Registry.ITEM, id("arachnolactam"), AtItems.ARACHNOLACTAM);
         Registry.register(Registry.ITEM, id("hyperstrand"), AtItems.HYPERSRAND);
         Registry.register(Registry.ITEM, id("hyperweave"), AtItems.HYPERWEAVE);
 
@@ -143,11 +143,6 @@ public class Assortech implements ModInitializer {
         Registry.register(Registry.ITEM, id("bronze_chestplate"), AtItems.BRONZE_CHESTPLATE);
         Registry.register(Registry.ITEM, id("bronze_leggings"), AtItems.BRONZE_LEGGINGS);
         Registry.register(Registry.ITEM, id("bronze_boots"), AtItems.BRONZE_BOOTS);
-
-        Registry.register(Registry.ITEM, id("nano_helmet"), AtItems.NANO_HELMET);
-        Registry.register(Registry.ITEM, id("nano_chestplate"), AtItems.NANO_CHESTPLATE);
-        Registry.register(Registry.ITEM, id("nano_leggings"), AtItems.NANO_LEGGINGS);
-        Registry.register(Registry.ITEM, id("nano_boots"), AtItems.NANO_BOOTS);
 
         Registry.register(Registry.ITEM, id("rechargeable_battery"), AtItems.RECHARGEABLE_BATTERY);
         Registry.register(Registry.ITEM, id("energy_crystal"), AtItems.ENERGY_CRYSTAL);
@@ -243,8 +238,8 @@ public class Assortech implements ModInitializer {
         public static final Item CIRCUIT = new Item(settings());
         public static final Item ADVANCED_ALLOY_COMPOUND = new Item(settings());
         public static final Item ADVANCED_ALLOY = new Item(settings().rarity(Rarity.RARE));
-        public static final Item ARACHNOLACTAME = new Item(settings());
-        public static final Item HYPERSRAND = new Item(settings());
+        public static final Item ARACHNOLACTAM = new Item(settings());
+        public static final Item HYPERSRAND = new Item(settings().rarity(Rarity.RARE));
         public static final Item HYPERWEAVE = new Item(settings().rarity(Rarity.RARE));
         public static final Item BRONZE_SWORD = new SwordItem(AssortechToolMaterials.BRONZE, 3, -2.4F, settings());
         public static final Item BRONZE_SHOVEL = new ShovelItem(AssortechToolMaterials.BRONZE, 1.5F, -3.0F, settings());
@@ -255,10 +250,6 @@ public class Assortech implements ModInitializer {
         public static final Item BRONZE_CHESTPLATE = new ArmorItem(AssortechArmorMaterials.BRONZE, EquipmentSlot.CHEST, settings());
         public static final Item BRONZE_LEGGINGS = new ArmorItem(AssortechArmorMaterials.BRONZE, EquipmentSlot.LEGS, settings());
         public static final Item BRONZE_BOOTS = new ArmorItem(AssortechArmorMaterials.BRONZE, EquipmentSlot.FEET, settings());
-        public static final Item NANO_HELMET = new NanoArmorItem(AssortechArmorMaterials.NANO, EquipmentSlot.HEAD, settings().maxDamage(-1).maxCount(1));
-        public static final Item NANO_CHESTPLATE = new NanoArmorItem(AssortechArmorMaterials.NANO, EquipmentSlot.CHEST, settings().maxDamage(-1).maxCount(1));
-        public static final Item NANO_LEGGINGS = new NanoArmorItem(AssortechArmorMaterials.NANO, EquipmentSlot.LEGS, settings().maxDamage(-1).maxCount(1));
-        public static final Item NANO_BOOTS = new NanoArmorItem(AssortechArmorMaterials.NANO, EquipmentSlot.FEET, settings().maxDamage(-1).maxCount(1));
         public static final Item RECHARGEABLE_BATTERY = new RechargeableBatteryItem(settings().maxCount(1).rarity(Rarity.RARE));
         public static final Item ENERGY_CRYSTAL = new EnergyCrystalItem(settings().maxCount(1).rarity(Rarity.RARE));
     }

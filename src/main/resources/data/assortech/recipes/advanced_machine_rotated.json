@@ -1,19 +1,22 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    " A ",
-    "C#C",
-    " A "
+    "IDI",
+    "P#P",
+    "IDI"
   ],
   "key": {
     "#": {
       "item": "assortech:machine"
     },
-    "C": {
-      "item": "assortech:carbon_plate"
+    "D": {
+      "tag": "c:diamond_dusts"
     },
-    "A": {
+    "P": {
       "item": "assortech:advanced_alloy"
+    },
+    "I": {
+      "item": "assortech:refined_iron_ingot"
     }
   },
   "result": {
