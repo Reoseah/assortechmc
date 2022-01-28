@@ -61,7 +61,8 @@ public class MachineArrowWidget extends Arrow {
         DEFAULT(16),
         MACERATING(16 + 17),
         COMPRESSING(16 + 17 * 2),
-        EXTRACTING(16 + 17 * 3);
+        EXTRACTING(16 + 17 * 3),
+        MOLECULAR_ASSEMBLY(16 + 17 * 4);
 
         public final int uOffest;
 

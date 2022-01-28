@@ -21,7 +21,7 @@
   "block.assortech.macerator": "Macerator",
   "block.assortech.compressor": "Compressor",
   "block.assortech.extractor": "Extractor",
-  "block.assortech.molecular_reconstructor": "Molecular Reconstructor",
+  "block.assortech.molecular_reconstructor": "Molecular Assembler",
   "block.assortech.copper_wire": "Copper Wire",
   "block.assortech.copper_cable": "Copper Cable",
 
@@ -44,11 +44,12 @@
   "item.assortech.refined_iron_dust": "Refined Iron Dust",
   "item.assortech.energy_crystal_dust": "Energy Crystal Blend",
   "item.assortech.circuit": "Circuit",
-  "item.assortech.advanced_alloy_compound": "Advanced Alloy Compound",
+  "item.assortech.advanced_alloy_compound": "Raw Composite Ingot",
   "item.assortech.advanced_alloy": "Composite Plate",
   "item.assortech.arachnolactam": "Arachnolactam",
   "item.assortech.hyperstrand": "Hyperstrand",
   "item.assortech.hyperweave": "Hyperweave",
+  "item.assortech.small_refined_iron_dust": "Tiny Pile of Refined Iron Dust",
   "item.assortech.bronze_sword": "Bronze Sword",
   "item.assortech.bronze_shovel": "Bronze Shovel",
   "item.assortech.bronze_pickaxe": "Bronze Pickaxe",
@@ -66,5 +67,6 @@
 
   "category.assortech.macerating": "Macerating",
   "category.assortech.compressing": "Compressing",
-  "category.assortech.extracting": "Extracting"
+  "category.assortech.extracting": "Extracting",
+  "category.assortech.molecular_assembly": "Molecular Assembly"
 }

@@ -1,0 +1,10 @@
+{
+  "type": "assortech:compressing",
+  "ingredient": {
+    "item": "assortech:arachnolactam",
+    "count": 3
+  },
+  "result": {
+    "item": "assortech:hyperstrand"
+  }
+}

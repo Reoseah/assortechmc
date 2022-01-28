@@ -4,7 +4,8 @@
     "tag": "c:iron_dusts"
   },
   "result": {
-    "item": "assortech:refined_iron_dust"
+    "item": "assortech:small_refined_iron_dust",
+    "count": 7
   },
   "experience": 0.1
 }

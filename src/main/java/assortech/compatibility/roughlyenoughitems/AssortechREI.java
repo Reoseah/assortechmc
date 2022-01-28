@@ -4,6 +4,7 @@ import assortech.Assortech;
 import assortech.recipe.CompressorRecipe;
 import assortech.recipe.ExtractorRecipe;
 import assortech.recipe.MaceratorRecipe;
+import assortech.recipe.MolecularAssemblerRecipe;
 import assortech.screen.client.CompressorScreen;
 import assortech.screen.client.ElectricFurnaceScreen;
 import assortech.screen.client.ExtractorScreen;
@@ -29,17 +30,20 @@ public class AssortechREI implements REIClientPlugin {
     public static final CategoryIdentifier<MaceratingDisplay> MACERATING = CategoryIdentifier.of("assortech:macerating");
     public static final CategoryIdentifier<CompressingDisplay> COMPRESSING = CategoryIdentifier.of("assortech:compressing");
     public static final CategoryIdentifier<ExtractingDisplay> EXTRACTING = CategoryIdentifier.of("assortech:extracting");
+    public static final CategoryIdentifier<MolecularAssemblyDisplay> MOLECULAR_ASSEMBLY = CategoryIdentifier.of("assortech:molecular_assembly");
 
     @Override
     public void registerCategories(CategoryRegistry registry) {
         registry.add(new CraftingMachineCategory(MACERATING, EntryStacks.of(Assortech.AtBlocks.MACERATOR), "category.assortech.macerating"));
         registry.add(new CraftingMachineCategory(COMPRESSING, EntryStacks.of(Assortech.AtBlocks.COMPRESSOR), "category.assortech.compressing"));
         registry.add(new CraftingMachineCategory(EXTRACTING, EntryStacks.of(Assortech.AtBlocks.EXTRACTOR), "category.assortech.extracting"));
+        registry.add(new CraftingMachineCategory(MOLECULAR_ASSEMBLY, EntryStacks.of(Assortech.AtBlocks.MOLECULAR_RECONSTRUCTOR), "category.assortech.molecular_assembly"));
 
         registry.addWorkstations(CategoryIdentifier.of("minecraft", "plugins/smelting"), EntryStacks.of(Assortech.AtBlocks.ELECTRIC_FURNACE));
         registry.addWorkstations(MACERATING, EntryStacks.of(Assortech.AtBlocks.MACERATOR));
         registry.addWorkstations(COMPRESSING, EntryStacks.of(Assortech.AtBlocks.COMPRESSOR));
         registry.addWorkstations(EXTRACTING, EntryStacks.of(Assortech.AtBlocks.EXTRACTOR));
+        registry.addWorkstations(MOLECULAR_ASSEMBLY, EntryStacks.of(Assortech.AtBlocks.MOLECULAR_RECONSTRUCTOR));
     }
 
     @Override
@@ -47,6 +51,7 @@ public class AssortechREI implements REIClientPlugin {
         registry.registerRecipeFiller(MaceratorRecipe.class, Assortech.AtRecipeTypes.MACERATING, MaceratingDisplay::new);
         registry.registerRecipeFiller(CompressorRecipe.class, Assortech.AtRecipeTypes.COMPRESSING, CompressingDisplay::new);
         registry.registerRecipeFiller(ExtractorRecipe.class, Assortech.AtRecipeTypes.EXTRACTING, ExtractingDisplay::new);
+        registry.registerRecipeFiller(MolecularAssemblerRecipe.class, Assortech.AtRecipeTypes.MOLECULAR_ASSEMBLY, MolecularAssemblyDisplay::new);
     }
 
     @Override

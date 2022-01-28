@@ -3,7 +3,10 @@ package assortech;
 import assortech.block.*;
 import assortech.block.entity.*;
 import assortech.feature.RubberFoliagePlacer;
-import assortech.item.*;
+import assortech.item.AccessibleAxeItem;
+import assortech.item.AccessiblePickaxeItem;
+import assortech.item.EnergyCrystalItem;
+import assortech.item.RechargeableBatteryItem;
 import assortech.item.material.AssortechArmorMaterials;
 import assortech.item.material.AssortechToolMaterials;
 import assortech.mixin.FoliagePlacerTypeInvoker;
@@ -135,6 +138,7 @@ public class Assortech implements ModInitializer {
         Registry.register(Registry.ITEM, id("arachnolactam"), AtItems.ARACHNOLACTAM);
         Registry.register(Registry.ITEM, id("hyperstrand"), AtItems.HYPERSRAND);
         Registry.register(Registry.ITEM, id("hyperweave"), AtItems.HYPERWEAVE);
+        Registry.register(Registry.ITEM, id("small_refined_iron_dust"), AtItems.SMALL_REFINED_IRON_DUST);
 
         Registry.register(Registry.ITEM, id("bronze_sword"), AtItems.BRONZE_SWORD);
         Registry.register(Registry.ITEM, id("bronze_shovel"), AtItems.BRONZE_SHOVEL);
@@ -156,11 +160,13 @@ public class Assortech implements ModInitializer {
         Registry.register(Registry.RECIPE_TYPE, id("macerating"), AtRecipeTypes.MACERATING);
         Registry.register(Registry.RECIPE_TYPE, id("compressing"), AtRecipeTypes.COMPRESSING);
         Registry.register(Registry.RECIPE_TYPE, id("extracting"), AtRecipeTypes.EXTRACTING);
+        Registry.register(Registry.RECIPE_TYPE, id("molecular_assembly"), AtRecipeTypes.MOLECULAR_ASSEMBLY);
 
         Registry.register(Registry.RECIPE_SERIALIZER, id("dummy"), AtRecipeSerializers.DUMMY);
         Registry.register(Registry.RECIPE_SERIALIZER, id("macerating"), AtRecipeSerializers.MACERATING);
         Registry.register(Registry.RECIPE_SERIALIZER, id("compressing"), AtRecipeSerializers.COMPRESSING);
         Registry.register(Registry.RECIPE_SERIALIZER, id("extracting"), AtRecipeSerializers.EXTRACTING);
+        Registry.register(Registry.RECIPE_SERIALIZER, id("molecular_assembly"), AtRecipeSerializers.MOLECULAR_ASSEMBLY);
 
         Registry.register(Registry.FOLIAGE_PLACER_TYPE, id("rubber"), AtFoliagePlacers.RUBBER);
 
@@ -244,6 +250,7 @@ public class Assortech implements ModInitializer {
         public static final Item ARACHNOLACTAM = new Item(settings());
         public static final Item HYPERSRAND = new Item(settings().rarity(Rarity.RARE));
         public static final Item HYPERWEAVE = new Item(settings().rarity(Rarity.RARE));
+        public static final Item SMALL_REFINED_IRON_DUST = new Item(settings());
         public static final Item BRONZE_SWORD = new SwordItem(AssortechToolMaterials.BRONZE, 3, -2.4F, settings());
         public static final Item BRONZE_SHOVEL = new ShovelItem(AssortechToolMaterials.BRONZE, 1.5F, -3.0F, settings());
         public static final Item BRONZE_PICKAXE = new AccessiblePickaxeItem(AssortechToolMaterials.BRONZE, 1, -2.8F, settings());
@@ -273,9 +280,9 @@ public class Assortech implements ModInitializer {
         public static final RecipeType<MaceratorRecipe> MACERATING = new AtRecipeType<>();
         public static final RecipeType<CompressorRecipe> COMPRESSING = new AtRecipeType<>();
         public static final RecipeType<ExtractorRecipe> EXTRACTING = new AtRecipeType<>();
+        public static final RecipeType<MolecularAssemblerRecipe> MOLECULAR_ASSEMBLY = new AtRecipeType<>();
 
         private static class AtRecipeType<T extends Recipe<?>> implements RecipeType<T> {
-            // TODO perhaps put here default EU/tick ?
         }
     }
 
@@ -284,6 +291,7 @@ public class Assortech implements ModInitializer {
         public static final RecipeSerializer<MaceratorRecipe> MACERATING = new CraftingMachineRecipe.Serializer<>(MaceratorRecipe::new, 300);
         public static final RecipeSerializer<CompressorRecipe> COMPRESSING = new CraftingMachineRecipe.Serializer<>(CompressorRecipe::new, 400);
         public static final RecipeSerializer<ExtractorRecipe> EXTRACTING = new CraftingMachineRecipe.Serializer<>(ExtractorRecipe::new, 400);
+        public static final RecipeSerializer<MolecularAssemblerRecipe> MOLECULAR_ASSEMBLY = new CraftingMachineRecipe.Serializer<>(MolecularAssemblerRecipe::new, 10000);
     }
 
     public static class AtFoliagePlacers {
