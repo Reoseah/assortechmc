@@ -68,7 +68,6 @@ public class Assortech implements ModInitializer {
         Registry.register(Registry.BLOCK, id("macerator"), AtBlocks.MACERATOR);
         Registry.register(Registry.BLOCK, id("compressor"), AtBlocks.COMPRESSOR);
         Registry.register(Registry.BLOCK, id("extractor"), AtBlocks.EXTRACTOR);
-        Registry.register(Registry.BLOCK, id("molecular_reconstructor"), AtBlocks.MOLECULAR_RECONSTRUCTOR);
         Registry.register(Registry.BLOCK, id("battery_box"), AtBlocks.BATTERY_BOX);
         Registry.register(Registry.BLOCK, id("copper_wire"), AtBlocks.COPPER_WIRE);
         Registry.register(Registry.BLOCK, id("copper_cable"), AtBlocks.COPPER_CABLE);
@@ -109,7 +108,6 @@ public class Assortech implements ModInitializer {
         Registry.register(Registry.ITEM, id("macerator"), new BlockItem(AtBlocks.MACERATOR, AtItems.settings()));
         Registry.register(Registry.ITEM, id("compressor"), new BlockItem(AtBlocks.COMPRESSOR, AtItems.settings()));
         Registry.register(Registry.ITEM, id("extractor"), new BlockItem(AtBlocks.EXTRACTOR, AtItems.settings()));
-        Registry.register(Registry.ITEM, id("molecular_reconstructor"), new BlockItem(AtBlocks.MOLECULAR_RECONSTRUCTOR, AtItems.settings()));
         Registry.register(Registry.ITEM, id("battery_box"), new BlockItem(AtBlocks.BATTERY_BOX, AtItems.settings()));
         Registry.register(Registry.ITEM, id("copper_wire"), new BlockItem(AtBlocks.COPPER_WIRE, AtItems.settings()));
         Registry.register(Registry.ITEM, id("copper_cable"), new BlockItem(AtBlocks.COPPER_CABLE, AtItems.settings()));
@@ -160,13 +158,11 @@ public class Assortech implements ModInitializer {
         Registry.register(Registry.RECIPE_TYPE, id("macerating"), AtRecipeTypes.MACERATING);
         Registry.register(Registry.RECIPE_TYPE, id("compressing"), AtRecipeTypes.COMPRESSING);
         Registry.register(Registry.RECIPE_TYPE, id("extracting"), AtRecipeTypes.EXTRACTING);
-        Registry.register(Registry.RECIPE_TYPE, id("molecular_assembly"), AtRecipeTypes.MOLECULAR_ASSEMBLY);
 
         Registry.register(Registry.RECIPE_SERIALIZER, id("dummy"), AtRecipeSerializers.DUMMY);
         Registry.register(Registry.RECIPE_SERIALIZER, id("macerating"), AtRecipeSerializers.MACERATING);
         Registry.register(Registry.RECIPE_SERIALIZER, id("compressing"), AtRecipeSerializers.COMPRESSING);
         Registry.register(Registry.RECIPE_SERIALIZER, id("extracting"), AtRecipeSerializers.EXTRACTING);
-        Registry.register(Registry.RECIPE_SERIALIZER, id("molecular_assembly"), AtRecipeSerializers.MOLECULAR_ASSEMBLY);
 
         Registry.register(Registry.FOLIAGE_PLACER_TYPE, id("rubber"), AtFoliagePlacers.RUBBER);
 
@@ -213,7 +209,6 @@ public class Assortech implements ModInitializer {
         public static final Block MACERATOR = new MaceratorBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS));
         public static final Block COMPRESSOR = new CompressorBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS));
         public static final Block EXTRACTOR = new ExtractorBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS));
-        public static final Block MOLECULAR_RECONSTRUCTOR = new MolecularReconstructorBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS));
         public static final Block BATTERY_BOX = new BatteryBoxBlock(FabricBlockSettings.copyOf(MACHINE).mapColor(MapColor.SPRUCE_BROWN));
         public static final Block COPPER_WIRE = new CableBlock(1, FabricBlockSettings.of(Material.METAL).strength(0.5F).sounds(BlockSoundGroup.WOOL).breakByHand(true));
         public static final Block COPPER_CABLE = new CableBlock(2, FabricBlockSettings.of(Material.METAL).strength(0.5F).breakByHand(true));
@@ -280,7 +275,6 @@ public class Assortech implements ModInitializer {
         public static final RecipeType<MaceratorRecipe> MACERATING = new AtRecipeType<>();
         public static final RecipeType<CompressorRecipe> COMPRESSING = new AtRecipeType<>();
         public static final RecipeType<ExtractorRecipe> EXTRACTING = new AtRecipeType<>();
-        public static final RecipeType<MolecularAssemblerRecipe> MOLECULAR_ASSEMBLY = new AtRecipeType<>();
 
         private static class AtRecipeType<T extends Recipe<?>> implements RecipeType<T> {
         }
@@ -291,7 +285,6 @@ public class Assortech implements ModInitializer {
         public static final RecipeSerializer<MaceratorRecipe> MACERATING = new CraftingMachineRecipe.Serializer<>(MaceratorRecipe::new, 300);
         public static final RecipeSerializer<CompressorRecipe> COMPRESSING = new CraftingMachineRecipe.Serializer<>(CompressorRecipe::new, 400);
         public static final RecipeSerializer<ExtractorRecipe> EXTRACTING = new CraftingMachineRecipe.Serializer<>(ExtractorRecipe::new, 400);
-        public static final RecipeSerializer<MolecularAssemblerRecipe> MOLECULAR_ASSEMBLY = new CraftingMachineRecipe.Serializer<>(MolecularAssemblerRecipe::new, 10000);
     }
 
     public static class AtFoliagePlacers {

@@ -56,9 +56,6 @@ public class CraftingMachineCategory implements DisplayCategory<CraftingMachineD
     public List<Widget> setupDisplay(CraftingMachineDisplay display, Rectangle bounds) {
         Point startPoint = new Point(bounds.getCenterX() - 41, bounds.y + 10);
         double duration = display.getDuration();
-        if (this.id == AssortechREI.MOLECULAR_ASSEMBLY) {
-            duration /= 100;
-        }
         List<Widget> widgets = Lists.newArrayList();
         widgets.add(Widgets.createRecipeBase(bounds));
         widgets.add(Widgets.createResultSlotBackground(new Point(startPoint.x + 61, startPoint.y + 9)));
@@ -78,9 +75,6 @@ public class CraftingMachineCategory implements DisplayCategory<CraftingMachineD
         }
         if (this.id == AssortechREI.EXTRACTING) {
             return MachineArrowWidget.Type.EXTRACTING;
-        }
-        if (this.id == AssortechREI.MOLECULAR_ASSEMBLY) {
-            return MachineArrowWidget.Type.MOLECULAR_ASSEMBLY;
         }
         return MachineArrowWidget.Type.DEFAULT;
     }

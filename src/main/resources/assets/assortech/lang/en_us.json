@@ -21,7 +21,6 @@
   "block.assortech.macerator": "Macerator",
   "block.assortech.compressor": "Compressor",
   "block.assortech.extractor": "Extractor",
-  "block.assortech.molecular_reconstructor": "Molecular Assembler",
   "block.assortech.copper_wire": "Copper Wire",
   "block.assortech.copper_cable": "Copper Cable",
 
@@ -44,7 +43,7 @@
   "item.assortech.refined_iron_dust": "Refined Iron Dust",
   "item.assortech.energy_crystal_dust": "Energy Crystal Blend",
   "item.assortech.circuit": "Circuit",
-  "item.assortech.advanced_alloy_compound": "Raw Composite Ingot",
+  "item.assortech.advanced_alloy_compound": "Raw Metal Composite",
   "item.assortech.advanced_alloy": "Composite Plate",
   "item.assortech.arachnolactam": "Arachnolactam",
   "item.assortech.hyperstrand": "Hyperstrand",
@@ -67,6 +66,5 @@
 
   "category.assortech.macerating": "Macerating",
   "category.assortech.compressing": "Compressing",
-  "category.assortech.extracting": "Extracting",
-  "category.assortech.molecular_assembly": "Molecular Assembly"
+  "category.assortech.extracting": "Extracting"
 }
