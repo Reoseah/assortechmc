@@ -50,67 +50,82 @@ import team.reborn.energy.api.EnergyStorage;
 public class Assortech implements ModInitializer {
     @Override
     public void onInitialize() {
-        Registry.register(Registry.BLOCK, id("rubber_log"), AtBlocks.RUBBER_LOG);
-        Registry.register(Registry.BLOCK, id("resin_rubber_log"), AtBlocks.RESIN_RUBBER_LOG);
-        // TODO stripped rubber log, rubber wood, stripped rubber wood
-        Registry.register(Registry.BLOCK, id("rubber_leaves"), AtBlocks.RUBBER_LEAVES);
-        Registry.register(Registry.BLOCK, id("rubber_sapling"), AtBlocks.RUBBER_SAPLING);
+        // Generators
+        Registry.register(Registry.BLOCK, id("generator"), AtBlocks.GENERATOR);
+        Registry.register(Registry.BLOCK, id("solar_panel"), AtBlocks.SOLAR_PANEL);
+        // Energy Storage
+        Registry.register(Registry.BLOCK, id("battery_box"), AtBlocks.BATTERY_BOX);
+        // Crafting Machines
+        Registry.register(Registry.BLOCK, id("electric_furnace"), AtBlocks.ELECTRIC_FURNACE);
+        Registry.register(Registry.BLOCK, id("macerator"), AtBlocks.MACERATOR);
+        Registry.register(Registry.BLOCK, id("compressor"), AtBlocks.COMPRESSOR);
+        Registry.register(Registry.BLOCK, id("extractor"), AtBlocks.EXTRACTOR);
+        // Cables
+        Registry.register(Registry.BLOCK, id("copper_wire"), AtBlocks.COPPER_WIRE);
+        Registry.register(Registry.BLOCK, id("copper_cable"), AtBlocks.COPPER_CABLE);
+        // Resources
         Registry.register(Registry.BLOCK, id("tin_ore"), AtBlocks.TIN_ORE);
         Registry.register(Registry.BLOCK, id("deepslate_tin_ore"), AtBlocks.DEEPSLATE_TIN_ORE);
         Registry.register(Registry.BLOCK, id("tin_block"), AtBlocks.TIN_BLOCK);
         Registry.register(Registry.BLOCK, id("bronze_block"), AtBlocks.BRONZE_BLOCK);
         Registry.register(Registry.BLOCK, id("machine"), AtBlocks.MACHINE);
         Registry.register(Registry.BLOCK, id("advanced_machine"), AtBlocks.ADVANCED_MACHINE);
+        Registry.register(Registry.BLOCK, id("rubber_log"), AtBlocks.RUBBER_LOG);
+        Registry.register(Registry.BLOCK, id("resin_rubber_log"), AtBlocks.RESIN_RUBBER_LOG);
+        // TODO stripped rubber log, rubber wood, stripped rubber wood
+        Registry.register(Registry.BLOCK, id("rubber_leaves"), AtBlocks.RUBBER_LEAVES);
+        Registry.register(Registry.BLOCK, id("rubber_sapling"), AtBlocks.RUBBER_SAPLING);
+
         Registry.register(Registry.BLOCK, id("alloy_smeltery"), AtBlocks.ALLOY_SMELTERY);
-        Registry.register(Registry.BLOCK, id("generator"), AtBlocks.GENERATOR);
-        Registry.register(Registry.BLOCK, id("solar_panel"), AtBlocks.SOLAR_PANEL);
-        Registry.register(Registry.BLOCK, id("electric_furnace"), AtBlocks.ELECTRIC_FURNACE);
-        Registry.register(Registry.BLOCK, id("macerator"), AtBlocks.MACERATOR);
-        Registry.register(Registry.BLOCK, id("compressor"), AtBlocks.COMPRESSOR);
-        Registry.register(Registry.BLOCK, id("extractor"), AtBlocks.EXTRACTOR);
-        Registry.register(Registry.BLOCK, id("battery_box"), AtBlocks.BATTERY_BOX);
-        Registry.register(Registry.BLOCK, id("copper_wire"), AtBlocks.COPPER_WIRE);
-        Registry.register(Registry.BLOCK, id("copper_cable"), AtBlocks.COPPER_CABLE);
 
         FlammableBlockRegistry.getDefaultInstance().add(AtBlocks.RUBBER_LOG, 5, 5);
         FlammableBlockRegistry.getDefaultInstance().add(AtBlocks.RESIN_RUBBER_LOG, 5, 5);
+        FlammableBlockRegistry.getDefaultInstance().add(AtBlocks.RUBBER_LEAVES, 30, 60);
 
         Registry.register(Registry.BLOCK_ENTITY_TYPE, id("generator"), AtBlockEntityTypes.GENERATOR);
         Registry.register(Registry.BLOCK_ENTITY_TYPE, id("solar_panel"), AtBlockEntityTypes.SOLAR_PANEL);
+        Registry.register(Registry.BLOCK_ENTITY_TYPE, id("battery_box"), AtBlockEntityTypes.BATTERY_BOX);
         Registry.register(Registry.BLOCK_ENTITY_TYPE, id("electric_furnace"), AtBlockEntityTypes.ELECTRIC_FURNACE);
         Registry.register(Registry.BLOCK_ENTITY_TYPE, id("macerator"), AtBlockEntityTypes.MACERATOR);
         Registry.register(Registry.BLOCK_ENTITY_TYPE, id("compressor"), AtBlockEntityTypes.COMPRESSOR);
         Registry.register(Registry.BLOCK_ENTITY_TYPE, id("extractor"), AtBlockEntityTypes.EXTRACTOR);
-        Registry.register(Registry.BLOCK_ENTITY_TYPE, id("battery_box"), AtBlockEntityTypes.BATTERY_BOX);
         Registry.register(Registry.BLOCK_ENTITY_TYPE, id("cable"), AtBlockEntityTypes.CABLE);
+
         EnergyStorage.SIDED.registerForBlockEntity((be, direction) -> be.getEnergyStorage(), AtBlockEntityTypes.GENERATOR);
         EnergyStorage.SIDED.registerForBlockEntity((be, direction) -> SolarPanelBlockEntity.ENERGY, AtBlockEntityTypes.SOLAR_PANEL);
+        EnergyStorage.SIDED.registerForBlockEntity(BatteryBoxBlockEntity::getEnergyHandler, AtBlockEntityTypes.BATTERY_BOX);
         EnergyStorage.SIDED.registerForBlockEntity((be, direction) -> be.getEnergyStorage(), AtBlockEntityTypes.ELECTRIC_FURNACE);
         EnergyStorage.SIDED.registerForBlockEntity((be, direction) -> be.getEnergyStorage(), AtBlockEntityTypes.MACERATOR);
         EnergyStorage.SIDED.registerForBlockEntity((be, direction) -> be.getEnergyStorage(), AtBlockEntityTypes.COMPRESSOR);
         EnergyStorage.SIDED.registerForBlockEntity((be, direction) -> be.getEnergyStorage(), AtBlockEntityTypes.EXTRACTOR);
-        EnergyStorage.SIDED.registerForBlockEntity(BatteryBoxBlockEntity::getEnergyHandler, AtBlockEntityTypes.BATTERY_BOX);
         EnergyStorage.SIDED.registerForBlockEntity(CableBlockEntity::getEnergyHandler, AtBlockEntityTypes.CABLE);
 
-        Registry.register(Registry.ITEM, id("rubber_log"), new BlockItem(AtBlocks.RUBBER_LOG, AtItems.settings()));
-        Registry.register(Registry.ITEM, id("rubber_leaves"), new BlockItem(AtBlocks.RUBBER_LEAVES, AtItems.settings()));
-        Registry.register(Registry.ITEM, id("rubber_sapling"), new BlockItem(AtBlocks.RUBBER_SAPLING, AtItems.settings()));
+        // Generators
+        Registry.register(Registry.ITEM, id("generator"), new BlockItem(AtBlocks.GENERATOR, AtItems.settings()));
+        Registry.register(Registry.ITEM, id("solar_panel"), new BlockItem(AtBlocks.SOLAR_PANEL, AtItems.settings()));
+        // Energy Storage
+        Registry.register(Registry.ITEM, id("battery_box"), new BlockItem(AtBlocks.BATTERY_BOX, AtItems.settings()));
+        // Crafting Machines
+        Registry.register(Registry.ITEM, id("electric_furnace"), new BlockItem(AtBlocks.ELECTRIC_FURNACE, AtItems.settings()));
+        Registry.register(Registry.ITEM, id("macerator"), new BlockItem(AtBlocks.MACERATOR, AtItems.settings()));
+        Registry.register(Registry.ITEM, id("compressor"), new BlockItem(AtBlocks.COMPRESSOR, AtItems.settings()));
+        Registry.register(Registry.ITEM, id("extractor"), new BlockItem(AtBlocks.EXTRACTOR, AtItems.settings()));
+        // Cables
+        Registry.register(Registry.ITEM, id("copper_wire"), new BlockItem(AtBlocks.COPPER_WIRE, AtItems.settings()));
+        Registry.register(Registry.ITEM, id("copper_cable"), new BlockItem(AtBlocks.COPPER_CABLE, AtItems.settings()));
+        // Resources
         Registry.register(Registry.ITEM, id("tin_ore"), new BlockItem(AtBlocks.TIN_ORE, AtItems.settings()));
         Registry.register(Registry.ITEM, id("deepslate_tin_ore"), new BlockItem(AtBlocks.DEEPSLATE_TIN_ORE, AtItems.settings()));
         Registry.register(Registry.ITEM, id("tin_block"), new BlockItem(AtBlocks.TIN_BLOCK, AtItems.settings()));
         Registry.register(Registry.ITEM, id("bronze_block"), new BlockItem(AtBlocks.BRONZE_BLOCK, AtItems.settings()));
         Registry.register(Registry.ITEM, id("machine"), new BlockItem(AtBlocks.MACHINE, AtItems.settings()));
         Registry.register(Registry.ITEM, id("advanced_machine"), new BlockItem(AtBlocks.ADVANCED_MACHINE, AtItems.settings().rarity(Rarity.RARE)));
+
+        Registry.register(Registry.ITEM, id("rubber_log"), new BlockItem(AtBlocks.RUBBER_LOG, AtItems.settings()));
+        Registry.register(Registry.ITEM, id("rubber_leaves"), new BlockItem(AtBlocks.RUBBER_LEAVES, AtItems.settings()));
+        Registry.register(Registry.ITEM, id("rubber_sapling"), new BlockItem(AtBlocks.RUBBER_SAPLING, AtItems.settings()));
+
         Registry.register(Registry.ITEM, id("alloy_smeltery"), new BlockItem(AtBlocks.ALLOY_SMELTERY, AtItems.settings().group(null)));
-        Registry.register(Registry.ITEM, id("generator"), new BlockItem(AtBlocks.GENERATOR, AtItems.settings()));
-        Registry.register(Registry.ITEM, id("solar_panel"), new BlockItem(AtBlocks.SOLAR_PANEL, AtItems.settings()));
-        Registry.register(Registry.ITEM, id("electric_furnace"), new BlockItem(AtBlocks.ELECTRIC_FURNACE, AtItems.settings()));
-        Registry.register(Registry.ITEM, id("macerator"), new BlockItem(AtBlocks.MACERATOR, AtItems.settings()));
-        Registry.register(Registry.ITEM, id("compressor"), new BlockItem(AtBlocks.COMPRESSOR, AtItems.settings()));
-        Registry.register(Registry.ITEM, id("extractor"), new BlockItem(AtBlocks.EXTRACTOR, AtItems.settings()));
-        Registry.register(Registry.ITEM, id("battery_box"), new BlockItem(AtBlocks.BATTERY_BOX, AtItems.settings()));
-        Registry.register(Registry.ITEM, id("copper_wire"), new BlockItem(AtBlocks.COPPER_WIRE, AtItems.settings()));
-        Registry.register(Registry.ITEM, id("copper_cable"), new BlockItem(AtBlocks.COPPER_CABLE, AtItems.settings()));
 
         Registry.register(Registry.ITEM, id("sticky_resin"), AtItems.STICKY_RESIN);
         Registry.register(Registry.ITEM, id("rubber"), AtItems.RUBBER);
@@ -190,28 +205,33 @@ public class Assortech implements ModInitializer {
         private static final AbstractBlock.Settings ADVANCED_MACHINE_SETTINGS = FabricBlockSettings.of(AtMaterials.MACHINE).strength(4F, 10F).sounds(BlockSoundGroup.METAL).requiresTool();
         private static final AbstractBlock.Settings BRICK_DEVICE = FabricBlockSettings.of(Material.STONE, MapColor.RED).luminance(state -> state.get(Properties.LIT) ? 15 : 0).strength(3F, 6F).requiresTool();
 
-        public static final Block RUBBER_LOG = new PillarBlock(RUBBER_LOG_SETTINGS);
-        public static final Block RESIN_RUBBER_LOG = new RubberLogBlock(UNMOVABLE_RUBBER_LOG_SETTINGS);
-        public static final Block RUBBER_LEAVES = new LeavesBlock(FabricBlockSettings.copyOf(Blocks.JUNGLE_LEAVES));
-        public static final Block RUBBER_SAPLING = new RubberSaplingBlock(FabricBlockSettings.copyOf(Blocks.JUNGLE_SAPLING));
+        // Generators
+        public static final Block GENERATOR = new GeneratorBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 15 : 0));
+        public static final Block SOLAR_PANEL = new SolarPanelBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).mapColor(MapColor.LAPIS_BLUE));
+        // Energy Storage
+        public static final Block BATTERY_BOX = new BatteryBoxBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).mapColor(MapColor.SPRUCE_BROWN).sounds(BlockSoundGroup.WOOD));
+        // Crafting Machines
+        public static final Block ELECTRIC_FURNACE = new ElectricFurnaceBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS));
+        public static final Block MACERATOR = new MaceratorBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS));
+        public static final Block COMPRESSOR = new CompressorBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS));
+        public static final Block EXTRACTOR = new ExtractorBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS));
+        // Cables
+        public static final Block COPPER_WIRE = new CableBlock(1, FabricBlockSettings.of(Material.METAL).strength(0.5F).sounds(BlockSoundGroup.WOOL).breakByHand(true));
+        public static final Block COPPER_CABLE = new CableBlock(2, FabricBlockSettings.of(Material.METAL).strength(0.5F).breakByHand(true));
+
+        // Resources
         public static final Block TIN_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(3F));
         public static final Block DEEPSLATE_TIN_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(4.5F, 3F));
         public static final Block TIN_BLOCK = new Block(TIN_SETTINGS);
         public static final Block BRONZE_BLOCK = new Block(BRONZE_SETTINGS);
         public static final Block MACHINE = new Block(MACHINE_SETTINGS);
         public static final Block ADVANCED_MACHINE = new Block(ADVANCED_MACHINE_SETTINGS);
+        public static final Block RUBBER_LOG = new PillarBlock(RUBBER_LOG_SETTINGS);
+        public static final Block RESIN_RUBBER_LOG = new RubberLogBlock(UNMOVABLE_RUBBER_LOG_SETTINGS);
+        public static final Block RUBBER_LEAVES = new LeavesBlock(FabricBlockSettings.copyOf(Blocks.JUNGLE_LEAVES));
+        public static final Block RUBBER_SAPLING = new RubberSaplingBlock(FabricBlockSettings.copyOf(Blocks.JUNGLE_SAPLING));
 
         public static final Block ALLOY_SMELTERY = new AlloySmelteryBlock(FabricBlockSettings.copyOf(BRICK_DEVICE));
-
-        public static final Block GENERATOR = new GeneratorBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 15 : 0));
-        public static final Block SOLAR_PANEL = new SolarPanelBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).mapColor(MapColor.LAPIS_BLUE));
-        public static final Block ELECTRIC_FURNACE = new ElectricFurnaceBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS));
-        public static final Block MACERATOR = new MaceratorBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS));
-        public static final Block COMPRESSOR = new CompressorBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS));
-        public static final Block EXTRACTOR = new ExtractorBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS));
-        public static final Block BATTERY_BOX = new BatteryBoxBlock(FabricBlockSettings.copyOf(MACHINE).mapColor(MapColor.SPRUCE_BROWN));
-        public static final Block COPPER_WIRE = new CableBlock(1, FabricBlockSettings.of(Material.METAL).strength(0.5F).sounds(BlockSoundGroup.WOOL).breakByHand(true));
-        public static final Block COPPER_CABLE = new CableBlock(2, FabricBlockSettings.of(Material.METAL).strength(0.5F).breakByHand(true));
     }
 
     public static class AtItems {
