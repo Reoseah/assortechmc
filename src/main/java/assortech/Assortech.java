@@ -129,29 +129,34 @@ public class Assortech implements ModInitializer {
 
         Registry.register(Registry.ITEM, id("sticky_resin"), AtItems.STICKY_RESIN);
         Registry.register(Registry.ITEM, id("rubber"), AtItems.RUBBER);
-        Registry.register(Registry.ITEM, id("raw_tin"), AtItems.RAW_TIN);
-        Registry.register(Registry.ITEM, id("tin_ingot"), AtItems.TIN_INGOT);
-        Registry.register(Registry.ITEM, id("bronze_ingot"), AtItems.BRONZE_INGOT);
-        Registry.register(Registry.ITEM, id("refined_iron_ingot"), AtItems.REFINED_IRON_INGOT);
-        Registry.register(Registry.ITEM, id("tin_nugget"), AtItems.TIN_NUGGET);
-        Registry.register(Registry.ITEM, id("bronze_nugget"), AtItems.BRONZE_NUGGET);
-        Registry.register(Registry.ITEM, id("stone_dust"), AtItems.STONE_DUST);
-        Registry.register(Registry.ITEM, id("coal_dust"), AtItems.COAL_DUST);
-        Registry.register(Registry.ITEM, id("iron_dust"), AtItems.IRON_DUST);
-        Registry.register(Registry.ITEM, id("gold_dust"), AtItems.GOLD_DUST);
-        Registry.register(Registry.ITEM, id("diamond_dust"), AtItems.DIAMOND_DUST);
-        Registry.register(Registry.ITEM, id("copper_dust"), AtItems.COPPER_DUST);
-        Registry.register(Registry.ITEM, id("tin_dust"), AtItems.TIN_DUST);
-        Registry.register(Registry.ITEM, id("bronze_dust"), AtItems.BRONZE_DUST);
-        Registry.register(Registry.ITEM, id("refined_iron_dust"), AtItems.REFINED_IRON_DUST);
-        Registry.register(Registry.ITEM, id("energy_crystal_dust"), AtItems.ENERGY_CRYSTAL_DUST);
         Registry.register(Registry.ITEM, id("circuit"), AtItems.CIRCUIT);
-        Registry.register(Registry.ITEM, id("advanced_alloy_compound"), AtItems.ADVANCED_ALLOY_COMPOUND);
         Registry.register(Registry.ITEM, id("advanced_alloy"), AtItems.ADVANCED_ALLOY);
         Registry.register(Registry.ITEM, id("arachnolactam"), AtItems.ARACHNOLACTAM);
         Registry.register(Registry.ITEM, id("hyperstrand"), AtItems.HYPERSRAND);
         Registry.register(Registry.ITEM, id("hyperweave"), AtItems.HYPERWEAVE);
+
+        Registry.register(Registry.ITEM, id("tin_ingot"), AtItems.TIN_INGOT);
+        Registry.register(Registry.ITEM, id("bronze_ingot"), AtItems.BRONZE_INGOT);
+        Registry.register(Registry.ITEM, id("refined_iron_ingot"), AtItems.REFINED_IRON_INGOT);
+        Registry.register(Registry.ITEM, id("advanced_alloy_compound"), AtItems.ADVANCED_ALLOY_COMPOUND);
+
+        Registry.register(Registry.ITEM, id("tin_nugget"), AtItems.TIN_NUGGET);
+        Registry.register(Registry.ITEM, id("bronze_nugget"), AtItems.BRONZE_NUGGET);
+
+        Registry.register(Registry.ITEM, id("stone_dust"), AtItems.STONE_DUST);
+        Registry.register(Registry.ITEM, id("coal_dust"), AtItems.COAL_DUST);
+        Registry.register(Registry.ITEM, id("copper_dust"), AtItems.COPPER_DUST);
+        Registry.register(Registry.ITEM, id("iron_dust"), AtItems.IRON_DUST);
+        Registry.register(Registry.ITEM, id("gold_dust"), AtItems.GOLD_DUST);
+        Registry.register(Registry.ITEM, id("diamond_dust"), AtItems.DIAMOND_DUST);
+        Registry.register(Registry.ITEM, id("tin_dust"), AtItems.TIN_DUST);
+        Registry.register(Registry.ITEM, id("bronze_dust"), AtItems.BRONZE_DUST);
+        Registry.register(Registry.ITEM, id("refined_iron_dust"), AtItems.REFINED_IRON_DUST);
+        Registry.register(Registry.ITEM, id("energy_crystal_dust"), AtItems.ENERGY_CRYSTAL_DUST);
+
         Registry.register(Registry.ITEM, id("small_refined_iron_dust"), AtItems.SMALL_REFINED_IRON_DUST);
+
+        Registry.register(Registry.ITEM, id("raw_tin"), AtItems.RAW_TIN);
 
         Registry.register(Registry.ITEM, id("bronze_sword"), AtItems.BRONZE_SWORD);
         Registry.register(Registry.ITEM, id("bronze_shovel"), AtItems.BRONZE_SHOVEL);
@@ -243,29 +248,35 @@ public class Assortech implements ModInitializer {
 
         public static final Item STICKY_RESIN = new Item(settings());
         public static final Item RUBBER = new Item(settings());
-        public static final Item RAW_TIN = new Item(settings());
-        public static final Item TIN_INGOT = new Item(settings());
-        public static final Item BRONZE_INGOT = new Item(settings());
-        public static final Item REFINED_IRON_INGOT = new Item(settings());
-        public static final Item TIN_NUGGET = new Item(settings());
-        public static final Item BRONZE_NUGGET = new Item(settings());
-        public static final Item STONE_DUST = new Item(settings());
-        public static final Item COAL_DUST = new Item(settings());
-        public static final Item IRON_DUST = new Item(settings());
-        public static final Item GOLD_DUST = new Item(settings());
-        public static final Item DIAMOND_DUST = new Item(settings());
-        public static final Item COPPER_DUST = new Item(settings());
-        public static final Item TIN_DUST = new Item(settings());
-        public static final Item BRONZE_DUST = new Item(settings());
-        public static final Item REFINED_IRON_DUST = new Item(settings());
-        public static final Item ENERGY_CRYSTAL_DUST = new Item(settings());
         public static final Item CIRCUIT = new Item(settings());
-        public static final Item ADVANCED_ALLOY_COMPOUND = new Item(settings());
         public static final Item ADVANCED_ALLOY = new Item(settings().rarity(Rarity.RARE));
         public static final Item ARACHNOLACTAM = new Item(settings());
         public static final Item HYPERSRAND = new Item(settings().rarity(Rarity.RARE));
         public static final Item HYPERWEAVE = new Item(settings().rarity(Rarity.RARE));
+
+        public static final Item TIN_INGOT = new Item(settings());
+        public static final Item BRONZE_INGOT = new Item(settings());
+        public static final Item REFINED_IRON_INGOT = new Item(settings());
+        public static final Item ADVANCED_ALLOY_COMPOUND = new Item(settings());
+
+        public static final Item TIN_NUGGET = new Item(settings());
+        public static final Item BRONZE_NUGGET = new Item(settings());
+
+        public static final Item STONE_DUST = new Item(settings());
+        public static final Item COAL_DUST = new Item(settings());
+        public static final Item COPPER_DUST = new Item(settings());
+        public static final Item IRON_DUST = new Item(settings());
+        public static final Item GOLD_DUST = new Item(settings());
+        public static final Item DIAMOND_DUST = new Item(settings());
+        public static final Item TIN_DUST = new Item(settings());
+        public static final Item BRONZE_DUST = new Item(settings());
+        public static final Item REFINED_IRON_DUST = new Item(settings());
+        public static final Item ENERGY_CRYSTAL_DUST = new Item(settings());
+
         public static final Item SMALL_REFINED_IRON_DUST = new Item(settings());
+
+        public static final Item RAW_TIN = new Item(settings());
+
         public static final Item BRONZE_SWORD = new SwordItem(AssortechToolMaterials.BRONZE, 3, -2.4F, settings());
         public static final Item BRONZE_SHOVEL = new ShovelItem(AssortechToolMaterials.BRONZE, 1.5F, -3.0F, settings());
         public static final Item BRONZE_PICKAXE = new AccessiblePickaxeItem(AssortechToolMaterials.BRONZE, 1, -2.8F, settings());
