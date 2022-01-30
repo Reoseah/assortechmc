@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "assortech:small_iridium_dust"
+    }
+  },
+  "result": {
+    "item": "assortech:iridium_dust"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "type": "assortech:macerating",
+  "ingredient": {
+    "tag": "c:iridium_ingots"
+  },
+  "result": {
+    "item": "assortech:iridium_dust"
+  }
+}

@@ -138,8 +138,10 @@ public class Assortech implements ModInitializer {
         Registry.register(Registry.ITEM, id("tin_ingot"), AtItems.TIN_INGOT);
         Registry.register(Registry.ITEM, id("bronze_ingot"), AtItems.BRONZE_INGOT);
         Registry.register(Registry.ITEM, id("refined_iron_ingot"), AtItems.REFINED_IRON_INGOT);
+        Registry.register(Registry.ITEM, id("iridium_ingot"), AtItems.IRIDIUM_INGOT);
         Registry.register(Registry.ITEM, id("advanced_alloy_compound"), AtItems.ADVANCED_ALLOY_COMPOUND);
 
+        Registry.register(Registry.ITEM, id("copper_nugget"), AtItems.COPPER_NUGGET);
         Registry.register(Registry.ITEM, id("tin_nugget"), AtItems.TIN_NUGGET);
         Registry.register(Registry.ITEM, id("bronze_nugget"), AtItems.BRONZE_NUGGET);
 
@@ -152,9 +154,12 @@ public class Assortech implements ModInitializer {
         Registry.register(Registry.ITEM, id("tin_dust"), AtItems.TIN_DUST);
         Registry.register(Registry.ITEM, id("bronze_dust"), AtItems.BRONZE_DUST);
         Registry.register(Registry.ITEM, id("refined_iron_dust"), AtItems.REFINED_IRON_DUST);
+        Registry.register(Registry.ITEM, id("iridium_dust"), AtItems.IRIDIUM_DUST);
         Registry.register(Registry.ITEM, id("energy_crystal_dust"), AtItems.ENERGY_CRYSTAL_DUST);
+        Registry.register(Registry.ITEM, id("netherite_scrap_dust"), AtItems.NETHERITE_SCRAP_DUST);
 
         Registry.register(Registry.ITEM, id("small_refined_iron_dust"), AtItems.SMALL_REFINED_IRON_DUST);
+        Registry.register(Registry.ITEM, id("small_iridium_dust"), AtItems.SMALL_IRIDIUM_DUST);
 
         Registry.register(Registry.ITEM, id("raw_tin"), AtItems.RAW_TIN);
 
@@ -257,8 +262,10 @@ public class Assortech implements ModInitializer {
         public static final Item TIN_INGOT = new Item(settings());
         public static final Item BRONZE_INGOT = new Item(settings());
         public static final Item REFINED_IRON_INGOT = new Item(settings());
+        public static final Item IRIDIUM_INGOT = new Item(settings().rarity(Rarity.EPIC));
         public static final Item ADVANCED_ALLOY_COMPOUND = new Item(settings());
 
+        public static final Item COPPER_NUGGET = new Item(settings());
         public static final Item TIN_NUGGET = new Item(settings());
         public static final Item BRONZE_NUGGET = new Item(settings());
 
@@ -271,9 +278,12 @@ public class Assortech implements ModInitializer {
         public static final Item TIN_DUST = new Item(settings());
         public static final Item BRONZE_DUST = new Item(settings());
         public static final Item REFINED_IRON_DUST = new Item(settings());
+        public static final Item IRIDIUM_DUST = new Item(settings().rarity(Rarity.EPIC));
         public static final Item ENERGY_CRYSTAL_DUST = new Item(settings());
+        public static final Item NETHERITE_SCRAP_DUST = new Item(settings());
 
         public static final Item SMALL_REFINED_IRON_DUST = new Item(settings());
+        public static final Item SMALL_IRIDIUM_DUST = new Item(settings().rarity(Rarity.EPIC));
 
         public static final Item RAW_TIN = new Item(settings());
 

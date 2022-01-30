@@ -1,0 +1,9 @@
+{
+  "type": "assortech:macerating",
+  "ingredient": {
+    "item": "minecraft:netherite_scrap"
+  },
+  "result": {
+    "item": "assortech:netherite_scrap_dust"
+  }
+}
