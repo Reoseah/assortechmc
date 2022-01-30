@@ -60,6 +60,7 @@ public class Assortech implements ModInitializer {
         Registry.register(Registry.BLOCK, id("macerator"), AtBlocks.MACERATOR);
         Registry.register(Registry.BLOCK, id("compressor"), AtBlocks.COMPRESSOR);
         Registry.register(Registry.BLOCK, id("extractor"), AtBlocks.EXTRACTOR);
+        Registry.register(Registry.BLOCK, id("ore_washer"), AtBlocks.ORE_WASHER);
         // Cables
         Registry.register(Registry.BLOCK, id("copper_wire"), AtBlocks.COPPER_WIRE);
         Registry.register(Registry.BLOCK, id("copper_cable"), AtBlocks.COPPER_CABLE);
@@ -68,6 +69,7 @@ public class Assortech implements ModInitializer {
         Registry.register(Registry.BLOCK, id("deepslate_tin_ore"), AtBlocks.DEEPSLATE_TIN_ORE);
         Registry.register(Registry.BLOCK, id("tin_block"), AtBlocks.TIN_BLOCK);
         Registry.register(Registry.BLOCK, id("bronze_block"), AtBlocks.BRONZE_BLOCK);
+        Registry.register(Registry.BLOCK, id("iridium_block"), AtBlocks.IRIDIUM_BLOCK);
         Registry.register(Registry.BLOCK, id("machine"), AtBlocks.MACHINE);
         Registry.register(Registry.BLOCK, id("advanced_machine"), AtBlocks.ADVANCED_MACHINE);
         Registry.register(Registry.BLOCK, id("rubber_log"), AtBlocks.RUBBER_LOG);
@@ -110,6 +112,7 @@ public class Assortech implements ModInitializer {
         Registry.register(Registry.ITEM, id("macerator"), new BlockItem(AtBlocks.MACERATOR, AtItems.settings()));
         Registry.register(Registry.ITEM, id("compressor"), new BlockItem(AtBlocks.COMPRESSOR, AtItems.settings()));
         Registry.register(Registry.ITEM, id("extractor"), new BlockItem(AtBlocks.EXTRACTOR, AtItems.settings()));
+        Registry.register(Registry.ITEM, id("ore_washer"), new BlockItem(AtBlocks.ORE_WASHER, AtItems.settings()));
         // Cables
         Registry.register(Registry.ITEM, id("copper_wire"), new BlockItem(AtBlocks.COPPER_WIRE, AtItems.settings()));
         Registry.register(Registry.ITEM, id("copper_cable"), new BlockItem(AtBlocks.COPPER_CABLE, AtItems.settings()));
@@ -118,6 +121,7 @@ public class Assortech implements ModInitializer {
         Registry.register(Registry.ITEM, id("deepslate_tin_ore"), new BlockItem(AtBlocks.DEEPSLATE_TIN_ORE, AtItems.settings()));
         Registry.register(Registry.ITEM, id("tin_block"), new BlockItem(AtBlocks.TIN_BLOCK, AtItems.settings()));
         Registry.register(Registry.ITEM, id("bronze_block"), new BlockItem(AtBlocks.BRONZE_BLOCK, AtItems.settings()));
+        Registry.register(Registry.ITEM, id("iridium_block"), new BlockItem(AtBlocks.IRIDIUM_BLOCK, AtItems.settings().rarity(Rarity.EPIC)));
         Registry.register(Registry.ITEM, id("machine"), new BlockItem(AtBlocks.MACHINE, AtItems.settings()));
         Registry.register(Registry.ITEM, id("advanced_machine"), new BlockItem(AtBlocks.ADVANCED_MACHINE, AtItems.settings().rarity(Rarity.RARE)));
 
@@ -225,6 +229,7 @@ public class Assortech implements ModInitializer {
         public static final Block MACERATOR = new MaceratorBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS));
         public static final Block COMPRESSOR = new CompressorBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS));
         public static final Block EXTRACTOR = new ExtractorBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS));
+        public static final Block ORE_WASHER = new OreWasherBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS));
         // Cables
         public static final Block COPPER_WIRE = new CableBlock(1, FabricBlockSettings.of(Material.METAL).strength(0.5F).sounds(BlockSoundGroup.WOOL).breakByHand(true));
         public static final Block COPPER_CABLE = new CableBlock(2, FabricBlockSettings.of(Material.METAL).strength(0.5F).breakByHand(true));
@@ -234,6 +239,7 @@ public class Assortech implements ModInitializer {
         public static final Block DEEPSLATE_TIN_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(4.5F, 3F));
         public static final Block TIN_BLOCK = new Block(TIN_SETTINGS);
         public static final Block BRONZE_BLOCK = new Block(BRONZE_SETTINGS);
+        public static final Block IRIDIUM_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(5F, 20F));
         public static final Block MACHINE = new Block(MACHINE_SETTINGS);
         public static final Block ADVANCED_MACHINE = new Block(ADVANCED_MACHINE_SETTINGS);
         public static final Block RUBBER_LOG = new PillarBlock(RUBBER_LOG_SETTINGS);
