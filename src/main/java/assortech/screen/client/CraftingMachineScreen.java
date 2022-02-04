@@ -1,6 +1,5 @@
 package assortech.screen.client;
 
-import assortech.block.entity.CraftingMachineBlockEntity;
 import assortech.screen.CraftingMachineScreenHandler;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;

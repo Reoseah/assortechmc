@@ -1,7 +1,6 @@
 package assortech.screen;
 
 import assortech.Assortech;
-import assortech.block.entity.ExtractorBlockEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.entity.player.PlayerEntity;

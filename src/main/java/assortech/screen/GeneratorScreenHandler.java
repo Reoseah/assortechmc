@@ -1,7 +1,6 @@
 package assortech.screen;
 
 import assortech.Assortech;
-import assortech.block.entity.GeneratorBlockEntity;
 import assortech.screen.property.ReadProperty;
 import assortech.screen.property.WriteProperty;
 import assortech.screen.slot.GenericFuelSlot;

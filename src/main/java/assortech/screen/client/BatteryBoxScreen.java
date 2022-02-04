@@ -1,7 +1,6 @@
 package assortech.screen.client;
 
 import assortech.Assortech;
-import assortech.block.entity.BatteryBoxBlockEntity;
 import assortech.screen.BatteryBoxScreenHandler;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;

@@ -1,7 +1,6 @@
 package assortech.screen;
 
 import assortech.Assortech;
-import assortech.block.entity.BatteryBoxBlockEntity;
 import assortech.screen.property.ReadProperty;
 import assortech.screen.property.WriteProperty;
 import net.fabricmc.api.EnvType;

@@ -1,6 +1,5 @@
 package assortech.screen;
 
-import assortech.block.entity.CraftingMachineBlockEntity;
 import assortech.screen.property.ReadProperty;
 import assortech.screen.property.WriteProperty;
 import assortech.screen.slot.GenericOutputSlot;
