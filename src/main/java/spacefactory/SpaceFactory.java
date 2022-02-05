@@ -255,7 +255,7 @@ public class SpaceFactory implements ModInitializer {
     }
 
     public static class SFItems {
-        public static final ItemGroup GROUP = FabricItemGroupBuilder.build(id("main"), () -> new ItemStack(SFBlocks.MACHINE));
+        public static final ItemGroup GROUP = FabricItemGroupBuilder.build(id("main"), () -> new ItemStack(SFBlocks.SOLAR_PANEL));
 
         private static Item.Settings settings() {
             return new Item.Settings().group(GROUP);

@@ -1,24 +1,25 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "RCR",
-    "I#I"
+    "WWW",
+    "C#C",
+    "CRC"
   ],
   "key": {
     "#": {
-      "tag": "c:machine_blocks"
+      "tag": "c:bronze_ingots"
     },
     "C": {
-      "tag": "c:circuits"
+      "item": "minecraft:cobblestone"
     },
     "R": {
       "item": "minecraft:redstone"
     },
-    "I": {
-      "item": "minecraft:cut_copper"
+    "W": {
+      "tag": "minecraft:planks"
     }
   },
   "result": {
-    "item": "spacefactory:electric_furnace"
+    "item": "minecraft:piston"
   }
 }

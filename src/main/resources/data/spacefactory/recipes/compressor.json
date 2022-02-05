@@ -1,9 +1,8 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    " C ",
-    "S#S",
-    " P "
+    "ICI",
+    "P#P"
   ],
   "key": {
     "#": {
@@ -12,8 +11,8 @@
     "C": {
       "tag": "c:circuits"
     },
-    "S": {
-      "item": "minecraft:smooth_stone"
+    "I": {
+      "item": "minecraft:iron_ingot"
     },
     "P": {
       "item": "minecraft:piston"
