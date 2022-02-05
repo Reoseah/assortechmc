@@ -68,7 +68,6 @@ public class SpaceFactory implements ModInitializer {
         register(Registry.BLOCK, "bronze_block", SFBlocks.BRONZE_BLOCK);
         register(Registry.BLOCK, "iridium_block", SFBlocks.IRIDIUM_BLOCK);
         register(Registry.BLOCK, "machine", SFBlocks.MACHINE);
-        register(Registry.BLOCK, "advanced_machine", SFBlocks.ADVANCED_MACHINE);
         register(Registry.BLOCK, "rubber_log", SFBlocks.RUBBER_LOG);
         register(Registry.BLOCK, "resin_rubber_log", SFBlocks.RESIN_RUBBER_LOG);
         // TODO stripped rubber log, rubber wood, stripped rubber wood
@@ -119,7 +118,6 @@ public class SpaceFactory implements ModInitializer {
         register(Registry.ITEM, "bronze_block", new BlockItem(SFBlocks.BRONZE_BLOCK, SFItems.settings()));
         register(Registry.ITEM, "iridium_block", new BlockItem(SFBlocks.IRIDIUM_BLOCK, SFItems.settings().rarity(Rarity.EPIC)));
         register(Registry.ITEM, "machine", new BlockItem(SFBlocks.MACHINE, SFItems.settings()));
-        register(Registry.ITEM, "advanced_machine", new BlockItem(SFBlocks.ADVANCED_MACHINE, SFItems.settings().rarity(Rarity.RARE)));
 
         register(Registry.ITEM, "rubber_log", new BlockItem(SFBlocks.RUBBER_LOG, SFItems.settings()));
         register(Registry.ITEM, "rubber_leaves", new BlockItem(SFBlocks.RUBBER_LEAVES, SFItems.settings()));
@@ -130,7 +128,6 @@ public class SpaceFactory implements ModInitializer {
         register(Registry.ITEM, "sticky_resin", SFItems.STICKY_RESIN);
         register(Registry.ITEM, "rubber", SFItems.RUBBER);
         register(Registry.ITEM, "circuit", SFItems.CIRCUIT);
-        register(Registry.ITEM, "advanced_alloy", SFItems.ADVANCED_ALLOY);
         register(Registry.ITEM, "arachnolactam", SFItems.ARACHNOLACTAM);
         register(Registry.ITEM, "hyperstrand", SFItems.HYPERSRAND);
         register(Registry.ITEM, "hyperweave", SFItems.HYPERWEAVE);
@@ -139,7 +136,6 @@ public class SpaceFactory implements ModInitializer {
         register(Registry.ITEM, "bronze_ingot", SFItems.BRONZE_INGOT);
         register(Registry.ITEM, "refined_iron_ingot", SFItems.REFINED_IRON_INGOT);
         register(Registry.ITEM, "iridium_ingot", SFItems.IRIDIUM_INGOT);
-        register(Registry.ITEM, "advanced_alloy_compound", SFItems.ADVANCED_ALLOY_COMPOUND);
 
         register(Registry.ITEM, "copper_nugget", SFItems.COPPER_NUGGET);
         register(Registry.ITEM, "tin_nugget", SFItems.TIN_NUGGET);
@@ -155,13 +151,13 @@ public class SpaceFactory implements ModInitializer {
         register(Registry.ITEM, "bronze_dust", SFItems.BRONZE_DUST);
         register(Registry.ITEM, "refined_iron_dust", SFItems.REFINED_IRON_DUST);
         register(Registry.ITEM, "iridium_dust", SFItems.IRIDIUM_DUST);
-        register(Registry.ITEM, "energy_crystal_dust", SFItems.ENERGY_CRYSTAL_DUST);
         register(Registry.ITEM, "netherite_scrap_dust", SFItems.NETHERITE_SCRAP_DUST);
 
         register(Registry.ITEM, "small_refined_iron_dust", SFItems.SMALL_REFINED_IRON_DUST);
         register(Registry.ITEM, "small_iridium_dust", SFItems.SMALL_IRIDIUM_DUST);
 
         register(Registry.ITEM, "raw_tin", SFItems.RAW_TIN);
+        register(Registry.ITEM, "raw_iridium", SFItems.RAW_IRIDIUM);
 
         register(Registry.ITEM, "bronze_sword", SFItems.BRONZE_SWORD);
         register(Registry.ITEM, "bronze_shovel", SFItems.BRONZE_SHOVEL);
@@ -213,7 +209,6 @@ public class SpaceFactory implements ModInitializer {
         private static final AbstractBlock.Settings TIN_SETTINGS = FabricBlockSettings.of(Material.METAL, MapColor.LIGHT_GRAY).strength(3F, 6F).sounds(BlockSoundGroup.METAL);
         private static final AbstractBlock.Settings BRONZE_SETTINGS = FabricBlockSettings.of(Material.METAL, MapColor.ORANGE).strength(3F, 6F).sounds(BlockSoundGroup.METAL);
         private static final AbstractBlock.Settings MACHINE_SETTINGS = FabricBlockSettings.of(AtMaterials.MACHINE).strength(3F, 6F).sounds(BlockSoundGroup.METAL).requiresTool();
-        private static final AbstractBlock.Settings ADVANCED_MACHINE_SETTINGS = FabricBlockSettings.of(AtMaterials.MACHINE).strength(4F, 10F).sounds(BlockSoundGroup.METAL).requiresTool();
         private static final AbstractBlock.Settings BRICK_DEVICE = FabricBlockSettings.of(Material.STONE, MapColor.RED).luminance(state -> state.get(Properties.LIT) ? 15 : 0).strength(3F, 6F).requiresTool();
 
         // Generators
@@ -237,7 +232,6 @@ public class SpaceFactory implements ModInitializer {
         public static final Block BRONZE_BLOCK = new Block(BRONZE_SETTINGS);
         public static final Block IRIDIUM_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(5F, 20F));
         public static final Block MACHINE = new Block(MACHINE_SETTINGS);
-        public static final Block ADVANCED_MACHINE = new Block(ADVANCED_MACHINE_SETTINGS);
         public static final Block RUBBER_LOG = new PillarBlock(RUBBER_LOG_SETTINGS);
         public static final Block RESIN_RUBBER_LOG = new RubberLogBlock(UNMOVABLE_RUBBER_LOG_SETTINGS);
         public static final Block RUBBER_LEAVES = new LeavesBlock(FabricBlockSettings.copyOf(Blocks.JUNGLE_LEAVES));
@@ -256,7 +250,6 @@ public class SpaceFactory implements ModInitializer {
         public static final Item STICKY_RESIN = new Item(settings());
         public static final Item RUBBER = new Item(settings());
         public static final Item CIRCUIT = new Item(settings());
-        public static final Item ADVANCED_ALLOY = new Item(settings().rarity(Rarity.RARE));
         public static final Item ARACHNOLACTAM = new Item(settings());
         public static final Item HYPERSRAND = new Item(settings().rarity(Rarity.RARE));
         public static final Item HYPERWEAVE = new Item(settings().rarity(Rarity.RARE));
@@ -265,7 +258,6 @@ public class SpaceFactory implements ModInitializer {
         public static final Item BRONZE_INGOT = new Item(settings());
         public static final Item REFINED_IRON_INGOT = new Item(settings());
         public static final Item IRIDIUM_INGOT = new Item(settings().rarity(Rarity.EPIC));
-        public static final Item ADVANCED_ALLOY_COMPOUND = new Item(settings());
 
         public static final Item COPPER_NUGGET = new Item(settings());
         public static final Item TIN_NUGGET = new Item(settings());
@@ -281,13 +273,13 @@ public class SpaceFactory implements ModInitializer {
         public static final Item BRONZE_DUST = new Item(settings());
         public static final Item REFINED_IRON_DUST = new Item(settings());
         public static final Item IRIDIUM_DUST = new Item(settings().rarity(Rarity.EPIC));
-        public static final Item ENERGY_CRYSTAL_DUST = new Item(settings());
         public static final Item NETHERITE_SCRAP_DUST = new Item(settings());
 
         public static final Item SMALL_REFINED_IRON_DUST = new Item(settings());
         public static final Item SMALL_IRIDIUM_DUST = new Item(settings().rarity(Rarity.EPIC));
 
         public static final Item RAW_TIN = new Item(settings());
+        public static final Item RAW_IRIDIUM = new Item(settings().rarity(Rarity.RARE));
 
         public static final Item BRONZE_SWORD = new SwordItem(AssortechToolMaterials.BRONZE, 3, -2.4F, settings());
         public static final Item BRONZE_SHOVEL = new ShovelItem(AssortechToolMaterials.BRONZE, 1.5F, -3.0F, settings());
