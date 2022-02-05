@@ -1,0 +1,10 @@
+{
+  "type": "spacefactory:macerating",
+  "ingredient": {
+    "tag": "c:tin_ores"
+  },
+  "result": {
+    "item": "spacefactory:tin_dust",
+    "count": 2
+  }
+}

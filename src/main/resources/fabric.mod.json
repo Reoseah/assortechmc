@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "id": "assortech",
+  "id": "spacefactory",
   "version": "${version}",
   "name": "Assortech",
   "description": "Adds generators, machines, materials and equipment, all about creating and using electricity.",
@@ -9,21 +9,21 @@
   ],
   "contact": {},
   "license": "MIT",
-  "icon": "assets/assortech/icon.png",
+  "icon": "assets/spacefactory/icon.png",
   "environment": "*",
   "entrypoints": {
     "client": [
-      "assortech.AssortechClient"
+      "spacefactory.SpaceFactoryClient"
     ],
     "main": [
-      "assortech.Assortech"
+      "spacefactory.SpaceFactory"
     ],
     "rei_plugins": [
-      "assortech.compatibility.roughlyenoughitems.AssortechREI"
+      "spacefactory.compatibility.roughlyenoughitems.SpaceFactoryREI"
     ]
   },
   "mixins": [
-    "assortech.mixins.json"
+    "spacefactory.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=0.12.12",

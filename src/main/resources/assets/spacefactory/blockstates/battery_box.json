@@ -1,0 +1,27 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "spacefactory:block/battery_box",
+      "x": 90
+    },
+    "facing=east": {
+      "model": "spacefactory:block/battery_box",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "spacefactory:block/battery_box"
+    },
+    "facing=south": {
+      "model": "spacefactory:block/battery_box",
+      "y": 180
+    },
+    "facing=up": {
+      "model": "spacefactory:block/battery_box",
+      "x": 270
+    },
+    "facing=west": {
+      "model": "spacefactory:block/battery_box",
+      "y": 270
+    }
+  }
+}

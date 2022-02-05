@@ -1,0 +1,10 @@
+{
+  "type": "spacefactory:compressing",
+  "ingredient": {    
+    "item": "minecraft:snowball",
+    "count": 8
+  },
+  "result": {
+    "item": "minecraft:ice"
+  }
+}

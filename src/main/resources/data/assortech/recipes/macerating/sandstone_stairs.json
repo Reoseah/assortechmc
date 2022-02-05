@@ -1,9 +1,0 @@
-{
-  "type": "assortech:macerating",
-  "ingredient": {
-    "tag": "c:sandstone_stairs"
-  },
-  "result": {
-    "item": "minecraft:sand"
-  }
-}

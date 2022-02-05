@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/orientable",
-  "textures": {
-    "top": "assortech:block/alloy_smeltery_top",
-    "front": "assortech:block/alloy_smeltery_front",
-    "side": "assortech:block/alloy_smeltery_side"
-  }
-}

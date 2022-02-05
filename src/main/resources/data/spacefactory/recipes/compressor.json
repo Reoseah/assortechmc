@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " C ",
+    "S#S",
+    " P "
+  ],
+  "key": {
+    "#": {
+      "tag": "c:machine_blocks"
+    },
+    "C": {
+      "tag": "c:circuits"
+    },
+    "S": {
+      "item": "minecraft:smooth_stone"
+    },
+    "P": {
+      "item": "minecraft:piston"
+    }
+  },
+  "result": {
+    "item": "spacefactory:compressor"
+  }
+}

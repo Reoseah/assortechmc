@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "spacefactory:copper_wire",
+    {
+      "required": false,
+      "id": "techreborn:copper_cable"
+    }
+  ]
+}

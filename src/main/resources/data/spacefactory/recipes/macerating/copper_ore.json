@@ -1,0 +1,10 @@
+{
+  "type": "spacefactory:macerating",
+  "ingredient": {
+    "tag": "c:copper_ores"
+  },
+  "result": {
+    "item": "spacefactory:copper_dust",
+    "count": 2
+  }
+}

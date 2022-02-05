@@ -1,0 +1,19 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "spacefactory.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "FoliagePlacerTypeInvoker",
+    "RecipeManagerMixin",
+    "LivingEntityMixin"
+  ],
+  "client": [
+    "client.ItemRendererMixin",
+    "client.BlockModelRendererMixin",
+    "client.BlockRenderInfoMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

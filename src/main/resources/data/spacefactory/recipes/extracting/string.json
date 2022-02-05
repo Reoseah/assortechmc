@@ -1,0 +1,10 @@
+{
+  "type": "spacefactory:extracting",
+  "ingredient": {
+    "item": "minecraft:string"
+  },
+  "result": {
+    "item": "spacefactory:arachnolactam"
+  },
+  "experience": 0.1
+}

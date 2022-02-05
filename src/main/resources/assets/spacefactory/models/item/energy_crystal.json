@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "spacefactory:item/energy_crystal"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "spacefactory:energy": 10000
+      },
+      "model": "spacefactory:item/energy_crystal_1"
+    },
+    {
+      "predicate": {
+        "spacefactory:energy": 35000
+      },
+      "model": "spacefactory:item/energy_crystal_2"
+    },
+    {
+      "predicate": {
+        "spacefactory:energy": 65000
+      },
+      "model": "spacefactory:item/energy_crystal_3"
+    },
+    {
+      "predicate": {
+        "spacefactory:energy": 90000
+      },
+      "model": "spacefactory:item/energy_crystal_4"
+    }
+  ]
+}

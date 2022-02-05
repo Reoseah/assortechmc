@@ -1,0 +1,11 @@
+{
+  "type": "spacefactory:extracting",
+  "ingredient": {
+    "tag": "c:netherite_scrap_dusts"
+  },
+  "result": {
+    "item": "spacefactory:small_iridium_dust",
+    "count": 3
+  },
+  "experience": 1
+}

@@ -1,0 +1,9 @@
+{
+  "type": "spacefactory:macerating",
+  "ingredient": {
+    "tag": "c:tin_ingots"
+  },
+  "result": {
+    "item": "spacefactory:tin_dust"
+  }
+}

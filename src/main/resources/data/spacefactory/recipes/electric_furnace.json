@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "RCR",
+    "I#I"
+  ],
+  "key": {
+    "#": {
+      "tag": "c:machine_blocks"
+    },
+    "C": {
+      "tag": "c:circuits"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "I": {
+      "item": "minecraft:copper_ingot"
+    }
+  },
+  "result": {
+    "item": "spacefactory:electric_furnace"
+  }
+}

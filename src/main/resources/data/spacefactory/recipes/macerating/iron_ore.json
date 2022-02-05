@@ -1,0 +1,10 @@
+{
+  "type": "spacefactory:macerating",
+  "ingredient": {
+    "tag": "c:iron_ores"
+  },
+  "result": {
+    "item": "spacefactory:iron_dust",
+    "count": 2
+  }
+}

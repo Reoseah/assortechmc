@@ -1,0 +1,9 @@
+{
+  "type": "spacefactory:compressing",
+  "ingredient": {    
+    "item": "spacefactory:advanced_alloy_compound"
+  },
+  "result": {
+    "item": "spacefactory:advanced_alloy"
+  }
+}

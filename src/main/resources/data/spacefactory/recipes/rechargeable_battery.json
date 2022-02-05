@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " X ",
+    "#R#",
+    "#R#"
+  ],
+  "key": {
+    "#": {
+      "tag": "c:tin_ingots"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "X": {
+      "tag": "spacefactory:copper_cables"
+    }
+  },
+  "result": {
+    "item": "spacefactory:rechargeable_battery"
+  }
+}

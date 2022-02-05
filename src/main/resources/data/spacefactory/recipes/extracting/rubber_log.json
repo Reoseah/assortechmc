@@ -1,0 +1,10 @@
+{
+  "type": "spacefactory:extracting",
+  "ingredient": {
+    "tag": "c:rubber_logs"
+  },
+  "result": {
+    "item": "spacefactory:rubber"
+  },
+  "experience": 0.1
+}

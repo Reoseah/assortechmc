@@ -1,9 +1,0 @@
-{
-  "type": "assortech:macerating",
-  "ingredient": {
-    "tag": "c:diamonds"
-  },
-  "result": {
-    "item": "assortech:diamond_dust"
-  }
-}

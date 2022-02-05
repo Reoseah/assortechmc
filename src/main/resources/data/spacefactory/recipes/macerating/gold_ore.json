@@ -1,0 +1,10 @@
+{
+  "type": "spacefactory:macerating",
+  "ingredient": {
+    "tag": "minecraft:gold_ores"
+  },
+  "result": {
+    "item": "spacefactory:gold_dust",
+    "count": 2
+  }
+}

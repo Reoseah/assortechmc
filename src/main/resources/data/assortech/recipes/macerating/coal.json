@@ -1,9 +1,0 @@
-{
-  "type": "assortech:macerating",
-  "ingredient": {
-    "item": "minecraft:coal"
-  },
-  "result": {
-    "item": "assortech:coal_dust"
-  }
-}

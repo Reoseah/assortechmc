@@ -1,9 +1,0 @@
-{
-  "type": "assortech:macerating",
-  "ingredient": {
-    "tag": "c:bronze_ingots"
-  },
-  "result": {
-    "item": "assortech:bronze_dust"
-  }
-}

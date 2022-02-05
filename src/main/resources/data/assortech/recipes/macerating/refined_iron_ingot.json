@@ -1,9 +1,0 @@
-{
-  "type": "assortech:macerating",
-  "ingredient": {
-    "item": "assortech:refined_iron_ingot"
-  },
-  "result": {
-    "item": "assortech:refined_iron_dust"
-  }
-}

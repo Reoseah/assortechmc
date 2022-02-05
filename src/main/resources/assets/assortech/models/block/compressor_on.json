@@ -1,9 +1,0 @@
-{
-  "parent": "minecraft:block/orientable_with_bottom",
-  "textures": {
-    "top": "assortech:block/compressor_top",
-    "front": "assortech:block/compressor_front_on",
-    "side": "assortech:block/machine_side",
-    "bottom": "assortech:block/machine_bottom"
-  }
-}

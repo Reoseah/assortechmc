@@ -1,0 +1,11 @@
+{
+  "type": "spacefactory:extracting",
+  "ingredient": {
+    "tag": "c:raw_rubber"
+  },
+  "result": {
+    "item": "spacefactory:rubber",
+    "count": 3
+  },
+  "experience": 0.25
+}

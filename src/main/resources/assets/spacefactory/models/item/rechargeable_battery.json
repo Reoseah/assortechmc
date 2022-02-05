@@ -1,0 +1,44 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "spacefactory:item/rechargeable_battery"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "spacefactory:energy": 500
+      },
+      "model": "spacefactory:item/rechargeable_battery_1"
+    },
+    {
+      "predicate": {
+        "spacefactory:energy": 2000
+      },
+      "model": "spacefactory:item/rechargeable_battery_2"
+    },
+    {
+      "predicate": {
+        "spacefactory:energy": 4000
+      },
+      "model": "spacefactory:item/rechargeable_battery_3"
+    },
+    {
+      "predicate": {
+        "spacefactory:energy": 6000
+      },
+      "model": "spacefactory:item/rechargeable_battery_4"
+    },
+    {
+      "predicate": {
+        "spacefactory:energy": 8000
+      },
+      "model": "spacefactory:item/rechargeable_battery_5"
+    },
+    {
+      "predicate": {
+        "spacefactory:energy": 9500
+      },
+      "model": "spacefactory:item/rechargeable_battery_6"
+    }
+  ]
+}

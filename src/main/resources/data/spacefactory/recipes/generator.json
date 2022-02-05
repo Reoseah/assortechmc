@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "RRR",
+    "W#W"
+  ],
+  "key": {
+    "#": {
+      "tag": "c:machine_blocks"
+    },
+    "C": {
+      "tag": "c:circuits"
+    },
+    "W": {
+      "tag": "spacefactory:copper_cables"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "result": {
+    "item": "spacefactory:generator"
+  }
+}

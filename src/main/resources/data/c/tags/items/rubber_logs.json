@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "#assortech:rubber_logs",
+    "#spacefactory:rubber_logs",
     {
       "required": false,
       "id": "techreborn:rubber_log"

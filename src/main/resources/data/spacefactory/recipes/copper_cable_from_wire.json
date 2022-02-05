@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "spacefactory:copper_wires"
+    },
+    {
+      "tag": "c:rubber"
+    }
+  ],
+  "result": {
+    "item": "spacefactory:copper_cable"
+  }
+}

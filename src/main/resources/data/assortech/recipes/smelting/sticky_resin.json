@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:smelting",
-  "ingredient": {
-    "item": "assortech:sticky_resin"
-  },
-  "result": "assortech:rubber",
-  "experience": 0.25
-}

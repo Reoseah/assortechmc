@@ -1,0 +1,10 @@
+{
+  "type": "spacefactory:compressing",
+  "ingredient": {
+    "item": "spacefactory:arachnolactam",
+    "count": 3
+  },
+  "result": {
+    "item": "spacefactory:hyperstrand"
+  }
+}

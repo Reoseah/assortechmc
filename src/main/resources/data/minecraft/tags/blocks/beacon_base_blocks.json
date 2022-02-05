@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "assortech:tin_block",
-    "assortech:bronze_block"
+    "spacefactory:tin_block",
+    "spacefactory:bronze_block"
   ]
 }

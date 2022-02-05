@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/orientable_with_bottom",
+  "textures": {
+    "top": "spacefactory:block/compressor_top",
+    "front": "spacefactory:block/compressor_front",
+    "side": "spacefactory:block/machine_side",
+    "bottom": "spacefactory:block/machine_bottom"
+  }
+}
