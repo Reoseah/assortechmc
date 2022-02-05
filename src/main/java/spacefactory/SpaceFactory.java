@@ -1,17 +1,5 @@
 package spacefactory;
 
-import spacefactory.block.*;
-import spacefactory.block.entity.*;
-import spacefactory.feature.RubberFoliagePlacer;
-import spacefactory.item.AccessibleAxeItem;
-import spacefactory.item.AccessiblePickaxeItem;
-import spacefactory.item.EnergyCrystalItem;
-import spacefactory.item.RechargeableBatteryItem;
-import spacefactory.item.material.AssortechArmorMaterials;
-import spacefactory.item.material.AssortechToolMaterials;
-import spacefactory.mixin.FoliagePlacerTypeInvoker;
-import spacefactory.recipe.*;
-import spacefactory.screen.*;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
@@ -45,6 +33,16 @@ import net.minecraft.world.gen.stateprovider.BlockStateProvider;
 import net.minecraft.world.gen.stateprovider.SimpleBlockStateProvider;
 import net.minecraft.world.gen.stateprovider.WeightedBlockStateProvider;
 import net.minecraft.world.gen.trunk.StraightTrunkPlacer;
+import spacefactory.block.*;
+import spacefactory.block.entity.*;
+import spacefactory.feature.RubberFoliagePlacer;
+import spacefactory.item.AccessibleAxeItem;
+import spacefactory.item.AccessiblePickaxeItem;
+import spacefactory.item.material.AssortechArmorMaterials;
+import spacefactory.item.material.AssortechToolMaterials;
+import spacefactory.mixin.FoliagePlacerTypeInvoker;
+import spacefactory.recipe.*;
+import spacefactory.screen.*;
 import team.reborn.energy.api.EnergyStorage;
 
 public class SpaceFactory implements ModInitializer {
@@ -60,7 +58,6 @@ public class SpaceFactory implements ModInitializer {
         register(Registry.BLOCK, "macerator", SFBlocks.MACERATOR);
         register(Registry.BLOCK, "compressor", SFBlocks.COMPRESSOR);
         register(Registry.BLOCK, "extractor", SFBlocks.EXTRACTOR);
-        register(Registry.BLOCK, "ore_washer", SFBlocks.ORE_WASHER);
         // Cables
         register(Registry.BLOCK, "copper_wire", SFBlocks.COPPER_WIRE);
         register(Registry.BLOCK, "copper_cable", SFBlocks.COPPER_CABLE);
@@ -112,7 +109,6 @@ public class SpaceFactory implements ModInitializer {
         register(Registry.ITEM, "macerator", new BlockItem(SFBlocks.MACERATOR, SFItems.settings()));
         register(Registry.ITEM, "compressor", new BlockItem(SFBlocks.COMPRESSOR, SFItems.settings()));
         register(Registry.ITEM, "extractor", new BlockItem(SFBlocks.EXTRACTOR, SFItems.settings()));
-        register(Registry.ITEM, "ore_washer", new BlockItem(SFBlocks.ORE_WASHER, SFItems.settings()));
         // Cables
         register(Registry.ITEM, "copper_wire", new BlockItem(SFBlocks.COPPER_WIRE, SFItems.settings()));
         register(Registry.ITEM, "copper_cable", new BlockItem(SFBlocks.COPPER_CABLE, SFItems.settings()));
@@ -177,9 +173,6 @@ public class SpaceFactory implements ModInitializer {
         register(Registry.ITEM, "bronze_leggings", SFItems.BRONZE_LEGGINGS);
         register(Registry.ITEM, "bronze_boots", SFItems.BRONZE_BOOTS);
 
-        register(Registry.ITEM, "rechargeable_battery", SFItems.RECHARGEABLE_BATTERY);
-        register(Registry.ITEM, "energy_crystal", SFItems.ENERGY_CRYSTAL);
-
         ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(SFBlocks.RUBBER_SAPLING.asItem(), 0.3F);
         ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(SFBlocks.RUBBER_LEAVES.asItem(), 0.3F);
 
@@ -233,7 +226,6 @@ public class SpaceFactory implements ModInitializer {
         public static final Block MACERATOR = new MaceratorBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS));
         public static final Block COMPRESSOR = new CompressorBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS));
         public static final Block EXTRACTOR = new ExtractorBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS));
-        public static final Block ORE_WASHER = new OreWasherBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS));
         // Cables
         public static final Block COPPER_WIRE = new CableBlock(1, FabricBlockSettings.of(Material.METAL).strength(0.5F).sounds(BlockSoundGroup.WOOL).breakByHand(true));
         public static final Block COPPER_CABLE = new CableBlock(2, FabricBlockSettings.of(Material.METAL).strength(0.5F).breakByHand(true));
@@ -306,8 +298,6 @@ public class SpaceFactory implements ModInitializer {
         public static final Item BRONZE_CHESTPLATE = new ArmorItem(AssortechArmorMaterials.BRONZE, EquipmentSlot.CHEST, settings());
         public static final Item BRONZE_LEGGINGS = new ArmorItem(AssortechArmorMaterials.BRONZE, EquipmentSlot.LEGS, settings());
         public static final Item BRONZE_BOOTS = new ArmorItem(AssortechArmorMaterials.BRONZE, EquipmentSlot.FEET, settings());
-        public static final Item RECHARGEABLE_BATTERY = new RechargeableBatteryItem(settings().maxCount(1).rarity(Rarity.RARE));
-        public static final Item ENERGY_CRYSTAL = new EnergyCrystalItem(settings().maxCount(1).rarity(Rarity.RARE));
     }
 
     public static class SFBlockEntityTypes {

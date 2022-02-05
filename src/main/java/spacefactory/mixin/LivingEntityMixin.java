@@ -1,6 +1,6 @@
 package spacefactory.mixin;
 
-import spacefactory.item.NanoArmorItem;
+import spacefactory.item.ElectricArmorItem;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
@@ -17,6 +17,6 @@ public class LivingEntityMixin {
         if (!(entity instanceof PlayerEntity)) {
             return;
         }
-        NanoArmorItem.handlePlayerDamage((PlayerEntity) entity, source, amount);
+        ElectricArmorItem.handlePlayerDamage((PlayerEntity) entity, source, amount);
     }
 }

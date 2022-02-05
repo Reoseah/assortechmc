@@ -1,7 +1,5 @@
 package spacefactory.item;
 
-import spacefactory.api.EnergyItem;
-import spacefactory.api.EnergyTier;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import net.fabricmc.fabric.api.tool.attribute.v1.DynamicAttributeTool;
@@ -23,29 +21,30 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
+import spacefactory.api.EnergyItem;
+import spacefactory.api.EnergyTier;
 import team.reborn.energy.api.base.SimpleBatteryItem;
 
 import java.util.List;
 import java.util.UUID;
 
-public class NanoArmorItem extends ArmorItem implements EnergyItem, DynamicAttributeTool {
-    public static final int[] CHARGED_PROTECTION = new int[]{3, 6, 8, 3};
-    private static final UUID[] MODIFIERS = new UUID[]{UUID.fromString("845DB27C-C624-495F-8C9F-6020A9A58B6B"), UUID.fromString("D8499B04-0E66-4726-AB29-64469D734E0D"), UUID.fromString("9F3D476D-C118-4544-8365-64846904B48E"), UUID.fromString("2AD3F246-FEE1-4E67-B886-69FD380BB150")};
+public abstract class ElectricArmorItem extends ArmorItem implements EnergyItem, DynamicAttributeTool {
+    public static final int[] CHARGED_PROTECTION = {3, 6, 8, 3};
+    private static final UUID[] MODIFIERS = { //
+            UUID.fromString("845DB27C-C624-495F-8C9F-6020A9A58B6B"), //
+            UUID.fromString("D8499B04-0E66-4726-AB29-64469D734E0D"), //
+            UUID.fromString("9F3D476D-C118-4544-8365-64846904B48E"), //
+            UUID.fromString("2AD3F246-FEE1-4E67-B886-69FD380BB150")};
 
     public static final int ENERGY_COST = 500;
 
-    public NanoArmorItem(ArmorMaterial material, EquipmentSlot slot, Settings settings) {
+    public ElectricArmorItem(ArmorMaterial material, EquipmentSlot slot, Settings settings) {
         super(material, slot, settings);
     }
 
     @Override
     public EnergyTier getEnergyTier() {
         return EnergyTier.MEDIUM;
-    }
-
-    @Override
-    public long getEnergyCapacity() {
-        return EnergyCrystalItem.CAPACITY;
     }
 
     @Override
@@ -94,7 +93,7 @@ public class NanoArmorItem extends ArmorItem implements EnergyItem, DynamicAttri
         }
         for (EquipmentSlot slot : EquipmentSlot.values()) {
             ItemStack stack = entity.getEquippedStack(slot);
-            if (stack.getItem() instanceof NanoArmorItem) {
+            if (stack.getItem() instanceof ElectricArmorItem) {
                 SimpleBatteryItem.setStoredEnergyUnchecked(stack, Math.max(0, SimpleBatteryItem.getStoredEnergyUnchecked(stack) - ENERGY_COST * (long) damage));
                 entity.equipStack(slot, stack);
             }
