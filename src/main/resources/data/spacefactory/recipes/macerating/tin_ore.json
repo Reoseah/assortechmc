@@ -4,7 +4,7 @@
     "tag": "c:tin_ores"
   },
   "result": {
-    "item": "spacefactory:tin_dust",
+    "item": "spacefactory:raw_tin",
     "count": 2
   }
 }

@@ -4,7 +4,7 @@
     "tag": "c:iron_ores"
   },
   "result": {
-    "item": "spacefactory:iron_dust",
+    "item": "minecraft:raw_iron",
     "count": 2
   }
 }

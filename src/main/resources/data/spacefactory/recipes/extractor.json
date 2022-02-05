@@ -1,7 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "GCG",
+    "ICI",
     "G#G"
   ],
   "key": {
@@ -13,6 +13,9 @@
     },
     "G": {
       "item": "minecraft:glass"
+    },
+    "I": {
+      "item": "minecraft:gold_ingot"
     }
   },
   "result": {

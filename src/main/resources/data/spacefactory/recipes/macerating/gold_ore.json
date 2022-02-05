@@ -4,7 +4,7 @@
     "tag": "minecraft:gold_ores"
   },
   "result": {
-    "item": "spacefactory:gold_dust",
+    "item": "minecraft:raw_gold",
     "count": 2
   }
 }
