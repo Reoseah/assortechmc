@@ -8,12 +8,12 @@
         }
     },
     "textures": {
-        "particle": "spacefactory:block/battery_box_front",
-        "down": "block/barrel_bottom",
-        "up": "block/barrel_bottom",
-        "north": "spacefactory:block/battery_box_front",
-        "east": "block/barrel_bottom",
-        "south": "block/barrel_bottom",
-        "west": "block/barrel_bottom"
+        "particle": "spacefactory:block/battery_front",
+        "down": "spacefactory:block/machine",
+        "up": "spacefactory:block/machine",
+        "north": "spacefactory:block/battery_front",
+        "east": "spacefactory:block/battery_side",
+        "south": "spacefactory:block/battery_side",
+        "west": "spacefactory:block/battery_side"
     }
 }

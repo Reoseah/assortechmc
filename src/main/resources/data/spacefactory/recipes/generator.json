@@ -1,21 +1,19 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "RRR",
-    "W#W"
+    "C",
+    "#",
+    "F"
   ],
   "key": {
     "#": {
       "tag": "c:machine_blocks"
     },
     "C": {
-      "tag": "c:circuits"
+      "tag": "c:copper_cables"
     },
-    "W": {
-      "tag": "spacefactory:copper_cables"
-    },
-    "I": {
-      "item": "minecraft:iron_ingot"
+    "F": {
+      "item": "minecraft:furnace"
     }
   },
   "result": {

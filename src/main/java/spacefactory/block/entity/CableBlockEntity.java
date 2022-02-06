@@ -1,6 +1,8 @@
 package spacefactory.block.entity;
 
+import net.minecraft.util.math.MathHelper;
 import spacefactory.SpaceFactory;
+import spacefactory.api.EnergyTier;
 import spacefactory.block.CableBlock;
 import com.google.common.collect.MapMaker;
 import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
@@ -34,11 +36,7 @@ public class CableBlockEntity extends BlockEntity {
     }
 
     protected int getTransferLimit() {
-        return 32;
-    }
-
-    protected void onEnergyTransfer(int amount) {
-        this.current += amount;
+        return EnergyTier.MEDIUM.transferRate;
     }
 
     public static void tick(World world, BlockPos pos, BlockState state, CableBlockEntity be) {
@@ -120,6 +118,13 @@ public class CableBlockEntity extends BlockEntity {
                 this.cache.put(pos, CablePath.buildPaths(this.world, pos, false));
             }
 
+            if (this.cache.get(pos).size() == 0) {
+                return 0;
+            }
+
+            long average = -Math.floorDiv(-amount, this.cache.get(pos).size()); // effectively "ceilDiv"
+            long excess = 0;
+
             for (Iterator<CablePath> it = this.cache.get(pos).iterator(); it.hasNext(); ) {
                 CablePath path = it.next();
                 EnergyStorage endpoint = EnergyStorage.SIDED.find(this.world, path.end, path.side);
@@ -130,8 +135,10 @@ public class CableBlockEntity extends BlockEntity {
                     }
                     continue;
                 }
-                long inserted = endpoint.insert(left, transaction);
+                long min = Math.min(left, average + excess);
+                long inserted = endpoint.insert(min, transaction);
                 left -= inserted;
+                excess = min - inserted;
 
                 for (BlockPos cablePos : path.cables) {
                     BlockEntity cablePosEntity = this.world.getBlockEntity(cablePos);

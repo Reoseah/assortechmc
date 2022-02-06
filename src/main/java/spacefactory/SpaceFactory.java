@@ -6,7 +6,9 @@ import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricMaterialBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
+import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
+import net.fabricmc.fabric.api.tag.TagFactory;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.EquipmentSlot;
@@ -136,6 +138,7 @@ public class SpaceFactory implements ModInitializer {
         register(Registry.ITEM, "bronze_ingot", SFItems.BRONZE_INGOT);
         register(Registry.ITEM, "refined_iron_ingot", SFItems.REFINED_IRON_INGOT);
         register(Registry.ITEM, "iridium_ingot", SFItems.IRIDIUM_INGOT);
+        register(Registry.ITEM, "iridium_bronze_ingot", SFItems.IRIDIUM_BRONZE_INGOT);
 
         register(Registry.ITEM, "copper_nugget", SFItems.COPPER_NUGGET);
         register(Registry.ITEM, "tin_nugget", SFItems.TIN_NUGGET);
@@ -151,6 +154,7 @@ public class SpaceFactory implements ModInitializer {
         register(Registry.ITEM, "bronze_dust", SFItems.BRONZE_DUST);
         register(Registry.ITEM, "refined_iron_dust", SFItems.REFINED_IRON_DUST);
         register(Registry.ITEM, "iridium_dust", SFItems.IRIDIUM_DUST);
+        register(Registry.ITEM, "iridium_bronze_dust", SFItems.IRIDIUM_BRONZE_DUST);
         register(Registry.ITEM, "netherite_scrap_dust", SFItems.NETHERITE_SCRAP_DUST);
 
         register(Registry.ITEM, "small_refined_iron_dust", SFItems.SMALL_REFINED_IRON_DUST);
@@ -158,6 +162,7 @@ public class SpaceFactory implements ModInitializer {
 
         register(Registry.ITEM, "raw_tin", SFItems.RAW_TIN);
         register(Registry.ITEM, "raw_iridium", SFItems.RAW_IRIDIUM);
+        register(Registry.ITEM, "eldritch_scrap", SFItems.ELDRITCH_SCRAP);
 
         register(Registry.ITEM, "bronze_sword", SFItems.BRONZE_SWORD);
         register(Registry.ITEM, "bronze_shovel", SFItems.BRONZE_SHOVEL);
@@ -168,6 +173,8 @@ public class SpaceFactory implements ModInitializer {
         register(Registry.ITEM, "bronze_chestplate", SFItems.BRONZE_CHESTPLATE);
         register(Registry.ITEM, "bronze_leggings", SFItems.BRONZE_LEGGINGS);
         register(Registry.ITEM, "bronze_boots", SFItems.BRONZE_BOOTS);
+
+        FuelRegistry.INSTANCE.add(TagFactory.ITEM.create(new Identifier("c:rubber")), 100);
 
         ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(SFBlocks.RUBBER_SAPLING.asItem(), 0.3F);
         ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(SFBlocks.RUBBER_LEAVES.asItem(), 0.3F);
@@ -258,6 +265,7 @@ public class SpaceFactory implements ModInitializer {
         public static final Item BRONZE_INGOT = new Item(settings());
         public static final Item REFINED_IRON_INGOT = new Item(settings());
         public static final Item IRIDIUM_INGOT = new Item(settings().rarity(Rarity.EPIC));
+        public static final Item IRIDIUM_BRONZE_INGOT = new Item(settings().rarity(Rarity.UNCOMMON));
 
         public static final Item COPPER_NUGGET = new Item(settings());
         public static final Item TIN_NUGGET = new Item(settings());
@@ -272,14 +280,16 @@ public class SpaceFactory implements ModInitializer {
         public static final Item TIN_DUST = new Item(settings());
         public static final Item BRONZE_DUST = new Item(settings());
         public static final Item REFINED_IRON_DUST = new Item(settings());
-        public static final Item IRIDIUM_DUST = new Item(settings().rarity(Rarity.EPIC));
+        public static final Item IRIDIUM_DUST = new Item(settings().rarity(Rarity.RARE));
+        public static final Item IRIDIUM_BRONZE_DUST = new Item(settings().rarity(Rarity.UNCOMMON));
         public static final Item NETHERITE_SCRAP_DUST = new Item(settings());
 
         public static final Item SMALL_REFINED_IRON_DUST = new Item(settings());
-        public static final Item SMALL_IRIDIUM_DUST = new Item(settings().rarity(Rarity.EPIC));
+        public static final Item SMALL_IRIDIUM_DUST = new Item(settings().rarity(Rarity.RARE));
 
         public static final Item RAW_TIN = new Item(settings());
         public static final Item RAW_IRIDIUM = new Item(settings().rarity(Rarity.RARE));
+        public static final Item ELDRITCH_SCRAP = new Item(settings());
 
         public static final Item BRONZE_SWORD = new SwordItem(AssortechToolMaterials.BRONZE, 3, -2.4F, settings());
         public static final Item BRONZE_SHOVEL = new ShovelItem(AssortechToolMaterials.BRONZE, 1.5F, -3.0F, settings());

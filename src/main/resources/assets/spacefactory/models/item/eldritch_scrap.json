@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "spacefactory:item/nano_leggings"
+    "layer0": "spacefactory:item/eldritch_scrap"
   }
 }

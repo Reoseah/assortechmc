@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "c:copper_dusts"
+    },
+    {
+      "tag": "c:copper_dusts"
+    },
+    {
+      "tag": "c:copper_dusts"
+    },
+    {
+      "tag": "c:iridium_dusts"
+    },
+    {
+      "tag": "c:gold_dusts"
+    }
+  ],
+  "result": {
+    "item": "spacefactory:iridium_bronze_dust",
+    "count": 4
+  }
+}
