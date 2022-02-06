@@ -1,8 +1,5 @@
 package spacefactory.block.entity;
 
-import spacefactory.SpaceFactory;
-import spacefactory.api.EnergyTier;
-import spacefactory.screen.BatteryBoxScreenHandler;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -12,12 +9,15 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
+import spacefactory.SpaceFactory;
+import spacefactory.api.EnergyTier;
+import spacefactory.screen.BatteryBoxScreenHandler;
 import team.reborn.energy.api.EnergyStorage;
 import team.reborn.energy.api.EnergyStorageUtil;
 import team.reborn.energy.api.base.DelegatingEnergyStorage;
 
 public class BatteryBoxBlockEntity extends ElectricInventoryBlockEntity {
-    public static final int CAPACITY = 40000;
+    public static final int CAPACITY = 100000;
 
     public BatteryBoxBlockEntity(BlockPos pos, BlockState state) {
         super(SpaceFactory.SFBlockEntityTypes.BATTERY_BOX, pos, state);
@@ -55,6 +55,10 @@ public class BatteryBoxBlockEntity extends ElectricInventoryBlockEntity {
         EnergyStorageUtil.move(be.getItemApi(0, EnergyStorage.ITEM), be.energy, Integer.MAX_VALUE, null);
         EnergyStorageUtil.move(be.energy, be.getItemApi(1, EnergyStorage.ITEM), Integer.MAX_VALUE, null);
         EnergyStorageUtil.move(be.energy, EnergyStorage.SIDED.find(world, pos.offset(be.getCachedState().get(Properties.FACING)), be.getCachedState().get(Properties.FACING).getOpposite()), Integer.MAX_VALUE, null);
+        if (world.getTime() % 10 == 0 && be.energy.amount > 0) {
+            be.energy.amount -= 1;
+            be.markDirty();
+        }
     }
 
     @Override
