@@ -21,7 +21,6 @@
   "block.spacefactory.resin_rubber_log": "Sapping Rubber Log",
   "block.spacefactory.rubber_leaves": "Rubber Tree Leaves",
   "block.spacefactory.rubber_sapling": "Rubber Tree Sapling",
-  "block.spacefactory.alloy_smeltery": "Alloy Smeltery",
 
   "item.spacefactory.sticky_resin": "Sticky Resin",
   "item.spacefactory.rubber": "Rubber",
@@ -56,6 +55,7 @@
   "item.spacefactory.illumina_seed": "Illumina Seed",
   "item.spacefactory.illumina_crystal": "Illumina Crystal",
   "item.spacefactory.ascended_circuit": "Ascended Circuit",
+  "item.spacefactory.vanovoltaic_cell": "Vanovoltaic Cell",
   "item.spacefactory.small_refined_iron_dust": "Tiny Pile of Refined Iron Dust",
   "item.spacefactory.small_iridium_dust": "Tiny Pile of Iridium Dust",
   "item.spacefactory.bronze_sword": "Bronze Sword",
@@ -69,7 +69,7 @@
   "item.spacefactory.bronze_boots": "Bronze Boots",
 
   "container.spacefactory.energy_storage": "%s / %s EU",
-  "container.spacefactory.energy_per_tick": "%s EU/tick",
+  "container.spacefactory.energy_per_tick": "%s EU/t",
 
   "category.spacefactory.macerating": "Macerating",
   "category.spacefactory.compressing": "Compressing",

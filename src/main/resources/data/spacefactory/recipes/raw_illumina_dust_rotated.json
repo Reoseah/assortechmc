@@ -1,9 +1,9 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "LGL",
-    "GDG",
-    "LGL"
+    "GLG",
+    "LDL",
+    "GLG"
   ],
   "key": {
     "D": {

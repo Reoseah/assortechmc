@@ -40,6 +40,7 @@ import spacefactory.block.entity.*;
 import spacefactory.feature.RubberFoliagePlacer;
 import spacefactory.item.AccessibleAxeItem;
 import spacefactory.item.AccessiblePickaxeItem;
+import spacefactory.item.VanovoltaicCellItem;
 import spacefactory.item.material.AssortechArmorMaterials;
 import spacefactory.item.material.AssortechToolMaterials;
 import spacefactory.mixin.FoliagePlacerTypeInvoker;
@@ -75,8 +76,6 @@ public class SpaceFactory implements ModInitializer {
         // TODO stripped rubber log, rubber wood, stripped rubber wood
         register(Registry.BLOCK, "rubber_leaves", SFBlocks.RUBBER_LEAVES);
         register(Registry.BLOCK, "rubber_sapling", SFBlocks.RUBBER_SAPLING);
-
-        register(Registry.BLOCK, "alloy_smeltery", SFBlocks.ALLOY_SMELTERY);
 
         FlammableBlockRegistry.getDefaultInstance().add(SFBlocks.RUBBER_LOG, 5, 5);
         FlammableBlockRegistry.getDefaultInstance().add(SFBlocks.RESIN_RUBBER_LOG, 5, 5);
@@ -125,8 +124,7 @@ public class SpaceFactory implements ModInitializer {
         register(Registry.ITEM, "rubber_leaves", new BlockItem(SFBlocks.RUBBER_LEAVES, SFItems.settings()));
         register(Registry.ITEM, "rubber_sapling", new BlockItem(SFBlocks.RUBBER_SAPLING, SFItems.settings()));
 
-        register(Registry.ITEM, "alloy_smeltery", new BlockItem(SFBlocks.ALLOY_SMELTERY, SFItems.settings().group(null)));
-
+        // Crafting Items
         register(Registry.ITEM, "sticky_resin", SFItems.STICKY_RESIN);
         register(Registry.ITEM, "rubber", SFItems.RUBBER);
         register(Registry.ITEM, "circuit", SFItems.CIRCUIT);
@@ -136,6 +134,7 @@ public class SpaceFactory implements ModInitializer {
         register(Registry.ITEM, "illumina_seed", SFItems.ILLUMINA_SEED);
         register(Registry.ITEM, "illumina_crystal", SFItems.ILLUMINA_CRYSTAL);
         register(Registry.ITEM, "ascended_circuit", SFItems.ASCENDED_CIRCUIT);
+        register(Registry.ITEM, "vanovoltaic_cell", SFItems.VANOVOLTAIC_CELL);
 
         register(Registry.ITEM, "tin_ingot", SFItems.TIN_INGOT);
         register(Registry.ITEM, "bronze_ingot", SFItems.BRONZE_INGOT);
@@ -168,6 +167,7 @@ public class SpaceFactory implements ModInitializer {
         register(Registry.ITEM, "raw_iridium", SFItems.RAW_IRIDIUM);
         register(Registry.ITEM, "eldritch_scrap", SFItems.ELDRITCH_SCRAP);
 
+        // Other
         register(Registry.ITEM, "bronze_sword", SFItems.BRONZE_SWORD);
         register(Registry.ITEM, "bronze_shovel", SFItems.BRONZE_SHOVEL);
         register(Registry.ITEM, "bronze_pickaxe", SFItems.BRONZE_PICKAXE);
@@ -220,7 +220,6 @@ public class SpaceFactory implements ModInitializer {
         private static final AbstractBlock.Settings TIN_SETTINGS = FabricBlockSettings.of(Material.METAL, MapColor.LIGHT_GRAY).strength(3F, 6F).sounds(BlockSoundGroup.METAL);
         private static final AbstractBlock.Settings BRONZE_SETTINGS = FabricBlockSettings.of(Material.METAL, MapColor.ORANGE).strength(3F, 6F).sounds(BlockSoundGroup.METAL);
         private static final AbstractBlock.Settings MACHINE_SETTINGS = FabricBlockSettings.of(AtMaterials.MACHINE).strength(3F, 6F).sounds(BlockSoundGroup.METAL).requiresTool();
-        private static final AbstractBlock.Settings BRICK_DEVICE = FabricBlockSettings.of(Material.STONE, MapColor.RED).luminance(state -> state.get(Properties.LIT) ? 15 : 0).strength(3F, 6F).requiresTool();
 
         // Generators
         public static final Block GENERATOR = new GeneratorBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 15 : 0));
@@ -248,7 +247,6 @@ public class SpaceFactory implements ModInitializer {
         public static final Block RUBBER_LEAVES = new LeavesBlock(FabricBlockSettings.copyOf(Blocks.JUNGLE_LEAVES));
         public static final Block RUBBER_SAPLING = new RubberSaplingBlock(FabricBlockSettings.copyOf(Blocks.JUNGLE_SAPLING));
 
-        public static final Block ALLOY_SMELTERY = new AlloySmelteryBlock(FabricBlockSettings.copyOf(BRICK_DEVICE));
     }
 
     public static class SFItems {
@@ -268,6 +266,7 @@ public class SpaceFactory implements ModInitializer {
         public static final Item ILLUMINA_SEED = new Item(settings().rarity(Rarity.UNCOMMON));
         public static final Item ILLUMINA_CRYSTAL = new Item(settings().rarity(Rarity.UNCOMMON));
         public static final Item ASCENDED_CIRCUIT = new Item(settings().rarity(Rarity.UNCOMMON));
+        public static final Item VANOVOLTAIC_CELL = new VanovoltaicCellItem(settings().rarity(Rarity.EPIC));
 
         public static final Item TIN_INGOT = new Item(settings());
         public static final Item BRONZE_INGOT = new Item(settings());

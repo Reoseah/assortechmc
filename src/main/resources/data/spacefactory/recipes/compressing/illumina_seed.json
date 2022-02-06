@@ -2,7 +2,7 @@
   "type": "spacefactory:compressing",
   "ingredient": {    
     "item": "spacefactory:illumina_seed",
-    "count": 8
+    "count": 4
   },
   "result": {
     "item": "spacefactory:illumina_crystal"

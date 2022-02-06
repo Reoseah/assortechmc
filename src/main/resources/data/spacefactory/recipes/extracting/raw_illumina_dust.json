@@ -1,7 +1,8 @@
 {
   "type": "spacefactory:extracting",
   "ingredient": {
-    "item": "spacefactory:raw_illumina_dust"
+    "item": "spacefactory:raw_illumina_dust",
+    "count": 2
   },
   "result": {
     "item": "spacefactory:illumina_seed"

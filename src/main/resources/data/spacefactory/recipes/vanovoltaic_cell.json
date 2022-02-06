@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "C",
+    "I",
+    "C"
+  ],
+  "key": {
+    "I": {
+      "item": "spacefactory:illumina_crystal"
+    },
+    "C": {
+      "item": "spacefactory:ascended_circuit"
+    }
+  },
+  "result": {
+    "item": "spacefactory:vanovoltaic_cell"
+  }
+}

@@ -11,6 +11,14 @@ import net.minecraft.recipe.RecipeType;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 
+/**
+ * Empty recipe, doesn't match anything even if you try to search it.
+ *
+ * Allows to override any recipe like this:
+ * <pre>
+ * { "type": "spacefactory:dummy" }
+ * </pre>
+ */
 public class DummyRecipe implements Recipe<Inventory> {
     public static final DummyRecipe INSTANCE = new DummyRecipe();
 
