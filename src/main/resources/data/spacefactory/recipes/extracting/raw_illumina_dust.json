@@ -1,0 +1,10 @@
+{
+  "type": "spacefactory:extracting",
+  "ingredient": {
+    "item": "spacefactory:raw_illumina_dust"
+  },
+  "result": {
+    "item": "spacefactory:illumina_seed"
+  },
+  "experience": 0.1
+}

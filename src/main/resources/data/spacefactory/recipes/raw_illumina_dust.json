@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "LGL",
+    "GDG",
+    "LGL"
+  ],
+  "key": {
+    "D": {
+      "tag": "c:diamond_dusts"
+    },
+    "G": {
+      "item": "minecraft:glowstone_dust"
+    },
+    "L": {
+      "item": "minecraft:lapis_lazuli"
+    }
+  },
+  "result": {
+    "item": "spacefactory:raw_illumina_dust",
+    "count": 4
+  }
+}

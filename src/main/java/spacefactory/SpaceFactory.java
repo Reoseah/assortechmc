@@ -133,6 +133,9 @@ public class SpaceFactory implements ModInitializer {
         register(Registry.ITEM, "arachnolactam", SFItems.ARACHNOLACTAM);
         register(Registry.ITEM, "hyperstrand", SFItems.HYPERSRAND);
         register(Registry.ITEM, "hyperweave", SFItems.HYPERWEAVE);
+        register(Registry.ITEM, "illumina_seed", SFItems.ILLUMINA_SEED);
+        register(Registry.ITEM, "illumina_crystal", SFItems.ILLUMINA_CRYSTAL);
+        register(Registry.ITEM, "ascended_circuit", SFItems.ASCENDED_CIRCUIT);
 
         register(Registry.ITEM, "tin_ingot", SFItems.TIN_INGOT);
         register(Registry.ITEM, "bronze_ingot", SFItems.BRONZE_INGOT);
@@ -156,6 +159,7 @@ public class SpaceFactory implements ModInitializer {
         register(Registry.ITEM, "iridium_dust", SFItems.IRIDIUM_DUST);
         register(Registry.ITEM, "iridium_bronze_dust", SFItems.IRIDIUM_BRONZE_DUST);
         register(Registry.ITEM, "netherite_scrap_dust", SFItems.NETHERITE_SCRAP_DUST);
+        register(Registry.ITEM, "raw_illumina_dust", SFItems.RAW_ILLUMINA_DUST);
 
         register(Registry.ITEM, "small_refined_iron_dust", SFItems.SMALL_REFINED_IRON_DUST);
         register(Registry.ITEM, "small_iridium_dust", SFItems.SMALL_IRIDIUM_DUST);
@@ -260,6 +264,10 @@ public class SpaceFactory implements ModInitializer {
         public static final Item ARACHNOLACTAM = new Item(settings());
         public static final Item HYPERSRAND = new Item(settings().rarity(Rarity.RARE));
         public static final Item HYPERWEAVE = new Item(settings().rarity(Rarity.RARE));
+        public static final Item RAW_ILLUMINA_DUST = new Item(settings());
+        public static final Item ILLUMINA_SEED = new Item(settings().rarity(Rarity.UNCOMMON));
+        public static final Item ILLUMINA_CRYSTAL = new Item(settings().rarity(Rarity.UNCOMMON));
+        public static final Item ASCENDED_CIRCUIT = new Item(settings().rarity(Rarity.UNCOMMON));
 
         public static final Item TIN_INGOT = new Item(settings());
         public static final Item BRONZE_INGOT = new Item(settings());

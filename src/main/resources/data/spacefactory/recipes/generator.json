@@ -10,7 +10,7 @@
       "tag": "c:machine_blocks"
     },
     "C": {
-      "tag": "c:copper_cables"
+      "tag": "spacefactory:copper_cables"
     },
     "F": {
       "item": "minecraft:furnace"
