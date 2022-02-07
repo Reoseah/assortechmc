@@ -1,0 +1,9 @@
+{
+  "type": "spacefactory:extracting",
+  "ingredient": {
+    "item": "spacefactory:crushed_iron_ore"
+  },
+  "result": {
+    "item": "spacefactory:iron_dust"
+  }
+}

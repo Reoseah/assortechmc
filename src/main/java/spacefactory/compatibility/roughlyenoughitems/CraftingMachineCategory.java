@@ -1,8 +1,6 @@
 package spacefactory.compatibility.roughlyenoughitems;
 
-import spacefactory.compatibility.roughlyenoughitems.widgets.EnergyCostWidget;
-import spacefactory.compatibility.roughlyenoughitems.widgets.MachineArrowWidget;
-import com.google.common.collect.Lists;
+import com.google.common.collect.ImmutableList;
 import me.shedaniel.math.Point;
 import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.client.gui.DisplayRenderer;
@@ -15,6 +13,8 @@ import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.entry.EntryStack;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
+import spacefactory.compatibility.roughlyenoughitems.widgets.EnergyCostWidget;
+import spacefactory.compatibility.roughlyenoughitems.widgets.MachineArrowWidget;
 
 import java.util.Collections;
 import java.util.List;
@@ -55,15 +55,15 @@ public class CraftingMachineCategory implements DisplayCategory<CraftingMachineD
 
     public List<Widget> setupDisplay(CraftingMachineDisplay display, Rectangle bounds) {
         Point startPoint = new Point(bounds.getCenterX() - 41, bounds.y + 10);
-        double duration = display.getDuration();
-        List<Widget> widgets = Lists.newArrayList();
-        widgets.add(Widgets.createRecipeBase(bounds));
-        widgets.add(Widgets.createResultSlotBackground(new Point(startPoint.x + 61, startPoint.y + 9)));
-        widgets.add(new EnergyCostWidget(new Rectangle(startPoint.x + 1, startPoint.y + 20, 14, 14)).animationDurationMS(10000.0D));
-        widgets.add(new MachineArrowWidget(new Rectangle(startPoint.x + 24, startPoint.y + 8, 24, 17), this.getArrowType()).animationDurationTicks(duration));
-        widgets.add(Widgets.createSlot(new Point(startPoint.x + 61, startPoint.y + 9)).entries(display.getOutputEntries().get(0)).disableBackground().markOutput());
-        widgets.add(Widgets.createSlot(new Point(startPoint.x + 1, startPoint.y + 1)).entries(display.getInputEntries().get(0)).markInput());
-        return widgets;
+
+        Widget base = Widgets.createRecipeBase(bounds);
+        Widget resultBackground = Widgets.createResultSlotBackground(new Point(startPoint.x + 61, startPoint.y + 9));
+        Widget energy = new EnergyCostWidget(new Rectangle(startPoint.x + 1, startPoint.y + 20, 14, 14)).animationDurationMS(10000.0D);
+        Widget arrow = new MachineArrowWidget(new Rectangle(startPoint.x + 24, startPoint.y + 8, 24, 17), this.getArrowType()).cost(this.getEuPerTick(), this.getEuTotal(display)).animationDurationTicks(display.getDuration());
+        Widget output = Widgets.createSlot(new Point(startPoint.x + 61, startPoint.y + 9)).entries(display.getOutputEntries().get(0)).disableBackground().markOutput();
+        Widget input = Widgets.createSlot(new Point(startPoint.x + 1, startPoint.y + 1)).entries(display.getInputEntries().get(0)).markInput();
+
+        return ImmutableList.of(base, resultBackground, energy, arrow, output, input);
     }
 
     private MachineArrowWidget.Type getArrowType() {
@@ -77,5 +77,13 @@ public class CraftingMachineCategory implements DisplayCategory<CraftingMachineD
             return MachineArrowWidget.Type.EXTRACTING;
         }
         return MachineArrowWidget.Type.DEFAULT;
+    }
+
+    private int getEuPerTick() {
+        return 2;
+    }
+
+    private int getEuTotal(CraftingMachineDisplay display) {
+        return this.getEuPerTick() * display.getDuration();
     }
 }

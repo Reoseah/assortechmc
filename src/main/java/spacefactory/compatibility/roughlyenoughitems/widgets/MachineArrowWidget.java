@@ -1,13 +1,16 @@
 package spacefactory.compatibility.roughlyenoughitems.widgets;
 
-import net.fabricmc.fabric.api.renderer.v1.material.BlendMode;
-import spacefactory.compatibility.roughlyenoughitems.SpaceFactoryREI;
+import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.systems.RenderSystem;
 import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.client.gui.widgets.Arrow;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.Element;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.text.TranslatableText;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.math.MathHelper;
+import spacefactory.compatibility.roughlyenoughitems.SpaceFactoryREI;
 
 import java.util.Collections;
 import java.util.List;
@@ -16,6 +19,7 @@ public class MachineArrowWidget extends Arrow {
     private final Rectangle bounds;
     private final MachineArrowWidget.Type type;
     private double animationDuration = -1.0D;
+    private int euPerTick, euTotal;
 
     public MachineArrowWidget(Rectangle bounds, Type type) {
         this.bounds = new Rectangle(bounds);
@@ -31,6 +35,12 @@ public class MachineArrowWidget extends Arrow {
         if (this.animationDuration <= 0.0D) {
             this.animationDuration = -1.0D;
         }
+    }
+
+    public MachineArrowWidget cost(int euPerTick, int euTotal) {
+        this.euPerTick = euPerTick;
+        this.euTotal = euTotal;
+        return this;
     }
 
     public Rectangle getBounds() {
@@ -55,7 +65,13 @@ public class MachineArrowWidget extends Arrow {
             this.drawTexture(matrices, this.getX(), this.getY(), 0, this.type.uOffset, 24, 17);
         }
 
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+        if (this.isMouseOver(mouseX, mouseY)) {
+            MinecraftClient.getInstance().currentScreen
+                    .renderTooltip(matrices, ImmutableList.of(
+                                    new TranslatableText("container.spacefactory.energy", this.euTotal).formatted(Formatting.GRAY),
+                                    new TranslatableText("container.spacefactory.energy_per_tick", this.euPerTick).formatted(Formatting.GRAY)),
+                            mouseX, mouseY);
+        }
     }
 
     public enum Type {

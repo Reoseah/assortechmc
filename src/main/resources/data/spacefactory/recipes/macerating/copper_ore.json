@@ -4,7 +4,7 @@
     "tag": "c:copper_ores"
   },
   "result": {
-    "item": "spacefactory:copper_dust",
-    "count": 2
+    "item": "spacefactory:crushed_copper_ore",
+    "count": 3
   }
 }

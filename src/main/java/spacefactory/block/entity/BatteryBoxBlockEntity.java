@@ -55,10 +55,10 @@ public class BatteryBoxBlockEntity extends ElectricInventoryBlockEntity {
         EnergyStorageUtil.move(be.getItemApi(0, EnergyStorage.ITEM), be.energy, Integer.MAX_VALUE, null);
         EnergyStorageUtil.move(be.energy, be.getItemApi(1, EnergyStorage.ITEM), Integer.MAX_VALUE, null);
         EnergyStorageUtil.move(be.energy, EnergyStorage.SIDED.find(world, pos.offset(be.getCachedState().get(Properties.FACING)), be.getCachedState().get(Properties.FACING).getOpposite()), Integer.MAX_VALUE, null);
-        if (world.getTime() % 10 == 0 && be.energy.amount > 0) {
-            be.energy.amount -= 1;
-            be.markDirty();
-        }
+//        if (world.getTime() % 10 == 0 && be.energy.amount > 0) {
+//            be.energy.amount -= 1;
+//            be.markDirty();
+//        }
     }
 
     @Override

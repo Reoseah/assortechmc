@@ -4,7 +4,7 @@
     "tag": "minecraft:gold_ores"
   },
   "result": {
-    "item": "minecraft:raw_gold",
-    "count": 2
+    "item": "spacefactory:crushed_gold_ore",
+    "count": 3
   }
 }

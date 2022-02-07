@@ -1,0 +1,9 @@
+{
+  "type": "spacefactory:extracting",
+  "ingredient": {
+    "item": "spacefactory:crushed_copper_ore"
+  },
+  "result": {
+    "item": "spacefactory:copper_dust"
+  }
+}

@@ -164,6 +164,11 @@ public class SpaceFactory implements ModInitializer {
         register(Registry.ITEM, "raw_tin", SFItems.RAW_TIN);
         register(Registry.ITEM, "raw_iridium", SFItems.RAW_IRIDIUM);
 
+        register(Registry.ITEM, "crushed_copper_ore", SFItems.CRUSHED_COPPER_ORE);
+        register(Registry.ITEM, "crushed_iron_ore", SFItems.CRUSHED_IRON_ORE);
+        register(Registry.ITEM, "crushed_gold_ore", SFItems.CRUSHED_GOLD_ORE);
+        register(Registry.ITEM, "crushed_tin_ore", SFItems.CRUSHED_TIN_ORE);
+
         // Other
         register(Registry.ITEM, "bronze_sword", SFItems.BRONZE_SWORD);
         register(Registry.ITEM, "bronze_shovel", SFItems.BRONZE_SHOVEL);
@@ -291,6 +296,11 @@ public class SpaceFactory implements ModInitializer {
 
         public static final Item RAW_TIN = new Item(settings());
         public static final Item RAW_IRIDIUM = new Item(settings().rarity(Rarity.RARE));
+
+        public static final Item CRUSHED_COPPER_ORE = new Item(settings());
+        public static final Item CRUSHED_IRON_ORE = new Item(settings());
+        public static final Item CRUSHED_GOLD_ORE = new Item(settings());
+        public static final Item CRUSHED_TIN_ORE = new Item(settings());
 
         public static final Item BRONZE_SWORD = new SwordItem(AssortechToolMaterials.BRONZE, 3, -2.4F, settings());
         public static final Item BRONZE_SHOVEL = new ShovelItem(AssortechToolMaterials.BRONZE, 1.5F, -3.0F, settings());

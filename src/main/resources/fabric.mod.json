@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "spacefactory",
   "version": "${version}",
-  "name": "Assortech",
+  "name": "Space Factory",
   "description": "Adds generators, machines, materials and equipment, all about creating and using electricity.",
   "authors": [
     "Reoseah"

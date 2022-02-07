@@ -8,16 +8,16 @@ import java.util.Collections;
 import java.util.Optional;
 
 public abstract class CraftingMachineDisplay extends BasicDisplay {
-    private final CraftingMachineRecipe recipe;
+    private final int duration;
 
     public CraftingMachineDisplay(CraftingMachineRecipe recipe) {
         super(SpaceFactoryREI.toIngredientEntries(recipe.getIngredient(), recipe.getIngredientCount()),
                 Collections.singletonList(EntryIngredients.of(recipe.getOutput())),
                 Optional.of(recipe.getId()));
-        this.recipe = recipe;
+        this.duration = recipe.getDuration();
     }
 
     public int getDuration() {
-        return this.recipe.getDuration();
+        return this.duration;
     }
 }

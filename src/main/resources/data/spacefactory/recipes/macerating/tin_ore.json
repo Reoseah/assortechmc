@@ -4,7 +4,7 @@
     "tag": "c:tin_ores"
   },
   "result": {
-    "item": "spacefactory:raw_tin",
-    "count": 2
+    "item": "spacefactory:crushed_tin_ore",
+    "count": 3
   }
 }
