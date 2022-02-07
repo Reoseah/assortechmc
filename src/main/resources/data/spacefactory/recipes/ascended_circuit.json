@@ -1,22 +1,19 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    " S ",
-    "CIC",
-    " B "
+    "C",
+    "#",
+    "I"
   ],
   "key": {
-    "S": {
+    "#": {
       "item": "spacefactory:illumina_seed"
     },
     "I": {
-      "item": "spacefactory:illumina_crystal"
+      "item": "spacefactory:refined_iron_ingot"
     },
     "C": {
       "tag": "c:circuits"
-    },
-    "B": {
-      "item": "spacefactory:iridium_ingot"
     }
   },
   "result": {

@@ -1,16 +1,19 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "C",
-    "I",
-    "C"
+    " C ",
+    "I#I",
+    " C "
   ],
   "key": {
-    "I": {
+    "#": {
       "item": "spacefactory:illumina_crystal"
     },
     "C": {
       "item": "spacefactory:ascended_circuit"
+    },
+    "I": {
+      "tag": "c:iridium_ingots"
     }
   },
   "result": {
