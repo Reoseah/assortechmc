@@ -1,7 +1,0 @@
-{
-  "type": "minecraft:smelting",
-  "ingredient": {
-    "item": "spacefactory:iridium_bronze_dust"
-  },
-  "result": "spacefactory:iridium_bronze_ingot"
-}
