@@ -131,8 +131,8 @@ public class SpaceFactory implements ModInitializer {
         register(Registry.ITEM, "arachnolactam", SFItems.ARACHNOLACTAM);
         register(Registry.ITEM, "hyperstrand", SFItems.HYPERSRAND);
         register(Registry.ITEM, "hyperweave", SFItems.HYPERWEAVE);
-        register(Registry.ITEM, "illumina_seed", SFItems.ILLUMINA_SEED);
         register(Registry.ITEM, "illumina_crystal", SFItems.ILLUMINA_CRYSTAL);
+        register(Registry.ITEM, "illumina_matrix", SFItems.ILLUMINA_MATRIX);
         register(Registry.ITEM, "ascended_circuit", SFItems.ASCENDED_CIRCUIT);
         register(Registry.ITEM, "vanovoltaic_cell", SFItems.VANOVOLTAIC_CELL);
 
@@ -266,8 +266,8 @@ public class SpaceFactory implements ModInitializer {
         public static final Item HYPERSRAND = new Item(settings().rarity(Rarity.RARE));
         public static final Item HYPERWEAVE = new Item(settings().rarity(Rarity.RARE));
         public static final Item RAW_ILLUMINA_DUST = new Item(settings());
-        public static final Item ILLUMINA_SEED = new Item(settings().rarity(Rarity.UNCOMMON));
         public static final Item ILLUMINA_CRYSTAL = new Item(settings().rarity(Rarity.UNCOMMON));
+        public static final Item ILLUMINA_MATRIX = new Item(settings().rarity(Rarity.UNCOMMON));
         public static final Item ASCENDED_CIRCUIT = new Item(settings().rarity(Rarity.UNCOMMON));
         public static final Item VANOVOLTAIC_CELL = new VanovoltaicCellItem(settings().rarity(Rarity.EPIC));
 
