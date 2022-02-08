@@ -12,7 +12,6 @@ public class ExtractorScreenHandler extends CraftingMachineScreenHandler {
         super(SpaceFactory.SFScreenHandlerTypes.EXTRACTOR, syncId, be, player);
     }
 
-    @Environment(EnvType.CLIENT)
     public ExtractorScreenHandler(int syncId, PlayerInventory user) {
         super(SpaceFactory.SFScreenHandlerTypes.EXTRACTOR, syncId, user);
     }

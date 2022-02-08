@@ -7,6 +7,7 @@ import net.minecraft.item.Item;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.tag.ServerTagManagerHolder;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.util.registry.Registry;
@@ -26,6 +27,15 @@ public class ConditionalRecipeSerializer implements RecipeSerializer<Recipe<?>> 
             }
         }
 
+        if (JsonHelper.hasArray(json, "required_tags")) {
+            for (JsonElement requiredItem : JsonHelper.getArray(json, "required_tags")) {
+                String name = JsonHelper.asString(requiredItem, "required tag");
+                Identifier tagId = new Identifier(name);
+                if (!ServerTagManagerHolder.getTagManager().getOrCreateTagGroup(Registry.ITEM_KEY).contains(tagId)) {
+                    return EmptyRecipe.INSTANCE;
+                }
+            }
+        }
         JsonObject recipeJson = JsonHelper.getObject(json, "recipe");
         Identifier recipeType = new Identifier(JsonHelper.getString(recipeJson, "type"));
         RecipeSerializer<?> serializer = Registry.RECIPE_SERIALIZER.get(recipeType);

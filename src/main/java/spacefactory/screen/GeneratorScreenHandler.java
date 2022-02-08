@@ -34,7 +34,6 @@ public class GeneratorScreenHandler extends AtScreenHandler {
         this.addProperty(new ReadProperty(be::getFuelDuration));
     }
 
-    @Environment(EnvType.CLIENT)
     public GeneratorScreenHandler(int syncId, PlayerInventory user) {
         this(syncId, new SimpleInventory(2), user);
 

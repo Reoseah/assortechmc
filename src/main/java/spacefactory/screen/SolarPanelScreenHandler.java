@@ -30,7 +30,6 @@ public class SolarPanelScreenHandler extends AtScreenHandler {
         this.addProperty(new ReadProperty(() -> be.hasSkyView() ? 1 : 0));
     }
 
-    @Environment(EnvType.CLIENT)
     public SolarPanelScreenHandler(int syncId, PlayerInventory user) {
         this(syncId, new SimpleInventory(1), user);
 

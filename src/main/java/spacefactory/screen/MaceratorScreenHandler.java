@@ -12,7 +12,6 @@ public class MaceratorScreenHandler extends CraftingMachineScreenHandler {
         super(SpaceFactory.SFScreenHandlerTypes.MACERATOR, syncId, be, player);
     }
 
-    @Environment(EnvType.CLIENT)
     public MaceratorScreenHandler(int syncId, PlayerInventory user) {
         super(SpaceFactory.SFScreenHandlerTypes.MACERATOR, syncId, user);
     }

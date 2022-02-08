@@ -12,7 +12,6 @@ public class CompressorScreenHandler extends CraftingMachineScreenHandler {
         super(SpaceFactory.SFScreenHandlerTypes.COMPRESSOR, syncId, be, player);
     }
 
-    @Environment(EnvType.CLIENT)
     public CompressorScreenHandler(int syncId, PlayerInventory user) {
         super(SpaceFactory.SFScreenHandlerTypes.COMPRESSOR, syncId, user);
     }

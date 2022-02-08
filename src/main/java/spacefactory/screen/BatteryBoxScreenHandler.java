@@ -31,7 +31,6 @@ public class BatteryBoxScreenHandler extends AtScreenHandler {
         this.addProperty(new ReadProperty(be::getEnergy));
     }
 
-    @Environment(EnvType.CLIENT)
     public BatteryBoxScreenHandler(int syncId, PlayerInventory user) {
         this(syncId, new SimpleInventory(2), user);
 

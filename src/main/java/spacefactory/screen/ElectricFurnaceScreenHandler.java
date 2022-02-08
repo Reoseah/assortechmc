@@ -12,7 +12,6 @@ public class ElectricFurnaceScreenHandler extends CraftingMachineScreenHandler {
         super(SpaceFactory.SFScreenHandlerTypes.ELECTRIC_FURNACE, syncId, be, player);
     }
 
-    @Environment(EnvType.CLIENT)
     public ElectricFurnaceScreenHandler(int syncId, PlayerInventory user) {
         super(SpaceFactory.SFScreenHandlerTypes.ELECTRIC_FURNACE, syncId, user);
     }
