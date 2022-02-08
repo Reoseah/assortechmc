@@ -1,0 +1,15 @@
+{
+  "type": "spacefactory:conditional",
+  "required_tags": [ "c:le_uranium_ingots"  ],
+  "required_items": [ "*:le_uranium_dust"  ],
+
+  "recipe": {
+    "type": "spacefactory:macerating",
+    "ingredient": {
+      "tag": "c:le_uranium_ingots"
+    },
+    "result": {
+      "item": "*:le_uranium_dust"
+    }
+  }
+}

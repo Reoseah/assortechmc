@@ -1,0 +1,15 @@
+{
+  "type": "spacefactory:conditional",
+  "required_tags": [ "c:kanthal_ingots"  ],
+  "required_items": [ "*:kanthal_dust"  ],
+
+  "recipe": {
+    "type": "spacefactory:macerating",
+    "ingredient": {
+      "tag": "c:kanthal_ingots"
+    },
+    "result": {
+      "item": "*:kanthal_dust"
+    }
+  }
+}

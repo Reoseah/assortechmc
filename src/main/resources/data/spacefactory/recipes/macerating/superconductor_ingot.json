@@ -1,0 +1,15 @@
+{
+  "type": "spacefactory:conditional",
+  "required_tags": [ "c:superconductor_ingots"  ],
+  "required_items": [ "*:superconductor_dust"  ],
+
+  "recipe": {
+    "type": "spacefactory:macerating",
+    "ingredient": {
+      "tag": "c:superconductor_ingots"
+    },
+    "result": {
+      "item": "*:superconductor_dust"
+    }
+  }
+}
