@@ -1,0 +1,15 @@
+{
+  "type": "spacefactory:conditional",
+  "required_tags": [ "c:cupronickel_ingots" ],
+  "required_items": [ "*:cupronickel_plate" ],
+
+  "recipe": {
+    "type": "spacefactory:compressing",
+    "ingredient": {
+      "tag": "c:cupronickel_ingots"
+    },
+    "result": {
+      "item": "*:cupronickel_plate"
+    }
+  }
+}

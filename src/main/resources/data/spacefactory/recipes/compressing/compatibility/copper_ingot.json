@@ -1,0 +1,14 @@
+{
+  "type": "spacefactory:conditional",
+  "required_items": [ "*:copper_plate" ],
+
+  "recipe": {
+    "type": "spacefactory:compressing",
+    "ingredient": {
+      "item": "minecraft:copper_ingot"
+    },
+    "result": {
+      "item": "*:copper_plate"
+    }
+  }
+}

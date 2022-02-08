@@ -1,0 +1,14 @@
+{
+  "type": "spacefactory:conditional",
+  "required_items": [ "*:gold_plate" ],
+
+  "recipe": {
+    "type": "spacefactory:compressing",
+    "ingredient": {
+      "item": "minecraft:gold_ingot"
+    },
+    "result": {
+      "item": "*:gold_plate"
+    }
+  }
+}

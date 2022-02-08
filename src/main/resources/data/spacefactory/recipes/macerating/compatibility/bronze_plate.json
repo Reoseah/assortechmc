@@ -9,7 +9,7 @@
       "tag": "c:bronze_plates"
     },
     "result": {
-      "item": "*:bronze_dust"
+      "item": "spacefactory:bronze_dust"
     }
   }
 }

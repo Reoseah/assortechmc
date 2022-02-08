@@ -1,0 +1,15 @@
+{
+  "type": "spacefactory:conditional",
+  "required_tags": [ "c:nickel_ingots" ],
+  "required_items": [ "*:nickel_plate" ],
+
+  "recipe": {
+    "type": "spacefactory:compressing",
+    "ingredient": {
+      "tag": "c:nickel_ingots"
+    },
+    "result": {
+      "item": "*:nickel_plate"
+    }
+  }
+}

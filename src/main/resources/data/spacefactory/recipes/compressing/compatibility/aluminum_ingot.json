@@ -1,0 +1,15 @@
+{
+  "type": "spacefactory:conditional",
+  "required_tags": [ "c:aluminum_ingots" ],
+  "required_items": [ "*:aluminum_plate" ],
+
+  "recipe": {
+    "type": "spacefactory:compressing",
+    "ingredient": {
+      "tag": "c:aluminum_ingots"
+    },
+    "result": {
+      "item": "*:aluminum_plate"
+    }
+  }
+}

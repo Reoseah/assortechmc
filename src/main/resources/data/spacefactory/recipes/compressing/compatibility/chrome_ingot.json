@@ -1,0 +1,15 @@
+{
+  "type": "spacefactory:conditional",
+  "required_tags": [ "c:chrome_ingots" ],
+  "required_items": [ "*:chrome_plate" ],
+
+  "recipe": {
+    "type": "spacefactory:compressing",
+    "ingredient": {
+      "tag": "c:chrome_ingots"
+    },
+    "result": {
+      "item": "*:chrome_plate"
+    }
+  }
+}

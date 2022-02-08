@@ -1,0 +1,14 @@
+{
+  "type": "spacefactory:conditional",
+  "required_items": [ "*:tin_plate" ],
+
+  "recipe": {
+    "type": "spacefactory:compressing",
+    "ingredient": {
+      "tag": "c:tin_ingots"
+    },
+    "result": {
+      "item": "*:tin_plate"
+    }
+  }
+}

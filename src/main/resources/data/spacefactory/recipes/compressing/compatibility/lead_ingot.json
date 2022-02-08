@@ -1,0 +1,15 @@
+{
+  "type": "spacefactory:conditional",
+  "required_tags": [ "c:lead_ingots" ],
+  "required_items": [ "*:lead_plate" ],
+
+  "recipe": {
+    "type": "spacefactory:compressing",
+    "ingredient": {
+      "tag": "c:lead_ingots"
+    },
+    "result": {
+      "item": "*:lead_plate"
+    }
+  }
+}
