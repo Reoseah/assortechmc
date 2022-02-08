@@ -1,0 +1,9 @@
+{
+  "type": "spacefactory:macerating",
+  "ingredient": {
+    "item": "minecraft:light_weighted_pressure_plate"
+  },
+  "result": {
+    "item": "spacefactory:gold_dust"
+  }
+}

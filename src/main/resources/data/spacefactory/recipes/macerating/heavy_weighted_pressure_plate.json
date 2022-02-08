@@ -1,0 +1,9 @@
+{
+  "type": "spacefactory:macerating",
+  "ingredient": {
+    "item": "minecraft:heavy_weighted_pressure_plate"
+  },
+  "result": {
+    "item": "spacefactory:heavy_dust"
+  }
+}
