@@ -185,12 +185,13 @@ public class SpaceFactory implements ModInitializer {
         ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(SFBlocks.RUBBER_SAPLING.asItem(), 0.3F);
         ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(SFBlocks.RUBBER_LEAVES.asItem(), 0.3F);
 
-        register(Registry.RECIPE_TYPE, "dummy", SFRecipeTypes.DUMMY);
+        register(Registry.RECIPE_TYPE, "empty", SFRecipeTypes.EMPTY);
         register(Registry.RECIPE_TYPE, "macerating", SFRecipeTypes.MACERATING);
         register(Registry.RECIPE_TYPE, "compressing", SFRecipeTypes.COMPRESSING);
         register(Registry.RECIPE_TYPE, "extracting", SFRecipeTypes.EXTRACTING);
 
-        register(Registry.RECIPE_SERIALIZER, "dummy", SFRecipeSerializers.DUMMY);
+        register(Registry.RECIPE_SERIALIZER, "empty", SFRecipeSerializers.EMPTY);
+        register(Registry.RECIPE_SERIALIZER, "conditional", SFRecipeSerializers.CONDITIONAL);
         register(Registry.RECIPE_SERIALIZER, "macerating", SFRecipeSerializers.MACERATING);
         register(Registry.RECIPE_SERIALIZER, "compressing", SFRecipeSerializers.COMPRESSING);
         register(Registry.RECIPE_SERIALIZER, "extracting", SFRecipeSerializers.EXTRACTING);
@@ -325,7 +326,7 @@ public class SpaceFactory implements ModInitializer {
     }
 
     public static class SFRecipeTypes {
-        public static final RecipeType<DummyRecipe> DUMMY = new AtRecipeType<>();
+        public static final RecipeType<EmptyRecipe> EMPTY = new AtRecipeType<>();
         public static final RecipeType<MaceratorRecipe> MACERATING = new AtRecipeType<>();
         public static final RecipeType<CompressorRecipe> COMPRESSING = new AtRecipeType<>();
         public static final RecipeType<ExtractorRecipe> EXTRACTING = new AtRecipeType<>();
@@ -335,7 +336,8 @@ public class SpaceFactory implements ModInitializer {
     }
 
     public static class SFRecipeSerializers {
-        public static final RecipeSerializer<DummyRecipe> DUMMY = new DummyRecipe.Serializer();
+        public static final RecipeSerializer<EmptyRecipe> EMPTY = new EmptyRecipe.Serializer();
+        public static final RecipeSerializer<?> CONDITIONAL = new ConditionalRecipeSerializer();
         public static final RecipeSerializer<MaceratorRecipe> MACERATING = new CraftingMachineRecipe.Serializer<>(MaceratorRecipe::new, 300);
         public static final RecipeSerializer<CompressorRecipe> COMPRESSING = new CraftingMachineRecipe.Serializer<>(CompressorRecipe::new, 400);
         public static final RecipeSerializer<ExtractorRecipe> EXTRACTING = new CraftingMachineRecipe.Serializer<>(ExtractorRecipe::new, 400);

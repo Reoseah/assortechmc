@@ -16,11 +16,11 @@ import net.minecraft.world.World;
  *
  * Allows to override any recipe like this:
  * <pre>
- * { "type": "spacefactory:dummy" }
+ * { "type": "spacefactory:empty" }
  * </pre>
  */
-public class DummyRecipe implements Recipe<Inventory> {
-    public static final DummyRecipe INSTANCE = new DummyRecipe();
+public class EmptyRecipe implements Recipe<Inventory> {
+    public static final EmptyRecipe INSTANCE = new EmptyRecipe();
 
     @Override
     public boolean matches(Inventory inventory, World world) {
@@ -44,32 +44,32 @@ public class DummyRecipe implements Recipe<Inventory> {
 
     @Override
     public Identifier getId() {
-        return new Identifier("spacefactory:dummy");
+        return new Identifier("spacefactory:empty");
     }
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return SpaceFactory.SFRecipeSerializers.DUMMY;
+        return SpaceFactory.SFRecipeSerializers.EMPTY;
     }
 
     @Override
     public RecipeType<?> getType() {
-        return SpaceFactory.SFRecipeTypes.DUMMY;
+        return SpaceFactory.SFRecipeTypes.EMPTY;
     }
 
-    public static class Serializer implements RecipeSerializer<DummyRecipe> {
+    public static class Serializer implements RecipeSerializer<EmptyRecipe> {
         @Override
-        public DummyRecipe read(Identifier id, JsonObject json) {
-            return DummyRecipe.INSTANCE;
+        public EmptyRecipe read(Identifier id, JsonObject json) {
+            return EmptyRecipe.INSTANCE;
         }
 
         @Override
-        public DummyRecipe read(Identifier id, PacketByteBuf buf) {
-            return DummyRecipe.INSTANCE;
+        public EmptyRecipe read(Identifier id, PacketByteBuf buf) {
+            return EmptyRecipe.INSTANCE;
         }
 
         @Override
-        public void write(PacketByteBuf buf, DummyRecipe recipe) {
+        public void write(PacketByteBuf buf, EmptyRecipe recipe) {
 
         }
     }
