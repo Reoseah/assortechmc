@@ -1,0 +1,15 @@
+{
+  "type": "spacefactory:conditional",
+  "required_tags": [ "c:brass_plates"  ],
+  "required_items": [ "*:brass_dust"  ],
+
+  "recipe": {
+    "type": "spacefactory:macerating",
+    "ingredient": {
+      "tag": "c:brass_plates"
+    },
+    "result": {
+      "item": "*:brass_dust"
+    }
+  }
+}

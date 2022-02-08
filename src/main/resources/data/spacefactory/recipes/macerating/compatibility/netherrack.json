@@ -1,0 +1,14 @@
+{
+  "type": "spacefactory:conditional",
+  "required_items": [ "*:netherrack_dust"  ],
+
+  "recipe": {
+    "type": "spacefactory:macerating",
+    "ingredient": {
+      "item": "minecraft:netherrack"
+    },
+    "result": {
+      "item": "*:netherrack_dust"
+    }
+  }
+}

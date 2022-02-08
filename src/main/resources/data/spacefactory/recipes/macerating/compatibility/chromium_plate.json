@@ -1,0 +1,15 @@
+{
+  "type": "spacefactory:conditional",
+  "required_tags": [ "c:chromium_plates"  ],
+  "required_items": [ "*:chromium_dust"  ],
+
+  "recipe": {
+    "type": "spacefactory:macerating",
+    "ingredient": {
+      "tag": "c:chromium_plates"
+    },
+    "result": {
+      "item": "*:chromium_dust"
+    }
+  }
+}

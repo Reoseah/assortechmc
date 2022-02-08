@@ -1,0 +1,14 @@
+{
+  "type": "spacefactory:conditional",
+  "required_tags": [ "c:iron_plates"  ],
+
+  "recipe": {
+    "type": "spacefactory:macerating",
+    "ingredient": {
+      "tag": "c:iron_plates"
+    },
+    "result": {
+      "item": "spacefactory:iron_dust"
+    }
+  }
+}

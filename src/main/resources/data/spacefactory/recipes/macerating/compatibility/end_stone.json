@@ -1,0 +1,14 @@
+{
+  "type": "spacefactory:conditional",
+  "required_items": [ "*:end_stone_dust"  ],
+
+  "recipe": {
+    "type": "spacefactory:macerating",
+    "ingredient": {
+      "item": "minecraft:end_stone"
+    },
+    "result": {
+      "item": "*:end_stone_dust"
+    }
+  }
+}

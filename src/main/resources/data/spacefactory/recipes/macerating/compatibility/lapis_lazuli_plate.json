@@ -1,0 +1,15 @@
+{
+  "type": "spacefactory:conditional",
+  "required_tags": [ "c:lapis_lazuli_plates"  ],
+  "required_items": [ "*:lapis_lazuli_dust"  ],
+
+  "recipe": {
+    "type": "spacefactory:macerating",
+    "ingredient": {
+      "tag": "c:lapis_lazuli_plates"
+    },
+    "result": {
+      "item": "*:lapis_lazuli_dust"
+    }
+  }
+}

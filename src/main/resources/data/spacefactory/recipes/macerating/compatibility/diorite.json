@@ -1,0 +1,14 @@
+{
+  "type": "spacefactory:conditional",
+  "required_items": [ "*:diorite_dust"  ],
+
+  "recipe": {
+    "type": "spacefactory:macerating",
+    "ingredient": {
+      "item": "minecraft:diorite"
+    },
+    "result": {
+      "item": "*:diorite_dust"
+    }
+  }
+}

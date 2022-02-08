@@ -1,0 +1,16 @@
+{
+  "type": "spacefactory:conditional",
+  "required_tags": [ "c:bauxite_ores"  ],
+  "required_items": [ "*:bauxite_dust"  ],
+
+  "recipe": {
+    "type": "spacefactory:macerating",
+    "ingredient": {
+      "tag": "c:bauxite_ores"
+    },
+    "result": {
+      "item": "*:bauxite_dust",
+      "count": 2
+    }
+  }
+}

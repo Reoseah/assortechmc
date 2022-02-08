@@ -1,0 +1,15 @@
+{
+  "type": "spacefactory:conditional",
+  "required_tags": [ "c:peridot_gems"  ],
+  "required_items": [ "*:peridot_dust"  ],
+
+  "recipe": {
+    "type": "spacefactory:macerating",
+    "ingredient": {
+      "tag": "c:peridot_gems"
+    },
+    "result": {
+      "item": "*:peridot_dust"
+    }
+  }
+}

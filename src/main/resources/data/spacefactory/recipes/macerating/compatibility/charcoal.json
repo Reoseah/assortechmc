@@ -1,0 +1,14 @@
+{
+  "type": "spacefactory:conditional",
+  "required_items": [ "*:charcoal_dust"  ],
+
+  "recipe": {
+    "type": "spacefactory:macerating",
+    "ingredient": {
+      "item": "minecraft:charcoal"
+    },
+    "result": {
+      "item": "*:charcoal_dust"
+    }
+  }
+}

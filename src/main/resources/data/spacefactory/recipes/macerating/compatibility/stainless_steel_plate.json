@@ -1,0 +1,15 @@
+{
+  "type": "spacefactory:conditional",
+  "required_tags": [ "c:stainless_steel_plates"  ],
+  "required_items": [ "*:stainless_steel_dust"  ],
+
+  "recipe": {
+    "type": "spacefactory:macerating",
+    "ingredient": {
+      "tag": "c:stainless_steel_plates"
+    },
+    "result": {
+      "item": "*:stainless_steel_dust"
+    }
+  }
+}

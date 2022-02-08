@@ -1,0 +1,14 @@
+{
+  "type": "spacefactory:conditional",
+  "required_items": [ "*:andesite_dust"  ],
+
+  "recipe": {
+    "type": "spacefactory:macerating",
+    "ingredient": {
+      "item": "minecraft:andesite"
+    },
+    "result": {
+      "item": "*:andesite_dust"
+    }
+  }
+}

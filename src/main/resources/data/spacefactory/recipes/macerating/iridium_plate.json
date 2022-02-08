@@ -1,0 +1,14 @@
+{
+  "type": "spacefactory:conditional",
+  "required_tags": [ "c:iridium_plates"  ],
+
+  "recipe": {
+    "type": "spacefactory:macerating",
+    "ingredient": {
+      "tag": "c:iridium_plates"
+    },
+    "result": {
+      "item": "spacefactory:iridium_dust"
+    }
+  }
+}

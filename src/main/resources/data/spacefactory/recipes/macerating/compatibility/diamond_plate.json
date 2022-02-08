@@ -1,0 +1,14 @@
+{
+  "type": "spacefactory:conditional",
+  "required_tags": [ "c:diamond_plates"  ],
+
+  "recipe": {
+    "type": "spacefactory:macerating",
+    "ingredient": {
+      "tag": "c:diamond_plates"
+    },
+    "result": {
+      "item": "spacefactory:diamond_dust"
+    }
+  }
+}

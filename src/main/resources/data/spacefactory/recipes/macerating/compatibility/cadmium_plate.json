@@ -1,0 +1,15 @@
+{
+  "type": "spacefactory:conditional",
+  "required_tags": [ "c:cadmium_plates"  ],
+  "required_items": [ "*:cadmium_dust"  ],
+
+  "recipe": {
+    "type": "spacefactory:macerating",
+    "ingredient": {
+      "tag": "c:cadmium_plates"
+    },
+    "result": {
+      "item": "*:cadmium_dust"
+    }
+  }
+}

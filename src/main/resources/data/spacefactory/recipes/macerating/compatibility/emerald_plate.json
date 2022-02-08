@@ -1,0 +1,15 @@
+{
+  "type": "spacefactory:conditional",
+  "required_tags": [ "c:emerald_plates"  ],
+  "required_items": [ "*:emerald_dust"  ],
+
+  "recipe": {
+    "type": "spacefactory:macerating",
+    "ingredient": {
+      "tag": "c:emerald_plates"
+    },
+    "result": {
+      "item": "*:emerald_dust"
+    }
+  }
+}

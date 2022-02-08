@@ -1,0 +1,15 @@
+{
+  "type": "spacefactory:conditional",
+  "required_tags": [ "c:aluminum_plates"  ],
+  "required_items": [ "*:aluminum_dust"  ],
+
+  "recipe": {
+    "type": "spacefactory:macerating",
+    "ingredient": {
+      "tag": "c:aluminum_plates"
+    },
+    "result": {
+      "item": "*:aluminum_dust"
+    }
+  }
+}

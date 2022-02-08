@@ -1,0 +1,14 @@
+{
+  "type": "spacefactory:conditional",
+  "required_items": [ "*:quartz_dust"  ],
+
+  "recipe": {
+    "type": "spacefactory:macerating",
+    "ingredient": {
+      "item": "minecraft:quartz"
+    },
+    "result": {
+      "item": "*:quartz_dust"
+    }
+  }
+}
