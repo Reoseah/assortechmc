@@ -43,7 +43,6 @@ import spacefactory.item.AccessiblePickaxeItem;
 import spacefactory.item.VanovoltaicCellItem;
 import spacefactory.item.material.AssortechArmorMaterials;
 import spacefactory.item.material.AssortechToolMaterials;
-import spacefactory.mixin.FoliagePlacerTypeInvoker;
 import spacefactory.recipe.*;
 import spacefactory.screen.*;
 import team.reborn.energy.api.EnergyStorage;
@@ -354,7 +353,7 @@ public class SpaceFactory implements ModInitializer {
     }
 
     public static class SFFoliagePlacers {
-        public static final FoliagePlacerType<RubberFoliagePlacer> RUBBER = FoliagePlacerTypeInvoker.create(RubberFoliagePlacer.CODEC);
+        public static final FoliagePlacerType<RubberFoliagePlacer> RUBBER = new FoliagePlacerType<>(RubberFoliagePlacer.CODEC);
     }
 
     public static class SFFeatures {

@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "tag": "c:tin_ores"
+  },
+  "result": "spacefactory:tin_ingot",
+  "experience": 0.5
+}
