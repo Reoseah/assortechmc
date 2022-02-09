@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "spacefactory:block/dragon_egg_siphon"
+    },
+    "lit=true": {
+      "model": "spacefactory:block/dragon_egg_siphon_on"
+    }
+  }
+}

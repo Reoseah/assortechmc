@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CCC",
+    "RER",
+    "I#I"
+  ],
+  "key": {
+    "#": {
+      "tag": "c:machine_blocks"
+    },
+    "C": {
+      "item": "spacefactory:ascended_circuit"
+    },
+    "E": {
+      "item": "minecraft:ender_pearl"
+    },
+    "R": {
+      "tag": "c:iridium_ingots"
+    },
+    "I": {
+      "item": "minecraft:end_stone"
+    }
+  },
+  "result": {
+    "item": "spacefactory:dragon_egg_siphon"
+  }
+}

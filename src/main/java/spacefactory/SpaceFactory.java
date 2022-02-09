@@ -54,6 +54,7 @@ public class SpaceFactory implements ModInitializer {
         // Generators
         register(Registry.BLOCK, "generator", SFBlocks.GENERATOR);
         register(Registry.BLOCK, "solar_panel", SFBlocks.SOLAR_PANEL);
+        register(Registry.BLOCK, "dragon_egg_siphon", SFBlocks.DRAGON_EGG_SIPHON);
         // Energy Storage
         register(Registry.BLOCK, "battery_box", SFBlocks.BATTERY_BOX);
         // Crafting Machines
@@ -76,6 +77,8 @@ public class SpaceFactory implements ModInitializer {
         // TODO stripped rubber log, rubber wood, stripped rubber wood
         register(Registry.BLOCK, "rubber_leaves", SFBlocks.RUBBER_LEAVES);
         register(Registry.BLOCK, "rubber_sapling", SFBlocks.RUBBER_SAPLING);
+        // TODO iridium ore
+        // TODO raw ore blocks
 
         FlammableBlockRegistry.getDefaultInstance().add(SFBlocks.RUBBER_LOG, 5, 5);
         FlammableBlockRegistry.getDefaultInstance().add(SFBlocks.RESIN_RUBBER_LOG, 5, 5);
@@ -83,6 +86,7 @@ public class SpaceFactory implements ModInitializer {
 
         register(Registry.BLOCK_ENTITY_TYPE, "generator", SFBlockEntityTypes.GENERATOR);
         register(Registry.BLOCK_ENTITY_TYPE, "solar_panel", SFBlockEntityTypes.SOLAR_PANEL);
+        register(Registry.BLOCK_ENTITY_TYPE, "dragon_egg_siphon", SFBlockEntityTypes.DRAGON_EGG_SIPHON);
         register(Registry.BLOCK_ENTITY_TYPE, "battery_box", SFBlockEntityTypes.BATTERY_BOX);
         register(Registry.BLOCK_ENTITY_TYPE, "electric_furnace", SFBlockEntityTypes.ELECTRIC_FURNACE);
         register(Registry.BLOCK_ENTITY_TYPE, "macerator", SFBlockEntityTypes.MACERATOR);
@@ -92,6 +96,7 @@ public class SpaceFactory implements ModInitializer {
 
         EnergyStorage.SIDED.registerForBlockEntity(ElectricInventoryBlockEntity::getEnergyHandler, SFBlockEntityTypes.GENERATOR);
         EnergyStorage.SIDED.registerForBlockEntity((be, direction) -> SolarPanelBlockEntity.ENERGY, SFBlockEntityTypes.SOLAR_PANEL);
+        EnergyStorage.SIDED.registerForBlockEntity((be, direction) -> DragonEggSiphonBlockEntity.ENERGY, SFBlockEntityTypes.DRAGON_EGG_SIPHON);
         EnergyStorage.SIDED.registerForBlockEntity(BatteryBoxBlockEntity::getEnergyHandler, SFBlockEntityTypes.BATTERY_BOX);
         EnergyStorage.SIDED.registerForBlockEntity(ElectricInventoryBlockEntity::getEnergyHandler, SFBlockEntityTypes.ELECTRIC_FURNACE);
         EnergyStorage.SIDED.registerForBlockEntity(ElectricInventoryBlockEntity::getEnergyHandler, SFBlockEntityTypes.MACERATOR);
@@ -102,6 +107,7 @@ public class SpaceFactory implements ModInitializer {
         // Generators
         register(Registry.ITEM, "generator", new BlockItem(SFBlocks.GENERATOR, SFItems.settings()));
         register(Registry.ITEM, "solar_panel", new BlockItem(SFBlocks.SOLAR_PANEL, SFItems.settings()));
+        register(Registry.ITEM, "dragon_egg_siphon", new BlockItem(SFBlocks.DRAGON_EGG_SIPHON, SFItems.settings().rarity(Rarity.EPIC)));
         // Energy Storage
         register(Registry.ITEM, "battery_box", new BlockItem(SFBlocks.BATTERY_BOX, SFItems.settings()));
         // Crafting Machines
@@ -223,10 +229,12 @@ public class SpaceFactory implements ModInitializer {
         private static final AbstractBlock.Settings TIN_SETTINGS = FabricBlockSettings.of(Material.METAL, MapColor.LIGHT_GRAY).strength(3F, 6F).sounds(BlockSoundGroup.METAL);
         private static final AbstractBlock.Settings BRONZE_SETTINGS = FabricBlockSettings.of(Material.METAL, MapColor.ORANGE).strength(3F, 6F).sounds(BlockSoundGroup.METAL);
         private static final AbstractBlock.Settings MACHINE_SETTINGS = FabricBlockSettings.of(AtMaterials.MACHINE).strength(3F, 6F).sounds(BlockSoundGroup.METAL).requiresTool();
+        private static final AbstractBlock.Settings ADVANCED_MACHINE_SETTINGS = FabricBlockSettings.of(AtMaterials.MACHINE).strength(10F, 30F).sounds(BlockSoundGroup.METAL).requiresTool();
 
         // Generators
         public static final Block GENERATOR = new GeneratorBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 15 : 0));
         public static final Block SOLAR_PANEL = new SolarPanelBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).mapColor(MapColor.LAPIS_BLUE));
+        public static final Block DRAGON_EGG_SIPHON = new DragonEggSiphonBlock(FabricBlockSettings.copyOf(ADVANCED_MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 15 : 0));
         // Energy Storage
         public static final Block BATTERY_BOX = new BatteryBoxBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).mapColor(MapColor.SPRUCE_BROWN).sounds(BlockSoundGroup.WOOD));
         // Crafting Machines
@@ -317,6 +325,8 @@ public class SpaceFactory implements ModInitializer {
     public static class SFBlockEntityTypes {
         public static final BlockEntityType<GeneratorBlockEntity> GENERATOR = FabricBlockEntityTypeBuilder.create(GeneratorBlockEntity::new, SFBlocks.GENERATOR).build();
         public static final BlockEntityType<SolarPanelBlockEntity> SOLAR_PANEL = FabricBlockEntityTypeBuilder.create(SolarPanelBlockEntity::new, SFBlocks.SOLAR_PANEL).build();
+        public static final BlockEntityType<DragonEggSiphonBlockEntity> DRAGON_EGG_SIPHON = FabricBlockEntityTypeBuilder.create(DragonEggSiphonBlockEntity::new, SFBlocks.DRAGON_EGG_SIPHON).build();
+
         public static final BlockEntityType<ElectricFurnaceBlockEntity> ELECTRIC_FURNACE = FabricBlockEntityTypeBuilder.create(ElectricFurnaceBlockEntity::new, SFBlocks.ELECTRIC_FURNACE).build();
         public static final BlockEntityType<MaceratorBlockEntity> MACERATOR = FabricBlockEntityTypeBuilder.create(MaceratorBlockEntity::new, SFBlocks.MACERATOR).build();
         public static final BlockEntityType<CompressorBlockEntity> COMPRESSOR = FabricBlockEntityTypeBuilder.create(CompressorBlockEntity::new, SFBlocks.COMPRESSOR).build();

@@ -37,7 +37,7 @@ public class CableBlock extends BlockWithEntity {
         float min = 8 - radius;
         float max = 8 + radius;
         VoxelShape center = Block.createCuboidShape(min, min, min, max, max, max);
-        VoxelShape[] connections = new VoxelShape[]{
+        VoxelShape[] connections = {
                 Block.createCuboidShape(min, 0, min, max, max, max),
                 Block.createCuboidShape(min, min, min, max, 16, max),
                 Block.createCuboidShape(min, min, 0, max, max, max),
@@ -59,21 +59,14 @@ public class CableBlock extends BlockWithEntity {
     }
 
     public static BooleanProperty getConnectionProperty(Direction direction) {
-        switch (direction) {
-            case NORTH:
-                return NORTH;
-            case SOUTH:
-                return SOUTH;
-            case WEST:
-                return WEST;
-            case EAST:
-                return EAST;
-            case DOWN:
-                return DOWN;
-            case UP:
-            default:
-                return UP;
-        }
+        return switch (direction) {
+            case NORTH -> NORTH;
+            case SOUTH -> SOUTH;
+            case WEST -> WEST;
+            case EAST -> EAST;
+            case DOWN -> DOWN;
+            case UP -> UP;
+        };
     }
 
     public CableBlock(int radius, Settings settings) {
