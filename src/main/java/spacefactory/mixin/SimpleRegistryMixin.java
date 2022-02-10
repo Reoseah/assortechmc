@@ -13,11 +13,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.Map;
 
-/**
- * Resolves identifiers that with "*" in namespace, like "*:silver_ingot", to whatever entry occurs first.
- * <p>
- * (Should only happen when loading recipes, otherwise it's not very fast)
- */
 @Mixin(SimpleRegistry.class)
 public abstract class SimpleRegistryMixin<T> {
     @Shadow

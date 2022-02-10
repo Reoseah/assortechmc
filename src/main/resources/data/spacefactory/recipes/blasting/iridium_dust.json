@@ -1,7 +1,0 @@
-{
-  "type": "minecraft:blasting",
-  "ingredient": {
-    "tag": "c:iridium_dusts"
-  },
-  "result": "spacefactory:iridium_ingot"
-}

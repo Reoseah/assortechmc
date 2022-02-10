@@ -82,24 +82,6 @@ public abstract class CraftingMachineRecipe implements Recipe<Inventory> {
         return this.count;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        CraftingMachineRecipe that = (CraftingMachineRecipe) o;
-
-        if (count != that.count) return false;
-        return input.equals(that.input);
-    }
-
-    @Override
-    public int hashCode() {
-        int result = input.hashCode();
-        result = 31 * result + count;
-        return result;
-    }
-
     public static class Serializer<T extends CraftingMachineRecipe> implements RecipeSerializer<T> {
         @FunctionalInterface
         public interface Factory<T extends CraftingMachineRecipe> {

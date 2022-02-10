@@ -4,20 +4,11 @@
   "package": "spacefactory.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "AbstractCookingRecipeMixin",
-    "IdentifierMixin",
-    "IngredientAccessor",
-    "IngredientMixin",
-    "IngredientStackEntryAccessor",
-    "IngredientStackEntryMixin",
-    "IngredientTagEntryAccessor",
-    "IngredientTagEntryMixin",
-    "LivingEntityMixin",
-    "RecipeManagerMixin",
-    "ShapedRecipeMixin",
-    "ShapelessRecipeMixin",
     "SimpleRegistryMixin",
-    "TagDelegateMixin"
+    "FoliagePlacerTypeInvoker",
+    "IdentifierMixin",
+    "LivingEntityMixin",
+    "RecipeManagerMixin"
   ],
   "client": [
     "client.BlockModelRendererMixin",

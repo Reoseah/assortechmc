@@ -22,7 +22,6 @@
       "spacefactory.compatibility.roughlyenoughitems.SpaceFactoryREI"
     ]
   },
-  "accessWidener": "spacefactory.aw",
   "mixins": [
     "spacefactory.mixins.json"
   ],

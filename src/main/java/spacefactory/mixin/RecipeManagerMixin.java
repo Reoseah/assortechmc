@@ -9,7 +9,6 @@ import net.minecraft.recipe.RecipeType;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.profiler.Profiler;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import org.apache.commons.lang3.tuple.Pair;
 import org.spongepowered.asm.mixin.Mixin;
@@ -24,11 +23,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-/**
- * Sorts recipes according to my preferences (aka mine first)
- * <p>
- * Unfortunately REI manually sorts recipe displays alphabetically (trash!)
- */
 @Mixin(RecipeManager.class)
 public abstract class RecipeManagerMixin {
     @Shadow
@@ -39,9 +33,7 @@ public abstract class RecipeManagerMixin {
 
     @Inject(at = @At("RETURN"), method = "apply")
     protected void apply(Map<Identifier, JsonElement> map, ResourceManager resourceManager, Profiler profiler, CallbackInfo ci) {
-        this.recipes = this.recipes.entrySet().stream() //
-                .map(entry -> Pair.of(entry.getKey(), sortRecipes(entry.getValue()))) //
-                .collect(ImmutableMap.toImmutableMap(Pair::getKey, Pair::getValue));
+        this.recipes = this.recipes.entrySet().stream().map(entry -> Pair.of(entry.getKey(), new ImmutableMap.Builder<Identifier, Recipe<?>>().putAll(sortRecipes(entry.getValue())))).collect(ImmutableMap.toImmutableMap(Pair::getKey, pair -> pair.getValue().build()));
     }
 
     @Inject(at = @At("RETURN"), method = "getAllMatches", cancellable = true)
@@ -52,9 +44,6 @@ public abstract class RecipeManagerMixin {
     private static Map<Identifier, Recipe<?>> sortRecipes(Map<Identifier, Recipe<?>> map) {
         return map.entrySet().stream()
                 .sorted(Map.Entry.comparingByValue(createRecipeComparator()))
-                // should remove some of repeated recipes where we also added #equals implementation
-                // such as repeated smelting recipes for metal dusts
-                .distinct()
                 .collect(ImmutableMap.toImmutableMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 
@@ -62,10 +51,7 @@ public abstract class RecipeManagerMixin {
         // first vanilla
         return Comparator.comparing((T recipe) -> !recipe.getId().getNamespace().equals("minecraft"))
                 // then our recipes, thus they will override any conflicts
-                .thenComparing((T recipe) -> !recipe.getId().getNamespace().equals("spacefactory"))
-                // also, recipes that yield vanilla items should be preferred
-                .thenComparing((T recipe) -> !Registry.ITEM.getId(recipe.getOutput().getItem()).getNamespace().equals("minecraft"))
-                // followed by recipes that yield our items
-                .thenComparing((T recipe) -> !Registry.ITEM.getId(recipe.getOutput().getItem()).getNamespace().equals("spacefactory"));
+                // like TechReborn Iron Furnace
+                .thenComparing((T recipe) -> !recipe.getId().getNamespace().equals("spacefactory"));
     }
 }

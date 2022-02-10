@@ -78,7 +78,3 @@ dependencies {
 //    include project(":techreborn-compatibility")
 //    implementation project(path: ":techreborn-compatibility", configuration: "namedElements")
 }
-
-loom {
-    accessWidenerPath = file("src/main/resources/spacefactory.aw")
-}

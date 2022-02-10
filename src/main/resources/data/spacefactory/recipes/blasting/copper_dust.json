@@ -1,7 +1,0 @@
-{
-  "type": "minecraft:blasting",
-  "ingredient": {
-    "tag": "c:copper_dusts"
-  },
-  "result": "minecraft:copper_ingot"
-}
