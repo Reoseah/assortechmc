@@ -368,4 +368,5 @@ public class SpaceFactory implements ModInitializer {
             // just initializes static fields
         }
     }
+
 }

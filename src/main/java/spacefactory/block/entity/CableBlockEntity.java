@@ -1,17 +1,22 @@
 package spacefactory.block.entity;
 
-import net.minecraft.util.math.MathHelper;
-import spacefactory.SpaceFactory;
-import spacefactory.api.EnergyTier;
-import spacefactory.block.CableBlock;
 import com.google.common.collect.MapMaker;
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
+import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
+import spacefactory.SpaceFactory;
+import spacefactory.api.EnergyTier;
+import spacefactory.block.CableBlock;
 import team.reborn.energy.api.EnergyStorage;
 
 import java.util.*;
@@ -146,6 +151,11 @@ public class CableBlockEntity extends BlockEntity {
                         cable.current += inserted;
                         if (cable.current > cable.getTransferLimit()) {
                             world.removeBlock(cablePos, false);
+                            for (ServerPlayerEntity player : PlayerLookup.tracking((ServerWorld) world, cablePos)) {
+                                PacketByteBuf buf = PacketByteBufs.create();
+                                buf.writeBlockPos(cablePos);
+                                ServerPlayNetworking.send(player, SpaceFactory.id("burnt_cable"), buf);
+                            }
                             break;
                         }
                     }

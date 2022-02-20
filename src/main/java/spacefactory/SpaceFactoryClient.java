@@ -1,10 +1,10 @@
 package spacefactory;
 
-import spacefactory.screen.client.*;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.client.model.FabricModelPredicateProviderRegistry;
@@ -15,7 +15,10 @@ import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.particle.ParticleTypes;
+import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
+import spacefactory.screen.client.*;
 import team.reborn.energy.api.base.SimpleBatteryItem;
 
 @Environment(EnvType.CLIENT)
@@ -46,6 +49,17 @@ public class SpaceFactoryClient implements ClientModInitializer {
         ScreenRegistry.register(SpaceFactory.SFScreenHandlerTypes.COMPRESSOR, CompressorScreen::new);
         ScreenRegistry.register(SpaceFactory.SFScreenHandlerTypes.EXTRACTOR, ExtractorScreen::new);
         ScreenRegistry.register(SpaceFactory.SFScreenHandlerTypes.BATTERY_BOX, BatteryBoxScreen::new);
+
+        ClientPlayNetworking.registerGlobalReceiver(SpaceFactory.id("burnt_cable"), (client, handler, buf, responseSender) -> {
+            BlockPos pos = buf.readBlockPos();
+            client.execute(() -> {
+                if (client.world != null) {
+                    for (int i = 0; i < 8; i++) {
+                        client.world.addParticle(ParticleTypes.LARGE_SMOKE, pos.getX() + client.world.random.nextFloat(), pos.getY() + client.world.random.nextFloat(), pos.getZ() + client.world.random.nextFloat(), 0, 0, 0);
+                    }
+                }
+            });
+        });
     }
 
     /**
