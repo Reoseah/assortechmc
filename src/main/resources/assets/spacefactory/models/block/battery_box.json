@@ -11,7 +11,7 @@
         "particle": "spacefactory:block/battery_front",
         "down": "spacefactory:block/machine",
         "up": "spacefactory:block/machine",
-        "north": "spacefactory:block/machine",
+        "north": "spacefactory:block/battery_front",
         "east": "spacefactory:block/machine",
         "south": "spacefactory:block/machine",
         "west": "spacefactory:block/machine"

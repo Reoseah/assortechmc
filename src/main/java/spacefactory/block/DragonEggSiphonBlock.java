@@ -42,10 +42,7 @@ public class DragonEggSiphonBlock extends InventoryBlock {
             double y = pos.getY() + 1 + random.nextFloat() * 1.5;
             double z = pos.getZ() + random.nextFloat();
 
-            double velocityX = (random.nextFloat() - 0.5f) * 0.2f;
-            double velocityY = (random.nextFloat() - 0.5f) * 0.2f;
-            double velocityZ = (random.nextFloat() - 0.5f) * 0.2f;
-            world.addParticle(ParticleTypes.PORTAL, x, y, z, velocityX, velocityY, velocityZ);
+            world.addParticle(ParticleTypes.PORTAL, x, y, z, 0, 0, 0);
         }
     }
 

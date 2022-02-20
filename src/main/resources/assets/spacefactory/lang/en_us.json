@@ -5,7 +5,7 @@
   "block.spacefactory.solar_panel": "Solar Panel",
   "block.spacefactory.dragon_egg_siphon": "Dragon Egg Energy Siphon",
 
-  "block.spacefactory.battery_box": "Battery Unit",
+  "block.spacefactory.battery_box": "Battery",
   "block.spacefactory.electric_furnace": "Electric Furnace",
   "block.spacefactory.macerator": "Macerator",
   "block.spacefactory.compressor": "Compressor",
@@ -53,7 +53,7 @@
   "item.spacefactory.arachnolactam": "Arachnolactam",
   "item.spacefactory.hyperstrand": "Hyperstrand",
   "item.spacefactory.hyperweave": "Hyperweave",
-  "item.spacefactory.raw_illumina_dust": "Raw Illumina Blend",
+  "item.spacefactory.raw_illumina_dust": "Illumina Blend",
   "item.spacefactory.illumina_crystal": "Illumina Crystal",
   "item.spacefactory.illumina_matrix": "Illumina Matrix",
   "item.spacefactory.ascended_circuit": "Advanced Circuit",
