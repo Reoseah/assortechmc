@@ -21,7 +21,6 @@ import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
-import net.minecraft.util.collection.DataPool;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
 import net.minecraft.util.registry.BuiltinRegistries;
@@ -33,7 +32,6 @@ import net.minecraft.world.gen.feature.size.TwoLayersFeatureSize;
 import net.minecraft.world.gen.foliage.FoliagePlacerType;
 import net.minecraft.world.gen.stateprovider.BlockStateProvider;
 import net.minecraft.world.gen.stateprovider.SimpleBlockStateProvider;
-import net.minecraft.world.gen.stateprovider.WeightedBlockStateProvider;
 import net.minecraft.world.gen.trunk.StraightTrunkPlacer;
 import spacefactory.block.*;
 import spacefactory.block.entity.*;
@@ -51,6 +49,7 @@ import team.reborn.energy.api.EnergyStorage;
 public class SpaceFactory implements ModInitializer {
     @Override
     public void onInitialize() {
+        register(Registry.BLOCK, "machine_block", SFBlocks.MACHINE_BLOCK);
         // Generators
         register(Registry.BLOCK, "generator", SFBlocks.GENERATOR);
         register(Registry.BLOCK, "solar_panel", SFBlocks.SOLAR_PANEL);
@@ -71,17 +70,18 @@ public class SpaceFactory implements ModInitializer {
         register(Registry.BLOCK, "tin_block", SFBlocks.TIN_BLOCK);
         register(Registry.BLOCK, "bronze_block", SFBlocks.BRONZE_BLOCK);
         register(Registry.BLOCK, "iridium_block", SFBlocks.IRIDIUM_BLOCK);
-        register(Registry.BLOCK, "machine", SFBlocks.MACHINE);
         register(Registry.BLOCK, "rubber_log", SFBlocks.RUBBER_LOG);
-        register(Registry.BLOCK, "resin_rubber_log", SFBlocks.RESIN_RUBBER_LOG);
+        register(Registry.BLOCK, "alive_rubber_log", SFBlocks.ALIVE_RUBBER_LOG);
         // TODO stripped rubber log, rubber wood, stripped rubber wood
         register(Registry.BLOCK, "rubber_leaves", SFBlocks.RUBBER_LEAVES);
         register(Registry.BLOCK, "rubber_sapling", SFBlocks.RUBBER_SAPLING);
+        register(Registry.BLOCK, "stripped_rubber_log", SFBlocks.STRIPPED_RUBBER_LOG);
         // TODO iridium ore
         // TODO raw ore blocks
 
         FlammableBlockRegistry.getDefaultInstance().add(SFBlocks.RUBBER_LOG, 5, 5);
-        FlammableBlockRegistry.getDefaultInstance().add(SFBlocks.RESIN_RUBBER_LOG, 5, 5);
+        FlammableBlockRegistry.getDefaultInstance().add(SFBlocks.ALIVE_RUBBER_LOG, 5, 5);
+        FlammableBlockRegistry.getDefaultInstance().add(SFBlocks.STRIPPED_RUBBER_LOG, 5, 5);
         FlammableBlockRegistry.getDefaultInstance().add(SFBlocks.RUBBER_LEAVES, 30, 60);
 
         register(Registry.BLOCK_ENTITY_TYPE, "generator", SFBlockEntityTypes.GENERATOR);
@@ -104,6 +104,7 @@ public class SpaceFactory implements ModInitializer {
         EnergyStorage.SIDED.registerForBlockEntity(ElectricInventoryBlockEntity::getEnergyHandler, SFBlockEntityTypes.EXTRACTOR);
         EnergyStorage.SIDED.registerForBlockEntity(CableBlockEntity::getEnergyHandler, SFBlockEntityTypes.CABLE);
 
+        register(Registry.ITEM, "machine_block", new BlockItem(SFBlocks.MACHINE_BLOCK, SFItems.settings()));
         // Generators
         register(Registry.ITEM, "generator", new BlockItem(SFBlocks.GENERATOR, SFItems.settings()));
         register(Registry.ITEM, "solar_panel", new BlockItem(SFBlocks.SOLAR_PANEL, SFItems.settings()));
@@ -124,11 +125,12 @@ public class SpaceFactory implements ModInitializer {
         register(Registry.ITEM, "tin_block", new BlockItem(SFBlocks.TIN_BLOCK, SFItems.settings()));
         register(Registry.ITEM, "bronze_block", new BlockItem(SFBlocks.BRONZE_BLOCK, SFItems.settings()));
         register(Registry.ITEM, "iridium_block", new BlockItem(SFBlocks.IRIDIUM_BLOCK, SFItems.settings().rarity(Rarity.EPIC)));
-        register(Registry.ITEM, "machine", new BlockItem(SFBlocks.MACHINE, SFItems.settings()));
+
 
         register(Registry.ITEM, "rubber_log", new BlockItem(SFBlocks.RUBBER_LOG, SFItems.settings()));
         register(Registry.ITEM, "rubber_leaves", new BlockItem(SFBlocks.RUBBER_LEAVES, SFItems.settings()));
         register(Registry.ITEM, "rubber_sapling", new BlockItem(SFBlocks.RUBBER_SAPLING, SFItems.settings()));
+        register(Registry.ITEM, "stripped_rubber_log", new BlockItem(SFBlocks.STRIPPED_RUBBER_LOG, SFItems.settings()));
 
         // Crafting Items
         register(Registry.ITEM, "sticky_resin", SFItems.STICKY_RESIN);
@@ -231,6 +233,7 @@ public class SpaceFactory implements ModInitializer {
         private static final AbstractBlock.Settings MACHINE_SETTINGS = FabricBlockSettings.of(AtMaterials.MACHINE).strength(3F, 6F).sounds(BlockSoundGroup.METAL).requiresTool();
         private static final AbstractBlock.Settings ADVANCED_MACHINE_SETTINGS = FabricBlockSettings.of(AtMaterials.MACHINE).strength(10F, 30F).sounds(BlockSoundGroup.METAL).requiresTool();
 
+        public static final Block MACHINE_BLOCK = new Block(MACHINE_SETTINGS);
         // Generators
         public static final Block GENERATOR = new GeneratorBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 15 : 0));
         public static final Block SOLAR_PANEL = new SolarPanelBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).mapColor(MapColor.LAPIS_BLUE));
@@ -252,19 +255,18 @@ public class SpaceFactory implements ModInitializer {
         public static final Block TIN_BLOCK = new Block(TIN_SETTINGS);
         public static final Block BRONZE_BLOCK = new Block(BRONZE_SETTINGS);
         public static final Block IRIDIUM_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(5F, 20F));
-        public static final Block MACHINE = new Block(MACHINE_SETTINGS);
         public static final Block RUBBER_LOG = new PillarBlock(RUBBER_LOG_SETTINGS);
-        public static final Block RESIN_RUBBER_LOG = new RubberLogBlock(UNMOVABLE_RUBBER_LOG_SETTINGS);
+        public static final Block ALIVE_RUBBER_LOG = new AliveRubberLogBlock(UNMOVABLE_RUBBER_LOG_SETTINGS);
         public static final Block RUBBER_LEAVES = new LeavesBlock(FabricBlockSettings.copyOf(Blocks.JUNGLE_LEAVES));
         public static final Block RUBBER_SAPLING = new RubberSaplingBlock(FabricBlockSettings.copyOf(Blocks.JUNGLE_SAPLING));
-
+        public static final Block STRIPPED_RUBBER_LOG = new PillarBlock(FabricBlockSettings.of(Material.WOOD, MapColor.YELLOW).strength(2F).sounds(BlockSoundGroup.WOOD));
     }
 
     public static class SFItems {
-        public static final ItemGroup GROUP = FabricItemGroupBuilder.build(id("main"), () -> new ItemStack(SFBlocks.SOLAR_PANEL));
+        public static final ItemGroup MACHINERY = FabricItemGroupBuilder.build(id("main"), () -> new ItemStack(SFBlocks.SOLAR_PANEL));
 
         private static Item.Settings settings() {
-            return new Item.Settings().group(GROUP);
+            return new Item.Settings().group(MACHINERY);
         }
 
         public static final Item STICKY_RESIN = new Item(settings());
@@ -358,8 +360,8 @@ public class SpaceFactory implements ModInitializer {
     }
 
     public static class SFFeatures {
-        private static final WeightedBlockStateProvider RUBBER_LOGS = new WeightedBlockStateProvider(new DataPool.Builder<BlockState>().add(SFBlocks.RUBBER_LOG.getDefaultState(), 4).add(SFBlocks.RESIN_RUBBER_LOG.getDefaultState(), 1).add(SFBlocks.RESIN_RUBBER_LOG.getDefaultState().with(RubberLogBlock.FACING, Direction.SOUTH), 1).add(SFBlocks.RESIN_RUBBER_LOG.getDefaultState().with(RubberLogBlock.FACING, Direction.WEST), 1).add(SFBlocks.RESIN_RUBBER_LOG.getDefaultState().with(RubberLogBlock.FACING, Direction.EAST), 1));
-        private static final SimpleBlockStateProvider RUBBER_LEAVES = BlockStateProvider.of(SFBlocks.RUBBER_LEAVES);
+        private static final BlockStateProvider RUBBER_LOGS = SimpleBlockStateProvider.of(SFBlocks.ALIVE_RUBBER_LOG);
+        private static final BlockStateProvider RUBBER_LEAVES = SimpleBlockStateProvider.of(SFBlocks.RUBBER_LEAVES);
 
         public static final ConfiguredFeature<TreeFeatureConfig, ?> RUBBER_TREE = Feature.TREE.configure(new TreeFeatureConfig.Builder(RUBBER_LOGS, new StraightTrunkPlacer(5, 2, 0), RUBBER_LEAVES, new RubberFoliagePlacer(UniformIntProvider.create(2, 2), UniformIntProvider.create(1, 1), 5), new TwoLayersFeatureSize(1, 0, 1)).build());
     }

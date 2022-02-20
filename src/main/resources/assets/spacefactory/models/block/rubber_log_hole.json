@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/orientable",
-  "textures": {
-    "top": "spacefactory:block/rubber_log_top",
-    "front": "spacefactory:block/rubber_log_hole",
-    "side": "spacefactory:block/rubber_log"
-  }
-}

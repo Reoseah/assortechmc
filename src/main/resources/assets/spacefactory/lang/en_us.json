@@ -1,6 +1,8 @@
 {
   "itemGroup.spacefactory.main": "Space Factory",
 
+  "block.spacefactory.machine_block": "Machine Block",
+
   "block.spacefactory.generator": "Generator",
   "block.spacefactory.solar_panel": "Solar Panel",
   "block.spacefactory.dragon_egg_siphon": "Dragon Egg Energy Siphon",
@@ -17,9 +19,9 @@
   "block.spacefactory.tin_block": "Block of Tin",
   "block.spacefactory.bronze_block": "Block of Bronze",
   "block.spacefactory.iridium_block": "Block of Iridium",
-  "block.spacefactory.machine": "Machine Block",
   "block.spacefactory.rubber_log": "Rubber Log",
-  "block.spacefactory.resin_rubber_log": "Sapping Rubber Log",
+  "block.spacefactory.alive_rubber_log": "Rubber Log (Alive)",
+  "block.spacefactory.stripped_rubber_log": "Stripped Rubber Log",
   "block.spacefactory.rubber_leaves": "Rubber Tree Leaves",
   "block.spacefactory.rubber_sapling": "Rubber Tree Sapling",
 

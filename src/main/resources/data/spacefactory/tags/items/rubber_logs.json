@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "spacefactory:rubber_log"
+    "spacefactory:rubber_log",
+    "spacefactory:stripped_rubber_log"
   ]
 }

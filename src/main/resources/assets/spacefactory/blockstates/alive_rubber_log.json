@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "state=natural": {
+      "model": "spacefactory:block/rubber_log"
+    },
+    "state=tapped": {
+      "model": "spacefactory:block/rubber_log_tapped"
+    },
+    "state=ready": {
+      "model": "spacefactory:block/rubber_log_ready"
+    }
+  }
+}
