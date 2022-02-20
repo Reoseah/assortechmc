@@ -70,6 +70,7 @@ public class SpaceFactory implements ModInitializer {
         register(Registry.BLOCK, "tin_block", SFBlocks.TIN_BLOCK);
         register(Registry.BLOCK, "bronze_block", SFBlocks.BRONZE_BLOCK);
         register(Registry.BLOCK, "iridium_block", SFBlocks.IRIDIUM_BLOCK);
+        register(Registry.BLOCK, "crystallate_block", SFBlocks.CRYSTALLATE_BLOCK);
         register(Registry.BLOCK, "rubber_log", SFBlocks.RUBBER_LOG);
         register(Registry.BLOCK, "alive_rubber_log", SFBlocks.ALIVE_RUBBER_LOG);
         register(Registry.BLOCK, "stripped_rubber_log", SFBlocks.STRIPPED_RUBBER_LOG);
@@ -125,6 +126,7 @@ public class SpaceFactory implements ModInitializer {
         register(Registry.ITEM, "tin_block", new BlockItem(SFBlocks.TIN_BLOCK, SFItems.settings()));
         register(Registry.ITEM, "bronze_block", new BlockItem(SFBlocks.BRONZE_BLOCK, SFItems.settings()));
         register(Registry.ITEM, "iridium_block", new BlockItem(SFBlocks.IRIDIUM_BLOCK, SFItems.settings().rarity(Rarity.EPIC)));
+        register(Registry.ITEM, "crystallate_block", new BlockItem(SFBlocks.CRYSTALLATE_BLOCK, SFItems.settings().rarity(Rarity.UNCOMMON)));
 
         register(Registry.ITEM, "rubber_log", new BlockItem(SFBlocks.RUBBER_LOG, SFItems.settings()));
         register(Registry.ITEM, "stripped_rubber_log", new BlockItem(SFBlocks.STRIPPED_RUBBER_LOG, SFItems.settings()));
@@ -249,6 +251,7 @@ public class SpaceFactory implements ModInitializer {
         public static final Block TIN_BLOCK = new Block(TIN_SETTINGS);
         public static final Block BRONZE_BLOCK = new Block(BRONZE_SETTINGS);
         public static final Block IRIDIUM_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(5F, 20F));
+        public static final Block CRYSTALLATE_BLOCK = new Block(FabricBlockSettings.of(Material.METAL, MapColor.LIGHT_BLUE).strength(5F, 20F));
         public static final Block RUBBER_LOG = new PillarBlock(RUBBER_LOG_SETTINGS);
         public static final Block ALIVE_RUBBER_LOG = new AliveRubberLogBlock(UNMOVABLE_RUBBER_LOG_SETTINGS);
         public static final Block RUBBER_LEAVES = new LeavesBlock(FabricBlockSettings.copyOf(Blocks.JUNGLE_LEAVES));
