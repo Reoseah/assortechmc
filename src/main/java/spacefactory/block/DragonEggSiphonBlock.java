@@ -7,16 +7,24 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.client.item.TooltipContext;
+import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.Properties;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import spacefactory.SpaceFactory;
 import spacefactory.block.entity.DragonEggSiphonBlockEntity;
+import spacefactory.block.entity.GeneratorBlockEntity;
 
+import java.util.List;
 import java.util.Random;
 
 public class DragonEggSiphonBlock extends InventoryBlock {
@@ -33,7 +41,6 @@ public class DragonEggSiphonBlock extends InventoryBlock {
         builder.add(LIT);
     }
 
-
     @Override
     @Environment(EnvType.CLIENT)
     public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
@@ -45,6 +52,14 @@ public class DragonEggSiphonBlock extends InventoryBlock {
             world.addParticle(ParticleTypes.PORTAL, x, y, z, 0, 0, 0);
         }
     }
+
+
+    @Override
+    public void appendTooltip(ItemStack stack, @Nullable BlockView world, List<Text> tooltip, TooltipContext options) {
+        super.appendTooltip(stack, world, tooltip, options);
+        tooltip.add(new TranslatableText("container.spacefactory.energy_per_tick", DragonEggSiphonBlockEntity.PRODUCTION).formatted(Formatting.GRAY));
+    }
+
 
     @Nullable
     @Override

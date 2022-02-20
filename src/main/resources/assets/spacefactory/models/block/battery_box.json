@@ -12,8 +12,8 @@
         "down": "spacefactory:block/machine",
         "up": "spacefactory:block/machine",
         "north": "spacefactory:block/battery_front",
-        "east": "spacefactory:block/machine",
-        "south": "spacefactory:block/machine",
-        "west": "spacefactory:block/machine"
+        "east": "spacefactory:block/battery_side",
+        "south": "spacefactory:block/battery_side",
+        "west": "spacefactory:block/battery_side"
     }
 }

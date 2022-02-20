@@ -1,14 +1,22 @@
 package spacefactory.block;
 
-import spacefactory.SpaceFactory;
-import spacefactory.block.entity.SolarPanelBlockEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.client.item.TooltipContext;
+import net.minecraft.item.ItemStack;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
+import spacefactory.SpaceFactory;
+import spacefactory.block.entity.SolarPanelBlockEntity;
+
+import java.util.List;
 
 public class SolarPanelBlock extends InventoryBlock {
     public SolarPanelBlock(Settings settings) {
@@ -25,5 +33,11 @@ public class SolarPanelBlock extends InventoryBlock {
     @Nullable
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
         return world.isClient ? null : checkType(type, SpaceFactory.SFBlockEntityTypes.SOLAR_PANEL, SolarPanelBlockEntity::tick);
+    }
+
+    @Override
+    public void appendTooltip(ItemStack stack, @Nullable BlockView world, List<Text> tooltip, TooltipContext options) {
+        super.appendTooltip(stack, world, tooltip, options);
+        tooltip.add(new TranslatableText("container.spacefactory.energy_per_tick", SolarPanelBlockEntity.PRODUCTION).formatted(Formatting.GRAY));
     }
 }

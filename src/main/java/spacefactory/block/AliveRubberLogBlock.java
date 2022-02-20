@@ -16,6 +16,7 @@ import net.minecraft.util.StringIdentifiable;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import spacefactory.SpaceFactory;
 
@@ -36,11 +37,16 @@ public class AliveRubberLogBlock extends Block {
     }
 
     @Override
+    public ItemStack getPickStack(BlockView world, BlockPos pos, BlockState state) {
+        return new ItemStack(state.get(STATE) == State.NATURAL ? SpaceFactory.SFBlocks.RUBBER_LOG : SpaceFactory.SFBlocks.STRIPPED_RUBBER_LOG);
+    }
+
+    @Override
     @SuppressWarnings("deprecation")
     public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
         if (state.get(STATE) == State.TAPPED) {
-            boolean hasLeaves = false;
-            for (int y = 1; y < 10; y++) {
+            boolean hasLeaves = false, hasSoil = false;
+            for (int y = 1; y < 8; y++) {
                 BlockState s = world.getBlockState(pos.up(y));
                 if (s.isOf(this) && s.get(STATE) != State.NATURAL) {
                     hasLeaves = false;
@@ -53,10 +59,25 @@ public class AliveRubberLogBlock extends Block {
                     break;
                 }
             }
-            if (hasLeaves && random.nextInt(4) == 0) {
-                world.setBlockState(pos, state.with(STATE, State.READY));
-            } else {
+            for (int y = 1; y < 8; y++) {
+                BlockState s = world.getBlockState(pos.down(y));
+                if (s.isOf(this) && s.get(STATE) != State.NATURAL) {
+                    hasSoil = false;
+                    break;
+                }
+                if (((RubberSaplingBlock) SpaceFactory.SFBlocks.RUBBER_SAPLING).canPlantOnTop(s, world, pos.down(y))) {
+                    hasSoil = true;
+                    break;
+                } else if (!s.isOf(this)) {
+                    break;
+                }
+            }
+            if (!hasLeaves || !hasSoil) {
                 world.setBlockState(pos, SpaceFactory.SFBlocks.STRIPPED_RUBBER_LOG.getDefaultState());
+                return;
+            }
+            if (random.nextInt(4) == 0) {
+                world.setBlockState(pos, state.with(STATE, State.READY));
             }
         }
     }
@@ -66,23 +87,22 @@ public class AliveRubberLogBlock extends Block {
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hitResult) {
         if (hitResult.getSide().getAxis().isHorizontal() && world.canPlayerModifyAt(player, pos)) {
             if (state.get(STATE) == State.READY) {
-                world.setBlockState(pos, state.with(STATE, State.TAPPED));
                 if (!world.isClient()) {
-                    ItemStack stack = new ItemStack(SpaceFactory.SFItems.STICKY_RESIN, 3 + world.getRandom().nextInt(3));
+                    ItemStack stack = new ItemStack(SpaceFactory.SFItems.STICKY_RESIN, 1 + world.getRandom().nextInt(3));
                     Direction side = hitResult.getSide();
-                    Random random = world.random;
 
-                    double x = pos.getX() + 0.5 + 0.5 * side.getOffsetX();
-                    double y = pos.getY() + 0.5 + 0.5 * side.getOffsetY();
-                    double z = pos.getZ() + 0.5 + 0.5 * side.getOffsetZ();
-                    double velocityX = 0.01 * side.getOffsetX() + random.nextFloat(0.01F) - 0.005F;
-                    double velocityY = 0.01 * side.getOffsetY() + random.nextFloat(0.01F) - 0.005F;
-                    double velocityZ = 0.01 * side.getOffsetZ() + random.nextFloat(0.01F) - 0.005F;
+                    double x = pos.getX() + 0.5 + 0.55 * side.getOffsetX();
+                    double y = pos.getY() + 0.5 + 0.55 * side.getOffsetY();
+                    double z = pos.getZ() + 0.5 + 0.55 * side.getOffsetZ();
+                    double velocityX = 0.01 * side.getOffsetX();
+                    double velocityY = 0.01 * side.getOffsetY();
+                    double velocityZ = 0.01 * side.getOffsetZ();
 
-                    ItemEntity entity = new ItemEntity(world, x, y, z, stack);
+                    ItemEntity entity = new ItemEntity(world, x, y, z, stack, velocityX, velocityY, velocityZ);
                     entity.setVelocity(velocityX, velocityY, velocityZ);
                     world.spawnEntity(entity);
                 }
+                world.setBlockState(pos, state.with(STATE, State.TAPPED));
                 return ActionResult.SUCCESS;
             } else if (state.get(STATE) == State.NATURAL && FabricToolTags.AXES.contains(player.getStackInHand(hand).getItem())) {
                 world.setBlockState(pos, state.with(STATE, State.TAPPED));

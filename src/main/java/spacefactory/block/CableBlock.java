@@ -1,17 +1,19 @@
 package spacefactory.block;
 
-import spacefactory.SpaceFactory;
-import spacefactory.block.entity.CableBlockEntity;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.Properties;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
@@ -20,7 +22,12 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.Nullable;
+import spacefactory.SpaceFactory;
+import spacefactory.api.EnergyTier;
+import spacefactory.block.entity.CableBlockEntity;
 import team.reborn.energy.api.EnergyStorage;
+
+import java.util.List;
 
 public class CableBlock extends BlockWithEntity {
     public static final BooleanProperty DOWN = Properties.DOWN;
@@ -160,4 +167,11 @@ public class CableBlock extends BlockWithEntity {
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
         return world.isClient ? null : checkType(type, SpaceFactory.SFBlockEntityTypes.CABLE, CableBlockEntity::tick);
     }
+
+    @Override
+    public void appendTooltip(ItemStack stack, @Nullable BlockView world, List<Text> tooltip, TooltipContext options) {
+        super.appendTooltip(stack, world, tooltip, options);
+        tooltip.add(new TranslatableText("container.spacefactory.energy_per_tick_max", EnergyTier.MEDIUM.transferRate).formatted(Formatting.GRAY));
+    }
+
 }

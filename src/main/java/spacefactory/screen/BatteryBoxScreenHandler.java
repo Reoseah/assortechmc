@@ -1,7 +1,7 @@
 package spacefactory.screen;
 
 import spacefactory.SpaceFactory;
-import spacefactory.block.entity.BatteryBoxBlockEntity;
+import spacefactory.block.entity.BatteryBlockEntity;
 import spacefactory.screen.property.ReadProperty;
 import spacefactory.screen.property.WriteProperty;
 import net.fabricmc.api.EnvType;
@@ -25,7 +25,7 @@ public class BatteryBoxScreenHandler extends AtScreenHandler {
         this.addPlayerSlots(user);
     }
 
-    public BatteryBoxScreenHandler(int syncId, BatteryBoxBlockEntity be, PlayerEntity player) {
+    public BatteryBoxScreenHandler(int syncId, BatteryBlockEntity be, PlayerEntity player) {
         this(syncId, be, player.getInventory());
 
         this.addProperty(new ReadProperty(be::getEnergy));
@@ -39,7 +39,7 @@ public class BatteryBoxScreenHandler extends AtScreenHandler {
 
     @Environment(EnvType.CLIENT)
     public int getEnergyDisplay() {
-        return this.energy * 20 / BatteryBoxBlockEntity.CAPACITY;
+        return this.energy * 20 / BatteryBlockEntity.CAPACITY;
     }
 
     @Environment(EnvType.CLIENT)

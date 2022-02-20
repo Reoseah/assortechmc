@@ -72,10 +72,10 @@ public class SpaceFactory implements ModInitializer {
         register(Registry.BLOCK, "iridium_block", SFBlocks.IRIDIUM_BLOCK);
         register(Registry.BLOCK, "rubber_log", SFBlocks.RUBBER_LOG);
         register(Registry.BLOCK, "alive_rubber_log", SFBlocks.ALIVE_RUBBER_LOG);
-        // TODO stripped rubber log, rubber wood, stripped rubber wood
+        register(Registry.BLOCK, "stripped_rubber_log", SFBlocks.STRIPPED_RUBBER_LOG);
+        // TODO rubber wood, stripped rubber wood
         register(Registry.BLOCK, "rubber_leaves", SFBlocks.RUBBER_LEAVES);
         register(Registry.BLOCK, "rubber_sapling", SFBlocks.RUBBER_SAPLING);
-        register(Registry.BLOCK, "stripped_rubber_log", SFBlocks.STRIPPED_RUBBER_LOG);
         // TODO iridium ore
         // TODO raw ore blocks
 
@@ -97,7 +97,7 @@ public class SpaceFactory implements ModInitializer {
         EnergyStorage.SIDED.registerForBlockEntity(ElectricInventoryBlockEntity::getEnergyHandler, SFBlockEntityTypes.GENERATOR);
         EnergyStorage.SIDED.registerForBlockEntity((be, direction) -> SolarPanelBlockEntity.ENERGY, SFBlockEntityTypes.SOLAR_PANEL);
         EnergyStorage.SIDED.registerForBlockEntity((be, direction) -> DragonEggSiphonBlockEntity.ENERGY, SFBlockEntityTypes.DRAGON_EGG_SIPHON);
-        EnergyStorage.SIDED.registerForBlockEntity(BatteryBoxBlockEntity::getEnergyHandler, SFBlockEntityTypes.BATTERY_BOX);
+        EnergyStorage.SIDED.registerForBlockEntity(BatteryBlockEntity::getEnergyHandler, SFBlockEntityTypes.BATTERY_BOX);
         EnergyStorage.SIDED.registerForBlockEntity(ElectricInventoryBlockEntity::getEnergyHandler, SFBlockEntityTypes.ELECTRIC_FURNACE);
         EnergyStorage.SIDED.registerForBlockEntity(ElectricInventoryBlockEntity::getEnergyHandler, SFBlockEntityTypes.MACERATOR);
         EnergyStorage.SIDED.registerForBlockEntity(ElectricInventoryBlockEntity::getEnergyHandler, SFBlockEntityTypes.COMPRESSOR);
@@ -126,11 +126,10 @@ public class SpaceFactory implements ModInitializer {
         register(Registry.ITEM, "bronze_block", new BlockItem(SFBlocks.BRONZE_BLOCK, SFItems.settings()));
         register(Registry.ITEM, "iridium_block", new BlockItem(SFBlocks.IRIDIUM_BLOCK, SFItems.settings().rarity(Rarity.EPIC)));
 
-
         register(Registry.ITEM, "rubber_log", new BlockItem(SFBlocks.RUBBER_LOG, SFItems.settings()));
+        register(Registry.ITEM, "stripped_rubber_log", new BlockItem(SFBlocks.STRIPPED_RUBBER_LOG, SFItems.settings()));
         register(Registry.ITEM, "rubber_leaves", new BlockItem(SFBlocks.RUBBER_LEAVES, SFItems.settings()));
         register(Registry.ITEM, "rubber_sapling", new BlockItem(SFBlocks.RUBBER_SAPLING, SFItems.settings()));
-        register(Registry.ITEM, "stripped_rubber_log", new BlockItem(SFBlocks.STRIPPED_RUBBER_LOG, SFItems.settings()));
 
         // Crafting Items
         register(Registry.ITEM, "sticky_resin", SFItems.STICKY_RESIN);
@@ -171,11 +170,6 @@ public class SpaceFactory implements ModInitializer {
 
         register(Registry.ITEM, "raw_tin", SFItems.RAW_TIN);
         register(Registry.ITEM, "raw_iridium", SFItems.RAW_IRIDIUM);
-
-        register(Registry.ITEM, "crushed_copper_ore", SFItems.CRUSHED_COPPER_ORE);
-        register(Registry.ITEM, "crushed_iron_ore", SFItems.CRUSHED_IRON_ORE);
-        register(Registry.ITEM, "crushed_gold_ore", SFItems.CRUSHED_GOLD_ORE);
-        register(Registry.ITEM, "crushed_tin_ore", SFItems.CRUSHED_TIN_ORE);
 
         // Other
         register(Registry.ITEM, "bronze_sword", SFItems.BRONZE_SWORD);
@@ -239,7 +233,7 @@ public class SpaceFactory implements ModInitializer {
         public static final Block SOLAR_PANEL = new SolarPanelBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).mapColor(MapColor.LAPIS_BLUE));
         public static final Block DRAGON_EGG_SIPHON = new DragonEggSiphonBlock(FabricBlockSettings.copyOf(ADVANCED_MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 15 : 0));
         // Energy Storage
-        public static final Block BATTERY_BOX = new BatteryBoxBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).mapColor(MapColor.SPRUCE_BROWN).sounds(BlockSoundGroup.WOOD));
+        public static final Block BATTERY_BOX = new BatteryBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).mapColor(MapColor.SPRUCE_BROWN).sounds(BlockSoundGroup.WOOD));
         // Crafting Machines
         public static final Block ELECTRIC_FURNACE = new ElectricFurnaceBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS));
         public static final Block MACERATOR = new MaceratorBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS));
@@ -308,11 +302,6 @@ public class SpaceFactory implements ModInitializer {
         public static final Item RAW_TIN = new Item(settings());
         public static final Item RAW_IRIDIUM = new Item(settings().rarity(Rarity.RARE));
 
-        public static final Item CRUSHED_COPPER_ORE = new Item(settings());
-        public static final Item CRUSHED_IRON_ORE = new Item(settings());
-        public static final Item CRUSHED_GOLD_ORE = new Item(settings());
-        public static final Item CRUSHED_TIN_ORE = new Item(settings());
-
         public static final Item BRONZE_SWORD = new SwordItem(AssortechToolMaterials.BRONZE, 3, -2.4F, settings());
         public static final Item BRONZE_SHOVEL = new ShovelItem(AssortechToolMaterials.BRONZE, 1.5F, -3.0F, settings());
         public static final Item BRONZE_PICKAXE = new AccessiblePickaxeItem(AssortechToolMaterials.BRONZE, 1, -2.8F, settings());
@@ -333,7 +322,7 @@ public class SpaceFactory implements ModInitializer {
         public static final BlockEntityType<MaceratorBlockEntity> MACERATOR = FabricBlockEntityTypeBuilder.create(MaceratorBlockEntity::new, SFBlocks.MACERATOR).build();
         public static final BlockEntityType<CompressorBlockEntity> COMPRESSOR = FabricBlockEntityTypeBuilder.create(CompressorBlockEntity::new, SFBlocks.COMPRESSOR).build();
         public static final BlockEntityType<ExtractorBlockEntity> EXTRACTOR = FabricBlockEntityTypeBuilder.create(ExtractorBlockEntity::new, SFBlocks.EXTRACTOR).build();
-        public static final BlockEntityType<BatteryBoxBlockEntity> BATTERY_BOX = FabricBlockEntityTypeBuilder.create(BatteryBoxBlockEntity::new, SFBlocks.BATTERY_BOX).build();
+        public static final BlockEntityType<BatteryBlockEntity> BATTERY_BOX = FabricBlockEntityTypeBuilder.create(BatteryBlockEntity::new, SFBlocks.BATTERY_BOX).build();
         public static final BlockEntityType<CableBlockEntity> CABLE = FabricBlockEntityTypeBuilder.create(CableBlockEntity::new, SFBlocks.COPPER_WIRE, SFBlocks.COPPER_CABLE).build();
     }
 

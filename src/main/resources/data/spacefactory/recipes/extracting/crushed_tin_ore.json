@@ -1,9 +1,0 @@
-{
-  "type": "spacefactory:extracting",
-  "ingredient": {
-    "item": "spacefactory:crushed_tin_ore"
-  },
-  "result": {
-    "item": "spacefactory:tin_dust"
-  }
-}

@@ -1,9 +1,0 @@
-{
-  "type": "spacefactory:extracting",
-  "ingredient": {
-    "item": "spacefactory:crushed_gold_ore"
-  },
-  "result": {
-    "item": "spacefactory:gold_dust"
-  }
-}

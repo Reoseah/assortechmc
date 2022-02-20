@@ -16,10 +16,10 @@ import team.reborn.energy.api.EnergyStorage;
 import team.reborn.energy.api.EnergyStorageUtil;
 import team.reborn.energy.api.base.DelegatingEnergyStorage;
 
-public class BatteryBoxBlockEntity extends ElectricInventoryBlockEntity {
+public class BatteryBlockEntity extends ElectricInventoryBlockEntity {
     public static final int CAPACITY = 100000;
 
-    public BatteryBoxBlockEntity(BlockPos pos, BlockState state) {
+    public BatteryBlockEntity(BlockPos pos, BlockState state) {
         super(SpaceFactory.SFBlockEntityTypes.BATTERY_BOX, pos, state);
     }
 
@@ -50,7 +50,7 @@ public class BatteryBoxBlockEntity extends ElectricInventoryBlockEntity {
                 };
     }
 
-    public static void tick(World world, BlockPos pos, BlockState state, BatteryBoxBlockEntity be) {
+    public static void tick(World world, BlockPos pos, BlockState state, BatteryBlockEntity be) {
         ElectricInventoryBlockEntity.tick(world, pos, state, be);
         EnergyStorageUtil.move(be.getItemApi(0, EnergyStorage.ITEM), be.energy, Integer.MAX_VALUE, null);
         EnergyStorageUtil.move(be.energy, be.getItemApi(1, EnergyStorage.ITEM), Integer.MAX_VALUE, null);
