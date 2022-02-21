@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "spacefactory:crystalite_block"
+    }
+  ],
+  "result": {
+    "item": "spacefactory:crystalite_matrix",
+    "count": 9
+  }
+}

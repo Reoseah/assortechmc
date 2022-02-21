@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "spacefactory:item/illumina_matrix"
+    "layer0": "spacefactory:item/wire_cutters"
   }
 }

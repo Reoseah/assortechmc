@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "spacefactory:block/crystallate_block"
+    "all": "spacefactory:block/crystalite_block"
   }
 }

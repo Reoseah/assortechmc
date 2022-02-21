@@ -1,0 +1,10 @@
+{
+  "type": "spacefactory:extracting",
+  "ingredient": {
+    "item": "spacefactory:raw_crystalite_dust"
+  },
+  "result": {
+    "item": "spacefactory:crystalite"
+  },
+  "experience": 0.1
+}

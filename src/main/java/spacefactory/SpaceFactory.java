@@ -19,6 +19,7 @@ import net.minecraft.recipe.RecipeType;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.state.property.Properties;
+import net.minecraft.tag.Tag;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
 import net.minecraft.util.math.Direction;
@@ -39,8 +40,10 @@ import spacefactory.feature.RubberFoliagePlacer;
 import spacefactory.item.AccessibleAxeItem;
 import spacefactory.item.AccessiblePickaxeItem;
 import spacefactory.item.VanovoltaicCellItem;
+import spacefactory.item.WireCuttersItem;
 import spacefactory.item.material.AssortechArmorMaterials;
 import spacefactory.item.material.AssortechToolMaterials;
+import spacefactory.mixin.BlocksAccessor;
 import spacefactory.mixin.FoliagePlacerTypeInvoker;
 import spacefactory.recipe.*;
 import spacefactory.screen.*;
@@ -70,7 +73,7 @@ public class SpaceFactory implements ModInitializer {
         register(Registry.BLOCK, "tin_block", SFBlocks.TIN_BLOCK);
         register(Registry.BLOCK, "bronze_block", SFBlocks.BRONZE_BLOCK);
         register(Registry.BLOCK, "iridium_block", SFBlocks.IRIDIUM_BLOCK);
-        register(Registry.BLOCK, "crystallate_block", SFBlocks.CRYSTALLATE_BLOCK);
+        register(Registry.BLOCK, "crystalite_block", SFBlocks.CRYSTALITE_BLOCK);
         register(Registry.BLOCK, "rubber_log", SFBlocks.RUBBER_LOG);
         register(Registry.BLOCK, "alive_rubber_log", SFBlocks.ALIVE_RUBBER_LOG);
         register(Registry.BLOCK, "stripped_rubber_log", SFBlocks.STRIPPED_RUBBER_LOG);
@@ -126,7 +129,7 @@ public class SpaceFactory implements ModInitializer {
         register(Registry.ITEM, "tin_block", new BlockItem(SFBlocks.TIN_BLOCK, SFItems.settings()));
         register(Registry.ITEM, "bronze_block", new BlockItem(SFBlocks.BRONZE_BLOCK, SFItems.settings()));
         register(Registry.ITEM, "iridium_block", new BlockItem(SFBlocks.IRIDIUM_BLOCK, SFItems.settings().rarity(Rarity.EPIC)));
-        register(Registry.ITEM, "crystallate_block", new BlockItem(SFBlocks.CRYSTALLATE_BLOCK, SFItems.settings().rarity(Rarity.UNCOMMON)));
+        register(Registry.ITEM, "crystalite_block", new BlockItem(SFBlocks.CRYSTALITE_BLOCK, SFItems.settings().rarity(Rarity.UNCOMMON)));
 
         register(Registry.ITEM, "rubber_log", new BlockItem(SFBlocks.RUBBER_LOG, SFItems.settings()));
         register(Registry.ITEM, "stripped_rubber_log", new BlockItem(SFBlocks.STRIPPED_RUBBER_LOG, SFItems.settings()));
@@ -140,10 +143,12 @@ public class SpaceFactory implements ModInitializer {
         register(Registry.ITEM, "arachnolactam", SFItems.ARACHNOLACTAM);
         register(Registry.ITEM, "hyperstrand", SFItems.HYPERSRAND);
         register(Registry.ITEM, "hyperweave", SFItems.HYPERWEAVE);
-        register(Registry.ITEM, "illumina_crystal", SFItems.ILLUMINA_CRYSTAL);
-        register(Registry.ITEM, "illumina_matrix", SFItems.ILLUMINA_MATRIX);
+        register(Registry.ITEM, "crystalite", SFItems.CRYSTALITE);
+        register(Registry.ITEM, "crystalite_matrix", SFItems.CRYSTALITE_MATRIX);
         register(Registry.ITEM, "ascended_circuit", SFItems.ASCENDED_CIRCUIT);
         register(Registry.ITEM, "vanovoltaic_cell", SFItems.VANOVOLTAIC_CELL);
+
+        register(Registry.ITEM, "wire_cutters", SFItems.WIRE_CUTTERS);
 
         register(Registry.ITEM, "tin_ingot", SFItems.TIN_INGOT);
         register(Registry.ITEM, "bronze_ingot", SFItems.BRONZE_INGOT);
@@ -165,7 +170,7 @@ public class SpaceFactory implements ModInitializer {
         register(Registry.ITEM, "refined_iron_dust", SFItems.REFINED_IRON_DUST);
         register(Registry.ITEM, "iridium_dust", SFItems.IRIDIUM_DUST);
         register(Registry.ITEM, "netherite_scrap_dust", SFItems.NETHERITE_SCRAP_DUST);
-        register(Registry.ITEM, "raw_illumina_dust", SFItems.RAW_ILLUMINA_DUST);
+        register(Registry.ITEM, "raw_crystalite_dust", SFItems.RAW_CRYSTALITE_DUST);
 
         register(Registry.ITEM, "small_refined_iron_dust", SFItems.SMALL_REFINED_IRON_DUST);
         register(Registry.ITEM, "small_iridium_dust", SFItems.SMALL_IRIDIUM_DUST);
@@ -226,8 +231,8 @@ public class SpaceFactory implements ModInitializer {
         private static final AbstractBlock.Settings UNMOVABLE_RUBBER_LOG_SETTINGS = FabricBlockSettings.of(UNMOVABLE_WOOD, MapColor.YELLOW).ticksRandomly().strength(2F).sounds(BlockSoundGroup.WOOD);
         private static final AbstractBlock.Settings TIN_SETTINGS = FabricBlockSettings.of(Material.METAL, MapColor.LIGHT_GRAY).strength(3F, 6F).sounds(BlockSoundGroup.METAL);
         private static final AbstractBlock.Settings BRONZE_SETTINGS = FabricBlockSettings.of(Material.METAL, MapColor.ORANGE).strength(3F, 6F).sounds(BlockSoundGroup.METAL);
-        private static final AbstractBlock.Settings MACHINE_SETTINGS = FabricBlockSettings.of(AtMaterials.MACHINE).strength(3F, 6F).sounds(BlockSoundGroup.METAL).requiresTool();
-        private static final AbstractBlock.Settings ADVANCED_MACHINE_SETTINGS = FabricBlockSettings.of(AtMaterials.MACHINE).strength(10F, 30F).sounds(BlockSoundGroup.METAL).requiresTool();
+        private static final AbstractBlock.Settings MACHINE_SETTINGS = FabricBlockSettings.of(AtMaterials.MACHINE).strength(3F, 6F).sounds(BlockSoundGroup.METAL).requiresTool().allowsSpawning(BlocksAccessor::invokeNever);
+        private static final AbstractBlock.Settings ADVANCED_MACHINE_SETTINGS = FabricBlockSettings.of(AtMaterials.MACHINE).strength(10F, 30F).sounds(BlockSoundGroup.METAL).requiresTool().allowsSpawning(BlocksAccessor::invokeNever);
 
         public static final Block MACHINE_BLOCK = new Block(MACHINE_SETTINGS);
         // Generators
@@ -250,8 +255,8 @@ public class SpaceFactory implements ModInitializer {
         public static final Block DEEPSLATE_TIN_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(4.5F, 3F));
         public static final Block TIN_BLOCK = new Block(TIN_SETTINGS);
         public static final Block BRONZE_BLOCK = new Block(BRONZE_SETTINGS);
-        public static final Block IRIDIUM_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(5F, 20F));
-        public static final Block CRYSTALLATE_BLOCK = new Block(FabricBlockSettings.of(Material.METAL, MapColor.LIGHT_BLUE).strength(5F, 20F));
+        public static final Block IRIDIUM_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(5F, 20F).allowsSpawning(BlocksAccessor::invokeNever));
+        public static final Block CRYSTALITE_BLOCK = new Block(FabricBlockSettings.of(Material.GLASS, MapColor.LIGHT_BLUE).luminance(15).strength(5F, 20F).sounds(BlockSoundGroup.GLASS).allowsSpawning(BlocksAccessor::invokeNever));
         public static final Block RUBBER_LOG = new PillarBlock(RUBBER_LOG_SETTINGS);
         public static final Block ALIVE_RUBBER_LOG = new AliveRubberLogBlock(UNMOVABLE_RUBBER_LOG_SETTINGS);
         public static final Block RUBBER_LEAVES = new LeavesBlock(FabricBlockSettings.copyOf(Blocks.JUNGLE_LEAVES));
@@ -272,9 +277,9 @@ public class SpaceFactory implements ModInitializer {
         public static final Item ARACHNOLACTAM = new Item(settings());
         public static final Item HYPERSRAND = new Item(settings().rarity(Rarity.RARE));
         public static final Item HYPERWEAVE = new Item(settings().rarity(Rarity.RARE));
-        public static final Item RAW_ILLUMINA_DUST = new Item(settings());
-        public static final Item ILLUMINA_CRYSTAL = new Item(settings().rarity(Rarity.UNCOMMON));
-        public static final Item ILLUMINA_MATRIX = new Item(settings().rarity(Rarity.UNCOMMON));
+        public static final Item RAW_CRYSTALITE_DUST = new Item(settings());
+        public static final Item CRYSTALITE = new Item(settings().rarity(Rarity.UNCOMMON));
+        public static final Item CRYSTALITE_MATRIX = new Item(settings().rarity(Rarity.UNCOMMON));
         public static final Item ASCENDED_CIRCUIT = new Item(settings().rarity(Rarity.UNCOMMON));
         public static final Item VANOVOLTAIC_CELL = new VanovoltaicCellItem(settings().rarity(Rarity.EPIC));
 
@@ -305,6 +310,8 @@ public class SpaceFactory implements ModInitializer {
         public static final Item RAW_TIN = new Item(settings());
         public static final Item RAW_IRIDIUM = new Item(settings().rarity(Rarity.RARE));
 
+        public static final Item WIRE_CUTTERS = new WireCuttersItem(settings().maxDamage(256));
+
         public static final Item BRONZE_SWORD = new SwordItem(AssortechToolMaterials.BRONZE, 3, -2.4F, settings());
         public static final Item BRONZE_SHOVEL = new ShovelItem(AssortechToolMaterials.BRONZE, 1.5F, -3.0F, settings());
         public static final Item BRONZE_PICKAXE = new AccessiblePickaxeItem(AssortechToolMaterials.BRONZE, 1, -2.8F, settings());
@@ -314,6 +321,8 @@ public class SpaceFactory implements ModInitializer {
         public static final Item BRONZE_CHESTPLATE = new ArmorItem(AssortechArmorMaterials.BRONZE, EquipmentSlot.CHEST, settings());
         public static final Item BRONZE_LEGGINGS = new ArmorItem(AssortechArmorMaterials.BRONZE, EquipmentSlot.LEGS, settings());
         public static final Item BRONZE_BOOTS = new ArmorItem(AssortechArmorMaterials.BRONZE, EquipmentSlot.FEET, settings());
+
+        public static final Tag<Item> RUBBERS = TagFactory.ITEM.create(new Identifier("c:rubber"));
     }
 
     public static class SFBlockEntityTypes {

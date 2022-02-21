@@ -1,22 +1,19 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "C",
-    "#",
-    "I"
+    "I I",
+    " I ",
+    "R R"
   ],
   "key": {
-    "#": {
-      "item": "spacefactory:crystalite"
-    },
     "I": {
       "item": "spacefactory:refined_iron_ingot"
     },
     "C": {
-      "tag": "c:circuits"
+      "tag": "c:rubber"
     }
   },
   "result": {
-    "item": "spacefactory:ascended_circuit"
+    "item": "spacefactory:wire_cutters"
   }
 }
