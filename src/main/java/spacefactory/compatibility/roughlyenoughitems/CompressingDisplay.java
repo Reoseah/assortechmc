@@ -10,6 +10,6 @@ public class CompressingDisplay extends CraftingMachineDisplay {
 
     @Override
     public CategoryIdentifier<?> getCategoryIdentifier() {
-        return SpaceFactoryREI.COMPRESSING;
+        return SpaceFactoryPlugin.COMPRESSING;
     }
 }

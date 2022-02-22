@@ -10,6 +10,6 @@ public class ExtractingDisplay extends CraftingMachineDisplay {
 
     @Override
     public CategoryIdentifier<?> getCategoryIdentifier() {
-        return SpaceFactoryREI.EXTRACTING;
+        return SpaceFactoryPlugin.EXTRACTING;
     }
 }

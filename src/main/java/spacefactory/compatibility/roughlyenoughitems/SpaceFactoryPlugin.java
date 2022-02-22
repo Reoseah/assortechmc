@@ -23,7 +23,7 @@ import net.minecraft.util.Identifier;
 import java.util.Arrays;
 import java.util.List;
 
-public class SpaceFactoryREI implements REIClientPlugin {
+public class SpaceFactoryPlugin implements REIClientPlugin {
     public static final Identifier WIDGETS = SpaceFactory.id("textures/gui/compatibility/rei_widgets.png");
 
     public static final CategoryIdentifier<MaceratingDisplay> MACERATING = CategoryIdentifier.of("spacefactory:macerating");

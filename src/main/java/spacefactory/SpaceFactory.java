@@ -74,14 +74,17 @@ public class SpaceFactory implements ModInitializer {
         register(Registry.BLOCK, "bronze_block", SFBlocks.BRONZE_BLOCK);
         register(Registry.BLOCK, "iridium_block", SFBlocks.IRIDIUM_BLOCK);
         register(Registry.BLOCK, "crystalite_block", SFBlocks.CRYSTALITE_BLOCK);
+        register(Registry.BLOCK, "raw_tin_block", SFBlocks.RAW_TIN_BLOCK);
+        register(Registry.BLOCK, "raw_iridium_block", SFBlocks.RAW_IRIDIUM_BLOCK);
+
         register(Registry.BLOCK, "rubber_log", SFBlocks.RUBBER_LOG);
         register(Registry.BLOCK, "alive_rubber_log", SFBlocks.ALIVE_RUBBER_LOG);
         register(Registry.BLOCK, "stripped_rubber_log", SFBlocks.STRIPPED_RUBBER_LOG);
         // TODO rubber wood, stripped rubber wood
         register(Registry.BLOCK, "rubber_leaves", SFBlocks.RUBBER_LEAVES);
         register(Registry.BLOCK, "rubber_sapling", SFBlocks.RUBBER_SAPLING);
-        // TODO iridium ore
-        // TODO raw ore blocks
+        // TODO iridium ores
+        // TODO raw iridium block
 
         FlammableBlockRegistry.getDefaultInstance().add(SFBlocks.RUBBER_LOG, 5, 5);
         FlammableBlockRegistry.getDefaultInstance().add(SFBlocks.ALIVE_RUBBER_LOG, 5, 5);
@@ -130,6 +133,8 @@ public class SpaceFactory implements ModInitializer {
         register(Registry.ITEM, "bronze_block", new BlockItem(SFBlocks.BRONZE_BLOCK, SFItems.settings()));
         register(Registry.ITEM, "iridium_block", new BlockItem(SFBlocks.IRIDIUM_BLOCK, SFItems.settings().rarity(Rarity.EPIC)));
         register(Registry.ITEM, "crystalite_block", new BlockItem(SFBlocks.CRYSTALITE_BLOCK, SFItems.settings().rarity(Rarity.UNCOMMON)));
+        register(Registry.ITEM, "raw_tin_block", new BlockItem(SFBlocks.RAW_TIN_BLOCK, SFItems.settings()));
+        register(Registry.ITEM, "raw_iridium_block", new BlockItem(SFBlocks.RAW_IRIDIUM_BLOCK, SFItems.settings().rarity(Rarity.EPIC)));
 
         register(Registry.ITEM, "rubber_log", new BlockItem(SFBlocks.RUBBER_LOG, SFItems.settings()));
         register(Registry.ITEM, "stripped_rubber_log", new BlockItem(SFBlocks.STRIPPED_RUBBER_LOG, SFItems.settings()));
@@ -189,7 +194,7 @@ public class SpaceFactory implements ModInitializer {
         register(Registry.ITEM, "bronze_leggings", SFItems.BRONZE_LEGGINGS);
         register(Registry.ITEM, "bronze_boots", SFItems.BRONZE_BOOTS);
 
-        FuelRegistry.INSTANCE.add(TagFactory.ITEM.create(new Identifier("c:rubber")), 100);
+        FuelRegistry.INSTANCE.add(SFItems.RUBBERS, 100);
 
         ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(SFBlocks.RUBBER_SAPLING.asItem(), 0.3F);
         ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(SFBlocks.RUBBER_LEAVES.asItem(), 0.3F);
@@ -257,6 +262,8 @@ public class SpaceFactory implements ModInitializer {
         public static final Block BRONZE_BLOCK = new Block(BRONZE_SETTINGS);
         public static final Block IRIDIUM_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(5F, 20F).allowsSpawning(BlocksAccessor::invokeNever));
         public static final Block CRYSTALITE_BLOCK = new Block(FabricBlockSettings.of(Material.GLASS, MapColor.LIGHT_BLUE).luminance(15).strength(5F, 20F).sounds(BlockSoundGroup.GLASS).allowsSpawning(BlocksAccessor::invokeNever));
+        public static final Block RAW_TIN_BLOCK = new Block(AbstractBlock.Settings.of(Material.STONE, MapColor.LIGHT_GRAY).requiresTool().strength(5.0f, 6.0f));
+        public static final Block RAW_IRIDIUM_BLOCK = new Block(AbstractBlock.Settings.of(Material.STONE, MapColor.WHITE).requiresTool().strength(7.0f, 10.0f));
         public static final Block RUBBER_LOG = new PillarBlock(RUBBER_LOG_SETTINGS);
         public static final Block ALIVE_RUBBER_LOG = new AliveRubberLogBlock(UNMOVABLE_RUBBER_LOG_SETTINGS);
         public static final Block RUBBER_LEAVES = new LeavesBlock(FabricBlockSettings.copyOf(Blocks.JUNGLE_LEAVES));
@@ -322,7 +329,8 @@ public class SpaceFactory implements ModInitializer {
         public static final Item BRONZE_LEGGINGS = new ArmorItem(AssortechArmorMaterials.BRONZE, EquipmentSlot.LEGS, settings());
         public static final Item BRONZE_BOOTS = new ArmorItem(AssortechArmorMaterials.BRONZE, EquipmentSlot.FEET, settings());
 
-        public static final Tag<Item> RUBBERS = TagFactory.ITEM.create(new Identifier("c:rubber"));
+        public static final Tag<Item> RUBBERS = TagFactory.ITEM.create(new Identifier("c:rubbers"));
+        public static final Tag<Item> BRONZE_INGOTS = TagFactory.ITEM.create(new Identifier("c:bronze_ingots"));
     }
 
     public static class SFBlockEntityTypes {

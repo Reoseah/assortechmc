@@ -91,11 +91,16 @@ public class AliveRubberLogBlock extends Block {
                     ItemStack stack = new ItemStack(SpaceFactory.SFItems.STICKY_RESIN, 1 + world.getRandom().nextInt(3));
                     Direction side = hitResult.getSide();
 
-                    double x = pos.getX() + 0.5 + 0.55 * side.getOffsetX();
-                    double y = pos.getY() + 0.5 + 0.55 * side.getOffsetY();
-                    double z = pos.getZ() + 0.5 + 0.55 * side.getOffsetZ();
+                    double x = pos.getX() + 0.5 + 0.75 * side.getOffsetX();
+                    double y = pos.getY() + 0.5 + 0.75 * side.getOffsetY();
+                    double z = pos.getZ() + 0.5 + 0.75 * side.getOffsetZ();
 
-                    ItemEntity entity = new ItemEntity(world, x, y, z, stack);
+
+                    double vx = 0.01 * side.getOffsetX();
+                    double vy = 0.01 * side.getOffsetY();
+                    double vz = 0.01 * side.getOffsetZ();
+
+                    ItemEntity entity = new ItemEntity(world, x, y, z, stack, vx, vy, vz);
                     world.spawnEntity(entity);
                 }
                 world.setBlockState(pos, state.with(STATE, State.TAPPED));

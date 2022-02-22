@@ -10,6 +10,6 @@ public class MaceratingDisplay extends CraftingMachineDisplay {
 
     @Override
     public CategoryIdentifier<?> getCategoryIdentifier() {
-        return SpaceFactoryREI.MACERATING;
+        return SpaceFactoryPlugin.MACERATING;
     }
 }

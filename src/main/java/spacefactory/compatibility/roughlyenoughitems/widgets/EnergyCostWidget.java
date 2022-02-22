@@ -1,6 +1,6 @@
 package spacefactory.compatibility.roughlyenoughitems.widgets;
 
-import spacefactory.compatibility.roughlyenoughitems.SpaceFactoryREI;
+import spacefactory.compatibility.roughlyenoughitems.SpaceFactoryPlugin;
 import com.mojang.blaze3d.systems.RenderSystem;
 import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.client.gui.widgets.BurningFire;
@@ -40,7 +40,7 @@ public class EnergyCostWidget extends BurningFire {
 
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1);
-        RenderSystem.setShaderTexture(0, SpaceFactoryREI.WIDGETS);
+        RenderSystem.setShaderTexture(0, SpaceFactoryPlugin.WIDGETS);
         RenderSystem.enableBlend();
         RenderSystem.blendFuncSeparate(770, 771, 1, 0);
         RenderSystem.blendFunc(770, 771);

@@ -11,7 +11,7 @@ public abstract class CraftingMachineDisplay extends BasicDisplay {
     private final int duration;
 
     public CraftingMachineDisplay(CraftingMachineRecipe recipe) {
-        super(SpaceFactoryREI.toIngredientEntries(recipe.getIngredient(), recipe.getIngredientCount()),
+        super(SpaceFactoryPlugin.toIngredientEntries(recipe.getIngredient(), recipe.getIngredientCount()),
                 Collections.singletonList(EntryIngredients.of(recipe.getOutput())),
                 Optional.of(recipe.getId()));
         this.duration = recipe.getDuration();

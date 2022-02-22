@@ -19,7 +19,7 @@
       "spacefactory.SpaceFactory"
     ],
     "rei_plugins": [
-      "spacefactory.compatibility.roughlyenoughitems.SpaceFactoryREI"
+      "spacefactory.compatibility.roughlyenoughitems.SpaceFactoryPlugin"
     ]
   },
   "mixins": [
