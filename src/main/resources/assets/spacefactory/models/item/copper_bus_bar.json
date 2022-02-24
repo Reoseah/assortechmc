@@ -1,0 +1,29 @@
+{
+  "parent": "block/block",
+  "textures": {
+    "particle": "#side",
+    "end": "spacefactory:block/copper_bus_bar",
+    "side": "spacefactory:item/copper_bus_bar"
+  },
+  "display": {
+    "firstperson_righthand": {
+      "rotation": [ 0, 135, 0 ],
+      "translation": [ 0, 0, 0 ],
+      "scale": [ 0.40, 0.40, 0.40 ]
+    }
+  },
+  "elements": [
+    {
+      "from": [ 0, 5, 5 ],
+      "to": [ 16, 11, 11 ],
+      "faces": {
+        "north": { "texture": "#side" },
+        "south": { "texture": "#side" },
+        "east": { "texture": "#end" },
+        "west": { "texture": "#end" },
+        "up": { "texture": "#side" },
+        "down": { "texture": "#side" }
+      }
+    }
+  ]
+}

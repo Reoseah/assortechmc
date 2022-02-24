@@ -76,7 +76,7 @@ public class AliveRubberLogBlock extends Block {
                 world.setBlockState(pos, SpaceFactory.SFBlocks.STRIPPED_RUBBER_LOG.getDefaultState());
                 return;
             }
-            if (random.nextInt(4) == 0) {
+            if (random.nextInt(8) == 0) {
                 world.setBlockState(pos, state.with(STATE, State.READY));
             }
         }
@@ -91,14 +91,14 @@ public class AliveRubberLogBlock extends Block {
                     ItemStack stack = new ItemStack(SpaceFactory.SFItems.STICKY_RESIN, 1 + world.getRandom().nextInt(3));
                     Direction side = hitResult.getSide();
 
-                    double x = pos.getX() + 0.5 + 0.75 * side.getOffsetX();
-                    double y = pos.getY() + 0.5 + 0.75 * side.getOffsetY();
-                    double z = pos.getZ() + 0.5 + 0.75 * side.getOffsetZ();
+                    double x = pos.getX() + 0.5 + 0.70 * side.getOffsetX();
+                    double y = pos.getY() + 0.5 + 0.70 * side.getOffsetY();
+                    double z = pos.getZ() + 0.5 + 0.70 * side.getOffsetZ();
 
 
-                    double vx = 0.01 * side.getOffsetX();
-                    double vy = 0.01 * side.getOffsetY();
-                    double vz = 0.01 * side.getOffsetZ();
+                    double vx = 0.05 * side.getOffsetX();
+                    double vy = 0.05 * side.getOffsetY();
+                    double vz = 0.05 * side.getOffsetZ();
 
                     ItemEntity entity = new ItemEntity(world, x, y, z, stack, vx, vy, vz);
                     world.spawnEntity(entity);

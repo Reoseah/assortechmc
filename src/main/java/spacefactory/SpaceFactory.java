@@ -34,13 +34,12 @@ import net.minecraft.world.gen.foliage.FoliagePlacerType;
 import net.minecraft.world.gen.stateprovider.BlockStateProvider;
 import net.minecraft.world.gen.stateprovider.SimpleBlockStateProvider;
 import net.minecraft.world.gen.trunk.StraightTrunkPlacer;
+import spacefactory.api.EnergyTier;
 import spacefactory.block.*;
+import spacefactory.block.ConduitBlock;
 import spacefactory.block.entity.*;
 import spacefactory.feature.RubberFoliagePlacer;
-import spacefactory.item.AccessibleAxeItem;
-import spacefactory.item.AccessiblePickaxeItem;
-import spacefactory.item.VanovoltaicCellItem;
-import spacefactory.item.WireCuttersItem;
+import spacefactory.item.*;
 import spacefactory.item.material.AssortechArmorMaterials;
 import spacefactory.item.material.AssortechToolMaterials;
 import spacefactory.mixin.BlocksAccessor;
@@ -67,6 +66,8 @@ public class SpaceFactory implements ModInitializer {
         // Cables
         register(Registry.BLOCK, "copper_wire", SFBlocks.COPPER_WIRE);
         register(Registry.BLOCK, "copper_cable", SFBlocks.COPPER_CABLE);
+        register(Registry.BLOCK, "copper_bus_bar", SFBlocks.COPPER_BUS_BAR);
+        register(Registry.BLOCK, "reinforced_energy_conduit", SFBlocks.REINFORCED_ENERGY_CONDUIT);
         // Resources
         register(Registry.BLOCK, "tin_ore", SFBlocks.TIN_ORE);
         register(Registry.BLOCK, "deepslate_tin_ore", SFBlocks.DEEPSLATE_TIN_ORE);
@@ -99,7 +100,7 @@ public class SpaceFactory implements ModInitializer {
         register(Registry.BLOCK_ENTITY_TYPE, "macerator", SFBlockEntityTypes.MACERATOR);
         register(Registry.BLOCK_ENTITY_TYPE, "compressor", SFBlockEntityTypes.COMPRESSOR);
         register(Registry.BLOCK_ENTITY_TYPE, "extractor", SFBlockEntityTypes.EXTRACTOR);
-        register(Registry.BLOCK_ENTITY_TYPE, "cable", SFBlockEntityTypes.CABLE);
+        register(Registry.BLOCK_ENTITY_TYPE, "conduit", SFBlockEntityTypes.CONDUIT);
 
         EnergyStorage.SIDED.registerForBlockEntity(ElectricInventoryBlockEntity::getEnergyHandler, SFBlockEntityTypes.GENERATOR);
         EnergyStorage.SIDED.registerForBlockEntity((be, direction) -> SolarPanelBlockEntity.ENERGY, SFBlockEntityTypes.SOLAR_PANEL);
@@ -109,7 +110,7 @@ public class SpaceFactory implements ModInitializer {
         EnergyStorage.SIDED.registerForBlockEntity(ElectricInventoryBlockEntity::getEnergyHandler, SFBlockEntityTypes.MACERATOR);
         EnergyStorage.SIDED.registerForBlockEntity(ElectricInventoryBlockEntity::getEnergyHandler, SFBlockEntityTypes.COMPRESSOR);
         EnergyStorage.SIDED.registerForBlockEntity(ElectricInventoryBlockEntity::getEnergyHandler, SFBlockEntityTypes.EXTRACTOR);
-        EnergyStorage.SIDED.registerForBlockEntity(CableBlockEntity::getEnergyHandler, SFBlockEntityTypes.CABLE);
+        EnergyStorage.SIDED.registerForBlockEntity(ConduitBlockEntity::getEnergyHandler, SFBlockEntityTypes.CONDUIT);
 
         register(Registry.ITEM, "machine_block", new BlockItem(SFBlocks.MACHINE_BLOCK, SFItems.settings()));
         // Generators
@@ -126,6 +127,8 @@ public class SpaceFactory implements ModInitializer {
         // Cables
         register(Registry.ITEM, "copper_wire", new BlockItem(SFBlocks.COPPER_WIRE, SFItems.settings()));
         register(Registry.ITEM, "copper_cable", new BlockItem(SFBlocks.COPPER_CABLE, SFItems.settings()));
+        register(Registry.ITEM, "copper_bus_bar", new BlockItem(SFBlocks.COPPER_BUS_BAR, SFItems.settings()));
+        register(Registry.ITEM, "reinforced_energy_conduit", new BlockItem(SFBlocks.REINFORCED_ENERGY_CONDUIT, SFItems.settings()));
         // Resources
         register(Registry.ITEM, "tin_ore", new BlockItem(SFBlocks.TIN_ORE, SFItems.settings()));
         register(Registry.ITEM, "deepslate_tin_ore", new BlockItem(SFBlocks.DEEPSLATE_TIN_ORE, SFItems.settings()));
@@ -150,10 +153,9 @@ public class SpaceFactory implements ModInitializer {
         register(Registry.ITEM, "hyperweave", SFItems.HYPERWEAVE);
         register(Registry.ITEM, "crystalite", SFItems.CRYSTALITE);
         register(Registry.ITEM, "crystalite_matrix", SFItems.CRYSTALITE_MATRIX);
-        register(Registry.ITEM, "ascended_circuit", SFItems.ASCENDED_CIRCUIT);
+        register(Registry.ITEM, "quantum_circuit", SFItems.QUANTUM_CIRCUIT);
+        register(Registry.ITEM, "energy_crystal", SFItems.ENERGY_CRYSTAL);
         register(Registry.ITEM, "vanovoltaic_cell", SFItems.VANOVOLTAIC_CELL);
-
-        register(Registry.ITEM, "wire_cutters", SFItems.WIRE_CUTTERS);
 
         register(Registry.ITEM, "tin_ingot", SFItems.TIN_INGOT);
         register(Registry.ITEM, "bronze_ingot", SFItems.BRONZE_INGOT);
@@ -193,6 +195,7 @@ public class SpaceFactory implements ModInitializer {
         register(Registry.ITEM, "bronze_chestplate", SFItems.BRONZE_CHESTPLATE);
         register(Registry.ITEM, "bronze_leggings", SFItems.BRONZE_LEGGINGS);
         register(Registry.ITEM, "bronze_boots", SFItems.BRONZE_BOOTS);
+        register(Registry.ITEM, "wire_cutters", SFItems.WIRE_CUTTERS);
 
         FuelRegistry.INSTANCE.add(SFItems.RUBBERS, 100);
 
@@ -252,8 +255,10 @@ public class SpaceFactory implements ModInitializer {
         public static final Block COMPRESSOR = new CompressorBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS));
         public static final Block EXTRACTOR = new ExtractorBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS));
         // Cables
-        public static final Block COPPER_WIRE = new CableBlock(1, FabricBlockSettings.of(Material.METAL).strength(0.5F).sounds(BlockSoundGroup.WOOL).breakByHand(true));
-        public static final Block COPPER_CABLE = new CableBlock(2, FabricBlockSettings.of(Material.METAL).strength(0.5F).breakByHand(true));
+        public static final Block COPPER_WIRE = new ConduitBlock(1, EnergyTier.MEDIUM, FabricBlockSettings.of(Material.METAL).strength(0.5F).sounds(BlockSoundGroup.WOOL).breakByHand(true));
+        public static final Block COPPER_CABLE = new ConduitBlock(2, EnergyTier.MEDIUM, FabricBlockSettings.of(Material.METAL).strength(0.5F).breakByHand(true));
+        public static final Block COPPER_BUS_BAR = new ConduitBlock(3, EnergyTier.EXTREME, FabricBlockSettings.of(Material.METAL).strength(2F, 5F).breakByHand(true));
+        public static final Block REINFORCED_ENERGY_CONDUIT = new ConduitBlock(4, EnergyTier.EXTREME, FabricBlockSettings.of(Material.METAL).strength(5F, 20F).breakByHand(true));
 
         // Resources
         public static final Block TIN_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(3F));
@@ -286,9 +291,10 @@ public class SpaceFactory implements ModInitializer {
         public static final Item HYPERWEAVE = new Item(settings().rarity(Rarity.RARE));
         public static final Item RAW_CRYSTALITE_DUST = new Item(settings());
         public static final Item CRYSTALITE = new Item(settings().rarity(Rarity.UNCOMMON));
-        public static final Item CRYSTALITE_MATRIX = new Item(settings().rarity(Rarity.UNCOMMON));
-        public static final Item ASCENDED_CIRCUIT = new Item(settings().rarity(Rarity.UNCOMMON));
-        public static final Item VANOVOLTAIC_CELL = new VanovoltaicCellItem(settings().rarity(Rarity.EPIC));
+        public static final Item CRYSTALITE_MATRIX = new Item(settings().maxCount(16).rarity(Rarity.UNCOMMON));
+        public static final Item QUANTUM_CIRCUIT = new Item(settings().rarity(Rarity.UNCOMMON));
+        public static final Item ENERGY_CRYSTAL = new EnergyCrystalItem(settings().maxCount(1).rarity(Rarity.RARE));
+        public static final Item VANOVOLTAIC_CELL = new VanovoltaicCellItem(settings().maxCount(1).rarity(Rarity.EPIC));
 
         public static final Item TIN_INGOT = new Item(settings());
         public static final Item BRONZE_INGOT = new Item(settings());
@@ -317,8 +323,6 @@ public class SpaceFactory implements ModInitializer {
         public static final Item RAW_TIN = new Item(settings());
         public static final Item RAW_IRIDIUM = new Item(settings().rarity(Rarity.RARE));
 
-        public static final Item WIRE_CUTTERS = new WireCuttersItem(settings().maxDamage(256));
-
         public static final Item BRONZE_SWORD = new SwordItem(AssortechToolMaterials.BRONZE, 3, -2.4F, settings());
         public static final Item BRONZE_SHOVEL = new ShovelItem(AssortechToolMaterials.BRONZE, 1.5F, -3.0F, settings());
         public static final Item BRONZE_PICKAXE = new AccessiblePickaxeItem(AssortechToolMaterials.BRONZE, 1, -2.8F, settings());
@@ -328,6 +332,7 @@ public class SpaceFactory implements ModInitializer {
         public static final Item BRONZE_CHESTPLATE = new ArmorItem(AssortechArmorMaterials.BRONZE, EquipmentSlot.CHEST, settings());
         public static final Item BRONZE_LEGGINGS = new ArmorItem(AssortechArmorMaterials.BRONZE, EquipmentSlot.LEGS, settings());
         public static final Item BRONZE_BOOTS = new ArmorItem(AssortechArmorMaterials.BRONZE, EquipmentSlot.FEET, settings());
+        public static final Item WIRE_CUTTERS = new WireCuttersItem(settings().maxDamage(256));
 
         public static final Tag<Item> RUBBERS = TagFactory.ITEM.create(new Identifier("c:rubbers"));
         public static final Tag<Item> BRONZE_INGOTS = TagFactory.ITEM.create(new Identifier("c:bronze_ingots"));
@@ -343,7 +348,7 @@ public class SpaceFactory implements ModInitializer {
         public static final BlockEntityType<CompressorBlockEntity> COMPRESSOR = FabricBlockEntityTypeBuilder.create(CompressorBlockEntity::new, SFBlocks.COMPRESSOR).build();
         public static final BlockEntityType<ExtractorBlockEntity> EXTRACTOR = FabricBlockEntityTypeBuilder.create(ExtractorBlockEntity::new, SFBlocks.EXTRACTOR).build();
         public static final BlockEntityType<BatteryBlockEntity> BATTERY_BOX = FabricBlockEntityTypeBuilder.create(BatteryBlockEntity::new, SFBlocks.BATTERY_BOX).build();
-        public static final BlockEntityType<CableBlockEntity> CABLE = FabricBlockEntityTypeBuilder.create(CableBlockEntity::new, SFBlocks.COPPER_WIRE, SFBlocks.COPPER_CABLE).build();
+        public static final BlockEntityType<ConduitBlockEntity> CONDUIT = FabricBlockEntityTypeBuilder.create(ConduitBlockEntity::new, SFBlocks.COPPER_WIRE, SFBlocks.COPPER_CABLE).build();
     }
 
     public static class SFRecipeTypes {

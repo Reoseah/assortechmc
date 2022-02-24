@@ -16,16 +16,23 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import spacefactory.SpaceFactory;
 import spacefactory.api.EnergyTier;
-import spacefactory.block.CableBlock;
+import spacefactory.block.ConduitBlock;
 import team.reborn.energy.api.EnergyStorage;
 
 import java.util.*;
 
-public class CableBlockEntity extends BlockEntity {
+public class ConduitBlockEntity extends BlockEntity {
     protected int current = 0;
 
-    public CableBlockEntity(BlockPos pos, BlockState state) {
-        super(SpaceFactory.SFBlockEntityTypes.CABLE, pos, state);
+    public ConduitBlockEntity(BlockPos pos, BlockState state) {
+        super(SpaceFactory.SFBlockEntityTypes.CONDUIT, pos, state);
+    }
+
+    public EnergyTier getTier() {
+        if (this.getCachedState().isOf(SpaceFactory.SFBlocks.COPPER_BUS_BAR)) {
+            return EnergyTier.EXTREME;
+        }
+        return EnergyTier.MEDIUM;
     }
 
     @Override
@@ -41,10 +48,10 @@ public class CableBlockEntity extends BlockEntity {
     }
 
     protected int getTransferLimit() {
-        return EnergyTier.MEDIUM.transferRate;
+        return this.getTier().transferRate;
     }
 
-    public static void tick(World world, BlockPos pos, BlockState state, CableBlockEntity be) {
+    public static void tick(World world, BlockPos pos, BlockState state, ConduitBlockEntity be) {
         if (be.current > 0) {
             be.current = 0;
             be.markDirty();
@@ -147,7 +154,7 @@ public class CableBlockEntity extends BlockEntity {
 
                 for (BlockPos cablePos : path.cables) {
                     BlockEntity cablePosEntity = this.world.getBlockEntity(cablePos);
-                    if (cablePosEntity instanceof CableBlockEntity cable) {
+                    if (cablePosEntity instanceof ConduitBlockEntity cable) {
                         cable.current += inserted;
                         if (cable.current > cable.getTransferLimit()) {
                             world.removeBlock(cablePos, false);
@@ -248,11 +255,11 @@ public class CableBlockEntity extends BlockEntity {
         }
 
         private static boolean isCable(World world, BlockPos pos) {
-            return world.getBlockState(pos).getBlock() instanceof CableBlock;
+            return world.getBlockState(pos).getBlock() instanceof ConduitBlock;
         }
 
         private static boolean isEndPoint(World world, BlockPos pos, Direction side, boolean reverse) {
-            if (world.getBlockState(pos).getBlock() instanceof CableBlock) {
+            if (world.getBlockState(pos).getBlock() instanceof ConduitBlock) {
                 return false;
             }
             if (side == null) {

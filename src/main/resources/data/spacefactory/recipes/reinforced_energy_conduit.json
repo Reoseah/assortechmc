@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "spacefactory:copper_bus_bar"
+    },
+    {
+      "tag": "c:rubbers"
+    },
+    {
+      "tag": "c:rubbers"
+    },
+    {
+      "item": "spacefactory:refined_iron_ingot"
+    }
+  ],
+  "result": {
+    "item": "spacefactory:reinforced_energy_conduit"
+  }
+}

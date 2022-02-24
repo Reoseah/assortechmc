@@ -1,22 +1,22 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    " C ",
-    "I#I",
-    " C "
+    "XCX",
+    "X#X",
+    "XCX"
   ],
   "key": {
     "#": {
-      "item": "spacefactory:crystalite_matrix"
+      "tag": "c:diamond_dusts"
+    },
+    "X": {
+      "item": "spacefactory:crystalite"
     },
     "C": {
       "item": "spacefactory:quantum_circuit"
-    },
-    "I": {
-      "tag": "c:iridium_ingots"
     }
   },
   "result": {
-    "item": "spacefactory:vanovoltaic_cell"
+    "item": "spacefactory:energy_crystal"
   }
 }

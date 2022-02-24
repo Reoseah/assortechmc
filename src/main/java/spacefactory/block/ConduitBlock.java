@@ -24,12 +24,12 @@ import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.Nullable;
 import spacefactory.SpaceFactory;
 import spacefactory.api.EnergyTier;
-import spacefactory.block.entity.CableBlockEntity;
+import spacefactory.block.entity.ConduitBlockEntity;
 import team.reborn.energy.api.EnergyStorage;
 
 import java.util.List;
 
-public class CableBlock extends BlockWithEntity {
+public class ConduitBlock extends BlockWithEntity {
     public static final BooleanProperty DOWN = Properties.DOWN;
     public static final BooleanProperty UP = Properties.UP;
     public static final BooleanProperty NORTH = Properties.NORTH;
@@ -76,8 +76,11 @@ public class CableBlock extends BlockWithEntity {
         };
     }
 
-    public CableBlock(int radius, Settings settings) {
+    public final EnergyTier tier;
+
+    public ConduitBlock(int radius, EnergyTier tier, Settings settings) {
         super(settings);
+        this.tier = tier;
         this.setDefaultState(this.getDefaultState()
                 .with(DOWN, false)
                 .with(UP, false)
@@ -106,7 +109,7 @@ public class CableBlock extends BlockWithEntity {
     protected boolean connectsTo(BlockView view, BlockPos pos, Direction side) {
         BlockState neighbor = view.getBlockState(pos.offset(side));
         Block block = neighbor.getBlock();
-        if (block instanceof CableBlock) {
+        if (block instanceof ConduitBlock) {
             return true;
         }
         if (view instanceof World world) {
@@ -119,7 +122,7 @@ public class CableBlock extends BlockWithEntity {
     public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState newState, WorldAccess world, BlockPos pos, BlockPos posFrom) {
         BlockState state2 = state.with(getConnectionProperty(direction), this.connectsTo(world, pos, direction));
         if (world instanceof World) {
-            CableBlockEntity.CableNetwork.of((World) world).onCableUpdate(pos);
+            ConduitBlockEntity.CableNetwork.of((World) world).onCableUpdate(pos);
         }
         return state2;
     }
@@ -127,12 +130,12 @@ public class CableBlock extends BlockWithEntity {
     @Override
     public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
         super.onPlaced(world, pos, state, placer, itemStack);
-        CableBlockEntity.CableNetwork.of(world).onCableUpdate(pos);
+        ConduitBlockEntity.CableNetwork.of(world).onCableUpdate(pos);
     }
 
     public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
         super.onStateReplaced(state, world, pos, newState, moved);
-        CableBlockEntity.CableNetwork.of(world).onCableUpdate(pos);
+        ConduitBlockEntity.CableNetwork.of(world).onCableUpdate(pos);
     }
 
     @Override
@@ -159,19 +162,19 @@ public class CableBlock extends BlockWithEntity {
     @Nullable
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new CableBlockEntity(pos, state);
+        return new ConduitBlockEntity(pos, state);
     }
 
     @Override
     @Nullable
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return world.isClient ? null : checkType(type, SpaceFactory.SFBlockEntityTypes.CABLE, CableBlockEntity::tick);
+        return world.isClient ? null : checkType(type, SpaceFactory.SFBlockEntityTypes.CONDUIT, ConduitBlockEntity::tick);
     }
 
     @Override
     public void appendTooltip(ItemStack stack, @Nullable BlockView world, List<Text> tooltip, TooltipContext options) {
         super.appendTooltip(stack, world, tooltip, options);
-        tooltip.add(new TranslatableText("container.spacefactory.energy_per_tick_max", EnergyTier.MEDIUM.transferRate).formatted(Formatting.GRAY));
+        tooltip.add(new TranslatableText("container.spacefactory.energy_per_tick_max", this.tier.transferRate).formatted(Formatting.GRAY));
     }
 
 }
