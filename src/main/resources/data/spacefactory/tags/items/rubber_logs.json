@@ -2,6 +2,8 @@
   "replace": false,
   "values": [
     "spacefactory:rubber_log",
-    "spacefactory:stripped_rubber_log"
+    "spacefactory:stripped_rubber_log",
+    "spacefactory:rubber_wood",
+    "spacefactory:stripped_rubber_wood"
   ]
 }

@@ -7,6 +7,7 @@ import net.fabricmc.fabric.api.object.builder.v1.block.FabricMaterialBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
+import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
 import net.fabricmc.fabric.api.tag.TagFactory;
 import net.minecraft.block.*;
@@ -38,6 +39,7 @@ import spacefactory.api.EnergyTier;
 import spacefactory.block.*;
 import spacefactory.block.ConduitBlock;
 import spacefactory.block.entity.*;
+import spacefactory.block.entity.conduit.ConduitBlockEntity;
 import spacefactory.feature.RubberFoliagePlacer;
 import spacefactory.item.*;
 import spacefactory.item.material.AssortechArmorMaterials;
@@ -66,6 +68,7 @@ public class SpaceFactory implements ModInitializer {
         register(Registry.BLOCK, "molecular_assembler", SFBlocks.MOLECULAR_ASSEMBLER);
         // Cables
         register(Registry.BLOCK, "copper_wire", SFBlocks.COPPER_WIRE);
+
         register(Registry.BLOCK, "copper_cable", SFBlocks.COPPER_CABLE);
         register(Registry.BLOCK, "copper_bus_bar", SFBlocks.COPPER_BUS_BAR);
         register(Registry.BLOCK, "reinforced_energy_conduit", SFBlocks.REINFORCED_ENERGY_CONDUIT);
@@ -82,16 +85,19 @@ public class SpaceFactory implements ModInitializer {
         register(Registry.BLOCK, "rubber_log", SFBlocks.RUBBER_LOG);
         register(Registry.BLOCK, "alive_rubber_log", SFBlocks.ALIVE_RUBBER_LOG);
         register(Registry.BLOCK, "stripped_rubber_log", SFBlocks.STRIPPED_RUBBER_LOG);
-        // TODO rubber wood, stripped rubber wood
+        register(Registry.BLOCK, "rubber_wood", SFBlocks.RUBBER_WOOD);
+        register(Registry.BLOCK, "stripped_rubber_wood", SFBlocks.STRIPPED_RUBBER_WOOD);
         register(Registry.BLOCK, "rubber_leaves", SFBlocks.RUBBER_LEAVES);
         register(Registry.BLOCK, "rubber_sapling", SFBlocks.RUBBER_SAPLING);
         // TODO iridium ores
-        // TODO raw iridium block
 
         FlammableBlockRegistry.getDefaultInstance().add(SFBlocks.RUBBER_LOG, 5, 5);
         FlammableBlockRegistry.getDefaultInstance().add(SFBlocks.ALIVE_RUBBER_LOG, 5, 5);
         FlammableBlockRegistry.getDefaultInstance().add(SFBlocks.STRIPPED_RUBBER_LOG, 5, 5);
         FlammableBlockRegistry.getDefaultInstance().add(SFBlocks.RUBBER_LEAVES, 30, 60);
+
+        StrippableBlockRegistry.register(SFBlocks.RUBBER_LOG, SFBlocks.STRIPPED_RUBBER_LOG);
+        StrippableBlockRegistry.register(SFBlocks.RUBBER_WOOD, SFBlocks.STRIPPED_RUBBER_WOOD);
 
         register(Registry.BLOCK_ENTITY_TYPE, "generator", SFBlockEntityTypes.GENERATOR);
         register(Registry.BLOCK_ENTITY_TYPE, "solar_panel", SFBlockEntityTypes.SOLAR_PANEL);
@@ -143,6 +149,8 @@ public class SpaceFactory implements ModInitializer {
 
         register(Registry.ITEM, "rubber_log", new BlockItem(SFBlocks.RUBBER_LOG, SFItems.settings()));
         register(Registry.ITEM, "stripped_rubber_log", new BlockItem(SFBlocks.STRIPPED_RUBBER_LOG, SFItems.settings()));
+        register(Registry.ITEM, "rubber_wood", new BlockItem(SFBlocks.RUBBER_WOOD, SFItems.settings()));
+        register(Registry.ITEM, "stripped_rubber_wood", new BlockItem(SFBlocks.STRIPPED_RUBBER_WOOD, SFItems.settings()));
         register(Registry.ITEM, "rubber_leaves", new BlockItem(SFBlocks.RUBBER_LEAVES, SFItems.settings()));
         register(Registry.ITEM, "rubber_sapling", new BlockItem(SFBlocks.RUBBER_SAPLING, SFItems.settings()));
 
@@ -274,6 +282,8 @@ public class SpaceFactory implements ModInitializer {
         public static final Block RAW_IRIDIUM_BLOCK = new Block(AbstractBlock.Settings.of(Material.STONE, MapColor.WHITE).requiresTool().strength(7.0f, 10.0f));
         public static final Block RUBBER_LOG = new PillarBlock(RUBBER_LOG_SETTINGS);
         public static final Block ALIVE_RUBBER_LOG = new AliveRubberLogBlock(UNMOVABLE_RUBBER_LOG_SETTINGS);
+        public static final Block RUBBER_WOOD = new PillarBlock(FabricBlockSettings.of(Material.WOOD, MapColor.BROWN).strength(2F).sounds(BlockSoundGroup.WOOD));
+        public static final Block STRIPPED_RUBBER_WOOD = new PillarBlock(FabricBlockSettings.of(Material.WOOD, MapColor.YELLOW).strength(2F).sounds(BlockSoundGroup.WOOD));
         public static final Block RUBBER_LEAVES = new LeavesBlock(FabricBlockSettings.copyOf(Blocks.JUNGLE_LEAVES));
         public static final Block RUBBER_SAPLING = new RubberSaplingBlock(FabricBlockSettings.copyOf(Blocks.JUNGLE_SAPLING));
         public static final Block STRIPPED_RUBBER_LOG = new PillarBlock(FabricBlockSettings.of(Material.WOOD, MapColor.YELLOW).strength(2F).sounds(BlockSoundGroup.WOOD));
