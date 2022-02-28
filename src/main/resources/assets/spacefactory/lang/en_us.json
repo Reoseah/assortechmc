@@ -8,14 +8,18 @@
   "block.spacefactory.dragon_egg_siphon": "Dragon Egg Energy Siphon",
 
   "block.spacefactory.battery_box": "Battery",
+
   "block.spacefactory.electric_furnace": "Electric Furnace",
   "block.spacefactory.macerator": "Macerator",
   "block.spacefactory.compressor": "Compressor",
   "block.spacefactory.extractor": "Extractor",
+  "block.spacefactory.molecular_assembler": "Molecular Assembler",
+
   "block.spacefactory.copper_wire": "Copper Wire",
   "block.spacefactory.copper_cable": "Copper Cable",
   "block.spacefactory.copper_bus_bar": "Copper Bus Bar",
   "block.spacefactory.reinforced_energy_conduit": "Reinforced Energy Conduit",
+
   "block.spacefactory.tin_ore": "Tin Ore",
   "block.spacefactory.deepslate_tin_ore": "Deepslate Tin Ore",
   "block.spacefactory.tin_block": "Block of Tin",

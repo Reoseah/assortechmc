@@ -29,8 +29,8 @@ public class ConduitBlockEntity extends BlockEntity {
     }
 
     public EnergyTier getTier() {
-        if (this.getCachedState().isOf(SpaceFactory.SFBlocks.COPPER_BUS_BAR)) {
-            return EnergyTier.EXTREME;
+        if (this.getCachedState().getBlock() instanceof ConduitBlock block) {
+            return block.tier;
         }
         return EnergyTier.MEDIUM;
     }

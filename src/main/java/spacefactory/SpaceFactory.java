@@ -63,6 +63,7 @@ public class SpaceFactory implements ModInitializer {
         register(Registry.BLOCK, "macerator", SFBlocks.MACERATOR);
         register(Registry.BLOCK, "compressor", SFBlocks.COMPRESSOR);
         register(Registry.BLOCK, "extractor", SFBlocks.EXTRACTOR);
+        register(Registry.BLOCK, "molecular_assembler", SFBlocks.MOLECULAR_ASSEMBLER);
         // Cables
         register(Registry.BLOCK, "copper_wire", SFBlocks.COPPER_WIRE);
         register(Registry.BLOCK, "copper_cable", SFBlocks.COPPER_CABLE);
@@ -124,6 +125,7 @@ public class SpaceFactory implements ModInitializer {
         register(Registry.ITEM, "macerator", new BlockItem(SFBlocks.MACERATOR, SFItems.settings()));
         register(Registry.ITEM, "compressor", new BlockItem(SFBlocks.COMPRESSOR, SFItems.settings()));
         register(Registry.ITEM, "extractor", new BlockItem(SFBlocks.EXTRACTOR, SFItems.settings()));
+        register(Registry.ITEM, "molecular_assembler", new BlockItem(SFBlocks.MOLECULAR_ASSEMBLER, SFItems.settings().rarity(Rarity.RARE)));
         // Cables
         register(Registry.ITEM, "copper_wire", new BlockItem(SFBlocks.COPPER_WIRE, SFItems.settings()));
         register(Registry.ITEM, "copper_cable", new BlockItem(SFBlocks.COPPER_CABLE, SFItems.settings()));
@@ -254,6 +256,7 @@ public class SpaceFactory implements ModInitializer {
         public static final Block MACERATOR = new MaceratorBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS));
         public static final Block COMPRESSOR = new CompressorBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS));
         public static final Block EXTRACTOR = new ExtractorBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS));
+        public static final Block MOLECULAR_ASSEMBLER = new MolecularAssemblerBlock(FabricBlockSettings.copyOf(ADVANCED_MACHINE_SETTINGS));
         // Cables
         public static final Block COPPER_WIRE = new ConduitBlock(1, EnergyTier.MEDIUM, FabricBlockSettings.of(Material.METAL).strength(0.5F).sounds(BlockSoundGroup.WOOL).breakByHand(true));
         public static final Block COPPER_CABLE = new ConduitBlock(2, EnergyTier.MEDIUM, FabricBlockSettings.of(Material.METAL).strength(0.5F).breakByHand(true));
@@ -348,7 +351,7 @@ public class SpaceFactory implements ModInitializer {
         public static final BlockEntityType<CompressorBlockEntity> COMPRESSOR = FabricBlockEntityTypeBuilder.create(CompressorBlockEntity::new, SFBlocks.COMPRESSOR).build();
         public static final BlockEntityType<ExtractorBlockEntity> EXTRACTOR = FabricBlockEntityTypeBuilder.create(ExtractorBlockEntity::new, SFBlocks.EXTRACTOR).build();
         public static final BlockEntityType<BatteryBlockEntity> BATTERY_BOX = FabricBlockEntityTypeBuilder.create(BatteryBlockEntity::new, SFBlocks.BATTERY_BOX).build();
-        public static final BlockEntityType<ConduitBlockEntity> CONDUIT = FabricBlockEntityTypeBuilder.create(ConduitBlockEntity::new, SFBlocks.COPPER_WIRE, SFBlocks.COPPER_CABLE).build();
+        public static final BlockEntityType<ConduitBlockEntity> CONDUIT = FabricBlockEntityTypeBuilder.create(ConduitBlockEntity::new, SFBlocks.COPPER_WIRE, SFBlocks.COPPER_CABLE, SFBlocks.COPPER_BUS_BAR, SFBlocks.REINFORCED_ENERGY_CONDUIT).build();
     }
 
     public static class SFRecipeTypes {

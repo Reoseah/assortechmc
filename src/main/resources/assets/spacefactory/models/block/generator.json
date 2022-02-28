@@ -3,7 +3,7 @@
   "textures": {
     "top": "spacefactory:block/machine",
     "front": "spacefactory:block/generator_front",
-    "side": "spacefactory:block/generator_side",
+    "side": "spacefactory:block/machine_side",
     "bottom": "spacefactory:block/machine_bottom"
   }
 }
