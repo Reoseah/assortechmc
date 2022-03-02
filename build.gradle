@@ -19,6 +19,12 @@ allprojects {
         }
     }
 
+    repositories {
+        maven {
+            url = "https://maven.terraformersmc.com/releases"
+        }
+    }
+
     dependencies {
         // To change the versions see the gradle.properties file
         minecraft "com.mojang:minecraft:${project.minecraft_version}"
@@ -74,6 +80,8 @@ dependencies {
     modRuntimeOnly("me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}") {
         exclude group: "net.fabricmc.fabric-api"
     }
+    modImplementation "com.terraformersmc:modmenu:${project.modmenu_version}"
+
 //    api project(path: ":techreborn-compatibility", configuration: "namedElements")
 //    include project(":techreborn-compatibility")
 //    implementation project(path: ":techreborn-compatibility", configuration: "namedElements")

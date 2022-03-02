@@ -18,6 +18,9 @@
     "main": [
       "spacefactory.SpaceFactory"
     ],
+    "modmenu": [
+      "spacefactory.compatibility.modmenu.SpaceFactoryModMenuImpl"
+    ],
     "rei_plugins": [
       "spacefactory.compatibility.roughlyenoughitems.SpaceFactoryPlugin"
     ]

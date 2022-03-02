@@ -1,25 +1,19 @@
 {
   "itemGroup.spacefactory.main": "Space Factory",
-
   "block.spacefactory.machine_block": "Machine Block",
-
   "block.spacefactory.generator": "Generator",
   "block.spacefactory.solar_panel": "Solar Panel",
   "block.spacefactory.dragon_egg_siphon": "Dragon Egg Energy Siphon",
-
   "block.spacefactory.battery_box": "Battery",
-
   "block.spacefactory.electric_furnace": "Electric Furnace",
   "block.spacefactory.macerator": "Macerator",
   "block.spacefactory.compressor": "Compressor",
   "block.spacefactory.extractor": "Extractor",
   "block.spacefactory.molecular_assembler": "Molecular Assembler",
-
   "block.spacefactory.copper_wire": "Copper Wire",
   "block.spacefactory.copper_cable": "Copper Cable",
   "block.spacefactory.copper_bus_bar": "Copper Bus Bar",
   "block.spacefactory.reinforced_energy_conduit": "Reinforced Energy Conduit",
-
   "block.spacefactory.tin_ore": "Tin Ore",
   "block.spacefactory.deepslate_tin_ore": "Deepslate Tin Ore",
   "block.spacefactory.tin_block": "Block of Tin",
@@ -35,7 +29,6 @@
   "block.spacefactory.stripped_rubber_wood": "Stripped Rubber Wood",
   "block.spacefactory.rubber_leaves": "Rubber Tree Leaves",
   "block.spacefactory.rubber_sapling": "Rubber Tree Sapling",
-
   "item.spacefactory.sticky_resin": "Sticky Resin",
   "item.spacefactory.rubber": "Rubber",
   "item.spacefactory.raw_tin": "Raw Tin",
@@ -80,14 +73,16 @@
   "item.spacefactory.bronze_chestplate": "Bronze Chestplate",
   "item.spacefactory.bronze_leggings": "Bronze Leggings",
   "item.spacefactory.bronze_boots": "Bronze Boots",
-
   "container.spacefactory.energy": "%s EU",
   "container.spacefactory.energy_storage": "%s / %s EU",
   "container.spacefactory.energy_per_tick": "%s EU/t",
   "container.spacefactory.energy_max": "%s EU Max",
   "container.spacefactory.energy_per_tick_max": "%s EU/t Max",
-
   "category.spacefactory.macerating": "Macerating",
   "category.spacefactory.compressing": "Compressing",
-  "category.spacefactory.extracting": "Extracting"
+  "category.spacefactory.extracting": "Extracting",
+  "options.spacefactory.title": "Space Factory Options",
+  "options.spacefactory.preferred_namespaces": "Preferred Namespaces",
+  "options.spacefactory.preferred_namespaces.description": "Preferred item namespaces",
+  "controls.spacefactory.reset": "Reset All"
 }

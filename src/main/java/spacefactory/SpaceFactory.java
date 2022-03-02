@@ -1,5 +1,9 @@
 package spacefactory;
 
+import com.google.common.collect.Lists;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.annotations.SerializedName;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
@@ -10,6 +14,7 @@ import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
 import net.fabricmc.fabric.api.tag.TagFactory;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.EquipmentSlot;
@@ -36,8 +41,8 @@ import net.minecraft.world.gen.stateprovider.BlockStateProvider;
 import net.minecraft.world.gen.stateprovider.SimpleBlockStateProvider;
 import net.minecraft.world.gen.trunk.StraightTrunkPlacer;
 import spacefactory.api.EnergyTier;
-import spacefactory.block.*;
 import spacefactory.block.ConduitBlock;
+import spacefactory.block.*;
 import spacefactory.block.entity.*;
 import spacefactory.block.entity.conduit.ConduitBlockEntity;
 import spacefactory.feature.RubberFoliagePlacer;
@@ -50,7 +55,20 @@ import spacefactory.recipe.*;
 import spacefactory.screen.*;
 import team.reborn.energy.api.EnergyStorage;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.List;
+
 public class SpaceFactory implements ModInitializer {
+    public static Config config = new Config();
+
+    static {
+        Config.load();
+    }
+
     @Override
     public void onInitialize() {
         register(Registry.BLOCK, "machine_block", SFBlocks.MACHINE_BLOCK);
@@ -407,4 +425,44 @@ public class SpaceFactory implements ModInitializer {
         }
     }
 
+    public static class Config {
+        @SerializedName("preferred_namespaces")
+        public List<String> preferredNamespaces = Lists.newArrayList("minecraft", "spacefactory");
+
+        public void reset() {
+            this.preferredNamespaces = Lists.newArrayList("minecraft", "spacefactory");
+        }
+
+        public static void load() {
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            Path configPath = FabricLoader.getInstance().getConfigDir().resolve("spacefactory.json");
+
+            try {
+                if (Files.exists(configPath)) {
+                    BufferedReader reader = Files.newBufferedReader(configPath);
+                    config = gson.fromJson(reader, Config.class);
+                    reader.close();
+                } else {
+                    write();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                config = new Config();
+            }
+        }
+
+        public static void write() {
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            Path configPath = FabricLoader.getInstance().getConfigDir().resolve("spacefactory.json");
+            try {
+                BufferedWriter writer = Files.newBufferedWriter(configPath);
+                gson.toJson(config, writer);
+                writer.flush();
+                writer.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+                config = new Config();
+            }
+        }
+    }
 }
