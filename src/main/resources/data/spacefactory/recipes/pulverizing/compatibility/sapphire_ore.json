@@ -1,0 +1,16 @@
+{
+  "type": "spacefactory:conditional",
+  "required_tags": [ "c:sapphire_ores"  ],
+  "required_items": [ "*:sapphire_dust"  ],
+
+  "recipe": {
+    "type": "spacefactory:pulverizing",
+    "ingredient": {
+      "tag": "c:sapphire_ores"
+    },
+    "result": {
+      "item": "*:sapphire_dust",
+      "count": 2
+    }
+  }
+}

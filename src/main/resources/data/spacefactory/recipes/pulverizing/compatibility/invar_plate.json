@@ -1,0 +1,15 @@
+{
+  "type": "spacefactory:conditional",
+  "required_tags": [ "c:invar_plates"  ],
+  "required_items": [ "*:invar_dust"  ],
+
+  "recipe": {
+    "type": "spacefactory:pulverizing",
+    "ingredient": {
+      "tag": "c:invar_plates"
+    },
+    "result": {
+      "item": "*:invar_dust"
+    }
+  }
+}

@@ -4,7 +4,7 @@ import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import spacefactory.screen.client.config.SpaceFactoryConfigScreen;
+import spacefactory.screen.client.SpaceFactoryConfigScreen;
 
 @Environment(EnvType.CLIENT)
 public class SpaceFactoryModMenuImpl implements ModMenuApi {

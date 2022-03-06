@@ -1,0 +1,10 @@
+{
+  "type": "spacefactory:pulverizing",
+  "ingredient": {
+    "item": "minecraft:ice"
+  },
+  "result": {
+    "item": "minecraft:snowball",
+    "count": 8
+  }
+}

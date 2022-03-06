@@ -3,6 +3,6 @@
   "ingredient": {
     "tag": "c:raw_tin_ores"
   },
-  "result": "spacefactory:tin_ingot",
+  "result": "*:tin_ingot",
   "experience": 0.5
 }

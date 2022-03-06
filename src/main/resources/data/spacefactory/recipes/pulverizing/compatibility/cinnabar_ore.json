@@ -1,0 +1,16 @@
+{
+  "type": "spacefactory:conditional",
+  "required_tags": [ "c:cinnabar_ores"  ],
+  "required_items": [ "*:cinnabar_dust"  ],
+
+  "recipe": {
+    "type": "spacefactory:pulverizing",
+    "ingredient": {
+      "tag": "c:cinnabar_ores"
+    },
+    "result": {
+      "item": "*:cinnabar_dust",
+      "count": 2
+    }
+  }
+}

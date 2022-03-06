@@ -1,0 +1,14 @@
+{
+  "type": "spacefactory:conditional",
+  "required_tags": [ "c:tin_plates"  ],
+
+  "recipe": {
+    "type": "spacefactory:pulverizing",
+    "ingredient": {
+      "tag": "c:tin_plates"
+    },
+    "result": {
+      "item": "spacefactory:tin_dust"
+    }
+  }
+}

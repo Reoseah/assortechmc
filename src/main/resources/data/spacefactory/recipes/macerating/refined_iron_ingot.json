@@ -1,9 +1,0 @@
-{
-  "type": "spacefactory:macerating",
-  "ingredient": {
-    "item": "spacefactory:refined_iron_ingot"
-  },
-  "result": {
-    "item": "spacefactory:refined_iron_dust"
-  }
-}

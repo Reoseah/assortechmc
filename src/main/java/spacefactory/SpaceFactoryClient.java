@@ -45,7 +45,7 @@ public class SpaceFactoryClient implements ClientModInitializer {
         ScreenRegistry.register(SpaceFactory.SFScreenHandlerTypes.GENERATOR, GeneratorScreen::new);
         ScreenRegistry.register(SpaceFactory.SFScreenHandlerTypes.SOLAR_PANEL, SolarPanelScreen::new);
         ScreenRegistry.register(SpaceFactory.SFScreenHandlerTypes.ELECTRIC_FURNACE, ElectricFurnaceScreen::new);
-        ScreenRegistry.register(SpaceFactory.SFScreenHandlerTypes.MACERATOR, MaceratorScreen::new);
+        ScreenRegistry.register(SpaceFactory.SFScreenHandlerTypes.PULVERIZER, PulverizerScreen::new);
         ScreenRegistry.register(SpaceFactory.SFScreenHandlerTypes.COMPRESSOR, CompressorScreen::new);
         ScreenRegistry.register(SpaceFactory.SFScreenHandlerTypes.EXTRACTOR, ExtractorScreen::new);
         ScreenRegistry.register(SpaceFactory.SFScreenHandlerTypes.BATTERY_BOX, BatteryBoxScreen::new);

@@ -1,0 +1,15 @@
+{
+  "type": "spacefactory:conditional",
+  "required_tags": [ "c:silver_plates"  ],
+  "required_items": [ "*:silver_dust"  ],
+
+  "recipe": {
+    "type": "spacefactory:pulverizing",
+    "ingredient": {
+      "tag": "c:silver_plates"
+    },
+    "result": {
+      "item": "*:silver_dust"
+    }
+  }
+}

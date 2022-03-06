@@ -3,5 +3,5 @@
   "ingredient": {
     "tag": "c:iridium_dusts"
   },
-  "result": "spacefactory:iridium_ingot"
+  "result": "*:iridium_ingot"
 }

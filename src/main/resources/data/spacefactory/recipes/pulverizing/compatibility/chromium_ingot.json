@@ -1,0 +1,15 @@
+{
+  "type": "spacefactory:conditional",
+  "required_tags": [ "c:chromium_ingots"  ],
+  "required_items": [ "*:chromium_dust"  ],
+
+  "recipe": {
+    "type": "spacefactory:pulverizing",
+    "ingredient": {
+      "tag": "c:chromium_ingots"
+    },
+    "result": {
+      "item": "*:chromium_dust"
+    }
+  }
+}

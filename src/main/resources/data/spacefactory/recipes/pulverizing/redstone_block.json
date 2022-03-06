@@ -1,0 +1,10 @@
+{
+  "type": "spacefactory:pulverizing",
+  "ingredient": {
+    "item": "minecraft:redstone_block"
+  },
+  "result": {
+    "item": "minecraft:redstone",
+    "count": 9
+  }
+}

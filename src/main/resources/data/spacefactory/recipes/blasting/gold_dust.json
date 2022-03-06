@@ -3,5 +3,5 @@
   "ingredient": {
     "tag": "c:gold_dusts"
   },
-  "result": "minecraft:gold_ingot"
+  "result": "*:gold_ingot"
 }

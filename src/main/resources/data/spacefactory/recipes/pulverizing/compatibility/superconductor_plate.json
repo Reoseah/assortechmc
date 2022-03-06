@@ -1,0 +1,15 @@
+{
+  "type": "spacefactory:conditional",
+  "required_tags": [ "c:superconductor_plates"  ],
+  "required_items": [ "*:superconductor_dust"  ],
+
+  "recipe": {
+    "type": "spacefactory:pulverizing",
+    "ingredient": {
+      "tag": "c:superconductor_plates"
+    },
+    "result": {
+      "item": "*:superconductor_dust"
+    }
+  }
+}

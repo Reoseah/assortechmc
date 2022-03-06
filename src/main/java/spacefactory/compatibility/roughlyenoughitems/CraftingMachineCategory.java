@@ -67,8 +67,8 @@ public class CraftingMachineCategory implements DisplayCategory<CraftingMachineD
     }
 
     private MachineArrowWidget.Type getArrowType() {
-        if (this.id == SpaceFactoryPlugin.MACERATING) {
-            return MachineArrowWidget.Type.MACERATING;
+        if (this.id == SpaceFactoryPlugin.PULVERIZER) {
+            return MachineArrowWidget.Type.PULVERIZING;
         }
         if (this.id == SpaceFactoryPlugin.COMPRESSING) {
             return MachineArrowWidget.Type.COMPRESSING;

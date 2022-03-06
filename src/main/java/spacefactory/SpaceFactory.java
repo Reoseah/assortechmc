@@ -71,6 +71,20 @@ public class SpaceFactory implements ModInitializer {
 
     @Override
     public void onInitialize() {
+        register(Registry.BLOCK, "rubber_log", SFBlocks.RUBBER_LOG);
+        register(Registry.BLOCK, "alive_rubber_log", SFBlocks.ALIVE_RUBBER_LOG);
+        register(Registry.BLOCK, "stripped_rubber_log", SFBlocks.STRIPPED_RUBBER_LOG);
+        register(Registry.BLOCK, "rubber_wood", SFBlocks.RUBBER_WOOD);
+        register(Registry.BLOCK, "stripped_rubber_wood", SFBlocks.STRIPPED_RUBBER_WOOD);
+        register(Registry.BLOCK, "rubber_leaves", SFBlocks.RUBBER_LEAVES);
+        register(Registry.BLOCK, "rubber_sapling", SFBlocks.RUBBER_SAPLING);
+
+        register(Registry.BLOCK, "tin_ore", SFBlocks.TIN_ORE);
+        register(Registry.BLOCK, "deepslate_tin_ore", SFBlocks.DEEPSLATE_TIN_ORE);
+        register(Registry.BLOCK, "end_stone_iridium_ore", SFBlocks.END_STONE_IRIDIUM_ORE);
+        register(Registry.BLOCK, "raw_tin_block", SFBlocks.RAW_TIN_BLOCK);
+        register(Registry.BLOCK, "tin_block", SFBlocks.TIN_BLOCK);
+
         register(Registry.BLOCK, "machine_block", SFBlocks.MACHINE_BLOCK);
         // Generators
         register(Registry.BLOCK, "generator", SFBlocks.GENERATOR);
@@ -80,7 +94,7 @@ public class SpaceFactory implements ModInitializer {
         register(Registry.BLOCK, "battery_box", SFBlocks.BATTERY_BOX);
         // Crafting Machines
         register(Registry.BLOCK, "electric_furnace", SFBlocks.ELECTRIC_FURNACE);
-        register(Registry.BLOCK, "macerator", SFBlocks.MACERATOR);
+        register(Registry.BLOCK, "pulverizer", SFBlocks.PULVERIZER);
         register(Registry.BLOCK, "compressor", SFBlocks.COMPRESSOR);
         register(Registry.BLOCK, "extractor", SFBlocks.EXTRACTOR);
         register(Registry.BLOCK, "molecular_assembler", SFBlocks.MOLECULAR_ASSEMBLER);
@@ -90,24 +104,11 @@ public class SpaceFactory implements ModInitializer {
         register(Registry.BLOCK, "copper_cable", SFBlocks.COPPER_CABLE);
         register(Registry.BLOCK, "copper_bus_bar", SFBlocks.COPPER_BUS_BAR);
         register(Registry.BLOCK, "reinforced_energy_conduit", SFBlocks.REINFORCED_ENERGY_CONDUIT);
-        // Resources
-        register(Registry.BLOCK, "tin_ore", SFBlocks.TIN_ORE);
-        register(Registry.BLOCK, "deepslate_tin_ore", SFBlocks.DEEPSLATE_TIN_ORE);
-        register(Registry.BLOCK, "tin_block", SFBlocks.TIN_BLOCK);
+
         register(Registry.BLOCK, "bronze_block", SFBlocks.BRONZE_BLOCK);
         register(Registry.BLOCK, "iridium_block", SFBlocks.IRIDIUM_BLOCK);
         register(Registry.BLOCK, "crystalite_block", SFBlocks.CRYSTALITE_BLOCK);
-        register(Registry.BLOCK, "raw_tin_block", SFBlocks.RAW_TIN_BLOCK);
         register(Registry.BLOCK, "raw_iridium_block", SFBlocks.RAW_IRIDIUM_BLOCK);
-
-        register(Registry.BLOCK, "rubber_log", SFBlocks.RUBBER_LOG);
-        register(Registry.BLOCK, "alive_rubber_log", SFBlocks.ALIVE_RUBBER_LOG);
-        register(Registry.BLOCK, "stripped_rubber_log", SFBlocks.STRIPPED_RUBBER_LOG);
-        register(Registry.BLOCK, "rubber_wood", SFBlocks.RUBBER_WOOD);
-        register(Registry.BLOCK, "stripped_rubber_wood", SFBlocks.STRIPPED_RUBBER_WOOD);
-        register(Registry.BLOCK, "rubber_leaves", SFBlocks.RUBBER_LEAVES);
-        register(Registry.BLOCK, "rubber_sapling", SFBlocks.RUBBER_SAPLING);
-        // TODO iridium ores
 
         FlammableBlockRegistry.getDefaultInstance().add(SFBlocks.RUBBER_LOG, 5, 5);
         FlammableBlockRegistry.getDefaultInstance().add(SFBlocks.ALIVE_RUBBER_LOG, 5, 5);
@@ -122,7 +123,7 @@ public class SpaceFactory implements ModInitializer {
         register(Registry.BLOCK_ENTITY_TYPE, "dragon_egg_siphon", SFBlockEntityTypes.DRAGON_EGG_SIPHON);
         register(Registry.BLOCK_ENTITY_TYPE, "battery_box", SFBlockEntityTypes.BATTERY_BOX);
         register(Registry.BLOCK_ENTITY_TYPE, "electric_furnace", SFBlockEntityTypes.ELECTRIC_FURNACE);
-        register(Registry.BLOCK_ENTITY_TYPE, "macerator", SFBlockEntityTypes.MACERATOR);
+        register(Registry.BLOCK_ENTITY_TYPE, "pulverizer", SFBlockEntityTypes.PULVERIZER);
         register(Registry.BLOCK_ENTITY_TYPE, "compressor", SFBlockEntityTypes.COMPRESSOR);
         register(Registry.BLOCK_ENTITY_TYPE, "extractor", SFBlockEntityTypes.EXTRACTOR);
         register(Registry.BLOCK_ENTITY_TYPE, "conduit", SFBlockEntityTypes.CONDUIT);
@@ -132,38 +133,20 @@ public class SpaceFactory implements ModInitializer {
         EnergyStorage.SIDED.registerForBlockEntity((be, direction) -> DragonEggSiphonBlockEntity.ENERGY, SFBlockEntityTypes.DRAGON_EGG_SIPHON);
         EnergyStorage.SIDED.registerForBlockEntity(BatteryBlockEntity::getEnergyHandler, SFBlockEntityTypes.BATTERY_BOX);
         EnergyStorage.SIDED.registerForBlockEntity(ElectricInventoryBlockEntity::getEnergyHandler, SFBlockEntityTypes.ELECTRIC_FURNACE);
-        EnergyStorage.SIDED.registerForBlockEntity(ElectricInventoryBlockEntity::getEnergyHandler, SFBlockEntityTypes.MACERATOR);
+        EnergyStorage.SIDED.registerForBlockEntity(ElectricInventoryBlockEntity::getEnergyHandler, SFBlockEntityTypes.PULVERIZER);
         EnergyStorage.SIDED.registerForBlockEntity(ElectricInventoryBlockEntity::getEnergyHandler, SFBlockEntityTypes.COMPRESSOR);
         EnergyStorage.SIDED.registerForBlockEntity(ElectricInventoryBlockEntity::getEnergyHandler, SFBlockEntityTypes.EXTRACTOR);
         EnergyStorage.SIDED.registerForBlockEntity(ConduitBlockEntity::getEnergyHandler, SFBlockEntityTypes.CONDUIT);
 
-        register(Registry.ITEM, "machine_block", new BlockItem(SFBlocks.MACHINE_BLOCK, SFItems.settings()));
-        // Generators
-        register(Registry.ITEM, "generator", new BlockItem(SFBlocks.GENERATOR, SFItems.settings()));
-        register(Registry.ITEM, "solar_panel", new BlockItem(SFBlocks.SOLAR_PANEL, SFItems.settings()));
-        register(Registry.ITEM, "dragon_egg_siphon", new BlockItem(SFBlocks.DRAGON_EGG_SIPHON, SFItems.settings().rarity(Rarity.EPIC)));
-        // Energy Storage
-        register(Registry.ITEM, "battery_box", new BlockItem(SFBlocks.BATTERY_BOX, SFItems.settings()));
-        // Crafting Machines
-        register(Registry.ITEM, "electric_furnace", new BlockItem(SFBlocks.ELECTRIC_FURNACE, SFItems.settings()));
-        register(Registry.ITEM, "macerator", new BlockItem(SFBlocks.MACERATOR, SFItems.settings()));
-        register(Registry.ITEM, "compressor", new BlockItem(SFBlocks.COMPRESSOR, SFItems.settings()));
-        register(Registry.ITEM, "extractor", new BlockItem(SFBlocks.EXTRACTOR, SFItems.settings()));
-        register(Registry.ITEM, "molecular_assembler", new BlockItem(SFBlocks.MOLECULAR_ASSEMBLER, SFItems.settings().rarity(Rarity.RARE)));
-        // Cables
-        register(Registry.ITEM, "copper_wire", new BlockItem(SFBlocks.COPPER_WIRE, SFItems.settings()));
-        register(Registry.ITEM, "copper_cable", new BlockItem(SFBlocks.COPPER_CABLE, SFItems.settings()));
-        register(Registry.ITEM, "copper_bus_bar", new BlockItem(SFBlocks.COPPER_BUS_BAR, SFItems.settings()));
-        register(Registry.ITEM, "reinforced_energy_conduit", new BlockItem(SFBlocks.REINFORCED_ENERGY_CONDUIT, SFItems.settings()));
-        // Resources
-        register(Registry.ITEM, "tin_ore", new BlockItem(SFBlocks.TIN_ORE, SFItems.settings()));
-        register(Registry.ITEM, "deepslate_tin_ore", new BlockItem(SFBlocks.DEEPSLATE_TIN_ORE, SFItems.settings()));
-        register(Registry.ITEM, "tin_block", new BlockItem(SFBlocks.TIN_BLOCK, SFItems.settings()));
-        register(Registry.ITEM, "bronze_block", new BlockItem(SFBlocks.BRONZE_BLOCK, SFItems.settings()));
-        register(Registry.ITEM, "iridium_block", new BlockItem(SFBlocks.IRIDIUM_BLOCK, SFItems.settings().rarity(Rarity.EPIC)));
-        register(Registry.ITEM, "crystalite_block", new BlockItem(SFBlocks.CRYSTALITE_BLOCK, SFItems.settings().rarity(Rarity.UNCOMMON)));
-        register(Registry.ITEM, "raw_tin_block", new BlockItem(SFBlocks.RAW_TIN_BLOCK, SFItems.settings()));
-        register(Registry.ITEM, "raw_iridium_block", new BlockItem(SFBlocks.RAW_IRIDIUM_BLOCK, SFItems.settings().rarity(Rarity.EPIC)));
+
+        register(Registry.ITEM, "copper_nugget", SFItems.COPPER_NUGGET);
+        register(Registry.ITEM, "stone_dust", SFItems.STONE_DUST);
+        register(Registry.ITEM, "coal_dust", SFItems.COAL_DUST);
+        register(Registry.ITEM, "copper_dust", SFItems.COPPER_DUST);
+        register(Registry.ITEM, "iron_dust", SFItems.IRON_DUST);
+        register(Registry.ITEM, "gold_dust", SFItems.GOLD_DUST);
+        register(Registry.ITEM, "diamond_dust", SFItems.DIAMOND_DUST);
+        register(Registry.ITEM, "netherite_scrap_dust", SFItems.NETHERITE_SCRAP_DUST);
 
         register(Registry.ITEM, "rubber_log", new BlockItem(SFBlocks.RUBBER_LOG, SFItems.settings()));
         register(Registry.ITEM, "stripped_rubber_log", new BlockItem(SFBlocks.STRIPPED_RUBBER_LOG, SFItems.settings()));
@@ -171,49 +154,73 @@ public class SpaceFactory implements ModInitializer {
         register(Registry.ITEM, "stripped_rubber_wood", new BlockItem(SFBlocks.STRIPPED_RUBBER_WOOD, SFItems.settings()));
         register(Registry.ITEM, "rubber_leaves", new BlockItem(SFBlocks.RUBBER_LEAVES, SFItems.settings()));
         register(Registry.ITEM, "rubber_sapling", new BlockItem(SFBlocks.RUBBER_SAPLING, SFItems.settings()));
-
-        // Crafting Items
         register(Registry.ITEM, "sticky_resin", SFItems.STICKY_RESIN);
         register(Registry.ITEM, "rubber", SFItems.RUBBER);
+
+        register(Registry.ITEM, "tin_ore", new BlockItem(SFBlocks.TIN_ORE, SFItems.settings()));
+        register(Registry.ITEM, "deepslate_tin_ore", new BlockItem(SFBlocks.DEEPSLATE_TIN_ORE, SFItems.settings()));
+        register(Registry.ITEM, "raw_tin_block", new BlockItem(SFBlocks.RAW_TIN_BLOCK, SFItems.settings()));
+        register(Registry.ITEM, "tin_block", new BlockItem(SFBlocks.TIN_BLOCK, SFItems.settings()));
+        register(Registry.ITEM, "raw_tin", SFItems.RAW_TIN);
+        register(Registry.ITEM, "tin_ingot", SFItems.TIN_INGOT);
+        register(Registry.ITEM, "tin_nugget", SFItems.TIN_NUGGET);
+        register(Registry.ITEM, "tin_dust", SFItems.TIN_DUST);
+
+
+        register(Registry.ITEM, "bronze_block", new BlockItem(SFBlocks.BRONZE_BLOCK, SFItems.settings()));
+        register(Registry.ITEM, "bronze_ingot", SFItems.BRONZE_INGOT);
+        register(Registry.ITEM, "bronze_nugget", SFItems.BRONZE_NUGGET);
+        register(Registry.ITEM, "bronze_dust", SFItems.BRONZE_DUST);
+
+        register(Registry.ITEM, "copper_wire", new BlockItem(SFBlocks.COPPER_WIRE, SFItems.settings()));
+        register(Registry.ITEM, "copper_cable", new BlockItem(SFBlocks.COPPER_CABLE, SFItems.settings()));
         register(Registry.ITEM, "circuit", SFItems.CIRCUIT);
+
+        register(Registry.ITEM, "machine_block", new BlockItem(SFBlocks.MACHINE_BLOCK, SFItems.settings()));
+
+        register(Registry.ITEM, "generator", new BlockItem(SFBlocks.GENERATOR, SFItems.settings()));
+        register(Registry.ITEM, "solar_panel", new BlockItem(SFBlocks.SOLAR_PANEL, SFItems.settings()));
+
+        register(Registry.ITEM, "battery_box", new BlockItem(SFBlocks.BATTERY_BOX, SFItems.settings()));
+
+        register(Registry.ITEM, "electric_furnace", new BlockItem(SFBlocks.ELECTRIC_FURNACE, SFItems.settings()));
+        register(Registry.ITEM, "pulverizer", new BlockItem(SFBlocks.PULVERIZER, SFItems.settings()));
+        register(Registry.ITEM, "compressor", new BlockItem(SFBlocks.COMPRESSOR, SFItems.settings()));
+        register(Registry.ITEM, "extractor", new BlockItem(SFBlocks.EXTRACTOR, SFItems.settings()));
+
+        register(Registry.ITEM, "copper_bus_bar", new BlockItem(SFBlocks.COPPER_BUS_BAR, SFItems.settings()));
+        register(Registry.ITEM, "reinforced_energy_conduit", new BlockItem(SFBlocks.REINFORCED_ENERGY_CONDUIT, SFItems.settings()));
+
+        register(Registry.ITEM, "refined_iron_ingot", SFItems.REFINED_IRON_INGOT);
+        register(Registry.ITEM, "refined_iron_dust", SFItems.REFINED_IRON_DUST);
+        register(Registry.ITEM, "small_refined_iron_dust", SFItems.SMALL_REFINED_IRON_DUST);
+
+        register(Registry.ITEM, "crystalite_block", new BlockItem(SFBlocks.CRYSTALITE_BLOCK, SFItems.settings().rarity(Rarity.UNCOMMON)));
+        register(Registry.ITEM, "crystalite_matrix", SFItems.CRYSTALITE_MATRIX);
+        register(Registry.ITEM, "crystalite", SFItems.CRYSTALITE);
+        register(Registry.ITEM, "raw_crystalite_dust", SFItems.RAW_CRYSTALITE_DUST);
+
+        register(Registry.ITEM, "energy_crystal", SFItems.ENERGY_CRYSTAL);
+        register(Registry.ITEM, "quantum_circuit", SFItems.QUANTUM_CIRCUIT);
+
+        register(Registry.ITEM, "end_stone_iridium_ore", new BlockItem(SFBlocks.END_STONE_IRIDIUM_ORE, SFItems.settings()));
+        register(Registry.ITEM, "raw_iridium_block", new BlockItem(SFBlocks.RAW_IRIDIUM_BLOCK, SFItems.settings().rarity(Rarity.EPIC)));
+        register(Registry.ITEM, "iridium_block", new BlockItem(SFBlocks.IRIDIUM_BLOCK, SFItems.settings().rarity(Rarity.EPIC)));
+        register(Registry.ITEM, "raw_iridium", SFItems.RAW_IRIDIUM);
+        register(Registry.ITEM, "iridium_ingot", SFItems.IRIDIUM_INGOT);
+        register(Registry.ITEM, "iridium_dust", SFItems.IRIDIUM_DUST);
+        register(Registry.ITEM, "small_iridium_dust", SFItems.SMALL_IRIDIUM_DUST);
+
+        register(Registry.ITEM, "dragon_egg_siphon", new BlockItem(SFBlocks.DRAGON_EGG_SIPHON, SFItems.settings().rarity(Rarity.EPIC)));
+        register(Registry.ITEM, "molecular_assembler", new BlockItem(SFBlocks.MOLECULAR_ASSEMBLER, SFItems.settings().rarity(Rarity.RARE)));
+
+        register(Registry.ITEM, "vanovoltaic_cell", SFItems.VANOVOLTAIC_CELL);
+
+
         register(Registry.ITEM, "arachnolactam", SFItems.ARACHNOLACTAM);
         register(Registry.ITEM, "hyperstrand", SFItems.HYPERSRAND);
         register(Registry.ITEM, "hyperweave", SFItems.HYPERWEAVE);
-        register(Registry.ITEM, "crystalite", SFItems.CRYSTALITE);
-        register(Registry.ITEM, "crystalite_matrix", SFItems.CRYSTALITE_MATRIX);
-        register(Registry.ITEM, "quantum_circuit", SFItems.QUANTUM_CIRCUIT);
-        register(Registry.ITEM, "energy_crystal", SFItems.ENERGY_CRYSTAL);
-        register(Registry.ITEM, "vanovoltaic_cell", SFItems.VANOVOLTAIC_CELL);
 
-        register(Registry.ITEM, "tin_ingot", SFItems.TIN_INGOT);
-        register(Registry.ITEM, "bronze_ingot", SFItems.BRONZE_INGOT);
-        register(Registry.ITEM, "refined_iron_ingot", SFItems.REFINED_IRON_INGOT);
-        register(Registry.ITEM, "iridium_ingot", SFItems.IRIDIUM_INGOT);
-
-        register(Registry.ITEM, "copper_nugget", SFItems.COPPER_NUGGET);
-        register(Registry.ITEM, "tin_nugget", SFItems.TIN_NUGGET);
-        register(Registry.ITEM, "bronze_nugget", SFItems.BRONZE_NUGGET);
-
-        register(Registry.ITEM, "stone_dust", SFItems.STONE_DUST);
-        register(Registry.ITEM, "coal_dust", SFItems.COAL_DUST);
-        register(Registry.ITEM, "copper_dust", SFItems.COPPER_DUST);
-        register(Registry.ITEM, "iron_dust", SFItems.IRON_DUST);
-        register(Registry.ITEM, "gold_dust", SFItems.GOLD_DUST);
-        register(Registry.ITEM, "diamond_dust", SFItems.DIAMOND_DUST);
-        register(Registry.ITEM, "tin_dust", SFItems.TIN_DUST);
-        register(Registry.ITEM, "bronze_dust", SFItems.BRONZE_DUST);
-        register(Registry.ITEM, "refined_iron_dust", SFItems.REFINED_IRON_DUST);
-        register(Registry.ITEM, "iridium_dust", SFItems.IRIDIUM_DUST);
-        register(Registry.ITEM, "netherite_scrap_dust", SFItems.NETHERITE_SCRAP_DUST);
-        register(Registry.ITEM, "raw_crystalite_dust", SFItems.RAW_CRYSTALITE_DUST);
-
-        register(Registry.ITEM, "small_refined_iron_dust", SFItems.SMALL_REFINED_IRON_DUST);
-        register(Registry.ITEM, "small_iridium_dust", SFItems.SMALL_IRIDIUM_DUST);
-
-        register(Registry.ITEM, "raw_tin", SFItems.RAW_TIN);
-        register(Registry.ITEM, "raw_iridium", SFItems.RAW_IRIDIUM);
-
-        // Other
         register(Registry.ITEM, "bronze_sword", SFItems.BRONZE_SWORD);
         register(Registry.ITEM, "bronze_shovel", SFItems.BRONZE_SHOVEL);
         register(Registry.ITEM, "bronze_pickaxe", SFItems.BRONZE_PICKAXE);
@@ -231,13 +238,13 @@ public class SpaceFactory implements ModInitializer {
         ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(SFBlocks.RUBBER_LEAVES.asItem(), 0.3F);
 
         register(Registry.RECIPE_TYPE, "empty", SFRecipeTypes.EMPTY);
-        register(Registry.RECIPE_TYPE, "macerating", SFRecipeTypes.MACERATING);
+        register(Registry.RECIPE_TYPE, "pulverizing", SFRecipeTypes.PULVERIZING);
         register(Registry.RECIPE_TYPE, "compressing", SFRecipeTypes.COMPRESSING);
         register(Registry.RECIPE_TYPE, "extracting", SFRecipeTypes.EXTRACTING);
 
         register(Registry.RECIPE_SERIALIZER, "empty", SFRecipeSerializers.EMPTY);
         register(Registry.RECIPE_SERIALIZER, "conditional", SFRecipeSerializers.CONDITIONAL);
-        register(Registry.RECIPE_SERIALIZER, "macerating", SFRecipeSerializers.MACERATING);
+        register(Registry.RECIPE_SERIALIZER, "pulverizing", SFRecipeSerializers.PULVERIZING);
         register(Registry.RECIPE_SERIALIZER, "compressing", SFRecipeSerializers.COMPRESSING);
         register(Registry.RECIPE_SERIALIZER, "extracting", SFRecipeSerializers.EXTRACTING);
 
@@ -279,7 +286,7 @@ public class SpaceFactory implements ModInitializer {
         public static final Block BATTERY_BOX = new BatteryBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).mapColor(MapColor.SPRUCE_BROWN).sounds(BlockSoundGroup.WOOD));
         // Crafting Machines
         public static final Block ELECTRIC_FURNACE = new ElectricFurnaceBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS));
-        public static final Block MACERATOR = new MaceratorBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS));
+        public static final Block PULVERIZER = new MaceratorBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS));
         public static final Block COMPRESSOR = new CompressorBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS));
         public static final Block EXTRACTOR = new ExtractorBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS));
         public static final Block MOLECULAR_ASSEMBLER = new MolecularAssemblerBlock(FabricBlockSettings.copyOf(ADVANCED_MACHINE_SETTINGS));
@@ -292,6 +299,7 @@ public class SpaceFactory implements ModInitializer {
         // Resources
         public static final Block TIN_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(3F));
         public static final Block DEEPSLATE_TIN_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(4.5F, 3F));
+        public static final Block END_STONE_IRIDIUM_ORE = new Block(FabricBlockSettings.of(Material.STONE, MapColor.PALE_YELLOW).strength(3F, 9F));
         public static final Block TIN_BLOCK = new Block(TIN_SETTINGS);
         public static final Block BRONZE_BLOCK = new Block(BRONZE_SETTINGS);
         public static final Block IRIDIUM_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(5F, 20F).allowsSpawning(BlocksAccessor::invokeNever));
@@ -375,7 +383,7 @@ public class SpaceFactory implements ModInitializer {
         public static final BlockEntityType<DragonEggSiphonBlockEntity> DRAGON_EGG_SIPHON = FabricBlockEntityTypeBuilder.create(DragonEggSiphonBlockEntity::new, SFBlocks.DRAGON_EGG_SIPHON).build();
 
         public static final BlockEntityType<ElectricFurnaceBlockEntity> ELECTRIC_FURNACE = FabricBlockEntityTypeBuilder.create(ElectricFurnaceBlockEntity::new, SFBlocks.ELECTRIC_FURNACE).build();
-        public static final BlockEntityType<MaceratorBlockEntity> MACERATOR = FabricBlockEntityTypeBuilder.create(MaceratorBlockEntity::new, SFBlocks.MACERATOR).build();
+        public static final BlockEntityType<MaceratorBlockEntity> PULVERIZER = FabricBlockEntityTypeBuilder.create(MaceratorBlockEntity::new, SFBlocks.PULVERIZER).build();
         public static final BlockEntityType<CompressorBlockEntity> COMPRESSOR = FabricBlockEntityTypeBuilder.create(CompressorBlockEntity::new, SFBlocks.COMPRESSOR).build();
         public static final BlockEntityType<ExtractorBlockEntity> EXTRACTOR = FabricBlockEntityTypeBuilder.create(ExtractorBlockEntity::new, SFBlocks.EXTRACTOR).build();
         public static final BlockEntityType<BatteryBlockEntity> BATTERY_BOX = FabricBlockEntityTypeBuilder.create(BatteryBlockEntity::new, SFBlocks.BATTERY_BOX).build();
@@ -384,7 +392,7 @@ public class SpaceFactory implements ModInitializer {
 
     public static class SFRecipeTypes {
         public static final RecipeType<EmptyRecipe> EMPTY = new AtRecipeType<>();
-        public static final RecipeType<MaceratorRecipe> MACERATING = new AtRecipeType<>();
+        public static final RecipeType<PulverizerRecipe> PULVERIZING = new AtRecipeType<>();
         public static final RecipeType<CompressorRecipe> COMPRESSING = new AtRecipeType<>();
         public static final RecipeType<ExtractorRecipe> EXTRACTING = new AtRecipeType<>();
 
@@ -395,7 +403,7 @@ public class SpaceFactory implements ModInitializer {
     public static class SFRecipeSerializers {
         public static final RecipeSerializer<EmptyRecipe> EMPTY = new EmptyRecipe.Serializer();
         public static final RecipeSerializer<?> CONDITIONAL = new ConditionalRecipeSerializer();
-        public static final RecipeSerializer<MaceratorRecipe> MACERATING = new CraftingMachineRecipe.Serializer<>(MaceratorRecipe::new, 300);
+        public static final RecipeSerializer<PulverizerRecipe> PULVERIZING = new CraftingMachineRecipe.Serializer<>(PulverizerRecipe::new, 300);
         public static final RecipeSerializer<CompressorRecipe> COMPRESSING = new CraftingMachineRecipe.Serializer<>(CompressorRecipe::new, 400);
         public static final RecipeSerializer<ExtractorRecipe> EXTRACTING = new CraftingMachineRecipe.Serializer<>(ExtractorRecipe::new, 400);
     }
@@ -415,7 +423,7 @@ public class SpaceFactory implements ModInitializer {
         public static final ScreenHandlerType<GeneratorScreenHandler> GENERATOR = ScreenHandlerRegistry.registerSimple(id("generator"), GeneratorScreenHandler::new);
         public static final ScreenHandlerType<SolarPanelScreenHandler> SOLAR_PANEL = ScreenHandlerRegistry.registerSimple(id("solar_panel"), SolarPanelScreenHandler::new);
         public static final ScreenHandlerType<ElectricFurnaceScreenHandler> ELECTRIC_FURNACE = ScreenHandlerRegistry.registerSimple(id("electric_furnace"), ElectricFurnaceScreenHandler::new);
-        public static final ScreenHandlerType<MaceratorScreenHandler> MACERATOR = ScreenHandlerRegistry.registerSimple(id("macerator"), MaceratorScreenHandler::new);
+        public static final ScreenHandlerType<PulverizerScreenHandler> PULVERIZER = ScreenHandlerRegistry.registerSimple(id("pulverizer"), PulverizerScreenHandler::new);
         public static final ScreenHandlerType<CompressorScreenHandler> COMPRESSOR = ScreenHandlerRegistry.registerSimple(id("compressor"), CompressorScreenHandler::new);
         public static final ScreenHandlerType<ExtractorScreenHandler> EXTRACTOR = ScreenHandlerRegistry.registerSimple(id("extractor"), ExtractorScreenHandler::new);
         public static final ScreenHandlerType<BatteryBoxScreenHandler> BATTERY_BOX = ScreenHandlerRegistry.registerSimple(id("battery_box"), BatteryBoxScreenHandler::new);

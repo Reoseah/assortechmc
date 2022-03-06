@@ -1,0 +1,9 @@
+{
+  "type": "spacefactory:pulverizing",
+  "ingredient":  {
+    "tag": "c:sandstone_slabs"
+  },
+  "result": {
+    "item": "minecraft:sand"
+  }
+}

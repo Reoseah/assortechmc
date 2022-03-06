@@ -1,0 +1,15 @@
+{
+  "type": "spacefactory:conditional",
+  "required_tags": [ "c:battery_alloy_plates"  ],
+  "required_items": [ "*:battery_alloy_dust"  ],
+
+  "recipe": {
+    "type": "spacefactory:pulverizing",
+    "ingredient": {
+      "tag": "c:battery_alloy_plates"
+    },
+    "result": {
+      "item": "*:battery_alloy_dust"
+    }
+  }
+}

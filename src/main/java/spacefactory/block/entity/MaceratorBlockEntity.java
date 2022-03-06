@@ -1,8 +1,8 @@
 package spacefactory.block.entity;
 
 import spacefactory.SpaceFactory;
-import spacefactory.recipe.MaceratorRecipe;
-import spacefactory.screen.MaceratorScreenHandler;
+import spacefactory.recipe.PulverizerRecipe;
+import spacefactory.screen.PulverizerScreenHandler;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -13,14 +13,14 @@ import net.minecraft.screen.ScreenHandler;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
 
-public class MaceratorBlockEntity extends CraftingMachineBlockEntity<MaceratorRecipe> implements SidedInventory {
+public class MaceratorBlockEntity extends CraftingMachineBlockEntity<PulverizerRecipe> implements SidedInventory {
     public MaceratorBlockEntity(BlockPos pos, BlockState state) {
-        super(SpaceFactory.SFBlockEntityTypes.MACERATOR, pos, state);
+        super(SpaceFactory.SFBlockEntityTypes.PULVERIZER, pos, state);
     }
 
     @Override
-    protected RecipeType<MaceratorRecipe> getRecipeType() {
-        return SpaceFactory.SFRecipeTypes.MACERATING;
+    protected RecipeType<PulverizerRecipe> getRecipeType() {
+        return SpaceFactory.SFRecipeTypes.PULVERIZING;
     }
 
     @Override
@@ -29,12 +29,12 @@ public class MaceratorBlockEntity extends CraftingMachineBlockEntity<MaceratorRe
     }
 
     @Override
-    protected int getRecipeDuration(MaceratorRecipe recipe) {
+    protected int getRecipeDuration(PulverizerRecipe recipe) {
         return recipe.getDuration();
     }
 
     @Override
-    protected boolean canAcceptRecipeOutput(@Nullable MaceratorRecipe recipe) {
+    protected boolean canAcceptRecipeOutput(@Nullable PulverizerRecipe recipe) {
         if (recipe == null || this.inventory.get(0).isEmpty()) {
             return false;
         }
@@ -42,7 +42,7 @@ public class MaceratorBlockEntity extends CraftingMachineBlockEntity<MaceratorRe
     }
 
     @Override
-    protected void craftRecipe(@Nullable MaceratorRecipe recipe) {
+    protected void craftRecipe(@Nullable PulverizerRecipe recipe) {
         if (this.canAcceptRecipeOutput(recipe)) {
             assert recipe != null;
 
@@ -61,6 +61,6 @@ public class MaceratorBlockEntity extends CraftingMachineBlockEntity<MaceratorRe
     @Nullable
     @Override
     public ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
-        return new MaceratorScreenHandler(syncId, this, player);
+        return new PulverizerScreenHandler(syncId, this, player);
     }
 }

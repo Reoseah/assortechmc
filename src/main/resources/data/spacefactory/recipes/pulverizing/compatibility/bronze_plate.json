@@ -1,0 +1,15 @@
+{
+  "type": "spacefactory:conditional",
+  "required_tags": [ "c:bronze_plates"  ],
+  "required_items": [ "*:bronze_dust"  ],
+
+  "recipe": {
+    "type": "spacefactory:pulverizing",
+    "ingredient": {
+      "tag": "c:bronze_plates"
+    },
+    "result": {
+      "item": "spacefactory:bronze_dust"
+    }
+  }
+}

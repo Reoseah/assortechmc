@@ -92,7 +92,7 @@ public class AliveRubberLogBlock extends Block {
                     Direction side = hitResult.getSide();
 
                     double x = pos.getX() + 0.5 + 0.70 * side.getOffsetX();
-                    double y = pos.getY() + 0.5 + 0.70 * side.getOffsetY();
+                    double y = pos.getY() + 0.25 + 0.70 * side.getOffsetY();
                     double z = pos.getZ() + 0.5 + 0.70 * side.getOffsetZ();
 
 

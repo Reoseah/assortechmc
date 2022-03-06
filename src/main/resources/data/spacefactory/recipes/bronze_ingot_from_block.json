@@ -6,7 +6,7 @@
     }
   ],
   "result": {
-    "item": "spacefactory:bronze_ingot",
+    "item": "*:bronze_ingot",
     "count": 9
   }
 }

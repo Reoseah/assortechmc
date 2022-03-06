@@ -1,0 +1,15 @@
+{
+  "type": "spacefactory:conditional",
+  "required_tags": [ "c:red_garnet_gems"  ],
+  "required_items": [ "*:red_garnet_dust"  ],
+
+  "recipe": {
+    "type": "spacefactory:pulverizing",
+    "ingredient": {
+      "tag": "c:red_garnet_gems"
+    },
+    "result": {
+      "item": "*:red_garnet_dust"
+    }
+  }
+}

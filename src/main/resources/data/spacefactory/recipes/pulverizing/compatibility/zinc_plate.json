@@ -1,0 +1,15 @@
+{
+  "type": "spacefactory:conditional",
+  "required_tags": [ "c:zinc_plates"  ],
+  "required_items": [ "*:zinc_dust"  ],
+
+  "recipe": {
+    "type": "spacefactory:pulverizing",
+    "ingredient": {
+      "tag": "c:zinc_plates"
+    },
+    "result": {
+      "item": "*:zinc_dust"
+    }
+  }
+}

@@ -1,9 +1,0 @@
-{
-  "parent": "minecraft:block/orientable_with_bottom",
-  "textures": {
-    "top": "spacefactory:block/macerator_top_on",
-    "front": "spacefactory:block/macerator_front",
-    "side": "spacefactory:block/machine_side",
-    "bottom": "spacefactory:block/machine_bottom"
-  }
-}

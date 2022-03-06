@@ -1,0 +1,14 @@
+{
+  "type": "spacefactory:conditional",
+  "required_items": [ "*:ender_eye_dust"  ],
+
+  "recipe": {
+    "type": "spacefactory:pulverizing",
+    "ingredient": {
+      "item": "minecraft:ender_eye"
+    },
+    "result": {
+      "item": "*:ender_eye_dust"
+    }
+  }
+}

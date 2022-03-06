@@ -17,6 +17,7 @@ public class WireCuttersItem extends Item {
 
     @Override
     public ActionResult useOnBlock(ItemUsageContext context) {
+        // TODO add sounds
         World world = context.getWorld();
         BlockPos pos = context.getBlockPos();
         PlayerEntity player = context.getPlayer();

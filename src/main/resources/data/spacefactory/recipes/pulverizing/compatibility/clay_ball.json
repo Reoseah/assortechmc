@@ -1,0 +1,14 @@
+{
+  "type": "spacefactory:conditional",
+  "required_items": [ "*:clay_dust"  ],
+
+  "recipe": {
+    "type": "spacefactory:pulverizing",
+    "ingredient": {
+      "item": "minecraft:clay_ball"
+    },
+    "result": {
+      "item": "*:clay_dust"
+    }
+  }
+}

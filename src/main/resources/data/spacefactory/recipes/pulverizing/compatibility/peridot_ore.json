@@ -1,0 +1,16 @@
+{
+  "type": "spacefactory:conditional",
+  "required_tags": [ "c:peridot_ores"  ],
+  "required_items": [ "*:peridot_dust"  ],
+
+  "recipe": {
+    "type": "spacefactory:pulverizing",
+    "ingredient": {
+      "tag": "c:peridot_ores"
+    },
+    "result": {
+      "item": "*:peridot_dust",
+      "count": 2
+    }
+  }
+}

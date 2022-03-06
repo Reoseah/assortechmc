@@ -1,9 +1,9 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "#C#",
+    "# #",
     "CGC",
-    "#C#"
+    "# #"
   ],
   "key": {
     "#": {
@@ -13,7 +13,7 @@
       "item": "minecraft:glass"
     },
     "C": {
-      "tag": "spacefactory:copper_cables"
+      "item": "spacefactory:copper_cable"
     }
   },
   "result": {

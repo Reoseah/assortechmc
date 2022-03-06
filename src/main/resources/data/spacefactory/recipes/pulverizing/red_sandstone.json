@@ -1,0 +1,10 @@
+{
+  "type": "spacefactory:pulverizing",
+  "ingredient": {
+    "tag": "c:red_sandstone"
+  },
+  "result": {
+    "item": "minecraft:red_sand",
+    "count": 2
+  }
+}

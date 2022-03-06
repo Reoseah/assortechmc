@@ -6,7 +6,7 @@
     }
   ],
   "result": {
-    "item": "spacefactory:copper_nugget",
+    "item": "*:copper_nugget",
     "count": 9
   }
 }

@@ -1,0 +1,15 @@
+{
+  "type": "spacefactory:conditional",
+  "required_tags": [ "c:cadmium_ingots"  ],
+  "required_items": [ "*:cadmium_dust"  ],
+
+  "recipe": {
+    "type": "spacefactory:pulverizing",
+    "ingredient": {
+      "tag": "c:cadmium_ingots"
+    },
+    "result": {
+      "item": "*:cadmium_dust"
+    }
+  }
+}

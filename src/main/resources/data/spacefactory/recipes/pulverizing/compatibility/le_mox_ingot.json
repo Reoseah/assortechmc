@@ -1,0 +1,15 @@
+{
+  "type": "spacefactory:conditional",
+  "required_tags": [ "c:le_mox_ingots"  ],
+  "required_items": [ "*:le_mox_dust"  ],
+
+  "recipe": {
+    "type": "spacefactory:pulverizing",
+    "ingredient": {
+      "tag": "c:le_mox_ingots"
+    },
+    "result": {
+      "item": "*:le_mox_dust"
+    }
+  }
+}

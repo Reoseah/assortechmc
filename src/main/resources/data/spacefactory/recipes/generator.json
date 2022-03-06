@@ -1,12 +1,16 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
+    "C",
     "#",
     "F"
   ],
   "key": {
     "#": {
       "tag": "c:machine_blocks"
+    },
+    "C": {
+      "item": "spacefactory:circuit"
     },
     "F": {
       "item": "minecraft:furnace"

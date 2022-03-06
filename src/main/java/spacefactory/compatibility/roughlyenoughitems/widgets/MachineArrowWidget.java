@@ -76,7 +76,7 @@ public class MachineArrowWidget extends Arrow {
 
     public enum Type {
         DEFAULT(16),
-        MACERATING(16 + 17),
+        PULVERIZING(16 + 17),
         COMPRESSING(16 + 17 * 2),
         EXTRACTING(16 + 17 * 3),
         MOLECULAR_ASSEMBLY(16 + 17 * 4);

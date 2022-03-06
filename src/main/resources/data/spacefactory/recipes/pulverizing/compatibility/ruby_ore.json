@@ -1,0 +1,16 @@
+{
+  "type": "spacefactory:conditional",
+  "required_tags": [ "c:ruby_ores"  ],
+  "required_items": [ "*:ruby_dust"  ],
+
+  "recipe": {
+    "type": "spacefactory:pulverizing",
+    "ingredient": {
+      "tag": "c:ruby_ores"
+    },
+    "result": {
+      "item": "*:ruby_dust",
+      "count": 2
+    }
+  }
+}

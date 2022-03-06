@@ -1,0 +1,16 @@
+{
+  "type": "spacefactory:conditional",
+  "required_tags": [ "c:sulfurs" ],
+  "required_items": [ "*:sulfur_dust" ],
+
+  "recipe": {
+    "type": "spacefactory:pulverizing",
+    "ingredient": {
+      "item": "minecraft:sulfurs"
+    },
+    "result": {
+      "item": "*:sulfur_dust",
+      "count": 2
+    }
+  }
+}

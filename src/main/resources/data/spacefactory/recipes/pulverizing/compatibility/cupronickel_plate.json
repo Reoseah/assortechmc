@@ -1,0 +1,15 @@
+{
+  "type": "spacefactory:conditional",
+  "required_tags": [ "c:cupronickel_plates"  ],
+  "required_items": [ "*:cupronickel_dust"  ],
+
+  "recipe": {
+    "type": "spacefactory:pulverizing",
+    "ingredient": {
+      "tag": "c:cupronickel_plates"
+    },
+    "result": {
+      "item": "*:cupronickel_dust"
+    }
+  }
+}

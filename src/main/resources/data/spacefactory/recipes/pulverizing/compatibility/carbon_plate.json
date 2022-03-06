@@ -1,0 +1,15 @@
+{
+  "type": "spacefactory:conditional",
+  "required_tags": [ "c:carbon_plates"  ],
+  "required_items": [ "*:carbon_dust"  ],
+
+  "recipe": {
+    "type": "spacefactory:pulverizing",
+    "ingredient": {
+      "tag": "c:carbon_plates"
+    },
+    "result": {
+      "item": "*:carbon_dust"
+    }
+  }
+}

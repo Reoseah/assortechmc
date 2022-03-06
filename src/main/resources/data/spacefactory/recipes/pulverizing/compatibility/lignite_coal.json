@@ -1,0 +1,15 @@
+{
+  "type": "spacefactory:conditional",
+  "required_tags": [ "c:lignite_coal"  ],
+  "required_items": [ "*:lignite_coal_dust"  ],
+
+  "recipe": {
+    "type": "spacefactory:pulverizing",
+    "ingredient": {
+      "tag": "c:lignite_coal"
+    },
+    "result": {
+      "item": "*:lignite_coal_dust"
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "type": "spacefactory:conditional",
+  "required_tags": [ "c:obsidian_plates"  ],
+  "required_items": [ "*:obsidian_dust"  ],
+
+  "recipe": {
+    "type": "spacefactory:pulverizing",
+    "ingredient": {
+      "tag": "c:obsidian_plates"
+    },
+    "result": {
+      "item": "*:obsidian_dust"
+    }
+  }
+}
