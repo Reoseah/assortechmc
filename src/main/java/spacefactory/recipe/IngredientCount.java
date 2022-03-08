@@ -34,6 +34,7 @@ import java.util.function.Predicate;
  */
 public class IngredientCount implements Predicate<ItemStack> {
     public static final IngredientCount EMPTY = new IngredientCount(Ingredient.EMPTY, 0);
+
     public final Ingredient ingredient;
     public final int count;
 

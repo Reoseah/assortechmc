@@ -19,12 +19,12 @@ import spacefactory.compatibility.roughlyenoughitems.widgets.MachineArrowWidget;
 import java.util.Collections;
 import java.util.List;
 
-public class CraftingMachineCategory implements DisplayCategory<CraftingMachineDisplay> {
-    private final CategoryIdentifier<? extends CraftingMachineDisplay> id;
+public class SimpleMachineCategory implements DisplayCategory<SimpleMachineDisplay> {
+    private final CategoryIdentifier<? extends SimpleMachineDisplay> id;
     private final EntryStack<?> logo;
     private final String name;
 
-    public CraftingMachineCategory(CategoryIdentifier<? extends CraftingMachineDisplay> id, EntryStack<?> logo, String name) {
+    public SimpleMachineCategory(CategoryIdentifier<? extends SimpleMachineDisplay> id, EntryStack<?> logo, String name) {
         this.id = id;
         this.logo = logo;
         this.name = name;
@@ -41,7 +41,7 @@ public class CraftingMachineCategory implements DisplayCategory<CraftingMachineD
     }
 
     @Override
-    public CategoryIdentifier<? extends CraftingMachineDisplay> getCategoryIdentifier() {
+    public CategoryIdentifier<? extends SimpleMachineDisplay> getCategoryIdentifier() {
         return this.id;
     }
 
@@ -49,11 +49,11 @@ public class CraftingMachineCategory implements DisplayCategory<CraftingMachineD
         return 49;
     }
 
-    public DisplayRenderer getDisplayRenderer(CraftingMachineDisplay display) {
+    public DisplayRenderer getDisplayRenderer(SimpleMachineDisplay display) {
         return SimpleDisplayRenderer.from(Collections.singletonList(display.getInputEntries().get(0)), display.getOutputEntries());
     }
 
-    public List<Widget> setupDisplay(CraftingMachineDisplay display, Rectangle bounds) {
+    public List<Widget> setupDisplay(SimpleMachineDisplay display, Rectangle bounds) {
         Point startPoint = new Point(bounds.getCenterX() - 41, bounds.y + 10);
 
         Widget base = Widgets.createRecipeBase(bounds);
@@ -83,7 +83,7 @@ public class CraftingMachineCategory implements DisplayCategory<CraftingMachineD
         return 2;
     }
 
-    private int getEuTotal(CraftingMachineDisplay display) {
+    private int getEuTotal(SimpleMachineDisplay display) {
         return this.getEuPerTick() * display.getDuration();
     }
 }

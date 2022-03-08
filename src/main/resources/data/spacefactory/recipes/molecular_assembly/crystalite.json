@@ -1,0 +1,12 @@
+{
+  "type": "spacefactory:molecular_assembly",
+  "input": [
+    {
+      "item": "spacefactory:crystalite",
+      "count": 8
+    }
+  ],
+  "result": {
+    "item": "spacefactory:crystalite_matrix"
+  }
+}

@@ -7,10 +7,10 @@ import me.shedaniel.rei.api.common.util.EntryIngredients;
 import java.util.Collections;
 import java.util.Optional;
 
-public abstract class CraftingMachineDisplay extends BasicDisplay {
+public abstract class SimpleMachineDisplay extends BasicDisplay {
     private final int duration;
 
-    public CraftingMachineDisplay(SimpleMachineRecipe recipe) {
+    public SimpleMachineDisplay(SimpleMachineRecipe recipe) {
         super(SpaceFactoryPlugin.toIngredientEntries(recipe.getIngredient(), recipe.getIngredientCount()),
                 Collections.singletonList(EntryIngredients.of(recipe.getOutput())),
                 Optional.of(recipe.getId()));

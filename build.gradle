@@ -77,7 +77,7 @@ dependencies {
     modApi("me.shedaniel:RoughlyEnoughItems-api-fabric:${project.rei_version}") {
         exclude group: "net.fabricmc.fabric-api"
     }
-    modRuntimeOnly("me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}") {
+    modImplementation("me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}") {
         exclude group: "net.fabricmc.fabric-api"
     }
     modImplementation "com.terraformersmc:modmenu:${project.modmenu_version}"

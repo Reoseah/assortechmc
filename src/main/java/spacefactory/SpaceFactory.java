@@ -86,21 +86,20 @@ public class SpaceFactory implements ModInitializer {
         register(Registry.BLOCK, "tin_block", SFBlocks.TIN_BLOCK);
 
         register(Registry.BLOCK, "machine_block", SFBlocks.MACHINE_BLOCK);
-        // Generators
+
         register(Registry.BLOCK, "generator", SFBlocks.GENERATOR);
         register(Registry.BLOCK, "solar_panel", SFBlocks.SOLAR_PANEL);
         register(Registry.BLOCK, "dragon_egg_siphon", SFBlocks.DRAGON_EGG_SIPHON);
-        // Energy Storage
+
         register(Registry.BLOCK, "battery_box", SFBlocks.BATTERY_BOX);
-        // Crafting Machines
+
         register(Registry.BLOCK, "electric_furnace", SFBlocks.ELECTRIC_FURNACE);
         register(Registry.BLOCK, "pulverizer", SFBlocks.PULVERIZER);
         register(Registry.BLOCK, "compressor", SFBlocks.COMPRESSOR);
         register(Registry.BLOCK, "extractor", SFBlocks.EXTRACTOR);
         register(Registry.BLOCK, "molecular_assembler", SFBlocks.MOLECULAR_ASSEMBLER);
-        // Cables
-        register(Registry.BLOCK, "copper_wire", SFBlocks.COPPER_WIRE);
 
+        register(Registry.BLOCK, "copper_wire", SFBlocks.COPPER_WIRE);
         register(Registry.BLOCK, "copper_cable", SFBlocks.COPPER_CABLE);
         register(Registry.BLOCK, "copper_bus_bar", SFBlocks.COPPER_BUS_BAR);
         register(Registry.BLOCK, "reinforced_energy_conduit", SFBlocks.REINFORCED_ENERGY_CONDUIT);
@@ -148,7 +147,6 @@ public class SpaceFactory implements ModInitializer {
         register(Registry.ITEM, "iron_dust", SFItems.IRON_DUST);
         register(Registry.ITEM, "gold_dust", SFItems.GOLD_DUST);
         register(Registry.ITEM, "diamond_dust", SFItems.DIAMOND_DUST);
-        register(Registry.ITEM, "netherite_scrap_dust", SFItems.NETHERITE_SCRAP_DUST);
 
         register(Registry.ITEM, "rubber_log", new BlockItem(SFBlocks.RUBBER_LOG, SFItems.settings()));
         register(Registry.ITEM, "stripped_rubber_log", new BlockItem(SFBlocks.STRIPPED_RUBBER_LOG, SFItems.settings()));
@@ -182,7 +180,6 @@ public class SpaceFactory implements ModInitializer {
 
         register(Registry.ITEM, "generator", new BlockItem(SFBlocks.GENERATOR, SFItems.settings()));
         register(Registry.ITEM, "solar_panel", new BlockItem(SFBlocks.SOLAR_PANEL, SFItems.settings()));
-
         register(Registry.ITEM, "battery_box", new BlockItem(SFBlocks.BATTERY_BOX, SFItems.settings()));
 
         register(Registry.ITEM, "electric_furnace", new BlockItem(SFBlocks.ELECTRIC_FURNACE, SFItems.settings()));
@@ -212,12 +209,12 @@ public class SpaceFactory implements ModInitializer {
         register(Registry.ITEM, "iridium_ingot", SFItems.IRIDIUM_INGOT);
         register(Registry.ITEM, "iridium_dust", SFItems.IRIDIUM_DUST);
         register(Registry.ITEM, "small_iridium_dust", SFItems.SMALL_IRIDIUM_DUST);
+        register(Registry.ITEM, "netherite_scrap_dust", SFItems.NETHERITE_SCRAP_DUST);
 
         register(Registry.ITEM, "dragon_egg_siphon", new BlockItem(SFBlocks.DRAGON_EGG_SIPHON, SFItems.settings().rarity(Rarity.EPIC)));
         register(Registry.ITEM, "molecular_assembler", new BlockItem(SFBlocks.MOLECULAR_ASSEMBLER, SFItems.settings().rarity(Rarity.RARE)));
 
         register(Registry.ITEM, "vanovoltaic_cell", SFItems.VANOVOLTAIC_CELL);
-
 
         register(Registry.ITEM, "arachnolactam", SFItems.ARACHNOLACTAM);
         register(Registry.ITEM, "hyperstrand", SFItems.HYPERSRAND);
@@ -478,5 +475,11 @@ public class SpaceFactory implements ModInitializer {
                 config = new Config();
             }
         }
+    }
+
+    public static class Constants {
+        public static final String MOD_ID = "spacefactory";
+
+        public static final int GENERATOR_OUTPUT = 10;
     }
 }

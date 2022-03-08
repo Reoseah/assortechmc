@@ -3,7 +3,7 @@ package spacefactory.compatibility.roughlyenoughitems;
 import spacefactory.recipe.ExtractorRecipe;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 
-public class ExtractingDisplay extends CraftingMachineDisplay {
+public class ExtractingDisplay extends SimpleMachineDisplay {
     public ExtractingDisplay(ExtractorRecipe recipe) {
         super(recipe);
     }

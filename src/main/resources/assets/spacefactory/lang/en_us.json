@@ -74,6 +74,9 @@
   "item.spacefactory.bronze_chestplate": "Bronze Chestplate",
   "item.spacefactory.bronze_leggings": "Bronze Leggings",
   "item.spacefactory.bronze_boots": "Bronze Boots",
+
+  "item.spacefactory.generator.usage": "Burns conventional fuels to generate electricity.",
+
   "container.spacefactory.energy": "%s EU",
   "container.spacefactory.energy_storage": "%s / %s EU",
   "container.spacefactory.energy_per_tick": "%s EU/t",
@@ -82,6 +85,7 @@
   "category.spacefactory.pulverizing": "Pulverizing",
   "category.spacefactory.compressing": "Compressing",
   "category.spacefactory.extracting": "Extracting",
+  "category.spacefactory.molecular_assembly": "Molecular Assembly",
   "options.spacefactory.title": "Space Factory Options",
   "options.spacefactory.preferred_namespaces": "Preferred Namespaces",
   "options.spacefactory.preferred_namespaces.description": "Preferred item namespaces",

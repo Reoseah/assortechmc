@@ -3,7 +3,7 @@ package spacefactory.compatibility.roughlyenoughitems;
 import spacefactory.recipe.PulverizerRecipe;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 
-public class PulverizingDisplay extends CraftingMachineDisplay {
+public class PulverizingDisplay extends SimpleMachineDisplay {
     public PulverizingDisplay(PulverizerRecipe recipe) {
         super(recipe);
     }
