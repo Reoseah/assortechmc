@@ -7,7 +7,7 @@ import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.util.Identifier;
 
-public class ExtractorRecipe extends CraftingMachineRecipe {
+public class ExtractorRecipe extends SimpleMachineRecipe {
     public ExtractorRecipe(Identifier id, Ingredient input, int count, ItemStack output, int duration, float experience) {
         super(id, input, count, output, duration, experience);
     }

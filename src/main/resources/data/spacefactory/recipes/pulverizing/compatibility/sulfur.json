@@ -6,7 +6,7 @@
   "recipe": {
     "type": "spacefactory:pulverizing",
     "ingredient": {
-      "item": "minecraft:sulfurs"
+      "tag": "c:sulfurs"
     },
     "result": {
       "item": "*:sulfur_dust",

@@ -1,19 +1,18 @@
 package spacefactory.block.entity;
 
-import spacefactory.SpaceFactory;
-import spacefactory.recipe.PulverizerRecipe;
-import spacefactory.screen.PulverizerScreenHandler;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
+import spacefactory.SpaceFactory;
+import spacefactory.recipe.PulverizerRecipe;
+import spacefactory.screen.PulverizerScreenHandler;
 
-public class MaceratorBlockEntity extends CraftingMachineBlockEntity<PulverizerRecipe> implements SidedInventory {
+public class MaceratorBlockEntity extends CraftingMachineBlockEntity<PulverizerRecipe> {
     public MaceratorBlockEntity(BlockPos pos, BlockState state) {
         super(SpaceFactory.SFBlockEntityTypes.PULVERIZER, pos, state);
     }

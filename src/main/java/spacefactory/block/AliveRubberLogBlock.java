@@ -88,7 +88,7 @@ public class AliveRubberLogBlock extends Block {
         if (hitResult.getSide().getAxis().isHorizontal() && world.canPlayerModifyAt(player, pos)) {
             if (state.get(STATE) == State.READY) {
                 if (!world.isClient()) {
-                    ItemStack stack = new ItemStack(SpaceFactory.SFItems.STICKY_RESIN, 1 + world.getRandom().nextInt(3));
+                    ItemStack stack = new ItemStack(SpaceFactory.SFItems.RAW_RUBBER, 1 + world.getRandom().nextInt(3));
                     Direction side = hitResult.getSide();
 
                     double x = pos.getX() + 0.5 + 0.70 * side.getOffsetX();

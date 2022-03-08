@@ -1,6 +1,5 @@
 package spacefactory.block.entity;
 
-import spacefactory.api.EnergyTier;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.inventory.Inventory;
@@ -14,6 +13,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
+import spacefactory.api.EnergyTier;
 import team.reborn.energy.api.EnergyStorage;
 import team.reborn.energy.api.EnergyStorageUtil;
 
@@ -22,9 +22,9 @@ import java.util.Optional;
 public abstract class CraftingMachineBlockEntity<R extends Recipe<Inventory>> extends ElectricInventoryBlockEntity implements SidedInventory {
     public static final int CAPACITY = 400;
 
-    private static final int[] TOP_SLOTS = new int[]{0};
-    private static final int[] BOTTOM_SLOTS = new int[]{2, 1};
-    private static final int[] SIDE_SLOTS = new int[]{1};
+    private static final int[] TOP_SLOTS = {0};
+    private static final int[] BOTTOM_SLOTS = {2, 1};
+    private static final int[] SIDE_SLOTS = {1};
 
     @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
     protected @Nullable Optional<R> cachedRecipe;
@@ -130,7 +130,7 @@ public abstract class CraftingMachineBlockEntity<R extends Recipe<Inventory>> ex
     public static <R extends Recipe<Inventory>> void tick(World world, BlockPos pos, BlockState state, CraftingMachineBlockEntity<R> be) {
         ElectricInventoryBlockEntity.tick(world, pos, state, be);
 
-        EnergyStorageUtil.move(be.getItemApi(1, EnergyStorage.ITEM), be.energy, Integer.MAX_VALUE, null);
+        EnergyStorageUtil.move(be.getItemApi(be.getInventorySize() - 2, EnergyStorage.ITEM), be.energy, Integer.MAX_VALUE, null);
 
         boolean wasActive = be.active;
 

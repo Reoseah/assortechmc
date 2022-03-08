@@ -14,7 +14,7 @@ import net.minecraft.util.JsonHelper;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 
-public abstract class CraftingMachineRecipe implements Recipe<Inventory> {
+public abstract class SimpleMachineRecipe implements Recipe<Inventory> {
     protected final Identifier id;
     protected final Ingredient input;
     protected final int count;
@@ -22,7 +22,7 @@ public abstract class CraftingMachineRecipe implements Recipe<Inventory> {
     protected final int duration;
     protected final float experience;
 
-    public CraftingMachineRecipe(Identifier id, Ingredient input, int count, ItemStack output, int duration, float experience) {
+    public SimpleMachineRecipe(Identifier id, Ingredient input, int count, ItemStack output, int duration, float experience) {
         this.id = id;
         this.input = input;
         this.output = output;
@@ -82,9 +82,9 @@ public abstract class CraftingMachineRecipe implements Recipe<Inventory> {
         return this.count;
     }
 
-    public static class Serializer<T extends CraftingMachineRecipe> implements RecipeSerializer<T> {
+    public static class Serializer<T extends SimpleMachineRecipe> implements RecipeSerializer<T> {
         @FunctionalInterface
-        public interface Factory<T extends CraftingMachineRecipe> {
+        public interface Factory<T extends SimpleMachineRecipe> {
             T create(Identifier id, Ingredient input, int count, ItemStack output, int duration, float experience);
         }
 

@@ -1,7 +1,7 @@
 {
   "type": "minecraft:smelting",
   "ingredient": {
-    "item": "spacefactory:sticky_resin"
+    "item": "spacefactory:raw_rubber"
   },
   "result": "spacefactory:rubber",
   "experience": 0.25

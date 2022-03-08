@@ -1,0 +1,15 @@
+{
+  "type": "spacefactory:molecular_assembly",
+  "input": [
+    {
+      "item": "spacefactory:arachnolactam",
+      "count": 3
+    },
+    {
+      "item": "spacefactory:raw_rubber"
+    }
+  ],
+  "result": { 
+    "item": "spacefactory:hyperstrand"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "type": "spacefactory:molecular_assembly",
+  "input": [
+    {
+      "tag": "c:diamond_dusts"
+    }
+  ],
+  "result": { 
+    "item": "spacefactory:hyperstrand"
+  }
+}

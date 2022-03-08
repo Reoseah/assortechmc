@@ -125,6 +125,7 @@ public class SpaceFactory implements ModInitializer {
         register(Registry.BLOCK_ENTITY_TYPE, "electric_furnace", SFBlockEntityTypes.ELECTRIC_FURNACE);
         register(Registry.BLOCK_ENTITY_TYPE, "pulverizer", SFBlockEntityTypes.PULVERIZER);
         register(Registry.BLOCK_ENTITY_TYPE, "compressor", SFBlockEntityTypes.COMPRESSOR);
+        register(Registry.BLOCK_ENTITY_TYPE, "molecular_assembler", SFBlockEntityTypes.MOLECULAR_ASSEMBLER);
         register(Registry.BLOCK_ENTITY_TYPE, "extractor", SFBlockEntityTypes.EXTRACTOR);
         register(Registry.BLOCK_ENTITY_TYPE, "conduit", SFBlockEntityTypes.CONDUIT);
 
@@ -136,6 +137,7 @@ public class SpaceFactory implements ModInitializer {
         EnergyStorage.SIDED.registerForBlockEntity(ElectricInventoryBlockEntity::getEnergyHandler, SFBlockEntityTypes.PULVERIZER);
         EnergyStorage.SIDED.registerForBlockEntity(ElectricInventoryBlockEntity::getEnergyHandler, SFBlockEntityTypes.COMPRESSOR);
         EnergyStorage.SIDED.registerForBlockEntity(ElectricInventoryBlockEntity::getEnergyHandler, SFBlockEntityTypes.EXTRACTOR);
+        EnergyStorage.SIDED.registerForBlockEntity(ElectricInventoryBlockEntity::getEnergyHandler, SFBlockEntityTypes.MOLECULAR_ASSEMBLER);
         EnergyStorage.SIDED.registerForBlockEntity(ConduitBlockEntity::getEnergyHandler, SFBlockEntityTypes.CONDUIT);
 
 
@@ -154,7 +156,7 @@ public class SpaceFactory implements ModInitializer {
         register(Registry.ITEM, "stripped_rubber_wood", new BlockItem(SFBlocks.STRIPPED_RUBBER_WOOD, SFItems.settings()));
         register(Registry.ITEM, "rubber_leaves", new BlockItem(SFBlocks.RUBBER_LEAVES, SFItems.settings()));
         register(Registry.ITEM, "rubber_sapling", new BlockItem(SFBlocks.RUBBER_SAPLING, SFItems.settings()));
-        register(Registry.ITEM, "sticky_resin", SFItems.STICKY_RESIN);
+        register(Registry.ITEM, "raw_rubber", SFItems.RAW_RUBBER);
         register(Registry.ITEM, "rubber", SFItems.RUBBER);
 
         register(Registry.ITEM, "tin_ore", new BlockItem(SFBlocks.TIN_ORE, SFItems.settings()));
@@ -241,12 +243,14 @@ public class SpaceFactory implements ModInitializer {
         register(Registry.RECIPE_TYPE, "pulverizing", SFRecipeTypes.PULVERIZING);
         register(Registry.RECIPE_TYPE, "compressing", SFRecipeTypes.COMPRESSING);
         register(Registry.RECIPE_TYPE, "extracting", SFRecipeTypes.EXTRACTING);
+        register(Registry.RECIPE_TYPE, "molecular_assembly", SFRecipeTypes.MOLECULAR_ASSEMBLY);
 
         register(Registry.RECIPE_SERIALIZER, "empty", SFRecipeSerializers.EMPTY);
         register(Registry.RECIPE_SERIALIZER, "conditional", SFRecipeSerializers.CONDITIONAL);
         register(Registry.RECIPE_SERIALIZER, "pulverizing", SFRecipeSerializers.PULVERIZING);
         register(Registry.RECIPE_SERIALIZER, "compressing", SFRecipeSerializers.COMPRESSING);
         register(Registry.RECIPE_SERIALIZER, "extracting", SFRecipeSerializers.EXTRACTING);
+        register(Registry.RECIPE_SERIALIZER, "molecular_assembly", SFRecipeSerializers.MOLECULAR_ASSEMBLY);
 
         register(Registry.FOLIAGE_PLACER_TYPE, "rubber", SFFoliagePlacers.RUBBER);
 
@@ -272,24 +276,22 @@ public class SpaceFactory implements ModInitializer {
 
         private static final AbstractBlock.Settings RUBBER_LOG_SETTINGS = FabricBlockSettings.of(Material.WOOD, state -> state.get(PillarBlock.AXIS) == Direction.Axis.Y ? MapColor.YELLOW : MapColor.BROWN).strength(2F).sounds(BlockSoundGroup.WOOD);
         private static final AbstractBlock.Settings UNMOVABLE_RUBBER_LOG_SETTINGS = FabricBlockSettings.of(UNMOVABLE_WOOD, MapColor.YELLOW).ticksRandomly().strength(2F).sounds(BlockSoundGroup.WOOD);
-        private static final AbstractBlock.Settings TIN_SETTINGS = FabricBlockSettings.of(Material.METAL, MapColor.LIGHT_GRAY).strength(3F, 6F).sounds(BlockSoundGroup.METAL);
-        private static final AbstractBlock.Settings BRONZE_SETTINGS = FabricBlockSettings.of(Material.METAL, MapColor.ORANGE).strength(3F, 6F).sounds(BlockSoundGroup.METAL);
         private static final AbstractBlock.Settings MACHINE_SETTINGS = FabricBlockSettings.of(AtMaterials.MACHINE).strength(3F, 6F).sounds(BlockSoundGroup.METAL).requiresTool().allowsSpawning(BlocksAccessor::invokeNever);
         private static final AbstractBlock.Settings ADVANCED_MACHINE_SETTINGS = FabricBlockSettings.of(AtMaterials.MACHINE).strength(10F, 30F).sounds(BlockSoundGroup.METAL).requiresTool().allowsSpawning(BlocksAccessor::invokeNever);
 
         public static final Block MACHINE_BLOCK = new Block(MACHINE_SETTINGS);
         // Generators
-        public static final Block GENERATOR = new GeneratorBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 15 : 0));
+        public static final Block GENERATOR = new GeneratorBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 14 : 0));
         public static final Block SOLAR_PANEL = new SolarPanelBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).mapColor(MapColor.LAPIS_BLUE));
         public static final Block DRAGON_EGG_SIPHON = new DragonEggSiphonBlock(FabricBlockSettings.copyOf(ADVANCED_MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 15 : 0));
         // Energy Storage
         public static final Block BATTERY_BOX = new BatteryBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).mapColor(MapColor.SPRUCE_BROWN).sounds(BlockSoundGroup.WOOD));
         // Crafting Machines
-        public static final Block ELECTRIC_FURNACE = new ElectricFurnaceBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS));
-        public static final Block PULVERIZER = new MaceratorBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS));
-        public static final Block COMPRESSOR = new CompressorBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS));
-        public static final Block EXTRACTOR = new ExtractorBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS));
-        public static final Block MOLECULAR_ASSEMBLER = new MolecularAssemblerBlock(FabricBlockSettings.copyOf(ADVANCED_MACHINE_SETTINGS));
+        public static final Block ELECTRIC_FURNACE = new ElectricFurnaceBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 14 : 0));
+        public static final Block PULVERIZER = new MaceratorBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 12 : 0));
+        public static final Block COMPRESSOR = new CompressorBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 12 : 0));
+        public static final Block EXTRACTOR = new ExtractorBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 12 : 0));
+        public static final Block MOLECULAR_ASSEMBLER = new MolecularAssemblerBlock(FabricBlockSettings.copyOf(FabricBlockSettings.copyOf(ADVANCED_MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 15 : 0)));
         // Cables
         public static final Block COPPER_WIRE = new ConduitBlock(1, EnergyTier.MEDIUM, FabricBlockSettings.of(Material.METAL).strength(0.5F).sounds(BlockSoundGroup.WOOL).breakByHand(true));
         public static final Block COPPER_CABLE = new ConduitBlock(2, EnergyTier.MEDIUM, FabricBlockSettings.of(Material.METAL).strength(0.5F).breakByHand(true));
@@ -300,8 +302,8 @@ public class SpaceFactory implements ModInitializer {
         public static final Block TIN_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(3F));
         public static final Block DEEPSLATE_TIN_ORE = new Block(FabricBlockSettings.of(Material.STONE).strength(4.5F, 3F));
         public static final Block END_STONE_IRIDIUM_ORE = new Block(FabricBlockSettings.of(Material.STONE, MapColor.PALE_YELLOW).strength(3F, 9F));
-        public static final Block TIN_BLOCK = new Block(TIN_SETTINGS);
-        public static final Block BRONZE_BLOCK = new Block(BRONZE_SETTINGS);
+        public static final Block TIN_BLOCK = new Block(FabricBlockSettings.of(Material.METAL, MapColor.LIGHT_GRAY).strength(3F, 6F).sounds(BlockSoundGroup.METAL));
+        public static final Block BRONZE_BLOCK = new Block(FabricBlockSettings.of(Material.METAL, MapColor.ORANGE).strength(3F, 6F).sounds(BlockSoundGroup.METAL));
         public static final Block IRIDIUM_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(5F, 20F).allowsSpawning(BlocksAccessor::invokeNever));
         public static final Block CRYSTALITE_BLOCK = new Block(FabricBlockSettings.of(Material.GLASS, MapColor.LIGHT_BLUE).luminance(15).strength(5F, 20F).sounds(BlockSoundGroup.GLASS).allowsSpawning(BlocksAccessor::invokeNever));
         public static final Block RAW_TIN_BLOCK = new Block(AbstractBlock.Settings.of(Material.STONE, MapColor.LIGHT_GRAY).requiresTool().strength(5.0f, 6.0f));
@@ -322,7 +324,7 @@ public class SpaceFactory implements ModInitializer {
             return new Item.Settings().group(MACHINERY);
         }
 
-        public static final Item STICKY_RESIN = new Item(settings());
+        public static final Item RAW_RUBBER = new Item(settings());
         public static final Item RUBBER = new Item(settings());
         public static final Item CIRCUIT = new Item(settings());
         public static final Item ARACHNOLACTAM = new Item(settings());
@@ -386,6 +388,7 @@ public class SpaceFactory implements ModInitializer {
         public static final BlockEntityType<MaceratorBlockEntity> PULVERIZER = FabricBlockEntityTypeBuilder.create(MaceratorBlockEntity::new, SFBlocks.PULVERIZER).build();
         public static final BlockEntityType<CompressorBlockEntity> COMPRESSOR = FabricBlockEntityTypeBuilder.create(CompressorBlockEntity::new, SFBlocks.COMPRESSOR).build();
         public static final BlockEntityType<ExtractorBlockEntity> EXTRACTOR = FabricBlockEntityTypeBuilder.create(ExtractorBlockEntity::new, SFBlocks.EXTRACTOR).build();
+        public static final BlockEntityType<MolecularAssemblerBlockEntity> MOLECULAR_ASSEMBLER = FabricBlockEntityTypeBuilder.create(MolecularAssemblerBlockEntity::new, SFBlocks.MOLECULAR_ASSEMBLER).build();
         public static final BlockEntityType<BatteryBlockEntity> BATTERY_BOX = FabricBlockEntityTypeBuilder.create(BatteryBlockEntity::new, SFBlocks.BATTERY_BOX).build();
         public static final BlockEntityType<ConduitBlockEntity> CONDUIT = FabricBlockEntityTypeBuilder.create(ConduitBlockEntity::new, SFBlocks.COPPER_WIRE, SFBlocks.COPPER_CABLE, SFBlocks.COPPER_BUS_BAR, SFBlocks.REINFORCED_ENERGY_CONDUIT).build();
     }
@@ -395,6 +398,7 @@ public class SpaceFactory implements ModInitializer {
         public static final RecipeType<PulverizerRecipe> PULVERIZING = new AtRecipeType<>();
         public static final RecipeType<CompressorRecipe> COMPRESSING = new AtRecipeType<>();
         public static final RecipeType<ExtractorRecipe> EXTRACTING = new AtRecipeType<>();
+        public static final RecipeType<MolecularAssemblerRecipe> MOLECULAR_ASSEMBLY = new AtRecipeType<>();
 
         private static class AtRecipeType<T extends Recipe<?>> implements RecipeType<T> {
         }
@@ -403,9 +407,10 @@ public class SpaceFactory implements ModInitializer {
     public static class SFRecipeSerializers {
         public static final RecipeSerializer<EmptyRecipe> EMPTY = new EmptyRecipe.Serializer();
         public static final RecipeSerializer<?> CONDITIONAL = new ConditionalRecipeSerializer();
-        public static final RecipeSerializer<PulverizerRecipe> PULVERIZING = new CraftingMachineRecipe.Serializer<>(PulverizerRecipe::new, 300);
-        public static final RecipeSerializer<CompressorRecipe> COMPRESSING = new CraftingMachineRecipe.Serializer<>(CompressorRecipe::new, 400);
-        public static final RecipeSerializer<ExtractorRecipe> EXTRACTING = new CraftingMachineRecipe.Serializer<>(ExtractorRecipe::new, 400);
+        public static final RecipeSerializer<PulverizerRecipe> PULVERIZING = new SimpleMachineRecipe.Serializer<>(PulverizerRecipe::new, 300);
+        public static final RecipeSerializer<CompressorRecipe> COMPRESSING = new SimpleMachineRecipe.Serializer<>(CompressorRecipe::new, 400);
+        public static final RecipeSerializer<ExtractorRecipe> EXTRACTING = new SimpleMachineRecipe.Serializer<>(ExtractorRecipe::new, 400);
+        public static final RecipeSerializer<MolecularAssemblerRecipe> MOLECULAR_ASSEMBLY = new MolecularAssemblerRecipe.Serializer(1000);
     }
 
     public static class SFFoliagePlacers {
@@ -425,6 +430,7 @@ public class SpaceFactory implements ModInitializer {
         public static final ScreenHandlerType<ElectricFurnaceScreenHandler> ELECTRIC_FURNACE = ScreenHandlerRegistry.registerSimple(id("electric_furnace"), ElectricFurnaceScreenHandler::new);
         public static final ScreenHandlerType<PulverizerScreenHandler> PULVERIZER = ScreenHandlerRegistry.registerSimple(id("pulverizer"), PulverizerScreenHandler::new);
         public static final ScreenHandlerType<CompressorScreenHandler> COMPRESSOR = ScreenHandlerRegistry.registerSimple(id("compressor"), CompressorScreenHandler::new);
+        public static final ScreenHandlerType<MolecularAssemblerScreenHandler> MOLECULAR_ASSEMBLER = ScreenHandlerRegistry.registerSimple(id("molecular_assembler"), MolecularAssemblerScreenHandler::new);
         public static final ScreenHandlerType<ExtractorScreenHandler> EXTRACTOR = ScreenHandlerRegistry.registerSimple(id("extractor"), ExtractorScreenHandler::new);
         public static final ScreenHandlerType<BatteryBoxScreenHandler> BATTERY_BOX = ScreenHandlerRegistry.registerSimple(id("battery_box"), BatteryBoxScreenHandler::new);
 

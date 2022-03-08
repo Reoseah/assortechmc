@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "spacefactory:item/sticky_resin"
+    "layer0": "spacefactory:item/raw_rubber"
   }
 }

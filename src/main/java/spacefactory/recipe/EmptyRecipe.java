@@ -1,6 +1,5 @@
 package spacefactory.recipe;
 
-import spacefactory.SpaceFactory;
 import com.google.gson.JsonObject;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
@@ -10,14 +9,18 @@ import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
+import spacefactory.SpaceFactory;
 
 /**
  * Empty recipe, doesn't match anything even if you try to search it.
- *
+ * <p>
  * Allows to override any recipe like this:
  * <pre>
  * { "type": "spacefactory:empty" }
  * </pre>
+ * <p>
+ * It's also used to implement "spacefactory:conditional" recipe
+ * (which could technically be replaced with Fabric Api conditions, but I don't like any Technician code)
  */
 public class EmptyRecipe implements Recipe<Inventory> {
     public static final EmptyRecipe INSTANCE = new EmptyRecipe();
