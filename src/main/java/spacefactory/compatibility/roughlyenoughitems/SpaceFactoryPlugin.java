@@ -16,7 +16,8 @@ import me.shedaniel.rei.plugin.common.displays.DefaultInformationDisplay;
 import net.minecraft.client.resource.language.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Ingredient;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 import spacefactory.SpaceFactory;
@@ -59,17 +60,23 @@ public class SpaceFactoryPlugin implements REIClientPlugin {
         registry.registerGlobalDisplayGenerator(new DynamicDisplayGenerator<DefaultInformationDisplay>() {
             @Override
             public Optional<List<DefaultInformationDisplay>> getUsageFor(EntryStack<?> entry) {
-                return Optional.ofNullable(entry.getIdentifier()) //
-                        .filter(id -> id.getNamespace().equals(SpaceFactory.Constants.MOD_ID)) //
-                        .map(id -> Util.createTranslationKey("item",
-                                new Identifier(id.getNamespace(), id.getPath() + ".usage"))) //
+                return Optional.ofNullable(entry) //
+                        .filter(e -> e.getIdentifier() != null && e.getIdentifier().getNamespace().equals(SpaceFactory.Constants.MOD_ID)) //
+                        .map(e -> e.getValue() instanceof ItemStack stack ? stack.getItem().getTranslationKey() + ".usage" : null) //
                         .filter(I18n::hasTranslation) //
-                        .map(info -> DefaultInformationDisplay.createFromEntry(entry, entry.asFormatStrippedText())
-                                .line(new TranslatableText(info)))
-                        .map(display -> {
+                        .map(key -> {
+                            DefaultInformationDisplay display = DefaultInformationDisplay.createFromEntry(entry, entry.asFormatStrippedText());
                             if (entry.getValue() instanceof ItemStack stack)
                                 if (stack.getItem() == SpaceFactory.SFBlocks.GENERATOR.asItem()) {
-                                    display.line(new TranslatableText("container.spacefactory.energy_per_tick", SpaceFactory.Constants.GENERATOR_OUTPUT));
+                                    display.line(translateWithNewLines("block.spacefactory.generator.usage", SpaceFactory.Constants.GENERATOR_OUTPUT, SpaceFactory.Constants.GENERATOR_CONSUMPTION * 100));
+                                } else if (stack.getItem() == SpaceFactory.SFBlocks.SOLAR_PANEL.asItem()) {
+                                    display.line(translateWithNewLines("block.spacefactory.solar_panel.usage", SpaceFactory.Constants.SOLAR_PANEL_OUTPUT));
+                                } else if (stack.getItem() == SpaceFactory.SFBlocks.DRAGON_EGG_SIPHON.asItem()) {
+                                    display.line(translateWithNewLines("block.spacefactory.dragon_egg_siphon.usage", SpaceFactory.Constants.DRAGON_EGG_SYPHON_OUTPUT));
+                                } else if (stack.getItem() == SpaceFactory.SFItems.VANOVOLTAIC_CELL) {
+                                    display.line(translateWithNewLines("item.spacefactory.vanovoltaic_cell.usage", SpaceFactory.Constants.VANOVOLTAIC_CELL_GENERATION));
+                                } else {
+                                    display.line(translateWithNewLines(key));
                                 }
                             return display;
                         })
@@ -84,7 +91,7 @@ public class SpaceFactoryPlugin implements REIClientPlugin {
                                 new Identifier(id.getNamespace(), id.getPath() + ".recipe"))) //
                         .filter(I18n::hasTranslation) //
                         .map(info -> DefaultInformationDisplay.createFromEntry(entry, entry.asFormatStrippedText())
-                                .line(new TranslatableText(info)))
+                                .line(translateWithNewLines(info)))
                         .map(ImmutableList::of);
             }
         });
@@ -117,5 +124,9 @@ public class SpaceFactoryPlugin implements REIClientPlugin {
                                 .toList()
                 ))
                 .toList();
+    }
+
+    private static Text translateWithNewLines(String translationKey, Object... args) {
+        return new LiteralText(I18n.translate(translationKey, args).replace("\\n", "\n"));
     }
 }

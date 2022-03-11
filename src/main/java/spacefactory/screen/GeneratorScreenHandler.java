@@ -51,4 +51,8 @@ public class GeneratorScreenHandler extends AtScreenHandler {
         int duration = this.fuelDuration == 0 ? 200 : this.fuelDuration;
         return this.fuelLeft * 13 / duration;
     }
+
+    public int getFuelLeft() {
+        return this.fuelLeft;
+    }
 }

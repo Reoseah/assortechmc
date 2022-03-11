@@ -1,8 +1,5 @@
 package spacefactory.block.entity;
 
-import spacefactory.SpaceFactory;
-import spacefactory.api.EnergyTier;
-import spacefactory.screen.GeneratorScreenHandler;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -16,16 +13,16 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
+import spacefactory.SpaceFactory;
+import spacefactory.api.EnergyTier;
+import spacefactory.screen.GeneratorScreenHandler;
 import team.reborn.energy.api.EnergyStorage;
 import team.reborn.energy.api.EnergyStorageUtil;
 
 public class GeneratorBlockEntity extends ElectricInventoryBlockEntity implements SidedInventory {
-    public static final int PRODUCTION = 10;
-    public static final int FUEL_PER_TICK = 4;
-
-    private static final int[] TOP_SLOTS = new int[]{1};
-    private static final int[] BOTTOM_SLOTS = new int[]{0};
-    private static final int[] SIDE_SLOTS = new int[]{0};
+    private static final int[] TOP_SLOTS = {1};
+    private static final int[] BOTTOM_SLOTS = {0};
+    private static final int[] SIDE_SLOTS = {0};
 
     protected int fuelLeft, fuelDuration;
 
@@ -51,7 +48,7 @@ public class GeneratorBlockEntity extends ElectricInventoryBlockEntity implement
 
     @Override
     protected int getEnergyCapacity() {
-        return PRODUCTION;
+        return SpaceFactory.Constants.GENERATOR_OUTPUT;
     }
 
     @Override
@@ -131,10 +128,10 @@ public class GeneratorBlockEntity extends ElectricInventoryBlockEntity implement
             }
         }
 
-        if (be.fuelLeft <= 0 && be.energy.amount < PRODUCTION) {
+        if (be.fuelLeft <= 0 && be.energy.amount < SpaceFactory.Constants.GENERATOR_OUTPUT) {
             // TODO only consume fuel if there's a consumer...
             ItemStack fuel = be.inventory.get(0);
-            int value = AbstractFurnaceBlockEntity.createFuelTimeMap().getOrDefault(fuel.getItem(), 0) / FUEL_PER_TICK;
+            int value = AbstractFurnaceBlockEntity.createFuelTimeMap().getOrDefault(fuel.getItem(), 0) / SpaceFactory.Constants.GENERATOR_CONSUMPTION;
             if (value > 0) {
                 fuel.decrement(1);
                 be.fuelDuration = be.fuelLeft = value;
@@ -146,8 +143,8 @@ public class GeneratorBlockEntity extends ElectricInventoryBlockEntity implement
         }
         if (be.fuelLeft > 0) {
             be.fuelLeft--;
-            if (be.energy.amount < PRODUCTION) {
-                be.energy.amount = Math.min(be.energy.amount + PRODUCTION, PRODUCTION);
+            if (be.energy.amount < SpaceFactory.Constants.GENERATOR_OUTPUT) {
+                be.energy.amount = Math.min(be.energy.amount + SpaceFactory.Constants.GENERATOR_OUTPUT, SpaceFactory.Constants.GENERATOR_OUTPUT);
             }
             markDirty = true;
         }

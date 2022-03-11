@@ -1,5 +1,7 @@
 package spacefactory.screen.client;
 
+import net.minecraft.text.TranslatableText;
+import net.minecraft.util.Formatting;
 import spacefactory.SpaceFactory;
 import spacefactory.screen.GeneratorScreenHandler;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -44,6 +46,14 @@ public class GeneratorScreen extends HandledScreen<GeneratorScreenHandler> {
         if (this.handler.isBurning()) {
             int fuel = this.handler.getFuelDisplay();
             this.drawTexture(matrices, leftX + 81, topY + 49 - fuel, 176, 12 - fuel, 14, fuel + 1);
+        }
+    }
+
+    @Override
+    protected void drawMouseoverTooltip(MatrixStack matrices, int x, int y) {
+        super.drawMouseoverTooltip(matrices, x, y);
+        if (this.isPointWithinBounds(81, 34, 14, 14, x, y)) {
+            this.renderTooltip(matrices, new TranslatableText("container.spacefactory.fuel_ticks", this.handler.getFuelLeft()).formatted(Formatting.GRAY), x, y);
         }
     }
 }

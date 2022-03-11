@@ -34,10 +34,4 @@ public class SolarPanelBlock extends InventoryBlock {
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
         return world.isClient ? null : checkType(type, SpaceFactory.SFBlockEntityTypes.SOLAR_PANEL, SolarPanelBlockEntity::tick);
     }
-
-    @Override
-    public void appendTooltip(ItemStack stack, @Nullable BlockView world, List<Text> tooltip, TooltipContext options) {
-        super.appendTooltip(stack, world, tooltip, options);
-        tooltip.add(new TranslatableText("container.spacefactory.energy_per_tick", SolarPanelBlockEntity.PRODUCTION).formatted(Formatting.GRAY));
-    }
 }

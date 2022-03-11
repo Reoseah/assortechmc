@@ -74,14 +74,22 @@
   "item.spacefactory.bronze_chestplate": "Bronze Chestplate",
   "item.spacefactory.bronze_leggings": "Bronze Leggings",
   "item.spacefactory.bronze_boots": "Bronze Boots",
+  "item.spacefactory.warp_prism": "Warp Prism",
 
-  "item.spacefactory.generator.usage": "Burns conventional fuels to generate electricity.",
+  "item.spacefactory.raw_rubber.recipe": "Obtained by stripping a part of bark from an alive rubber tree.\nThe tree should have soil below trunk, leaves above and at most one stripped log block, or it will die.",
+
+  "block.spacefactory.generator.usage": "Burns conventional fuels to generate electricity.\nGenerates %s EU per tick while burning fuel at %s percent speed.",
+  "block.spacefactory.solar_panel.usage": "Creates electricity from sunlight.\nGenerates %s EU per tick when in full light.",
+  "block.spacefactory.dragon_egg_siphon.usage": "Produces electricity from Dragon Egg quantum oscillations.\nGenerates %s EU per tick when Dragon Egg is placed on top. ",
+  "item.spacefactory.vanovoltaic_cell.usage": "Generates electricity from quantum foam fluctuations at the rate of %s EU per tick.",
 
   "container.spacefactory.energy": "%s EU",
   "container.spacefactory.energy_storage": "%s / %s EU",
   "container.spacefactory.energy_per_tick": "%s EU/t",
   "container.spacefactory.energy_max": "%s EU Max",
   "container.spacefactory.energy_per_tick_max": "%s EU/t Max",
+  "container.spacefactory.generation": "Generation %s EU/t",
+  "container.spacefactory.fuel_ticks": "%s ticks left",
   "category.spacefactory.pulverizing": "Pulverizing",
   "category.spacefactory.compressing": "Compressing",
   "category.spacefactory.extracting": "Extracting",

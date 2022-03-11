@@ -1,0 +1,15 @@
+{
+  "type": "spacefactory:molecular_assembly",
+  "input": [
+    {
+      "item": "minecraft:ender_pearl",
+      "count": 2
+    },
+    {
+      "item": "spacefactory:quantum_circuit"
+    }
+  ],
+  "result": { 
+    "item": "spacefactory:warp_prism"
+  }
+}

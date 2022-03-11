@@ -53,14 +53,6 @@ public class DragonEggSiphonBlock extends InventoryBlock {
         }
     }
 
-
-    @Override
-    public void appendTooltip(ItemStack stack, @Nullable BlockView world, List<Text> tooltip, TooltipContext options) {
-        super.appendTooltip(stack, world, tooltip, options);
-        tooltip.add(new TranslatableText("container.spacefactory.energy_per_tick", DragonEggSiphonBlockEntity.PRODUCTION).formatted(Formatting.GRAY));
-    }
-
-
     @Nullable
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {

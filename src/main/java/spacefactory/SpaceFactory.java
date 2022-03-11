@@ -166,7 +166,6 @@ public class SpaceFactory implements ModInitializer {
         register(Registry.ITEM, "tin_nugget", SFItems.TIN_NUGGET);
         register(Registry.ITEM, "tin_dust", SFItems.TIN_DUST);
 
-
         register(Registry.ITEM, "bronze_block", new BlockItem(SFBlocks.BRONZE_BLOCK, SFItems.settings()));
         register(Registry.ITEM, "bronze_ingot", SFItems.BRONZE_INGOT);
         register(Registry.ITEM, "bronze_nugget", SFItems.BRONZE_NUGGET);
@@ -219,6 +218,7 @@ public class SpaceFactory implements ModInitializer {
         register(Registry.ITEM, "arachnolactam", SFItems.ARACHNOLACTAM);
         register(Registry.ITEM, "hyperstrand", SFItems.HYPERSRAND);
         register(Registry.ITEM, "hyperweave", SFItems.HYPERWEAVE);
+        register(Registry.ITEM, "warp_prism", SFItems.WARP_PRISM);
 
         register(Registry.ITEM, "bronze_sword", SFItems.BRONZE_SWORD);
         register(Registry.ITEM, "bronze_shovel", SFItems.BRONZE_SHOVEL);
@@ -360,6 +360,7 @@ public class SpaceFactory implements ModInitializer {
 
         public static final Item RAW_TIN = new Item(settings());
         public static final Item RAW_IRIDIUM = new Item(settings().rarity(Rarity.RARE));
+        public static final Item WARP_PRISM = new Item(settings().rarity(Rarity.RARE));
 
         public static final Item BRONZE_SWORD = new SwordItem(AssortechToolMaterials.BRONZE, 3, -2.4F, settings());
         public static final Item BRONZE_SHOVEL = new ShovelItem(AssortechToolMaterials.BRONZE, 1.5F, -3.0F, settings());
@@ -481,5 +482,12 @@ public class SpaceFactory implements ModInitializer {
         public static final String MOD_ID = "spacefactory";
 
         public static final int GENERATOR_OUTPUT = 10;
+        public static final int GENERATOR_CONSUMPTION = 4;
+
+        public static final float SOLAR_PANEL_OUTPUT = 1;
+
+        public static final int DRAGON_EGG_SYPHON_OUTPUT = 256;
+
+        public static final int VANOVOLTAIC_CELL_GENERATION = 10;
     }
 }

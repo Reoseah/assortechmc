@@ -5,8 +5,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.SidedInventory;
-import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
@@ -19,8 +17,6 @@ import team.reborn.energy.api.EnergyStorageUtil;
 import team.reborn.energy.api.base.SimpleEnergyStorage;
 
 public class DragonEggSiphonBlockEntity extends InventoryBlockEntity {
-    public static final int PRODUCTION = 512;
-    // for cables to connect to us... we don't store any energy in solar panels
     public static EnergyStorage ENERGY = new EnergyStorage() {
         @Override
         public long insert(long maxAmount, TransactionContext transaction) {
@@ -72,14 +68,14 @@ public class DragonEggSiphonBlockEntity extends InventoryBlockEntity {
                 be.markDirty();
             }
             be.generating = true;
-            SimpleEnergyStorage producedEnergy = new SimpleEnergyStorage(PRODUCTION, PRODUCTION, PRODUCTION);
-            producedEnergy.amount = PRODUCTION;
+            SimpleEnergyStorage producedEnergy = new SimpleEnergyStorage(SpaceFactory.Constants.DRAGON_EGG_SYPHON_OUTPUT, SpaceFactory.Constants.DRAGON_EGG_SYPHON_OUTPUT, SpaceFactory.Constants.DRAGON_EGG_SYPHON_OUTPUT);
+            producedEnergy.amount = SpaceFactory.Constants.DRAGON_EGG_SYPHON_OUTPUT;
 
             for (Direction side : Direction.values()) {
                 if (producedEnergy.amount == 0) {
                     break;
                 }
-                EnergyStorageUtil.move(producedEnergy, EnergyStorage.SIDED.find(world, pos.offset(side), side.getOpposite()), PRODUCTION, null);
+                EnergyStorageUtil.move(producedEnergy, EnergyStorage.SIDED.find(world, pos.offset(side), side.getOpposite()), SpaceFactory.Constants.DRAGON_EGG_SYPHON_OUTPUT, null);
             }
             world.setBlockState(pos, state.with(Properties.LIT, true));
             return;
