@@ -174,6 +174,7 @@ public class SpaceFactory implements ModInitializer {
         register(Registry.ITEM, "copper_wire", new BlockItem(SFBlocks.COPPER_WIRE, SFItems.settings()));
         register(Registry.ITEM, "copper_cable", new BlockItem(SFBlocks.COPPER_CABLE, SFItems.settings()));
         register(Registry.ITEM, "circuit", SFItems.CIRCUIT);
+        register(Registry.ITEM, "potato_battery", SFItems.POTATO_BATTERY);
 
         register(Registry.ITEM, "machine_block", new BlockItem(SFBlocks.MACHINE_BLOCK, SFItems.settings()));
 
@@ -324,6 +325,7 @@ public class SpaceFactory implements ModInitializer {
         public static final Item RAW_RUBBER = new Item(settings());
         public static final Item RUBBER = new Item(settings());
         public static final Item CIRCUIT = new Item(settings());
+        public static final Item POTATO_BATTERY = new PotatoBatteryItem(settings().maxCount(1));
         public static final Item ARACHNOLACTAM = new Item(settings());
         public static final Item HYPERSRAND = new Item(settings().rarity(Rarity.RARE));
         public static final Item HYPERWEAVE = new Item(settings().rarity(Rarity.RARE));
