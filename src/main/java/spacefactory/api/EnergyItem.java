@@ -1,13 +1,14 @@
 package spacefactory.api;
 
-import spacefactory.item.CustomDurabilityItem;
 import net.fabricmc.fabric.api.item.v1.FabricItem;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.Hand;
+import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.base.SimpleBatteryItem;
 
-public interface EnergyItem extends SimpleBatteryItem, FabricItem, CustomDurabilityItem {
+public interface EnergyItem extends SimpleBatteryItem, FabricItem {
     EnergyTier getEnergyTier();
 
     @Override
@@ -30,13 +31,5 @@ public interface EnergyItem extends SimpleBatteryItem, FabricItem, CustomDurabil
         return ItemStack.areItemsEqual(oldStack, newStack);
     }
 
-    @Override
-    default boolean hasDurabilityBar(ItemStack stack) {
-        return stack.getCount() == 1 && this.getStoredEnergy(stack) < this.getEnergyCapacity();
-    }
 
-    @Override
-    default double getDurabilityBarProgress(ItemStack stack) {
-        return 1 - ((float) this.getStoredEnergy(stack)) / this.getEnergyCapacity();
-    }
 }

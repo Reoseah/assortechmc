@@ -13,8 +13,7 @@
   ],
   "client": [
     "client.BlockModelRendererMixin",
-    "client.BlockRenderInfoMixin",
-    "client.ItemRendererMixin"
+    "client.BlockRenderInfoMixin"
   ],
   "injectors": {
     "defaultRequire": 1
