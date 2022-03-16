@@ -17,7 +17,7 @@ public class SolarPanelScreenHandler extends AtScreenHandler {
     protected boolean generating, skyView;
 
     protected SolarPanelScreenHandler(int syncId, Inventory inventory, PlayerInventory user) {
-        super(SpaceFactory.SFScreenHandlerTypes.SOLAR_PANEL, syncId, inventory);
+        super(SpaceFactory.ScreenHandlerTypes.SOLAR_PANEL, syncId, inventory);
 
         this.addQuickTransferSlot(EnergyStorageUtil::isEnergyStorage, new Slot(inventory, 0, 80, 27));
         this.addPlayerSlots(user);

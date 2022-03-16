@@ -10,7 +10,6 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-import spacefactory.api.EnergyItem;
 
 import java.util.List;
 

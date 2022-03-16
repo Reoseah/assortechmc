@@ -15,12 +15,12 @@ import org.jetbrains.annotations.Nullable;
 
 public class ExtractorBlockEntity extends CraftingMachineBlockEntity<ExtractorRecipe> implements SidedInventory {
     public ExtractorBlockEntity(BlockPos pos, BlockState state) {
-        super(SpaceFactory.SFBlockEntityTypes.EXTRACTOR, pos, state);
+        super(SpaceFactory.BlockEntityTypes.EXTRACTOR, pos, state);
     }
 
     @Override
     protected RecipeType<ExtractorRecipe> getRecipeType() {
-        return SpaceFactory.SFRecipeTypes.EXTRACTING;
+        return SpaceFactory.RecipeTypes.EXTRACTING;
     }
 
     @Override

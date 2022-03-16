@@ -8,7 +8,6 @@
     "BlocksAccessor",
     "FoliagePlacerTypeInvoker",
     "IdentifierMixin",
-    "LivingEntityMixin",
     "SimpleRegistryMixin"
   ],
   "client": [

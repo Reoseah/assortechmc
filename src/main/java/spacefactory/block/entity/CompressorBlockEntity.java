@@ -14,12 +14,12 @@ import org.jetbrains.annotations.Nullable;
 
 public class CompressorBlockEntity extends CraftingMachineBlockEntity<CompressorRecipe> {
     public CompressorBlockEntity(BlockPos pos, BlockState state) {
-        super(SpaceFactory.SFBlockEntityTypes.COMPRESSOR, pos, state);
+        super(SpaceFactory.BlockEntityTypes.COMPRESSOR, pos, state);
     }
 
     @Override
     protected RecipeType<CompressorRecipe> getRecipeType() {
-        return SpaceFactory.SFRecipeTypes.COMPRESSING;
+        return SpaceFactory.RecipeTypes.COMPRESSING;
     }
 
     @Override

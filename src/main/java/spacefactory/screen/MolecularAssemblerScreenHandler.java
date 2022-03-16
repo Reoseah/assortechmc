@@ -21,7 +21,7 @@ public class MolecularAssemblerScreenHandler extends AtScreenHandler {
     protected int progress, recipeDuration;
 
     private MolecularAssemblerScreenHandler(int syncId, Inventory inventory, PlayerInventory user) {
-        super(SpaceFactory.SFScreenHandlerTypes.MOLECULAR_ASSEMBLER, syncId, inventory);
+        super(SpaceFactory.ScreenHandlerTypes.MOLECULAR_ASSEMBLER, syncId, inventory);
 
         this.addQuickTransferSlot(stack -> true, new Slot(inventory, MolecularAssemblerBlockEntity.SLOT_INPUT_1, 53, 24));
         this.addQuickTransferSlot(stack -> true, new Slot(inventory, MolecularAssemblerBlockEntity.SLOT_INPUT_2, 53, 46));

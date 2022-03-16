@@ -169,7 +169,7 @@ public class ConduitBlock extends BlockWithEntity {
     @Override
     @Nullable
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return world.isClient ? null : checkType(type, SpaceFactory.SFBlockEntityTypes.CONDUIT, ConduitBlockEntity::tick);
+        return world.isClient ? null : checkType(type, SpaceFactory.BlockEntityTypes.CONDUIT, ConduitBlockEntity::tick);
     }
 
     @Override

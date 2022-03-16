@@ -14,11 +14,11 @@ public class PulverizerRecipe extends SimpleMachineRecipe {
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return SpaceFactory.SFRecipeSerializers.PULVERIZING;
+        return SpaceFactory.RecipeSerializers.PULVERIZING;
     }
 
     @Override
     public RecipeType<?> getType() {
-        return SpaceFactory.SFRecipeTypes.PULVERIZING;
+        return SpaceFactory.RecipeTypes.PULVERIZING;
     }
 }

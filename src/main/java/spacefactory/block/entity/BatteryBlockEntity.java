@@ -20,7 +20,7 @@ public class BatteryBlockEntity extends ElectricInventoryBlockEntity {
     public static final int CAPACITY = 100000;
 
     public BatteryBlockEntity(BlockPos pos, BlockState state) {
-        super(SpaceFactory.SFBlockEntityTypes.BATTERY_BOX, pos, state);
+        super(SpaceFactory.BlockEntityTypes.BATTERY_BOX, pos, state);
     }
 
     @Override

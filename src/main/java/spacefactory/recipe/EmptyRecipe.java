@@ -52,12 +52,12 @@ public class EmptyRecipe implements Recipe<Inventory> {
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return SpaceFactory.SFRecipeSerializers.EMPTY;
+        return SpaceFactory.RecipeSerializers.EMPTY;
     }
 
     @Override
     public RecipeType<?> getType() {
-        return SpaceFactory.SFRecipeTypes.EMPTY;
+        return SpaceFactory.RecipeTypes.EMPTY;
     }
 
     public static class Serializer implements RecipeSerializer<EmptyRecipe> {

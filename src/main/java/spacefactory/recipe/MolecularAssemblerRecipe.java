@@ -55,12 +55,12 @@ public class MolecularAssemblerRecipe implements Recipe<Inventory> {
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return SpaceFactory.SFRecipeSerializers.MOLECULAR_ASSEMBLY;
+        return SpaceFactory.RecipeSerializers.MOLECULAR_ASSEMBLY;
     }
 
     @Override
     public RecipeType<?> getType() {
-        return SpaceFactory.SFRecipeTypes.MOLECULAR_ASSEMBLY;
+        return SpaceFactory.RecipeTypes.MOLECULAR_ASSEMBLY;
     }
 
     @Override

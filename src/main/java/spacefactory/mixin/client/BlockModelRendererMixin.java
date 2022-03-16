@@ -24,7 +24,7 @@ import java.util.Random;
 public class BlockModelRendererMixin {
     @Inject(method = "render", at = @At(value = "HEAD"), cancellable = true)
     public void render(BlockRenderView world, BakedModel model, BlockState state, BlockPos pos, MatrixStack matrix, VertexConsumer vertexConsumer, boolean cull, Random random, long seed, int overlay, CallbackInfoReturnable<Boolean> ci) {
-        if (state.getMaterial() == SpaceFactory.AtMaterials.MACHINE) {
+        if (state.getMaterial() == SpaceFactory.Materials.MACHINE) {
             boolean ao = MinecraftClient.isAmbientOcclusionEnabled();
             Vec3d offset = state.getModelOffset(world, pos);
             matrix.translate(offset.x, offset.y, offset.z);

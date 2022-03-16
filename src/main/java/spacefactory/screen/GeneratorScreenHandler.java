@@ -19,7 +19,7 @@ public class GeneratorScreenHandler extends AtScreenHandler {
     protected int fuelLeft, fuelDuration, energy;
 
     protected GeneratorScreenHandler(int syncId, Inventory inventory, PlayerInventory user) {
-        super(SpaceFactory.SFScreenHandlerTypes.GENERATOR, syncId, inventory);
+        super(SpaceFactory.ScreenHandlerTypes.GENERATOR, syncId, inventory);
 
         this.addQuickTransferSlot(AbstractFurnaceBlockEntity::canUseAsFuel, new GenericFuelSlot(this.inventory, 0, 80, 54));
         this.addQuickTransferSlot(EnergyStorageUtil::isEnergyStorage, new Slot(inventory, 1, 80, 18));

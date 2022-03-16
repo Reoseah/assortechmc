@@ -24,7 +24,7 @@ public class RubberFoliagePlacer extends BlobFoliagePlacer {
 
     @Override
     protected FoliagePlacerType<?> getType() {
-        return SpaceFactory.SFFoliagePlacers.RUBBER;
+        return SpaceFactory.FoliagePlacers.RUBBER;
     }
 
     @Override

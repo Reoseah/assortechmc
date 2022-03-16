@@ -1,11 +1,11 @@
 package spacefactory.block;
 
-import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.AxeItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
@@ -38,7 +38,7 @@ public class AliveRubberLogBlock extends Block {
 
     @Override
     public ItemStack getPickStack(BlockView world, BlockPos pos, BlockState state) {
-        return new ItemStack(state.get(STATE) == State.NATURAL ? SpaceFactory.SFBlocks.RUBBER_LOG : SpaceFactory.SFBlocks.STRIPPED_RUBBER_LOG);
+        return new ItemStack(state.get(STATE) == State.NATURAL ? SpaceFactory.Blocks.RUBBER_LOG : SpaceFactory.Blocks.STRIPPED_RUBBER_LOG);
     }
 
     @Override
@@ -52,7 +52,7 @@ public class AliveRubberLogBlock extends Block {
                     hasLeaves = false;
                     break;
                 }
-                if (s.isOf(SpaceFactory.SFBlocks.RUBBER_LEAVES)) {
+                if (s.isOf(SpaceFactory.Blocks.RUBBER_LEAVES)) {
                     hasLeaves = true;
                     break;
                 } else if (!s.isOf(this)) {
@@ -65,7 +65,7 @@ public class AliveRubberLogBlock extends Block {
                     hasSoil = false;
                     break;
                 }
-                if (((RubberSaplingBlock) SpaceFactory.SFBlocks.RUBBER_SAPLING).canPlantOnTop(s, world, pos.down(y))) {
+                if (((RubberSaplingBlock) SpaceFactory.Blocks.RUBBER_SAPLING).canPlantOnTop(s, world, pos.down(y))) {
                     hasSoil = true;
                     break;
                 } else if (!s.isOf(this)) {
@@ -73,7 +73,7 @@ public class AliveRubberLogBlock extends Block {
                 }
             }
             if (!hasLeaves || !hasSoil) {
-                world.setBlockState(pos, SpaceFactory.SFBlocks.STRIPPED_RUBBER_LOG.getDefaultState());
+                world.setBlockState(pos, SpaceFactory.Blocks.STRIPPED_RUBBER_LOG.getDefaultState());
                 return;
             }
             if (random.nextInt(8) == 0) {
@@ -88,7 +88,7 @@ public class AliveRubberLogBlock extends Block {
         if (hitResult.getSide().getAxis().isHorizontal() && world.canPlayerModifyAt(player, pos)) {
             if (state.get(STATE) == State.READY) {
                 if (!world.isClient()) {
-                    ItemStack stack = new ItemStack(SpaceFactory.SFItems.RAW_RUBBER, 1 + world.getRandom().nextInt(3));
+                    ItemStack stack = new ItemStack(SpaceFactory.Items.RAW_RUBBER, 1 + world.getRandom().nextInt(3));
                     Direction side = hitResult.getSide();
 
                     double x = pos.getX() + 0.5 + 0.70 * side.getOffsetX();
@@ -105,7 +105,7 @@ public class AliveRubberLogBlock extends Block {
                 }
                 world.setBlockState(pos, state.with(STATE, State.TAPPED));
                 return ActionResult.SUCCESS;
-            } else if (state.get(STATE) == State.NATURAL && FabricToolTags.AXES.contains(player.getStackInHand(hand).getItem())) {
+            } else if (state.get(STATE) == State.NATURAL && player.getStackInHand(hand).getItem() instanceof AxeItem) {
                 world.setBlockState(pos, state.with(STATE, State.TAPPED));
                 player.getStackInHand(hand).damage(1, player, p -> p.sendToolBreakStatus(hand));
                 return ActionResult.SUCCESS;

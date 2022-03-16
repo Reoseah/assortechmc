@@ -38,42 +38,42 @@ public class SpaceFactoryPlugin implements REIClientPlugin {
 
     @Override
     public void registerCategories(CategoryRegistry registry) {
-        registry.add(new SimpleMachineCategory(PULVERIZER, EntryStacks.of(SpaceFactory.SFBlocks.PULVERIZER), "category.spacefactory.pulverizing"));
-        registry.add(new SimpleMachineCategory(COMPRESSING, EntryStacks.of(SpaceFactory.SFBlocks.COMPRESSOR), "category.spacefactory.compressing"));
-        registry.add(new SimpleMachineCategory(EXTRACTING, EntryStacks.of(SpaceFactory.SFBlocks.EXTRACTOR), "category.spacefactory.extracting"));
-        registry.add(new MolecularAssemblyCategory(MOLECULAR_ASSEMBLY, EntryStacks.of(SpaceFactory.SFBlocks.MOLECULAR_ASSEMBLER), "category.spacefactory.molecular_assembly"));
+        registry.add(new SimpleMachineCategory(PULVERIZER, EntryStacks.of(SpaceFactory.Blocks.PULVERIZER), "category.spacefactory.pulverizing"));
+        registry.add(new SimpleMachineCategory(COMPRESSING, EntryStacks.of(SpaceFactory.Blocks.COMPRESSOR), "category.spacefactory.compressing"));
+        registry.add(new SimpleMachineCategory(EXTRACTING, EntryStacks.of(SpaceFactory.Blocks.EXTRACTOR), "category.spacefactory.extracting"));
+        registry.add(new MolecularAssemblyCategory(MOLECULAR_ASSEMBLY, EntryStacks.of(SpaceFactory.Blocks.MOLECULAR_ASSEMBLER), "category.spacefactory.molecular_assembly"));
 
-        registry.addWorkstations(BuiltinPlugin.SMELTING, EntryStacks.of(SpaceFactory.SFBlocks.ELECTRIC_FURNACE));
-        registry.addWorkstations(PULVERIZER, EntryStacks.of(SpaceFactory.SFBlocks.PULVERIZER));
-        registry.addWorkstations(COMPRESSING, EntryStacks.of(SpaceFactory.SFBlocks.COMPRESSOR));
-        registry.addWorkstations(EXTRACTING, EntryStacks.of(SpaceFactory.SFBlocks.EXTRACTOR));
-        registry.addWorkstations(MOLECULAR_ASSEMBLY, EntryStacks.of(SpaceFactory.SFBlocks.MOLECULAR_ASSEMBLER));
+        registry.addWorkstations(BuiltinPlugin.SMELTING, EntryStacks.of(SpaceFactory.Blocks.ELECTRIC_FURNACE));
+        registry.addWorkstations(PULVERIZER, EntryStacks.of(SpaceFactory.Blocks.PULVERIZER));
+        registry.addWorkstations(COMPRESSING, EntryStacks.of(SpaceFactory.Blocks.COMPRESSOR));
+        registry.addWorkstations(EXTRACTING, EntryStacks.of(SpaceFactory.Blocks.EXTRACTOR));
+        registry.addWorkstations(MOLECULAR_ASSEMBLY, EntryStacks.of(SpaceFactory.Blocks.MOLECULAR_ASSEMBLER));
     }
 
     @Override
     public void registerDisplays(DisplayRegistry registry) {
-        registry.registerRecipeFiller(PulverizerRecipe.class, SpaceFactory.SFRecipeTypes.PULVERIZING, PulverizingDisplay::new);
-        registry.registerRecipeFiller(CompressorRecipe.class, SpaceFactory.SFRecipeTypes.COMPRESSING, CompressingDisplay::new);
-        registry.registerRecipeFiller(ExtractorRecipe.class, SpaceFactory.SFRecipeTypes.EXTRACTING, ExtractingDisplay::new);
-        registry.registerRecipeFiller(MolecularAssemblerRecipe.class, SpaceFactory.SFRecipeTypes.MOLECULAR_ASSEMBLY, MolecularAssemblyDisplay::new);
+        registry.registerRecipeFiller(PulverizerRecipe.class, SpaceFactory.RecipeTypes.PULVERIZING, PulverizingDisplay::new);
+        registry.registerRecipeFiller(CompressorRecipe.class, SpaceFactory.RecipeTypes.COMPRESSING, CompressingDisplay::new);
+        registry.registerRecipeFiller(ExtractorRecipe.class, SpaceFactory.RecipeTypes.EXTRACTING, ExtractingDisplay::new);
+        registry.registerRecipeFiller(MolecularAssemblerRecipe.class, SpaceFactory.RecipeTypes.MOLECULAR_ASSEMBLY, MolecularAssemblyDisplay::new);
 
         registry.registerGlobalDisplayGenerator(new DynamicDisplayGenerator<DefaultInformationDisplay>() {
             @Override
             public Optional<List<DefaultInformationDisplay>> getUsageFor(EntryStack<?> entry) {
                 return Optional.ofNullable(entry) //
-                        .filter(e -> e.getIdentifier() != null && e.getIdentifier().getNamespace().equals(SpaceFactory.Constants.MOD_ID)) //
+                        .filter(e -> e.getIdentifier() != null && e.getIdentifier().getNamespace().equals(SpaceFactory.MOD_ID)) //
                         .map(e -> e.getValue() instanceof ItemStack stack ? stack.getItem().getTranslationKey() + ".usage" : null) //
                         .filter(I18n::hasTranslation) //
                         .map(key -> {
                             DefaultInformationDisplay display = DefaultInformationDisplay.createFromEntry(entry, entry.asFormatStrippedText());
                             if (entry.getValue() instanceof ItemStack stack)
-                                if (stack.getItem() == SpaceFactory.SFBlocks.GENERATOR.asItem()) {
+                                if (stack.getItem() == SpaceFactory.Blocks.GENERATOR.asItem()) {
                                     display.line(translateWithNewLines("block.spacefactory.generator.usage", SpaceFactory.Constants.GENERATOR_OUTPUT, SpaceFactory.Constants.GENERATOR_CONSUMPTION * 100));
-                                } else if (stack.getItem() == SpaceFactory.SFBlocks.SOLAR_PANEL.asItem()) {
+                                } else if (stack.getItem() == SpaceFactory.Blocks.SOLAR_PANEL.asItem()) {
                                     display.line(translateWithNewLines("block.spacefactory.solar_panel.usage", SpaceFactory.Constants.SOLAR_PANEL_OUTPUT));
-                                } else if (stack.getItem() == SpaceFactory.SFBlocks.DRAGON_EGG_SIPHON.asItem()) {
+                                } else if (stack.getItem() == SpaceFactory.Blocks.DRAGON_EGG_SIPHON.asItem()) {
                                     display.line(translateWithNewLines("block.spacefactory.dragon_egg_siphon.usage", SpaceFactory.Constants.DRAGON_EGG_SYPHON_OUTPUT));
-                                } else if (stack.getItem() == SpaceFactory.SFItems.VANOVOLTAIC_CELL) {
+                                } else if (stack.getItem() == SpaceFactory.Items.VANOVOLTAIC_CELL) {
                                     display.line(translateWithNewLines("item.spacefactory.vanovoltaic_cell.usage", SpaceFactory.Constants.VANOVOLTAIC_CELL_GENERATION));
                                 } else {
                                     display.line(translateWithNewLines(key));
@@ -86,7 +86,7 @@ public class SpaceFactoryPlugin implements REIClientPlugin {
             @Override
             public Optional<List<DefaultInformationDisplay>> getRecipeFor(EntryStack<?> entry) {
                 return Optional.ofNullable(entry.getIdentifier()) //
-                        .filter(id -> id.getNamespace().equals(SpaceFactory.Constants.MOD_ID)) //
+                        .filter(id -> id.getNamespace().equals(SpaceFactory.MOD_ID)) //
                         .map(id -> Util.createTranslationKey("item",
                                 new Identifier(id.getNamespace(), id.getPath() + ".recipe"))) //
                         .filter(I18n::hasTranslation) //

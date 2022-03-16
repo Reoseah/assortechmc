@@ -5,7 +5,7 @@ import net.minecraft.recipe.Ingredient;
 import spacefactory.SpaceFactory;
 
 public enum AssortechToolMaterials implements ToolMaterial {
-    BRONZE(2, 350, 5.5F, 1.5F, 16, Ingredient.fromTag(SpaceFactory.SFItems.BRONZE_INGOTS));
+    BRONZE(2, 350, 5.5F, 1.5F, 16, Ingredient.fromTag(SpaceFactory.Items.BRONZE_INGOTS));
 
     private final int miningLevel;
     private final int itemDurability;

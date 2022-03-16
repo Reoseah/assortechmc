@@ -25,7 +25,7 @@ public class MolecularAssemblerBlockEntity extends CraftingMachineBlockEntity<Mo
     private static final int[] SIDE_SLOTS = {SLOT_BATTERY};
 
     public MolecularAssemblerBlockEntity(BlockPos pos, BlockState state) {
-        super(SpaceFactory.SFBlockEntityTypes.MOLECULAR_ASSEMBLER, pos, state);
+        super(SpaceFactory.BlockEntityTypes.MOLECULAR_ASSEMBLER, pos, state);
     }
 
     @Override
@@ -35,7 +35,7 @@ public class MolecularAssemblerBlockEntity extends CraftingMachineBlockEntity<Mo
 
     @Override
     protected RecipeType<MolecularAssemblerRecipe> getRecipeType() {
-        return SpaceFactory.SFRecipeTypes.MOLECULAR_ASSEMBLY;
+        return SpaceFactory.RecipeTypes.MOLECULAR_ASSEMBLY;
     }
 
     @Override

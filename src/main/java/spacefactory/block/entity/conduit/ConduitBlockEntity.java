@@ -15,7 +15,7 @@ public class ConduitBlockEntity extends BlockEntity {
     protected int current = 0;
 
     public ConduitBlockEntity(BlockPos pos, BlockState state) {
-        super(SpaceFactory.SFBlockEntityTypes.CONDUIT, pos, state);
+        super(SpaceFactory.BlockEntityTypes.CONDUIT, pos, state);
     }
 
     public EnergyTier getTier() {

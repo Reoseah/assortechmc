@@ -50,7 +50,7 @@ public class SolarPanelBlockEntity extends InventoryBlockEntity implements Sided
     public boolean generating = false, skyView = false;
 
     public SolarPanelBlockEntity(BlockPos pos, BlockState state) {
-        super(SpaceFactory.SFBlockEntityTypes.SOLAR_PANEL, pos, state);
+        super(SpaceFactory.BlockEntityTypes.SOLAR_PANEL, pos, state);
     }
 
     @Override

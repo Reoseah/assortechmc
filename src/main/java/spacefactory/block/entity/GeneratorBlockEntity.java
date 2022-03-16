@@ -27,7 +27,7 @@ public class GeneratorBlockEntity extends ElectricInventoryBlockEntity implement
     protected int fuelLeft, fuelDuration;
 
     public GeneratorBlockEntity(BlockPos pos, BlockState state) {
-        super(SpaceFactory.SFBlockEntityTypes.GENERATOR, pos, state);
+        super(SpaceFactory.BlockEntityTypes.GENERATOR, pos, state);
     }
 
     @Override

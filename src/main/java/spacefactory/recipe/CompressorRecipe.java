@@ -14,11 +14,11 @@ public class CompressorRecipe extends SimpleMachineRecipe {
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return SpaceFactory.SFRecipeSerializers.COMPRESSING;
+        return SpaceFactory.RecipeSerializers.COMPRESSING;
     }
 
     @Override
     public RecipeType<?> getType() {
-        return SpaceFactory.SFRecipeTypes.COMPRESSING;
+        return SpaceFactory.RecipeTypes.COMPRESSING;
     }
 }

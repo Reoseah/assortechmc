@@ -25,10 +25,13 @@ import team.reborn.energy.api.base.SimpleBatteryItem;
 public class SpaceFactoryClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
-        BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutoutMipped(), SpaceFactory.SFBlocks.RUBBER_LEAVES, SpaceFactory.SFBlocks.RUBBER_SAPLING);
+        BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutoutMipped(), SpaceFactory.Blocks.RUBBER_LEAVES, SpaceFactory.Blocks.RUBBER_SAPLING);
 
-        ColorProviderRegistry.BLOCK.register((state, world, pos, tintIndex) -> applyRubberTreeTint(world != null && pos != null ? BiomeColors.getFoliageColor(world, pos) : FoliageColors.getDefaultColor()), SpaceFactory.SFBlocks.RUBBER_LEAVES);
-        ColorProviderRegistry.ITEM.register((stack, tintIndex) -> applyRubberTreeTint(FoliageColors.getDefaultColor()), SpaceFactory.SFBlocks.RUBBER_LEAVES);
+        ColorProviderRegistry.BLOCK.register((state, world, pos, tintIndex) -> {
+            int color = world != null && pos != null ? BiomeColors.getFoliageColor(world, pos) : FoliageColors.getDefaultColor();
+            return color;
+        }, SpaceFactory.Blocks.RUBBER_LEAVES);
+        ColorProviderRegistry.ITEM.register((stack, tintIndex) -> FoliageColors.getDefaultColor(), SpaceFactory.Blocks.RUBBER_LEAVES);
 
         FabricModelPredicateProviderRegistry.register(SpaceFactory.id("energy"), new UnclampedModelPredicateProvider() {
             @Override
@@ -42,14 +45,14 @@ public class SpaceFactoryClient implements ClientModInitializer {
             }
         });
 
-        ScreenRegistry.register(SpaceFactory.SFScreenHandlerTypes.GENERATOR, GeneratorScreen::new);
-        ScreenRegistry.register(SpaceFactory.SFScreenHandlerTypes.SOLAR_PANEL, SolarPanelScreen::new);
-        ScreenRegistry.register(SpaceFactory.SFScreenHandlerTypes.ELECTRIC_FURNACE, ElectricFurnaceScreen::new);
-        ScreenRegistry.register(SpaceFactory.SFScreenHandlerTypes.PULVERIZER, PulverizerScreen::new);
-        ScreenRegistry.register(SpaceFactory.SFScreenHandlerTypes.COMPRESSOR, CompressorScreen::new);
-        ScreenRegistry.register(SpaceFactory.SFScreenHandlerTypes.MOLECULAR_ASSEMBLER, MolecularAssemblerScreen::new);
-        ScreenRegistry.register(SpaceFactory.SFScreenHandlerTypes.EXTRACTOR, ExtractorScreen::new);
-        ScreenRegistry.register(SpaceFactory.SFScreenHandlerTypes.BATTERY_BOX, BatteryBoxScreen::new);
+        ScreenRegistry.register(SpaceFactory.ScreenHandlerTypes.GENERATOR, GeneratorScreen::new);
+        ScreenRegistry.register(SpaceFactory.ScreenHandlerTypes.SOLAR_PANEL, SolarPanelScreen::new);
+        ScreenRegistry.register(SpaceFactory.ScreenHandlerTypes.ELECTRIC_FURNACE, ElectricFurnaceScreen::new);
+        ScreenRegistry.register(SpaceFactory.ScreenHandlerTypes.PULVERIZER, PulverizerScreen::new);
+        ScreenRegistry.register(SpaceFactory.ScreenHandlerTypes.COMPRESSOR, CompressorScreen::new);
+        ScreenRegistry.register(SpaceFactory.ScreenHandlerTypes.MOLECULAR_ASSEMBLER, MolecularAssemblerScreen::new);
+        ScreenRegistry.register(SpaceFactory.ScreenHandlerTypes.EXTRACTOR, ExtractorScreen::new);
+        ScreenRegistry.register(SpaceFactory.ScreenHandlerTypes.BATTERY_BOX, BatteryBoxScreen::new);
 
         ClientPlayNetworking.registerGlobalReceiver(SpaceFactory.id("burnt_cable"), (client, handler, buf, responseSender) -> {
             BlockPos pos = buf.readBlockPos();
@@ -63,14 +66,4 @@ public class SpaceFactoryClient implements ClientModInitializer {
         });
     }
 
-    /**
-     * Returns slightly yellower version of the passed argument, which is usually normal foliage color.
-     */
-    public static int applyRubberTreeTint(int color) {
-        int r = (color >> 16) & 255;
-        int g = (color >> 8) & 255;
-        int b = color & 255;
-
-        return 0xFF000000 | (r * 240 / 255) << 16 | (g * 235 / 255) << 8 | (b * 220 / 255);
-    }
 }

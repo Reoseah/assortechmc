@@ -10,7 +10,7 @@ import net.minecraft.sound.SoundEvents;
 import spacefactory.SpaceFactory;
 
 public enum AssortechArmorMaterials implements ArmorMaterial {
-    BRONZE("spacefactory_bronze", 20, new int[]{2, 5, 6, 2}, 12, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 0.0F, 0.0F, Ingredient.fromTag(SpaceFactory.SFItems.BRONZE_INGOTS));
+    BRONZE("spacefactory_bronze", 20, new int[]{2, 5, 6, 2}, 12, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 0.0F, 0.0F, Ingredient.fromTag(SpaceFactory.Items.BRONZE_INGOTS));
 
     private static final int[] BASE_DURABILITY = {13, 15, 16, 11};
 

@@ -14,7 +14,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class ElectricFurnaceBlockEntity extends CraftingMachineBlockEntity<SmeltingRecipe> {
     public ElectricFurnaceBlockEntity(BlockPos pos, BlockState state) {
-        super(SpaceFactory.SFBlockEntityTypes.ELECTRIC_FURNACE, pos, state);
+        super(SpaceFactory.BlockEntityTypes.ELECTRIC_FURNACE, pos, state);
     }
 
     @Override

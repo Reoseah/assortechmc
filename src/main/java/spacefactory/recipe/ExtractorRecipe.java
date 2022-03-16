@@ -14,11 +14,11 @@ public class ExtractorRecipe extends SimpleMachineRecipe {
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return SpaceFactory.SFRecipeSerializers.EXTRACTING;
+        return SpaceFactory.RecipeSerializers.EXTRACTING;
     }
 
     @Override
     public RecipeType<?> getType() {
-        return SpaceFactory.SFRecipeTypes.EXTRACTING;
+        return SpaceFactory.RecipeTypes.EXTRACTING;
     }
 }

@@ -61,7 +61,7 @@ public class BatteryBlock extends InventoryBlock {
     @Override
     @Nullable
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return world.isClient ? null : checkType(type, SpaceFactory.SFBlockEntityTypes.BATTERY_BOX, BatteryBlockEntity::tick);
+        return world.isClient ? null : checkType(type, SpaceFactory.BlockEntityTypes.BATTERY_BOX, BatteryBlockEntity::tick);
     }
 
     @Override

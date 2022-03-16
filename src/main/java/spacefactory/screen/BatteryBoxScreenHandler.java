@@ -17,7 +17,7 @@ public class BatteryBoxScreenHandler extends AtScreenHandler {
     protected int energy;
 
     protected BatteryBoxScreenHandler(int syncId, Inventory inventory, PlayerInventory user) {
-        super(SpaceFactory.SFScreenHandlerTypes.BATTERY_BOX, syncId, inventory);
+        super(SpaceFactory.ScreenHandlerTypes.BATTERY_BOX, syncId, inventory);
 
         this.addQuickTransferSlot(EnergyStorageUtil::isEnergyStorage, new Slot(inventory, 0, 71, 54));
         this.addQuickTransferSlot(EnergyStorageUtil::isEnergyStorage, new Slot(inventory, 1, 71, 18));

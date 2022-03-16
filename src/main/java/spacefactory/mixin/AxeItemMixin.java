@@ -21,7 +21,7 @@ public class AxeItemMixin {
     static {
         ImmutableMap.Builder<Block, Block> builder = ImmutableMap.builder();
         builder.putAll(STRIPPED_BLOCKS);
-        builder.put(SpaceFactory.SFBlocks.RUBBER_LOG, SpaceFactory.SFBlocks.STRIPPED_RUBBER_LOG);
+        builder.put(SpaceFactory.Blocks.RUBBER_LOG, SpaceFactory.Blocks.STRIPPED_RUBBER_LOG);
         STRIPPED_BLOCKS = builder.build();
     }
 }

@@ -14,12 +14,12 @@ import spacefactory.screen.PulverizerScreenHandler;
 
 public class MaceratorBlockEntity extends CraftingMachineBlockEntity<PulverizerRecipe> {
     public MaceratorBlockEntity(BlockPos pos, BlockState state) {
-        super(SpaceFactory.SFBlockEntityTypes.PULVERIZER, pos, state);
+        super(SpaceFactory.BlockEntityTypes.PULVERIZER, pos, state);
     }
 
     @Override
     protected RecipeType<PulverizerRecipe> getRecipeType() {
-        return SpaceFactory.SFRecipeTypes.PULVERIZING;
+        return SpaceFactory.RecipeTypes.PULVERIZING;
     }
 
     @Override

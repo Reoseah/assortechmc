@@ -2,6 +2,7 @@ package spacefactory.mixin;
 
 import com.google.common.collect.BiMap;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.util.registry.SimpleRegistry;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
@@ -18,7 +19,7 @@ import java.util.Map;
 public abstract class SimpleRegistryMixin<T> {
     @Shadow
     @Final
-    private BiMap<Identifier, T> idToEntry;
+    private Map<Identifier, RegistryEntry.Reference<T>> idToEntry;
 
     @Shadow
     public abstract boolean containsId(Identifier id);
@@ -36,9 +37,9 @@ public abstract class SimpleRegistryMixin<T> {
                     return;
                 }
             }
-            for (Map.Entry<Identifier, T> entry : this.idToEntry.entrySet()) {
+            for (Map.Entry<Identifier, RegistryEntry.Reference<T>> entry : this.idToEntry.entrySet()) {
                 if (entry.getKey().getPath().equals(id.getPath())) {
-                    ci.setReturnValue(entry.getValue());
+                    ci.setReturnValue(entry.getValue().value());
                 }
             }
         }

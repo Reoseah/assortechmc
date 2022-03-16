@@ -25,6 +25,6 @@ public class MolecularAssemblerBlock extends MachineBlock {
     @Override
     @Nullable
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return world.isClient ? null : checkType(type, SpaceFactory.SFBlockEntityTypes.MOLECULAR_ASSEMBLER, MolecularAssemblerBlockEntity::tick);
+        return world.isClient ? null : checkType(type, SpaceFactory.BlockEntityTypes.MOLECULAR_ASSEMBLER, MolecularAssemblerBlockEntity::tick);
     }
 }
