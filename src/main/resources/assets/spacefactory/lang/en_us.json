@@ -1,6 +1,5 @@
 {
   "itemGroup.spacefactory.main": "Space Factory",
-  "block.spacefactory.machine_block": "Machine Block",
   "block.spacefactory.generator": "Generator",
   "block.spacefactory.solar_panel": "Solar Panel",
   "block.spacefactory.dragon_egg_siphon": "Dragon Egg Energy Siphon",
@@ -38,6 +37,7 @@
   "item.spacefactory.bronze_ingot": "Bronze Ingot",
   "item.spacefactory.refined_iron_ingot": "Refined Iron Ingot",
   "item.spacefactory.iridium_ingot": "Iridium Ingot",
+  "item.spacefactory.silicon_ingot": "Silicon Ingot",
   "item.spacefactory.copper_nugget": "Copper Nugget",
   "item.spacefactory.tin_nugget": "Tin Nugget",
   "item.spacefactory.bronze_nugget": "Bronze Nugget",
@@ -47,6 +47,7 @@
   "item.spacefactory.gold_dust": "Gold Dust",
   "item.spacefactory.diamond_dust": "Diamond Dust",
   "item.spacefactory.copper_dust": "Copper Dust",
+  "item.spacefactory.nether_quartz_dust": "Nether Quartz Dust",
   "item.spacefactory.tin_dust": "Tin Dust",
   "item.spacefactory.bronze_dust": "Bronze Dust",
   "item.spacefactory.refined_iron_dust": "Refined Iron Dust",

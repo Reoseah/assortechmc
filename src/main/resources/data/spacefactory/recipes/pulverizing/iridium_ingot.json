@@ -4,6 +4,6 @@
     "tag": "c:iridium_ingots"
   },
   "result": {
-    "item": "*:iridium_dust"
+    "item": "spacefactory:iridium_dust"
   }
 }

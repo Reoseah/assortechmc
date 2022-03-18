@@ -3,5 +3,5 @@
   "ingredient": {
     "tag": "c:copper_dusts"
   },
-  "result": "*:copper_ingot"
+  "result": "minecraft:copper_ingot"
 }

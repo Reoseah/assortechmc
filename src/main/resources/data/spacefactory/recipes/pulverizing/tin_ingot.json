@@ -4,6 +4,6 @@
     "tag": "c:tin_ingots"
   },
   "result": {
-    "item": "*:tin_dust"
+    "item": "spacefactory:tin_dust"
   }
 }

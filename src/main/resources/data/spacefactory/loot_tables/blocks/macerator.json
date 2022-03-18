@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "spacefactory:machine_block"
+          "name": "spacefactory:macerator"
         }
       ],
       "conditions": [

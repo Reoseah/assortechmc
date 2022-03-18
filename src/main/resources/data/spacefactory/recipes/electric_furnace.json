@@ -1,20 +1,21 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "RCR",
+    "ICI",
+    "H H",
     "I#I"
   ],
   "key": {
     "#": {
-      "tag": "c:machine_blocks"
+      "item": "minecraft:smooth_stone"
     },
     "C": {
       "tag": "c:circuits"
     },
-    "R": {
-      "item": "minecraft:redstone"
-    },
     "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "H": {
       "item": "minecraft:cut_copper"
     }
   },

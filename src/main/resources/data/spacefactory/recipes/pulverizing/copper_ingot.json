@@ -4,6 +4,6 @@
     "item": "minecraft:copper_ingot"
   },
   "result": {
-    "item": "*:copper_dust"
+    "item": "spacefactory:copper_dust"
   }
 }

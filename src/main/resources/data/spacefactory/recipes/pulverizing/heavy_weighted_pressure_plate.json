@@ -4,7 +4,7 @@
     "item": "minecraft:heavy_weighted_pressure_plate"
   },
   "result": {
-    "item": "*:iron_dust",
-    "_comment": "one dust because some mods (MI) provide 1-to-1 recipe in a Roller machine"
+    "item": "spacefactory:iron_dust",
+    "_comment": "one dust because MI provides 1-to-1 recipe in a Roller machine"
   }
 }

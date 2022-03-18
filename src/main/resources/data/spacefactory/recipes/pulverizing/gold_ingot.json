@@ -4,6 +4,6 @@
     "item": "minecraft:gold_ingot"
   },
   "result": {
-    "item": "*:gold_dust"
+    "item": "spacefactory:gold_dust"
   }
 }

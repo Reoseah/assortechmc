@@ -2,11 +2,12 @@
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "ICI",
-    "P#P"
+    "S S",
+    "IPI"
   ],
   "key": {
-    "#": {
-      "tag": "c:machine_blocks"
+    "S": {
+      "item": "minecraft:smooth_stone"
     },
     "C": {
       "tag": "c:circuits"

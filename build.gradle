@@ -32,10 +32,6 @@ allprojects {
         modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
         modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
-
-        include modApi("teamreborn:energy:${project.reborn_energy_version}") {
-            transitive = false
-        }
     }
 
     processResources {
@@ -75,15 +71,16 @@ repositories {
 }
 
 dependencies {
-    modApi("me.shedaniel:RoughlyEnoughItems-api-fabric:${project.rei_version}") {
-        exclude group: "net.fabricmc.fabric-api"
-    }
+//    modApi("me.shedaniel:RoughlyEnoughItems-api-fabric:${project.rei_version}") {
+//        exclude group: "net.fabricmc.fabric-api"
+//    }
     modImplementation("me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}") {
         exclude group: "net.fabricmc.fabric-api"
     }
+
     modImplementation "com.terraformersmc:modmenu:${project.modmenu_version}"
 
-//    api project(path: ":techreborn-compatibility", configuration: "namedElements")
-//    include project(":techreborn-compatibility")
-//    implementation project(path: ":techreborn-compatibility", configuration: "namedElements")
+    include modApi("teamreborn:energy:${project.reborn_energy_version}") {
+        transitive = false
+    }
 }

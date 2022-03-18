@@ -1,28 +1,28 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "ICI",
-    "DDD",
+    "IGI",
+    "CDC",
     "I#I"
   ],
   "key": {
     "#": {
-      "tag": "c:machine_blocks"
+      "item": "spacefactory:extractor"
     },
     "I": {
       "item": "spacefactory:refined_iron_ingot"
     },
     "C": {
-      "tag": "c:circuits"
+      "item": "spacefactory:quantum_circuit"
+    },
+    "G": {
+      "item": "minecraft:glass"
     },
     "D": {
-      "tag": "c:coal_dusts"
-    },
-    "R": {
-      "item": "minecraft:redstone_block"
+      "item": "minecraft:diamond"
     }
   },
   "result": {
-    "item": "spacefactory:battery_box"
+    "item": "spacefactory:molecular_assembler"
   }
 }

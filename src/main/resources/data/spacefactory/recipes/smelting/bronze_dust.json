@@ -3,5 +3,5 @@
   "ingredient": {
     "tag": "c:bronze_dusts"
   },
-  "result": "*:bronze_ingot"
+  "result": "spacefactory:bronze_ingot"
 }

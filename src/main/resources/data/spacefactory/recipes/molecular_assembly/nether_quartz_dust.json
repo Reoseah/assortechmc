@@ -1,0 +1,11 @@
+{
+  "type": "spacefactory:molecular_assembly",
+  "input": [
+    {
+      "tag": "c:nether_quartz_dusts"
+    }
+  ],
+  "result": { 
+    "item": "minecraft:quartz"
+  }
+}

@@ -1,18 +1,19 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "DCD",
-    "S#S"
+    "ICI",
+    "DDD",
+    "IPI"
   ],
   "key": {
-    "#": {
-      "tag": "c:machine_blocks"
+    "P": {
+      "item": "minecraft:piston"
     },
     "C": {
       "tag": "c:circuits"
     },
-    "S": {
-      "item": "minecraft:piston"
+    "I": {
+      "item": "minecraft:iron_ingot"
     },
     "D": [
       {

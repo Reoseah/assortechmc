@@ -4,6 +4,6 @@
     "item": "minecraft:coal"
   },
   "result": {
-    "item": "*:coal_dust"
+    "item": "spacefactory:coal_dust"
   }
 }

@@ -45,16 +45,12 @@ public class MolecularAssemblyCategory implements DisplayCategory<MolecularAssem
         return this.id;
     }
 
-    public int getDisplayHeight() {
-        return 67;
-    }
-
     public DisplayRenderer getDisplayRenderer(MolecularAssemblyDisplay display) {
         return SimpleDisplayRenderer.from(Collections.singletonList(display.getInputEntries().get(0)), display.getOutputEntries());
     }
 
     public List<Widget> setupDisplay(MolecularAssemblyDisplay display, Rectangle bounds) {
-        Point startPoint = new Point(bounds.getCenterX() - 41, bounds.y + 10);
+        Point startPoint = new Point(bounds.getCenterX() - 41, bounds.getCenterY() - 27);
 
         Widget base = Widgets.createRecipeBase(bounds);
         Widget resultBackground = Widgets.createResultSlotBackground(new Point(startPoint.x + 61, startPoint.y + 19));

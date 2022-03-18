@@ -1,16 +1,16 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    " C ",
+    "ICI",
     "DDD",
-    "R#R"
+    "IRI"
   ],
   "key": {
-    "#": {
-      "tag": "c:machine_blocks"
+    "I": {
+      "item": "minecraft:iron_ingot"
     },
     "C": {
-      "tag": "c:circuits"
+      "item": "spacefactory:circuit"
     },
     "D": {
       "tag": "c:coal_dusts"

@@ -7,7 +7,7 @@
   ],
   "key": {
     "#": {
-      "tag": "c:machine_blocks"
+      "item": "spacefactory:generator"
     },
     "C": {
       "item": "spacefactory:quantum_circuit"

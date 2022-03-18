@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "XXX",
+    "SIS",
+    "XXX"
+  ],
+  "key": {
+    "I": {
+      "item": "spacefactory:refined_iron_ingot"
+    },
+    "X": {
+      "item": "spacefactory:copper_cable"
+    },
+    "S": {
+      "item": "spacefactory:silicon_ingot"
+    }
+  },
+  "result": {
+    "item": "spacefactory:circuit",
+    "count": 2
+  }
+}
