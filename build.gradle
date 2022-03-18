@@ -80,7 +80,7 @@ dependencies {
 
     modImplementation "com.terraformersmc:modmenu:${project.modmenu_version}"
 
-    include modApi("teamreborn:energy:${project.reborn_energy_version}") {
-        transitive = false
-    }
+//    include modApi("teamreborn:energy:${project.reborn_energy_version}") {
+//        transitive = false
+//    }
 }

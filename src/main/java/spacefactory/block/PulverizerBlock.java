@@ -1,7 +1,7 @@
 package spacefactory.block;
 
 import spacefactory.SpaceFactory;
-import spacefactory.block.entity.MaceratorBlockEntity;
+import spacefactory.block.entity.PulverizerBlockEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
@@ -15,21 +15,21 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Random;
 
-public class MaceratorBlock extends MachineBlock {
-    public MaceratorBlock(Settings settings) {
+public class PulverizerBlock extends MachineBlock {
+    public PulverizerBlock(Settings settings) {
         super(settings);
     }
 
     @Nullable
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new MaceratorBlockEntity(pos, state);
+        return new PulverizerBlockEntity(pos, state);
     }
 
     @Override
     @Nullable
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return world.isClient ? null : checkType(type, SpaceFactory.BlockEntityTypes.PULVERIZER, MaceratorBlockEntity::tick);
+        return world.isClient ? null : checkType(type, SpaceFactory.BlockEntityTypes.PULVERIZER, PulverizerBlockEntity::tick);
     }
 
     @Override

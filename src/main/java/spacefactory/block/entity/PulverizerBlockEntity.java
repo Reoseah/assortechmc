@@ -12,8 +12,8 @@ import spacefactory.SpaceFactory;
 import spacefactory.recipe.PulverizerRecipe;
 import spacefactory.screen.PulverizerScreenHandler;
 
-public class MaceratorBlockEntity extends CraftingMachineBlockEntity<PulverizerRecipe> {
-    public MaceratorBlockEntity(BlockPos pos, BlockState state) {
+public class PulverizerBlockEntity extends CraftingMachineBlockEntity<PulverizerRecipe> {
+    public PulverizerBlockEntity(BlockPos pos, BlockState state) {
         super(SpaceFactory.BlockEntityTypes.PULVERIZER, pos, state);
     }
 

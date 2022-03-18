@@ -9,7 +9,6 @@ import net.minecraft.world.World;
 import spacefactory.SpaceFactory;
 import spacefactory.api.EnergyTier;
 import spacefactory.block.ConduitBlock;
-import team.reborn.energy.api.EnergyStorage;
 
 public class ConduitBlockEntity extends BlockEntity {
     protected int current = 0;
@@ -33,10 +32,6 @@ public class ConduitBlockEntity extends BlockEntity {
         super.markRemoved();
     }
 
-    public EnergyStorage getEnergyHandler(Direction side) {
-        return new EnergyInserter(ConduitNetwork.of(this.world), pos, side);
-    }
-
     protected int getTransferLimit() {
         return this.getTier().transferRate;
     }
@@ -48,45 +43,45 @@ public class ConduitBlockEntity extends BlockEntity {
         }
     }
 
-    public static class EnergyInserter implements EnergyStorage {
-        protected final ConduitNetwork network;
-        protected final BlockPos pos;
-        protected final Direction side; // doesn't matter for cables currently
-
-        public EnergyInserter(ConduitNetwork network, BlockPos pos, Direction side) {
-            this.network = network;
-            this.pos = pos;
-            this.side = side;
-        }
-
-        @Override
-        public boolean supportsInsertion() {
-            return true;
-        }
-
-        @Override
-        public long insert(long maxAmount, TransactionContext transaction) {
-            return this.network.send(this.pos, maxAmount, transaction);
-        }
-
-        @Override
-        public boolean supportsExtraction() {
-            return false;
-        }
-
-        @Override
-        public long extract(long maxAmount, TransactionContext transaction) {
-            return 0;
-        }
-
-        @Override
-        public long getAmount() {
-            return 0;
-        }
-
-        @Override
-        public long getCapacity() {
-            return Long.MAX_VALUE;
-        }
-    }
+//    public static class EnergyInserter implements EnergyStorage {
+//        protected final ConduitNetwork network;
+//        protected final BlockPos pos;
+//        protected final Direction side; // doesn't matter for cables currently
+//
+//        public EnergyInserter(ConduitNetwork network, BlockPos pos, Direction side) {
+//            this.network = network;
+//            this.pos = pos;
+//            this.side = side;
+//        }
+//
+//        @Override
+//        public boolean supportsInsertion() {
+//            return true;
+//        }
+//
+//        @Override
+//        public long insert(long maxAmount, TransactionContext transaction) {
+//            return this.network.send(this.pos, maxAmount, transaction);
+//        }
+//
+//        @Override
+//        public boolean supportsExtraction() {
+//            return false;
+//        }
+//
+//        @Override
+//        public long extract(long maxAmount, TransactionContext transaction) {
+//            return 0;
+//        }
+//
+//        @Override
+//        public long getAmount() {
+//            return 0;
+//        }
+//
+//        @Override
+//        public long getCapacity() {
+//            return Long.MAX_VALUE;
+//        }
+//    }
 }

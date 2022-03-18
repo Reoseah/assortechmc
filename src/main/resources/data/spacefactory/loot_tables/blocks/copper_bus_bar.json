@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "spacefactory:copper_bas_bar"
+          "name": "spacefactory:copper_bus_bar"
         }
       ],
       "conditions": [

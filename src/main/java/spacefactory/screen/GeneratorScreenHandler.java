@@ -1,6 +1,7 @@
 package spacefactory.screen;
 
 import spacefactory.SpaceFactory;
+import spacefactory.api.EU;
 import spacefactory.block.entity.GeneratorBlockEntity;
 import spacefactory.screen.property.ReadProperty;
 import spacefactory.screen.property.WriteProperty;
@@ -13,7 +14,6 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.screen.slot.Slot;
-import team.reborn.energy.api.EnergyStorageUtil;
 
 public class GeneratorScreenHandler extends AtScreenHandler {
     protected int fuelLeft, fuelDuration, energy;
@@ -22,7 +22,7 @@ public class GeneratorScreenHandler extends AtScreenHandler {
         super(SpaceFactory.ScreenHandlerTypes.GENERATOR, syncId, inventory);
 
         this.addQuickTransferSlot(AbstractFurnaceBlockEntity::canUseAsFuel, new GenericFuelSlot(this.inventory, 0, 80, 54));
-        this.addQuickTransferSlot(EnergyStorageUtil::isEnergyStorage, new Slot(inventory, 1, 80, 18));
+        this.addQuickTransferSlot(EU::isElectricItem, new Slot(inventory, 1, 80, 18));
 
         this.addPlayerSlots(user);
     }

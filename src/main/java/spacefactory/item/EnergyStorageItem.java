@@ -13,6 +13,7 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
+// FIXME
 public abstract class EnergyStorageItem extends Item implements EnergyItem {
     public EnergyStorageItem(Item.Settings settings) {
         super(settings);
@@ -24,7 +25,7 @@ public abstract class EnergyStorageItem extends Item implements EnergyItem {
             stacks.add(new ItemStack(this));
 
             ItemStack full = new ItemStack(this);
-            this.setStoredEnergy(full, this.getEnergyCapacity());
+//            this.setStoredEnergy(full, this.getEnergyCapacity());
             stacks.add(full);
         }
     }
@@ -33,22 +34,22 @@ public abstract class EnergyStorageItem extends Item implements EnergyItem {
     public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext context) {
         super.appendTooltip(stack, world, tooltip, context);
         if (stack.getCount() == 1) {
-            tooltip.add(new TranslatableText("container.spacefactory.energy_storage", this.getStoredEnergy(stack), this.getEnergyCapacity()).formatted(Formatting.GRAY));
+//            tooltip.add(new TranslatableText("container.spacefactory.energy_storage", this.getStoredEnergy(stack), this.getEnergyCapacity()).formatted(Formatting.GRAY));
         }
     }
 
-    @Override
-    public boolean isItemBarVisible(ItemStack stack) {
-        return stack.getCount() == 1 && this.getStoredEnergy(stack) < this.getEnergyCapacity();
-    }
-
-    @Override
-    public int getItemBarStep(ItemStack stack) {
-        return Math.round(13 * ((float) this.getStoredEnergy(stack)) / this.getEnergyCapacity());
-    }
-
-    @Override
-    public int getItemBarColor(ItemStack stack) {
-        return MathHelper.hsvToRgb(Math.max(0.0F, (float) getItemBarStep(stack) / 13F) / 3.0F, 1.0F, 1.0F);
-    }
+//    @Override
+//    public boolean isItemBarVisible(ItemStack stack) {
+//        return stack.getCount() == 1 && this.getStoredEnergy(stack) < this.getEnergyCapacity();
+//    }
+//
+//    @Override
+//    public int getItemBarStep(ItemStack stack) {
+//        return Math.round(13 * ((float) this.getStoredEnergy(stack)) / this.getEnergyCapacity());
+//    }
+//
+//    @Override
+//    public int getItemBarColor(ItemStack stack) {
+//        return MathHelper.hsvToRgb(Math.max(0.0F, (float) getItemBarStep(stack) / 13F) / 3.0F, 1.0F, 1.0F);
+//    }
 }

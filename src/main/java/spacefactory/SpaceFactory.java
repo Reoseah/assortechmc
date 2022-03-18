@@ -67,7 +67,6 @@ import spacefactory.mixin.BlocksAccessor;
 import spacefactory.mixin.FoliagePlacerTypeInvoker;
 import spacefactory.recipe.*;
 import spacefactory.screen.*;
-import team.reborn.energy.api.EnergyStorage;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -107,7 +106,6 @@ public class SpaceFactory implements ModInitializer {
 						context.getGenerationSettings().addFeature(GenerationStep.Feature.VEGETAL_DECORATION, key);
 					}
 				});
-
 	}
 
 	public static Identifier id(String path) {
@@ -156,7 +154,7 @@ public class SpaceFactory implements ModInitializer {
 		public static final Block GENERATOR = register("generator", new GeneratorBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 14 : 0)));
 		public static final Block SOLAR_PANEL = register("solar_panel", new SolarPanelBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).mapColor(MapColor.LAPIS_BLUE)));
 		public static final Block ELECTRIC_FURNACE = register("electric_furnace", new ElectricFurnaceBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 14 : 0)));
-		public static final Block PULVERIZER = register("pulverizer", new MaceratorBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 12 : 0)));
+		public static final Block PULVERIZER = register("pulverizer", new PulverizerBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 12 : 0)));
 		public static final Block COMPRESSOR = register("compressor", new CompressorBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 12 : 0)));
 		public static final Block EXTRACTOR = register("extractor", new ExtractorBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 12 : 0)));
 		public static final Block BATTERY_BOX = register("battery_box", new BatteryBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).mapColor(MapColor.SPRUCE_BROWN).sounds(BlockSoundGroup.WOOD)));
@@ -308,7 +306,7 @@ public class SpaceFactory implements ModInitializer {
 		public static final BlockEntityType<DragonEggSiphonBlockEntity> DRAGON_EGG_SIPHON = create("dragon_egg_siphon", DragonEggSiphonBlockEntity::new, Blocks.DRAGON_EGG_SIPHON);
 
 		public static final BlockEntityType<ElectricFurnaceBlockEntity> ELECTRIC_FURNACE = create("electric_furnace", ElectricFurnaceBlockEntity::new, Blocks.ELECTRIC_FURNACE);
-		public static final BlockEntityType<MaceratorBlockEntity> PULVERIZER = create("pulverizer", MaceratorBlockEntity::new, Blocks.PULVERIZER);
+		public static final BlockEntityType<PulverizerBlockEntity> PULVERIZER = create("pulverizer", PulverizerBlockEntity::new, Blocks.PULVERIZER);
 		public static final BlockEntityType<CompressorBlockEntity> COMPRESSOR = create("compressor", CompressorBlockEntity::new, Blocks.COMPRESSOR);
 		public static final BlockEntityType<ExtractorBlockEntity> EXTRACTOR = create("extractor", ExtractorBlockEntity::new, Blocks.EXTRACTOR);
 		public static final BlockEntityType<MolecularAssemblerBlockEntity> MOLECULAR_ASSEMBLER = create("molecular_assembler", MolecularAssemblerBlockEntity::new, Blocks.MOLECULAR_ASSEMBLER);
@@ -321,16 +319,6 @@ public class SpaceFactory implements ModInitializer {
 		}
 
 		public static void init() {
-			EnergyStorage.SIDED.registerForBlockEntity(ElectricInventoryBlockEntity::getEnergyHandler, BlockEntityTypes.GENERATOR);
-			EnergyStorage.SIDED.registerForBlockEntity((be, direction) -> SolarPanelBlockEntity.ENERGY, BlockEntityTypes.SOLAR_PANEL);
-			EnergyStorage.SIDED.registerForBlockEntity((be, direction) -> DragonEggSiphonBlockEntity.ENERGY, BlockEntityTypes.DRAGON_EGG_SIPHON);
-			EnergyStorage.SIDED.registerForBlockEntity(BatteryBlockEntity::getEnergyHandler, BlockEntityTypes.BATTERY_BOX);
-			EnergyStorage.SIDED.registerForBlockEntity(ElectricInventoryBlockEntity::getEnergyHandler, BlockEntityTypes.ELECTRIC_FURNACE);
-			EnergyStorage.SIDED.registerForBlockEntity(ElectricInventoryBlockEntity::getEnergyHandler, BlockEntityTypes.PULVERIZER);
-			EnergyStorage.SIDED.registerForBlockEntity(ElectricInventoryBlockEntity::getEnergyHandler, BlockEntityTypes.COMPRESSOR);
-			EnergyStorage.SIDED.registerForBlockEntity(ElectricInventoryBlockEntity::getEnergyHandler, BlockEntityTypes.EXTRACTOR);
-			EnergyStorage.SIDED.registerForBlockEntity(ElectricInventoryBlockEntity::getEnergyHandler, BlockEntityTypes.MOLECULAR_ASSEMBLER);
-			EnergyStorage.SIDED.registerForBlockEntity(ConduitBlockEntity::getEnergyHandler, BlockEntityTypes.CONDUIT);
 		}
 	}
 

@@ -19,7 +19,6 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
 import spacefactory.screen.client.*;
-import team.reborn.energy.api.base.SimpleBatteryItem;
 
 @Environment(EnvType.CLIENT)
 public class SpaceFactoryClient implements ClientModInitializer {
@@ -36,7 +35,8 @@ public class SpaceFactoryClient implements ClientModInitializer {
         FabricModelPredicateProviderRegistry.register(SpaceFactory.id("energy"), new UnclampedModelPredicateProvider() {
             @Override
             public float unclampedCall(ItemStack stack, @Nullable ClientWorld world, @Nullable LivingEntity entity, int seed) {
-                return SimpleBatteryItem.getStoredEnergyUnchecked(stack);
+//                return SimpleBatteryItem.getStoredEnergyUnchecked(stack);
+                return 0;
             }
 
             @Override
