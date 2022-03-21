@@ -4,7 +4,7 @@ import net.minecraft.item.ToolMaterial;
 import net.minecraft.recipe.Ingredient;
 import spacefactory.SpaceFactory;
 
-public enum AssortechToolMaterials implements ToolMaterial {
+public enum SpaceFactoryToolMaterials implements ToolMaterial {
     BRONZE(2, 350, 5.5F, 1.5F, 16, Ingredient.fromTag(SpaceFactory.Items.BRONZE_INGOTS));
 
     private final int miningLevel;
@@ -14,7 +14,7 @@ public enum AssortechToolMaterials implements ToolMaterial {
     private final int enchantability;
     private final Ingredient repairIngredient;
 
-    AssortechToolMaterials(int miningLevel, int itemDurability, float miningSpeed, float attackDamage, int enchantability, Ingredient repairIngredient) {
+    SpaceFactoryToolMaterials(int miningLevel, int itemDurability, float miningSpeed, float attackDamage, int enchantability, Ingredient repairIngredient) {
         this.miningLevel = miningLevel;
         this.itemDurability = itemDurability;
         this.miningSpeed = miningSpeed;

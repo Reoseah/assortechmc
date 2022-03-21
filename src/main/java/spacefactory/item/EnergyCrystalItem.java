@@ -10,10 +10,10 @@ public class EnergyCrystalItem extends EnergyStorageItem {
         super(settings);
     }
 
-    @Override
-    public EnergyTier getEnergyTier() {
-        return EnergyTier.HIGH;
-    }
+//    @Override
+//    public EnergyTier getEnergyTier() {
+//        return EnergyTier.HIGH;
+//    }
 
 //    @Override
 //    public long getEnergyCapacity() {

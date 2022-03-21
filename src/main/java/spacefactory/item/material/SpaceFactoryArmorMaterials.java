@@ -9,7 +9,7 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import spacefactory.SpaceFactory;
 
-public enum AssortechArmorMaterials implements ArmorMaterial {
+public enum SpaceFactoryArmorMaterials implements ArmorMaterial {
     BRONZE("spacefactory_bronze", 20, new int[]{2, 5, 6, 2}, 12, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 0.0F, 0.0F, Ingredient.fromTag(SpaceFactory.Items.BRONZE_INGOTS));
 
     private static final int[] BASE_DURABILITY = {13, 15, 16, 11};
@@ -23,7 +23,7 @@ public enum AssortechArmorMaterials implements ArmorMaterial {
     private final float knockbackResistance;
     private final Ingredient repairIngredient;
 
-    AssortechArmorMaterials(String name, int durabilityMultiplier, int[] protectionAmounts, int enchantability, SoundEvent equipSound, float toughness, float knockbackResistance, Ingredient repairIngredient) {
+    SpaceFactoryArmorMaterials(String name, int durabilityMultiplier, int[] protectionAmounts, int enchantability, SoundEvent equipSound, float toughness, float knockbackResistance, Ingredient repairIngredient) {
         this.name = name;
         this.durabilityMultiplier = durabilityMultiplier;
         this.protectionAmounts = protectionAmounts;

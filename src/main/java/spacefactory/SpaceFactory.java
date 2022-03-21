@@ -61,8 +61,8 @@ import spacefactory.block.entity.*;
 import spacefactory.block.entity.conduit.ConduitBlockEntity;
 import spacefactory.feature.RubberFoliagePlacer;
 import spacefactory.item.*;
-import spacefactory.item.material.AssortechArmorMaterials;
-import spacefactory.item.material.AssortechToolMaterials;
+import spacefactory.item.material.SpaceFactoryArmorMaterials;
+import spacefactory.item.material.SpaceFactoryToolMaterials;
 import spacefactory.mixin.BlocksAccessor;
 import spacefactory.mixin.FoliagePlacerTypeInvoker;
 import spacefactory.recipe.*;
@@ -166,8 +166,9 @@ public class SpaceFactory implements ModInitializer {
 		public static final Block RAW_IRIDIUM_BLOCK = register("raw_iridium_block", new Block(FabricBlockSettings.of(Material.STONE, MapColor.WHITE).requiresTool().strength(7.0f, 10.0f)));
 		public static final Block IRIDIUM_BLOCK = register("iridium_block", new Block(FabricBlockSettings.of(Material.METAL).strength(5F, 20F).allowsSpawning(BlocksAccessor::invokeNever)));
 
-		public static final Block MOLECULAR_ASSEMBLER = register("molecular_assembler", new MolecularAssemblerBlock(FabricBlockSettings.copyOf(FabricBlockSettings.copyOf(ADVANCED_MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 15 : 0))));
+		public static final Block MOLECULAR_ASSEMBLER = register("molecular_assembler", new MolecularAssemblerBlock(FabricBlockSettings.copyOf(FabricBlockSettings.copyOf(ADVANCED_MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 14 : 0))));
 		public static final Block DRAGON_EGG_SIPHON = register("dragon_egg_siphon", new DragonEggSiphonBlock(FabricBlockSettings.copyOf(ADVANCED_MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 15 : 0)));
+		public static final Block GLYPHEON_RESONANCE_ABSORBER = register("glypheon_energy_cell", new GlypheonResonanceAbsorberBlock(FabricBlockSettings.copyOf(ADVANCED_MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 14 : 0)));
 
 		public static <T extends Block> T register(String name, T entry) {
 			return Registry.register(Registry.BLOCK, id(name), entry);
@@ -260,6 +261,7 @@ public class SpaceFactory implements ModInitializer {
 		public static final Item CRYSTALITE_MATRIX = register("crystalite_matrix", new Item(settings().rarity(Rarity.RARE).maxCount(16)));
 		public static final Item WARP_PRISM = register("warp_prism", new Item(settings().rarity(Rarity.RARE).maxCount(16)));
 		public static final Item DRAGON_EGG_SIPHON = register("dragon_egg_siphon", new BlockItem(Blocks.DRAGON_EGG_SIPHON, settings().rarity(Rarity.EPIC)));
+		public static final Item GLYPHEON_RESONANCE_ABSORBER = register("glypheon_energy_cell", new BlockItem(Blocks.GLYPHEON_RESONANCE_ABSORBER, settings().rarity(Rarity.EPIC)));
 
 
 		public static final Item ARACHNOLACTAM = register("arachnolactam", new Item(settings()));
@@ -269,15 +271,15 @@ public class SpaceFactory implements ModInitializer {
 		public static final Item VANOVOLTAIC_CELL = register("vanovoltaic_cell", new VanovoltaicCellItem(settings().maxCount(1).rarity(Rarity.EPIC)));
 
 
-		public static final Item BRONZE_SWORD = register("bronze_sword", new SwordItem(AssortechToolMaterials.BRONZE, 3, -2.4F, settings()));
-		public static final Item BRONZE_SHOVEL = register("bronze_shovel", new ShovelItem(AssortechToolMaterials.BRONZE, 1.5F, -3.0F, settings()));
-		public static final Item BRONZE_PICKAXE = register("bronze_pickaxe", new AccessiblePickaxeItem(AssortechToolMaterials.BRONZE, 1, -2.8F, settings()));
-		public static final Item BRONZE_AXE = register("bronze_axe", new AccessibleAxeItem(AssortechToolMaterials.BRONZE, 6, -3.1F, settings()));
-		public static final Item BRONZE_HOE = register("bronze_hoe", new AccessibleAxeItem(AssortechToolMaterials.BRONZE, -2, -1.0F, settings()));
-		public static final Item BRONZE_HELMET = register("bronze_helmet", new ArmorItem(AssortechArmorMaterials.BRONZE, EquipmentSlot.HEAD, settings()));
-		public static final Item BRONZE_CHESTPLATE = register("bronze_chestplate", new ArmorItem(AssortechArmorMaterials.BRONZE, EquipmentSlot.CHEST, settings()));
-		public static final Item BRONZE_LEGGINGS = register("bronze_leggings", new ArmorItem(AssortechArmorMaterials.BRONZE, EquipmentSlot.LEGS, settings()));
-		public static final Item BRONZE_BOOTS = register("bronze_boots", new ArmorItem(AssortechArmorMaterials.BRONZE, EquipmentSlot.FEET, settings()));
+		public static final Item BRONZE_SWORD = register("bronze_sword", new SwordItem(SpaceFactoryToolMaterials.BRONZE, 3, -2.4F, settings()));
+		public static final Item BRONZE_SHOVEL = register("bronze_shovel", new ShovelItem(SpaceFactoryToolMaterials.BRONZE, 1.5F, -3.0F, settings()));
+		public static final Item BRONZE_PICKAXE = register("bronze_pickaxe", new AccessiblePickaxeItem(SpaceFactoryToolMaterials.BRONZE, 1, -2.8F, settings()));
+		public static final Item BRONZE_AXE = register("bronze_axe", new AccessibleAxeItem(SpaceFactoryToolMaterials.BRONZE, 6, -3.1F, settings()));
+		public static final Item BRONZE_HOE = register("bronze_hoe", new AccessibleAxeItem(SpaceFactoryToolMaterials.BRONZE, -2, -1.0F, settings()));
+		public static final Item BRONZE_HELMET = register("bronze_helmet", new ArmorItem(SpaceFactoryArmorMaterials.BRONZE, EquipmentSlot.HEAD, settings()));
+		public static final Item BRONZE_CHESTPLATE = register("bronze_chestplate", new ArmorItem(SpaceFactoryArmorMaterials.BRONZE, EquipmentSlot.CHEST, settings()));
+		public static final Item BRONZE_LEGGINGS = register("bronze_leggings", new ArmorItem(SpaceFactoryArmorMaterials.BRONZE, EquipmentSlot.LEGS, settings()));
+		public static final Item BRONZE_BOOTS = register("bronze_boots", new ArmorItem(SpaceFactoryArmorMaterials.BRONZE, EquipmentSlot.FEET, settings()));
 		public static final Item WIRE_CUTTERS = register("wire_cutters", new WireCuttersItem(settings().maxDamage(256)));
 		public static final Item POTATO_BATTERY = register("potato_battery", new PotatoBatteryItem(settings().maxCount(1)));
 

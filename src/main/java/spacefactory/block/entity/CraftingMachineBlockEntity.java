@@ -13,11 +13,12 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
+import spacefactory.api.EU;
 import spacefactory.api.EnergyTier;
 
 import java.util.Optional;
 
-public abstract class CraftingMachineBlockEntity<R extends Recipe<Inventory>> extends ElectricInventoryBlockEntity implements SidedInventory {
+public abstract class CraftingMachineBlockEntity<R extends Recipe<Inventory>> extends ElectricInventoryBlockEntity implements SidedInventory, EU.Receiver {
 	public static final int CAPACITY = 400;
 
 	private static final int[] TOP_SLOTS = {0};
@@ -82,21 +83,6 @@ public abstract class CraftingMachineBlockEntity<R extends Recipe<Inventory>> ex
 	}
 
 	@Override
-	protected int getEnergyCapacity() {
-		return CAPACITY;
-	}
-
-	@Override
-	protected boolean canInsertEnergy() {
-		return true;
-	}
-
-	@Override
-	protected boolean canExtractEnergy() {
-		return false;
-	}
-
-	@Override
 	public void readNbt(NbtCompound nbt) {
 		super.readNbt(nbt);
 		this.progress = nbt.getShort("Progress");
@@ -158,7 +144,7 @@ public abstract class CraftingMachineBlockEntity<R extends Recipe<Inventory>> ex
 			}
 		}
 		if (wasActive != be.active) {
-			be.world.setBlockState(be.pos, be.getCachedState().with(Properties.LIT, be.active), 3);
+			world.setBlockState(be.pos, be.getCachedState().with(Properties.LIT, be.active), 3);
 		}
 	}
 
@@ -179,8 +165,7 @@ public abstract class CraftingMachineBlockEntity<R extends Recipe<Inventory>> ex
 	public boolean canInsert(int slot, ItemStack stack, @Nullable Direction dir) {
 		return switch (slot) {
 			case 2 -> false;
-//			case 1 -> EnergyStorageUtil.isEnergyStorage(stack); FIXME
-			case 1 -> true;
+			case 1 -> EU.isElectricItem(stack);
 			default -> true;
 		};
 	}
@@ -188,5 +173,13 @@ public abstract class CraftingMachineBlockEntity<R extends Recipe<Inventory>> ex
 	@Override
 	public boolean canExtract(int slot, ItemStack stack, Direction dir) {
 		return true;
+	}
+
+	@Override
+	public int receive(int energy, Direction side) {
+		int change = Math.min(CAPACITY - this.energy, energy);
+		this.energy += change;
+		this.markDirty();
+		return change;
 	}
 }

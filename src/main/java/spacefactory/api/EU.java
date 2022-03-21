@@ -21,6 +21,10 @@ public class EU {
 		int receive(int energy, Direction side);
 	}
 
+	public interface ElectricItem {
+		boolean canCharge(ItemStack stack);
+	}
+
 	/** @return consumed energy, i.e. what was accepted by some receiver */
 	public static int send(int energy, WorldAccess world, BlockPos pos, Direction side) {
 		BlockEntity entity = world.getBlockEntity(pos);
@@ -58,7 +62,6 @@ public class EU {
 	}
 
 	public static boolean isElectricItem(ItemStack stack) {
-		// TODO
-		return true;
+		return stack.getItem() instanceof ElectricItem;
 	}
 }

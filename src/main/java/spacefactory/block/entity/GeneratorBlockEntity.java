@@ -18,7 +18,7 @@ import spacefactory.api.EU;
 import spacefactory.api.EnergyTier;
 import spacefactory.screen.GeneratorScreenHandler;
 
-public class GeneratorBlockEntity extends ElectricInventoryBlockEntity implements SidedInventory {
+public class GeneratorBlockEntity extends ElectricInventoryBlockEntity implements SidedInventory, EU.Sender {
 	private static final int[] TOP_SLOTS = {1};
 	private static final int[] BOTTOM_SLOTS = {0};
 	private static final int[] SIDE_SLOTS = {0};
@@ -43,21 +43,6 @@ public class GeneratorBlockEntity extends ElectricInventoryBlockEntity implement
 	@Override
 	protected EnergyTier getEnergyTier() {
 		return EnergyTier.LOW;
-	}
-
-	@Override
-	protected int getEnergyCapacity() {
-		return SpaceFactory.Constants.GENERATOR_OUTPUT;
-	}
-
-	@Override
-	protected boolean canInsertEnergy() {
-		return false;
-	}
-
-	@Override
-	protected boolean canExtractEnergy() {
-		return true;
 	}
 
 	@Override
@@ -117,12 +102,15 @@ public class GeneratorBlockEntity extends ElectricInventoryBlockEntity implement
 		boolean markDirty = false;
 
 		if (be.energy > 0) {
-			int max = be.getEnergyTier().transferRate;
+			int energy = be.getEnergyTier().transferRate;
 			// TODO
-//			max -= EnergyStorageUtil.move(be.energy, be.getItemApi(1, EnergyStorage.ITEM), Integer.MAX_VALUE, null);
+//			energy -= EnergyStorageUtil.move(be.energy, be.getItemApi(1, EnergyStorage.ITEM), Integer.MAX_VALUE, null);
 			for (Direction side : Direction.values()) {
-//				max -= EnergyStorageUtil.move(be.energy, EnergyStorage.SIDED.find(world, pos.offset(side), side.getOpposite()), max, null);
-				if (max == 0) {
+				if (!be.canSend(side)) {
+					continue;
+				}
+				energy -= EU.send(be.energy, world, pos.offset(side), side.getOpposite());
+				if (energy == 0) {
 					break;
 				}
 			}
@@ -151,7 +139,7 @@ public class GeneratorBlockEntity extends ElectricInventoryBlockEntity implement
 		boolean isBurning = be.fuelLeft > 0;
 
 		if (isBurning != wasBurning) {
-			be.world.setBlockState(be.pos, be.getCachedState().with(Properties.LIT, isBurning));
+			world.setBlockState(pos, be.getCachedState().with(Properties.LIT, isBurning));
 			markDirty = true;
 		}
 		if (markDirty) {

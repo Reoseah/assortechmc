@@ -4,6 +4,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
@@ -14,7 +15,7 @@ import spacefactory.api.EnergyTier;
 import spacefactory.block.BatteryBlock;
 import spacefactory.screen.BatteryBoxScreenHandler;
 
-public class BatteryBlockEntity extends ElectricInventoryBlockEntity implements EU.Receiver {
+public class BatteryBlockEntity extends ElectricInventoryBlockEntity implements EU.Receiver, EU.Sender {
 	public static final int CAPACITY = 100000;
 
 	public BatteryBlockEntity(BlockPos pos, BlockState state) {
@@ -36,27 +37,13 @@ public class BatteryBlockEntity extends ElectricInventoryBlockEntity implements 
 		ElectricInventoryBlockEntity.tick(world, pos, state, be);
 //        EnergyStorageUtil.move(be.getItemApi(0, EnergyStorage.ITEM), be.energy, Integer.MAX_VALUE, null);
 //        EnergyStorageUtil.move(be.energy, be.getItemApi(1, EnergyStorage.ITEM), Integer.MAX_VALUE, null);
-//        EnergyStorageUtil.move(be.energy, EnergyStorage.SIDED.find(world, pos.offset(be.getCachedState().get(Properties.FACING)), be.getCachedState().get(Properties.FACING).getOpposite()), Integer.MAX_VALUE, null);
+		Direction facing = be.getCachedState().get(Properties.FACING);
+		be.energy -= EU.send(be.energy, world, pos.offset(facing), facing.getOpposite());
 	}
 
 	@Override
 	protected EnergyTier getEnergyTier() {
 		return EnergyTier.LOW;
-	}
-
-	@Override
-	protected int getEnergyCapacity() {
-		return CAPACITY;
-	}
-
-	@Override
-	protected boolean canInsertEnergy() {
-		return true;
-	}
-
-	@Override
-	protected boolean canExtractEnergy() {
-		return true;
 	}
 
 	@Override
@@ -73,5 +60,10 @@ public class BatteryBlockEntity extends ElectricInventoryBlockEntity implements 
 		this.energy += change;
 		this.markDirty();
 		return change;
+	}
+
+	@Override
+	public boolean canSend(Direction side) {
+		return side == this.getCachedState().get(BatteryBlock.FACING);
 	}
 }

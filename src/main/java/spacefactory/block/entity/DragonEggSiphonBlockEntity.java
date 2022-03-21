@@ -41,10 +41,13 @@ public class DragonEggSiphonBlockEntity extends InventoryBlockEntity implements 
 
 			int energy = SpaceFactory.Constants.DRAGON_EGG_SYPHON_OUTPUT;
 			for (Direction side : Direction.values()) {
+				if (!be.canSend(side)) {
+					continue;
+				}
+				energy -= EU.send(energy, world, pos.offset(side), side.getOpposite());
 				if (energy == 0) {
 					break;
 				}
-				energy -= EU.send(energy, world, pos.offset(side), side.getOpposite());
 			}
 			world.setBlockState(pos, state.with(Properties.LIT, true));
 			return;

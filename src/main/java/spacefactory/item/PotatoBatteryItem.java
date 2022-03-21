@@ -21,10 +21,10 @@ public class PotatoBatteryItem extends EnergyStorageItem {
         super(settings);
     }
 
-    @Override
-    public EnergyTier getEnergyTier() {
-        return EnergyTier.LOW;
-    }
+//    @Override
+//    public EnergyTier getEnergyTier() {
+//        return EnergyTier.LOW;
+//    }
 //
 //    @Override
 //    public long getEnergyCapacity() {

@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "spacefactory:block/glypheon_energy_cell"
+    },
+    "lit=true": {
+      "model": "spacefactory:block/glypheon_energy_cell_on"
+    }
+  }
+}

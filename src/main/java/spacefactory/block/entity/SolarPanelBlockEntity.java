@@ -78,10 +78,13 @@ public class SolarPanelBlockEntity extends InventoryBlockEntity implements Sided
 //                    EnergyStorageUtil.move(producedEnergy, itemEnergy, PRODUCTION, null);
 //                }
 				for (Direction side : Direction.values()) {
+					if (!be.canSend(side)) {
+						continue;
+					}
+					energy -= EU.send(energy, world, pos.offset(side), side.getOpposite());
 					if (energy == 0) {
 						break;
 					}
-					energy -= EU.send(energy, world, pos.offset(side), side.getOpposite());
 				}
 				return;
 			}
