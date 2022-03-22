@@ -6,9 +6,7 @@
   "mixins": [
     "AxeItemMixin",
     "BlocksAccessor",
-    "FoliagePlacerTypeInvoker",
-    "IdentifierMixin",
-    "SimpleRegistryMixin"
+    "FoliagePlacerTypeInvoker"
   ],
   "client": [
     "client.BlockModelRendererMixin",
