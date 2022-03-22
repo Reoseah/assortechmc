@@ -1,5 +1,5 @@
 {
-  "type": "spacefactory:molecular_assembly",
+  "type": "spacefactory:atomic_reassembly",
   "input": [
     {
       "item": "spacefactory:arachnolactam",

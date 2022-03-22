@@ -9,7 +9,7 @@
   "block.spacefactory.pulverizer": "Pulverizer",
   "block.spacefactory.compressor": "Compressor",
   "block.spacefactory.extractor": "Extractor",
-  "block.spacefactory.molecular_assembler": "Molecular Assembler",
+  "block.spacefactory.atomic_reassembler": "Atomic Reassembler",
   "block.spacefactory.copper_wire": "Copper Wire",
   "block.spacefactory.copper_cable": "Copper Cable",
   "block.spacefactory.copper_bus_bar": "Copper Bus Bar",
@@ -95,9 +95,7 @@
   "category.spacefactory.pulverizing": "Pulverizing",
   "category.spacefactory.compressing": "Compressing",
   "category.spacefactory.extracting": "Extracting",
-  "category.spacefactory.molecular_assembly": "Molecular Assembly",
+  "category.spacefactory.atomic_reassembly": "Atomic Reassembly",
   "options.spacefactory.title": "Space Factory Options",
-  "options.spacefactory.preferred_namespaces": "Preferred Namespaces",
-  "options.spacefactory.preferred_namespaces.description": "Preferred item namespaces",
   "controls.spacefactory.reset": "Reset All"
 }

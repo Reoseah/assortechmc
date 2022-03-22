@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "spacefactory:molecular_assembler"
+          "name": "spacefactory:atomic_reassembler"
         }
       ],
       "conditions": [

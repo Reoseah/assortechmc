@@ -14,7 +14,7 @@ import spacefactory.block.entity.CraftingMachineBlockEntity;
 import spacefactory.screen.MolecularAssemblerScreenHandler;
 
 public class MolecularAssemblerScreen extends HandledScreen<MolecularAssemblerScreenHandler> {
-    private static final Identifier TEXTURE = SpaceFactory.id("textures/gui/molecular_assembler.png");
+    private static final Identifier TEXTURE = SpaceFactory.id("textures/gui/atomic_reassembler.png");
 
     public MolecularAssemblerScreen(MolecularAssemblerScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);

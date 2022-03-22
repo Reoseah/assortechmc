@@ -34,14 +34,14 @@ public class SpaceFactoryPlugin implements REIClientPlugin {
 	public static final CategoryIdentifier<PulverizingDisplay> PULVERIZER = CategoryIdentifier.of("spacefactory:pulverizing");
 	public static final CategoryIdentifier<CompressingDisplay> COMPRESSING = CategoryIdentifier.of("spacefactory:compressing");
 	public static final CategoryIdentifier<ExtractingDisplay> EXTRACTING = CategoryIdentifier.of("spacefactory:extracting");
-	public static final CategoryIdentifier<MolecularAssemblyDisplay> MOLECULAR_ASSEMBLY = CategoryIdentifier.of("spacefactory:molecular_assembly");
+	public static final CategoryIdentifier<MolecularAssemblyDisplay> MOLECULAR_ASSEMBLY = CategoryIdentifier.of("spacefactory:atomic_reassembly");
 
 	@Override
 	public void registerCategories(CategoryRegistry registry) {
 		registry.add(new SimpleMachineCategory(PULVERIZER, EntryStacks.of(SpaceFactory.Blocks.PULVERIZER), "category.spacefactory.pulverizing"));
 		registry.add(new SimpleMachineCategory(COMPRESSING, EntryStacks.of(SpaceFactory.Blocks.COMPRESSOR), "category.spacefactory.compressing"));
 		registry.add(new SimpleMachineCategory(EXTRACTING, EntryStacks.of(SpaceFactory.Blocks.EXTRACTOR), "category.spacefactory.extracting"));
-		registry.add(new MolecularAssemblyCategory(MOLECULAR_ASSEMBLY, EntryStacks.of(SpaceFactory.Blocks.MOLECULAR_ASSEMBLER), "category.spacefactory.molecular_assembly"));
+		registry.add(new MolecularAssemblyCategory(MOLECULAR_ASSEMBLY, EntryStacks.of(SpaceFactory.Blocks.MOLECULAR_ASSEMBLER), "category.spacefactory.atomic_reassembly"));
 
 		registry.addWorkstations(BuiltinPlugin.SMELTING, EntryStacks.of(SpaceFactory.Blocks.ELECTRIC_FURNACE));
 		registry.addWorkstations(PULVERIZER, EntryStacks.of(SpaceFactory.Blocks.PULVERIZER));

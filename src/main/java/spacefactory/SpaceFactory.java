@@ -164,7 +164,7 @@ public class SpaceFactory implements ModInitializer {
 		public static final Block RAW_IRIDIUM_BLOCK = register("raw_iridium_block", new Block(FabricBlockSettings.of(Material.STONE, MapColor.WHITE).requiresTool().strength(7.0f, 10.0f)));
 		public static final Block IRIDIUM_BLOCK = register("iridium_block", new Block(FabricBlockSettings.of(Material.METAL).strength(5F, 20F).allowsSpawning(BlocksAccessor::invokeNever)));
 
-		public static final Block MOLECULAR_ASSEMBLER = register("molecular_assembler", new MolecularAssemblerBlock(FabricBlockSettings.copyOf(FabricBlockSettings.copyOf(ADVANCED_MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 14 : 0))));
+		public static final Block MOLECULAR_ASSEMBLER = register("atomic_reassembler", new MolecularAssemblerBlock(FabricBlockSettings.copyOf(FabricBlockSettings.copyOf(ADVANCED_MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 14 : 0))));
 		public static final Block DRAGON_ENERGY_ABSORBER = register("dragon_energy_absorber", new DragonEggSiphonBlock(FabricBlockSettings.copyOf(ADVANCED_MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 15 : 0)));
 		public static final Block GLYPHEON_FIELD_EXTRACTOR = register("glypheon_field_extractor", new GlypheonResonanceAbsorberBlock(FabricBlockSettings.copyOf(ADVANCED_MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 14 : 0)));
 
@@ -254,7 +254,7 @@ public class SpaceFactory implements ModInitializer {
 		public static final Item SMALL_IRIDIUM_DUST = register("small_iridium_dust", new Item(settings().rarity(Rarity.RARE)));
 		public static final Item NETHERITE_SCRAP_DUST = register("netherite_scrap_dust", new Item(settings()));
 
-		public static final Item MOLECULAR_ASSEMBLER = register("molecular_assembler", new BlockItem(Blocks.MOLECULAR_ASSEMBLER, settings().rarity(Rarity.RARE)));
+		public static final Item MOLECULAR_ASSEMBLER = register("atomic_reassembler", new BlockItem(Blocks.MOLECULAR_ASSEMBLER, settings().rarity(Rarity.RARE)));
 		public static final Item CRYSTALITE_BLOCK = register("crystalite_block", new BlockItem(Blocks.CRYSTALITE_BLOCK, settings().rarity(Rarity.UNCOMMON)));
 		public static final Item CRYSTALITE_MATRIX = register("crystalite_matrix", new Item(settings().rarity(Rarity.RARE).maxCount(16)));
 		public static final Item WARP_PRISM = register("warp_prism", new Item(settings().rarity(Rarity.RARE).maxCount(16)));
@@ -309,7 +309,7 @@ public class SpaceFactory implements ModInitializer {
 		public static final BlockEntityType<PulverizerBlockEntity> PULVERIZER = create("pulverizer", PulverizerBlockEntity::new, Blocks.PULVERIZER);
 		public static final BlockEntityType<CompressorBlockEntity> COMPRESSOR = create("compressor", CompressorBlockEntity::new, Blocks.COMPRESSOR);
 		public static final BlockEntityType<ExtractorBlockEntity> EXTRACTOR = create("extractor", ExtractorBlockEntity::new, Blocks.EXTRACTOR);
-		public static final BlockEntityType<MolecularAssemblerBlockEntity> MOLECULAR_ASSEMBLER = create("molecular_assembler", MolecularAssemblerBlockEntity::new, Blocks.MOLECULAR_ASSEMBLER);
+		public static final BlockEntityType<MolecularAssemblerBlockEntity> MOLECULAR_ASSEMBLER = create("atomic_reassembler", MolecularAssemblerBlockEntity::new, Blocks.MOLECULAR_ASSEMBLER);
 		public static final BlockEntityType<BatteryBlockEntity> BATTERY_BOX = create("battery_box", BatteryBlockEntity::new, Blocks.BATTERY_BOX);
 		public static final BlockEntityType<ConduitBlockEntity> CONDUIT = create("conduit", ConduitBlockEntity::new, Blocks.COPPER_WIRE, Blocks.COPPER_CABLE, Blocks.COPPER_BUS_BAR, Blocks.ENERGY_CONDUIT);
 
@@ -327,7 +327,7 @@ public class SpaceFactory implements ModInitializer {
 		public static final RecipeType<PulverizerRecipe> PULVERIZING = create("pulverizing");
 		public static final RecipeType<CompressorRecipe> COMPRESSING = create("compressing");
 		public static final RecipeType<ExtractorRecipe> EXTRACTING = create("extracting");
-		public static final RecipeType<MolecularAssemblerRecipe> MOLECULAR_ASSEMBLY = create("molecular_assembly");
+		public static final RecipeType<MolecularAssemblerRecipe> MOLECULAR_ASSEMBLY = create("atomic_reassembly");
 
 		public static <T extends Recipe<?>> RecipeType<T> create(String name) {
 			return Registry.register(Registry.RECIPE_TYPE, id(name), new RecipeType<T>() {
@@ -348,7 +348,7 @@ public class SpaceFactory implements ModInitializer {
 		public static final RecipeSerializer<PulverizerRecipe> PULVERIZING = register("pulverizing", new SimpleMachineRecipe.Serializer<>(PulverizerRecipe::new, 300));
 		public static final RecipeSerializer<CompressorRecipe> COMPRESSING = register("compressing", new SimpleMachineRecipe.Serializer<>(CompressorRecipe::new, 400));
 		public static final RecipeSerializer<ExtractorRecipe> EXTRACTING = register("extracting", new SimpleMachineRecipe.Serializer<>(ExtractorRecipe::new, 400));
-		public static final RecipeSerializer<MolecularAssemblerRecipe> MOLECULAR_ASSEMBLY = register("molecular_assembly", new MolecularAssemblerRecipe.Serializer(1000));
+		public static final RecipeSerializer<MolecularAssemblerRecipe> MOLECULAR_ASSEMBLY = register("atomic_reassembly", new MolecularAssemblerRecipe.Serializer(1000));
 
 		public static <T extends RecipeSerializer<?>> T register(String name, T entry) {
 			return Registry.register(Registry.RECIPE_SERIALIZER, id(name), entry);
@@ -425,7 +425,7 @@ public class SpaceFactory implements ModInitializer {
 		public static final ScreenHandlerType<ElectricFurnaceScreenHandler> ELECTRIC_FURNACE = ScreenHandlerRegistry.registerSimple(id("electric_furnace"), ElectricFurnaceScreenHandler::new);
 		public static final ScreenHandlerType<PulverizerScreenHandler> PULVERIZER = ScreenHandlerRegistry.registerSimple(id("pulverizer"), PulverizerScreenHandler::new);
 		public static final ScreenHandlerType<CompressorScreenHandler> COMPRESSOR = ScreenHandlerRegistry.registerSimple(id("compressor"), CompressorScreenHandler::new);
-		public static final ScreenHandlerType<MolecularAssemblerScreenHandler> MOLECULAR_ASSEMBLER = ScreenHandlerRegistry.registerSimple(id("molecular_assembler"), MolecularAssemblerScreenHandler::new);
+		public static final ScreenHandlerType<MolecularAssemblerScreenHandler> MOLECULAR_ASSEMBLER = ScreenHandlerRegistry.registerSimple(id("atomic_reassembler"), MolecularAssemblerScreenHandler::new);
 		public static final ScreenHandlerType<ExtractorScreenHandler> EXTRACTOR = ScreenHandlerRegistry.registerSimple(id("extractor"), ExtractorScreenHandler::new);
 		public static final ScreenHandlerType<BatteryBoxScreenHandler> BATTERY_BOX = ScreenHandlerRegistry.registerSimple(id("battery_box"), BatteryBoxScreenHandler::new);
 
