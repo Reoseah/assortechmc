@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "spacefactory:block/dragon_energy_absorber"
+    },
+    "lit=true": {
+      "model": "spacefactory:block/dragon_energy_absorber_on"
+    }
+  }
+}

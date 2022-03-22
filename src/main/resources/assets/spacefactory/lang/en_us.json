@@ -2,8 +2,8 @@
   "itemGroup.spacefactory.main": "Space Factory",
   "block.spacefactory.generator": "Generator",
   "block.spacefactory.solar_panel": "Solar Panel",
-  "block.spacefactory.dragon_egg_siphon": "Dragon Energy Absorber",
-  "block.spacefactory.glypheon_energy_cell": "Glypheon Energy Cell",
+  "block.spacefactory.dragon_energy_absorber": "Dragon Energy Absorber",
+  "block.spacefactory.glypheon_field_extractor": "Glypheon Field Extractor",
   "block.spacefactory.battery_box": "Battery",
   "block.spacefactory.electric_furnace": "Electric Furnace",
   "block.spacefactory.pulverizer": "Pulverizer",
@@ -82,7 +82,7 @@
 
   "block.spacefactory.generator.usage": "Burns conventional fuels to generate electricity.\nGenerates %s EU per tick while burning fuel at %s percent speed.",
   "block.spacefactory.solar_panel.usage": "Creates electricity from sunlight.\nGenerates %s EU per tick when in full light.",
-  "block.spacefactory.dragon_egg_siphon.usage": "Produces electricity from Dragon Egg quantum oscillations.\nGenerates %s EU per tick when Dragon Egg is placed on top. ",
+  "block.spacefactory.dragon_energy_absorber.usage": "Produces electricity from Dragon Egg quantum oscillations.\nGenerates %s EU per tick when Dragon Egg is placed on top. ",
   "item.spacefactory.vanovoltaic_energy_cell.usage": "Generates electricity from quantum foam fluctuations at the rate of %s EU per tick.",
 
   "container.spacefactory.energy": "%s EU",

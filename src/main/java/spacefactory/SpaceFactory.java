@@ -41,10 +41,7 @@ import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
-import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.RandomPatchFeatureConfig;
-import net.minecraft.world.gen.feature.TreeFeatureConfig;
+import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.feature.size.TwoLayersFeatureSize;
 import net.minecraft.world.gen.foliage.FoliagePlacer;
 import net.minecraft.world.gen.foliage.FoliagePlacerType;
@@ -77,6 +74,7 @@ import java.util.List;
 
 import static net.minecraft.block.Blocks.JUNGLE_LEAVES;
 
+@SuppressWarnings("unused")
 public class SpaceFactory implements ModInitializer {
 	public static final String MOD_ID = "spacefactory";
 	public static Config config = new Config();
@@ -102,7 +100,7 @@ public class SpaceFactory implements ModInitializer {
 		BiomeModifications.create(id("features")) //
 				.add(ModificationPhase.ADDITIONS, BiomeSelectors.categories(Biome.Category.SWAMP, Biome.Category.JUNGLE, Biome.Category.FOREST, Biome.Category.RIVER), (context) -> {
 					if (config.generateRubberTrees) {
-						RegistryKey<net.minecraft.world.gen.feature.PlacedFeature> key = BuiltinRegistries.PLACED_FEATURE.getKey(PlacedFeaturesDependent.RUBBER_TREE_PATCH).orElseThrow();
+						RegistryKey<PlacedFeature> key = BuiltinRegistries.PLACED_FEATURE.getKey(PlacedFeaturesDependent.RUBBER_TREE_PATCH).orElseThrow();
 						context.getGenerationSettings().addFeature(GenerationStep.Feature.VEGETAL_DECORATION, key);
 					}
 				});
@@ -167,8 +165,8 @@ public class SpaceFactory implements ModInitializer {
 		public static final Block IRIDIUM_BLOCK = register("iridium_block", new Block(FabricBlockSettings.of(Material.METAL).strength(5F, 20F).allowsSpawning(BlocksAccessor::invokeNever)));
 
 		public static final Block MOLECULAR_ASSEMBLER = register("molecular_assembler", new MolecularAssemblerBlock(FabricBlockSettings.copyOf(FabricBlockSettings.copyOf(ADVANCED_MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 14 : 0))));
-		public static final Block DRAGON_EGG_SIPHON = register("dragon_egg_siphon", new DragonEggSiphonBlock(FabricBlockSettings.copyOf(ADVANCED_MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 15 : 0)));
-		public static final Block GLYPHEON_RESONANCE_ABSORBER = register("glypheon_energy_cell", new GlypheonResonanceAbsorberBlock(FabricBlockSettings.copyOf(ADVANCED_MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 14 : 0)));
+		public static final Block DRAGON_ENERGY_ABSORBER = register("dragon_energy_absorber", new DragonEggSiphonBlock(FabricBlockSettings.copyOf(ADVANCED_MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 15 : 0)));
+		public static final Block GLYPHEON_FIELD_EXTRACTOR = register("glypheon_field_extractor", new GlypheonResonanceAbsorberBlock(FabricBlockSettings.copyOf(ADVANCED_MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 14 : 0)));
 
 		public static <T extends Block> T register(String name, T entry) {
 			return Registry.register(Registry.BLOCK, id(name), entry);
@@ -260,8 +258,8 @@ public class SpaceFactory implements ModInitializer {
 		public static final Item CRYSTALITE_BLOCK = register("crystalite_block", new BlockItem(Blocks.CRYSTALITE_BLOCK, settings().rarity(Rarity.UNCOMMON)));
 		public static final Item CRYSTALITE_MATRIX = register("crystalite_matrix", new Item(settings().rarity(Rarity.RARE).maxCount(16)));
 		public static final Item WARP_PRISM = register("warp_prism", new Item(settings().rarity(Rarity.RARE).maxCount(16)));
-		public static final Item DRAGON_EGG_SIPHON = register("dragon_egg_siphon", new BlockItem(Blocks.DRAGON_EGG_SIPHON, settings().rarity(Rarity.EPIC)));
-		public static final Item GLYPHEON_RESONANCE_ABSORBER = register("glypheon_energy_cell", new BlockItem(Blocks.GLYPHEON_RESONANCE_ABSORBER, settings().rarity(Rarity.EPIC)));
+		public static final Item DRAGON_ENERGY_ABSORBER = register("dragon_energy_absorber", new BlockItem(Blocks.DRAGON_ENERGY_ABSORBER, settings().rarity(Rarity.RARE)));
+		public static final Item GLYPHEON_FIELD_EXTRACTOR = register("glypheon_field_extractor", new BlockItem(Blocks.GLYPHEON_FIELD_EXTRACTOR, settings().rarity(Rarity.RARE)));
 
 
 		public static final Item ARACHNOLACTAM = register("arachnolactam", new Item(settings()));
@@ -305,7 +303,7 @@ public class SpaceFactory implements ModInitializer {
 	public static class BlockEntityTypes {
 		public static final BlockEntityType<GeneratorBlockEntity> GENERATOR = create("generator", GeneratorBlockEntity::new, Blocks.GENERATOR);
 		public static final BlockEntityType<SolarPanelBlockEntity> SOLAR_PANEL = create("solar_panel", SolarPanelBlockEntity::new, Blocks.SOLAR_PANEL);
-		public static final BlockEntityType<DragonEggSiphonBlockEntity> DRAGON_EGG_SIPHON = create("dragon_egg_siphon", DragonEggSiphonBlockEntity::new, Blocks.DRAGON_EGG_SIPHON);
+		public static final BlockEntityType<DragonEggSiphonBlockEntity> DRAGON_ENERGY_ABSORBER = create("dragon_energy_absorber", DragonEggSiphonBlockEntity::new, Blocks.DRAGON_ENERGY_ABSORBER);
 
 		public static final BlockEntityType<ElectricFurnaceBlockEntity> ELECTRIC_FURNACE = create("electric_furnace", ElectricFurnaceBlockEntity::new, Blocks.ELECTRIC_FURNACE);
 		public static final BlockEntityType<PulverizerBlockEntity> PULVERIZER = create("pulverizer", PulverizerBlockEntity::new, Blocks.PULVERIZER);
@@ -390,9 +388,9 @@ public class SpaceFactory implements ModInitializer {
 	}
 
 	public static class PlacedFeatures {
-		public static final net.minecraft.world.gen.feature.PlacedFeature RUBBER_TREE = register("rubber_tree", new net.minecraft.world.gen.feature.PlacedFeature(getEntry(BuiltinRegistries.CONFIGURED_FEATURE, ConfiguredFeatures.RUBBER_TREE), List.of(net.minecraft.world.gen.feature.PlacedFeatures.wouldSurvive(Blocks.RUBBER_SAPLING))));
+		public static final PlacedFeature RUBBER_TREE = register("rubber_tree", new PlacedFeature(getEntry(BuiltinRegistries.CONFIGURED_FEATURE, ConfiguredFeatures.RUBBER_TREE), List.of(net.minecraft.world.gen.feature.PlacedFeatures.wouldSurvive(Blocks.RUBBER_SAPLING))));
 
-		public static <T extends net.minecraft.world.gen.feature.PlacedFeature> T register(String name, T entry) {
+		public static <T extends PlacedFeature> T register(String name, T entry) {
 			return Registry.register(BuiltinRegistries.PLACED_FEATURE, id(name), entry);
 		}
 
@@ -410,7 +408,7 @@ public class SpaceFactory implements ModInitializer {
 	}
 
 	public static class PlacedFeaturesDependent {
-		public static final net.minecraft.world.gen.feature.PlacedFeature RUBBER_TREE_PATCH = PlacedFeatures.register("rubber_tree_patch", new net.minecraft.world.gen.feature.PlacedFeature(getEntry(BuiltinRegistries.CONFIGURED_FEATURE, ConfiguredFeaturesDependent.RUBBER_TREE_PATCH), //
+		public static final PlacedFeature RUBBER_TREE_PATCH = PlacedFeatures.register("rubber_tree_patch", new PlacedFeature(getEntry(BuiltinRegistries.CONFIGURED_FEATURE, ConfiguredFeaturesDependent.RUBBER_TREE_PATCH), //
 				List.of( //
 						RarityFilterPlacementModifier.of(4), //
 						SquarePlacementModifier.of(), //
@@ -437,14 +435,10 @@ public class SpaceFactory implements ModInitializer {
 	}
 
 	public static class Config {
-		@SerializedName("preferred_namespaces")
-		public List<String> preferredNamespaces = Lists.newArrayList("minecraft", "spacefactory");
-
 		@SerializedName("generate_rubber_trees")
 		public boolean generateRubberTrees = true;
 
 		public void reset() {
-			this.preferredNamespaces = Lists.newArrayList("minecraft", "spacefactory");
 			this.generateRubberTrees = true;
 		}
 

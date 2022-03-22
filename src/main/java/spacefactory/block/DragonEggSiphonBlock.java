@@ -54,6 +54,6 @@ public class DragonEggSiphonBlock extends InventoryBlock {
     @Override
     @Nullable
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return world.isClient ? null : checkType(type, SpaceFactory.BlockEntityTypes.DRAGON_EGG_SIPHON, DragonEggSiphonBlockEntity::tick);
+        return world.isClient ? null : checkType(type, SpaceFactory.BlockEntityTypes.DRAGON_ENERGY_ABSORBER, DragonEggSiphonBlockEntity::tick);
     }
 }

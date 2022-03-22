@@ -1,8 +1,8 @@
 {
   "parent": "minecraft:block/cube_bottom_top",
   "textures": {
-    "top": "spacefactory:block/dragon_egg_siphon_top",
-    "side": "spacefactory:block/dragon_egg_siphon_side_on",
+    "top": "spacefactory:block/dragon_energy_absorber_top",
+    "side": "spacefactory:block/dragon_energy_absorber_side",
     "bottom": "spacefactory:block/advanced_machine_bottom"
   }
 }

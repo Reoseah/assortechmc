@@ -17,7 +17,7 @@ public class DragonEggSiphonBlockEntity extends InventoryBlockEntity implements 
 	public boolean generating = false, dragonEgg = false;
 
 	public DragonEggSiphonBlockEntity(BlockPos pos, BlockState state) {
-		super(SpaceFactory.BlockEntityTypes.DRAGON_EGG_SIPHON, pos, state);
+		super(SpaceFactory.BlockEntityTypes.DRAGON_ENERGY_ABSORBER, pos, state);
 	}
 
 	@Override
