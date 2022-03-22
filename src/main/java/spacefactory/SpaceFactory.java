@@ -1,6 +1,5 @@
 package spacefactory;
 
-import com.google.common.collect.Lists;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
@@ -241,6 +240,9 @@ public class SpaceFactory implements ModInitializer {
 		public static final Item REFINED_IRON_DUST = register("refined_iron_dust", new Item(settings()));
 		public static final Item SMALL_REFINED_IRON_DUST = register("small_refined_iron_dust", new Item(settings()));
 
+		public static final Item MACHETE = register("refined_iron_machete", new MacheteItem(SpaceFactoryToolMaterials.REFINED_IRON, 3, -2.4F, settings()));
+		public static final Item WIRE_CUTTERS = register("wire_cutters", new UnicutterItem(SpaceFactoryToolMaterials.REFINED_IRON, -1, -1F, settings().maxDamage(256)));
+
 		public static final Item RAW_CRYSTALITE_DUST = register("raw_crystalite_dust", new Item(settings()));
 		public static final Item CRYSTALITE = register("crystalite", new Item(settings().rarity(Rarity.RARE)));
 		public static final Item QUANTUM_CIRCUIT = register("quantum_circuit", new Item(settings().rarity(Rarity.UNCOMMON)));
@@ -273,12 +275,11 @@ public class SpaceFactory implements ModInitializer {
 		public static final Item BRONZE_SHOVEL = register("bronze_shovel", new ShovelItem(SpaceFactoryToolMaterials.BRONZE, 1.5F, -3.0F, settings()));
 		public static final Item BRONZE_PICKAXE = register("bronze_pickaxe", new AccessiblePickaxeItem(SpaceFactoryToolMaterials.BRONZE, 1, -2.8F, settings()));
 		public static final Item BRONZE_AXE = register("bronze_axe", new AccessibleAxeItem(SpaceFactoryToolMaterials.BRONZE, 6, -3.1F, settings()));
-		public static final Item BRONZE_HOE = register("bronze_hoe", new AccessibleAxeItem(SpaceFactoryToolMaterials.BRONZE, -2, -1.0F, settings()));
+		public static final Item BRONZE_HOE = register("bronze_hoe", new AccessibleHoeItem(SpaceFactoryToolMaterials.BRONZE, -1, -1.5F, settings()));
 		public static final Item BRONZE_HELMET = register("bronze_helmet", new ArmorItem(SpaceFactoryArmorMaterials.BRONZE, EquipmentSlot.HEAD, settings()));
 		public static final Item BRONZE_CHESTPLATE = register("bronze_chestplate", new ArmorItem(SpaceFactoryArmorMaterials.BRONZE, EquipmentSlot.CHEST, settings()));
 		public static final Item BRONZE_LEGGINGS = register("bronze_leggings", new ArmorItem(SpaceFactoryArmorMaterials.BRONZE, EquipmentSlot.LEGS, settings()));
 		public static final Item BRONZE_BOOTS = register("bronze_boots", new ArmorItem(SpaceFactoryArmorMaterials.BRONZE, EquipmentSlot.FEET, settings()));
-		public static final Item WIRE_CUTTERS = register("wire_cutters", new WireCuttersItem(settings().maxDamage(256)));
 		public static final Item POTATO_BATTERY = register("potato_battery", new PotatoBatteryItem(settings().maxCount(1)));
 
 		public static final TagKey<Item> RUBBERS = TagKey.of(Registry.ITEM_KEY, new Identifier("c:rubbers"));

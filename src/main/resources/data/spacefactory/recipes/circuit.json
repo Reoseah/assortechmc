@@ -10,7 +10,7 @@
       "item": "minecraft:iron_ingot"
     },
     "X": {
-      "tag": "spacefactory:copper_cables"
+      "item": "spacefactory:copper_cable"
     },
     "R": {
       "item": "minecraft:redstone"

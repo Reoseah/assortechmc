@@ -2,7 +2,7 @@
   "parent": "minecraft:block/cube_bottom_top",
   "textures": {
     "top": "spacefactory:block/glypheon_field_extractor_top",
-    "side": "spacefactory:block/glypheon_field_extractor_side",
+    "side": "spacefactory:block/advanced_machine_side",
     "bottom": "spacefactory:block/advanced_machine_bottom"
   }
 }
