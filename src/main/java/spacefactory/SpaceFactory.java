@@ -163,7 +163,7 @@ public class SpaceFactory implements ModInitializer {
 		public static final Block RAW_IRIDIUM_BLOCK = register("raw_iridium_block", new Block(FabricBlockSettings.of(Material.STONE, MapColor.WHITE).requiresTool().strength(7.0f, 10.0f)));
 		public static final Block IRIDIUM_BLOCK = register("iridium_block", new Block(FabricBlockSettings.of(Material.METAL).strength(5F, 20F).allowsSpawning(BlocksAccessor::invokeNever)));
 
-		public static final Block MOLECULAR_ASSEMBLER = register("atomic_reassembler", new MolecularAssemblerBlock(FabricBlockSettings.copyOf(FabricBlockSettings.copyOf(ADVANCED_MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 14 : 0))));
+		public static final Block ATOMIC_REASSEMBLER = register("atomic_reassembler", new AtomicReassemblerBlock(FabricBlockSettings.copyOf(FabricBlockSettings.copyOf(ADVANCED_MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 14 : 0))));
 		public static final Block DRAGON_ENERGY_ABSORBER = register("dragon_energy_absorber", new DragonEggSiphonBlock(FabricBlockSettings.copyOf(ADVANCED_MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 15 : 0)));
 		public static final Block GLYPHEON_FIELD_EXTRACTOR = register("glypheon_field_extractor", new GlypheonResonanceAbsorberBlock(FabricBlockSettings.copyOf(ADVANCED_MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 14 : 0)));
 
@@ -183,7 +183,7 @@ public class SpaceFactory implements ModInitializer {
 	}
 
 	public static class Items {
-		public static final ItemGroup MAIN = FabricItemGroupBuilder.build(id("main"), () -> new ItemStack(Blocks.SOLAR_PANEL));
+		public static final ItemGroup MAIN = FabricItemGroupBuilder.build(id("main"), () -> new ItemStack(SpaceFactory.Items.POTATO_BATTERY));
 
 		public static final Item COPPER_NUGGET = register("copper_nugget", new Item(settings()));
 
@@ -193,7 +193,6 @@ public class SpaceFactory implements ModInitializer {
 		public static final Item IRON_DUST = register("iron_dust", new Item(settings()));
 		public static final Item GOLD_DUST = register("gold_dust", new Item(settings()));
 		public static final Item DIAMOND_DUST = register("diamond_dust", new Item(settings()));
-		public static final Item NETHER_QUARTZ_DUST = register("nether_quartz_dust", new Item(settings()));
 
 		public static final Item RUBBER_LOG = register("rubber_log", new BlockItem(Blocks.RUBBER_LOG, settings()));
 		public static final Item STRIPPED_RUBBER_LOG = register("stripped_rubber_log", new BlockItem(Blocks.STRIPPED_RUBBER_LOG, settings()));
@@ -217,37 +216,50 @@ public class SpaceFactory implements ModInitializer {
 		public static final Item BRONZE_INGOT = register("bronze_ingot", new Item(settings()));
 		public static final Item BRONZE_NUGGET = register("bronze_nugget", new Item(settings()));
 		public static final Item BRONZE_DUST = register("bronze_dust", new Item(settings()));
-		public static final Item SILICON_INGOT = register("silicon_ingot", new Item(settings()));
+		public static final Item BRONZE_SWORD = register("bronze_sword", new SwordItem(SpaceFactoryToolMaterials.BRONZE, 3, -2.4F, settings()));
+		public static final Item BRONZE_SHOVEL = register("bronze_shovel", new ShovelItem(SpaceFactoryToolMaterials.BRONZE, 1.5F, -3.0F, settings()));
+		public static final Item BRONZE_PICKAXE = register("bronze_pickaxe", new AccessiblePickaxeItem(SpaceFactoryToolMaterials.BRONZE, 1, -2.8F, settings()));
+		public static final Item BRONZE_AXE = register("bronze_axe", new AccessibleAxeItem(SpaceFactoryToolMaterials.BRONZE, 6, -3.1F, settings()));
+		public static final Item BRONZE_HOE = register("bronze_hoe", new AccessibleHoeItem(SpaceFactoryToolMaterials.BRONZE, -2, -1.5F, settings()));
+		public static final Item BRONZE_HELMET = register("bronze_helmet", new ArmorItem(SpaceFactoryArmorMaterials.BRONZE, EquipmentSlot.HEAD, settings()));
+		public static final Item BRONZE_CHESTPLATE = register("bronze_chestplate", new ArmorItem(SpaceFactoryArmorMaterials.BRONZE, EquipmentSlot.CHEST, settings()));
+		public static final Item BRONZE_LEGGINGS = register("bronze_leggings", new ArmorItem(SpaceFactoryArmorMaterials.BRONZE, EquipmentSlot.LEGS, settings()));
+		public static final Item BRONZE_BOOTS = register("bronze_boots", new ArmorItem(SpaceFactoryArmorMaterials.BRONZE, EquipmentSlot.FEET, settings()));
+
 
 		public static final Item COPPER_WIRE = register("copper_wire", new BlockItem(Blocks.COPPER_WIRE, settings()));
 		public static final Item COPPER_CABLE = register("copper_cable", new BlockItem(Blocks.COPPER_CABLE, settings()));
 		public static final Item CIRCUIT = register("circuit", new Item(settings()));
 
 		public static final Item GENERATOR = register("generator", new BlockItem(Blocks.GENERATOR, settings()));
-		public static final Item SOLAR_PANEL = register("solar_panel", new BlockItem(Blocks.SOLAR_PANEL, settings()));
 
 		public static final Item ELECTRIC_FURNACE = register("electric_furnace", new BlockItem(Blocks.ELECTRIC_FURNACE, settings()));
 		public static final Item PULVERIZER = register("pulverizer", new BlockItem(Blocks.PULVERIZER, settings()));
 		public static final Item COMPRESSOR = register("compressor", new BlockItem(Blocks.COMPRESSOR, settings()));
 		public static final Item EXTRACTOR = register("extractor", new BlockItem(Blocks.EXTRACTOR, settings()));
 
+		public static final Item NETHER_QUARTZ_DUST = register("nether_quartz_dust", new Item(settings()));
+		public static final Item SILICON_INGOT = register("silicon_ingot", new Item(settings()));
+		public static final Item SOLAR_PANEL = register("solar_panel", new BlockItem(Blocks.SOLAR_PANEL, settings()));
+
 		public static final Item BATTERY_BOX = register("battery_box", new BlockItem(Blocks.BATTERY_BOX, settings()));
 		public static final Item COPPER_BUS_BAR = register("copper_bus_bar", new BlockItem(Blocks.COPPER_BUS_BAR, settings()));
 		public static final Item REINFORCED_ENERGY_CONDUIT = register("reinforced_energy_conduit", new BlockItem(Blocks.ENERGY_CONDUIT, settings()));
-
 
 		public static final Item REFINED_IRON_INGOT = register("refined_iron_ingot", new Item(settings().rarity(Rarity.RARE)));
 		public static final Item REFINED_IRON_DUST = register("refined_iron_dust", new Item(settings()));
 		public static final Item SMALL_REFINED_IRON_DUST = register("small_refined_iron_dust", new Item(settings()));
 
 		public static final Item MACHETE = register("refined_iron_machete", new MacheteItem(SpaceFactoryToolMaterials.REFINED_IRON, 3, -2.4F, settings()));
-		public static final Item WIRE_CUTTERS = register("wire_cutters", new UnicutterItem(SpaceFactoryToolMaterials.REFINED_IRON, -1, -1F, settings().maxDamage(256)));
+		public static final Item REFINED_IRON_UNICUTTER = register("refined_iron_unicutter", new UnicutterItem(SpaceFactoryToolMaterials.REFINED_IRON, -1, -1F, settings().maxDamage(256)));
 
+		public static final Item CRYSTALITE_BLOCK = register("crystalite_block", new BlockItem(Blocks.CRYSTALITE_BLOCK, settings().rarity(Rarity.UNCOMMON)));
+		public static final Item CRYSTALITE_MATRIX = register("crystalite_matrix", new Item(settings().rarity(Rarity.RARE).maxCount(16)));
 		public static final Item RAW_CRYSTALITE_DUST = register("raw_crystalite_dust", new Item(settings()));
-		public static final Item CRYSTALITE = register("crystalite", new Item(settings().rarity(Rarity.RARE)));
+		public static final Item CRYSTALITE_DUST = register("crystalite_dust", new Item(settings().rarity(Rarity.RARE)));
 		public static final Item QUANTUM_CIRCUIT = register("quantum_circuit", new Item(settings().rarity(Rarity.UNCOMMON)));
 
-		public static final Item END_STONE_IRIDIUM_ORE = register("end_stone_iridium_ore", new BlockItem(Blocks.END_STONE_IRIDIUM_ORE, settings()));
+		public static final Item END_STONE_IRIDIUM_ORE = register("end_stone_iridium_ore", new BlockItem(Blocks.END_STONE_IRIDIUM_ORE, settings().rarity(Rarity.UNCOMMON)));
 		public static final Item RAW_IRIDIUM_BLOCK = register("raw_iridium_block", new BlockItem(Blocks.RAW_IRIDIUM_BLOCK, settings().rarity(Rarity.EPIC)));
 		public static final Item IRIDIUM_BLOCK = register("iridium_block", new BlockItem(Blocks.IRIDIUM_BLOCK, settings().rarity(Rarity.EPIC)));
 		public static final Item RAW_IRIDIUM = register("raw_iridium", new Item(settings().rarity(Rarity.EPIC)));
@@ -256,30 +268,11 @@ public class SpaceFactory implements ModInitializer {
 		public static final Item SMALL_IRIDIUM_DUST = register("small_iridium_dust", new Item(settings().rarity(Rarity.RARE)));
 		public static final Item NETHERITE_SCRAP_DUST = register("netherite_scrap_dust", new Item(settings()));
 
-		public static final Item MOLECULAR_ASSEMBLER = register("atomic_reassembler", new BlockItem(Blocks.MOLECULAR_ASSEMBLER, settings().rarity(Rarity.RARE)));
-		public static final Item CRYSTALITE_BLOCK = register("crystalite_block", new BlockItem(Blocks.CRYSTALITE_BLOCK, settings().rarity(Rarity.UNCOMMON)));
-		public static final Item CRYSTALITE_MATRIX = register("crystalite_matrix", new Item(settings().rarity(Rarity.RARE).maxCount(16)));
+		public static final Item ATOMIC_REASSEMBLER = register("atomic_reassembler", new BlockItem(Blocks.ATOMIC_REASSEMBLER, settings().rarity(Rarity.RARE)));
 		public static final Item WARP_PRISM = register("warp_prism", new Item(settings().rarity(Rarity.RARE).maxCount(16)));
 		public static final Item DRAGON_ENERGY_ABSORBER = register("dragon_energy_absorber", new BlockItem(Blocks.DRAGON_ENERGY_ABSORBER, settings().rarity(Rarity.RARE)));
 		public static final Item GLYPHEON_FIELD_EXTRACTOR = register("glypheon_field_extractor", new BlockItem(Blocks.GLYPHEON_FIELD_EXTRACTOR, settings().rarity(Rarity.RARE)));
 
-
-		public static final Item ARACHNOLACTAM = register("arachnolactam", new Item(settings()));
-		public static final Item HYPERSTRAND = register("hyperstrand", new Item(settings().rarity(Rarity.RARE)));
-		public static final Item HYPERWEAVE = register("hyperweave", new Item(settings().rarity(Rarity.RARE)));
-		public static final Item ENERGY_CRYSTAL = register("energy_crystal", new EnergyCrystalItem(settings().maxCount(1).rarity(Rarity.RARE)));
-		public static final Item VANOVOLTAIC_CELL = register("vanovoltaic_cell", new VanovoltaicCellItem(settings().maxCount(1).rarity(Rarity.EPIC)));
-
-
-		public static final Item BRONZE_SWORD = register("bronze_sword", new SwordItem(SpaceFactoryToolMaterials.BRONZE, 3, -2.4F, settings()));
-		public static final Item BRONZE_SHOVEL = register("bronze_shovel", new ShovelItem(SpaceFactoryToolMaterials.BRONZE, 1.5F, -3.0F, settings()));
-		public static final Item BRONZE_PICKAXE = register("bronze_pickaxe", new AccessiblePickaxeItem(SpaceFactoryToolMaterials.BRONZE, 1, -2.8F, settings()));
-		public static final Item BRONZE_AXE = register("bronze_axe", new AccessibleAxeItem(SpaceFactoryToolMaterials.BRONZE, 6, -3.1F, settings()));
-		public static final Item BRONZE_HOE = register("bronze_hoe", new AccessibleHoeItem(SpaceFactoryToolMaterials.BRONZE, -1, -1.5F, settings()));
-		public static final Item BRONZE_HELMET = register("bronze_helmet", new ArmorItem(SpaceFactoryArmorMaterials.BRONZE, EquipmentSlot.HEAD, settings()));
-		public static final Item BRONZE_CHESTPLATE = register("bronze_chestplate", new ArmorItem(SpaceFactoryArmorMaterials.BRONZE, EquipmentSlot.CHEST, settings()));
-		public static final Item BRONZE_LEGGINGS = register("bronze_leggings", new ArmorItem(SpaceFactoryArmorMaterials.BRONZE, EquipmentSlot.LEGS, settings()));
-		public static final Item BRONZE_BOOTS = register("bronze_boots", new ArmorItem(SpaceFactoryArmorMaterials.BRONZE, EquipmentSlot.FEET, settings()));
 		public static final Item POTATO_BATTERY = register("potato_battery", new PotatoBatteryItem(settings().maxCount(1)));
 
 		public static final TagKey<Item> RUBBERS = TagKey.of(Registry.ITEM_KEY, new Identifier("c:rubbers"));
@@ -310,7 +303,7 @@ public class SpaceFactory implements ModInitializer {
 		public static final BlockEntityType<PulverizerBlockEntity> PULVERIZER = create("pulverizer", PulverizerBlockEntity::new, Blocks.PULVERIZER);
 		public static final BlockEntityType<CompressorBlockEntity> COMPRESSOR = create("compressor", CompressorBlockEntity::new, Blocks.COMPRESSOR);
 		public static final BlockEntityType<ExtractorBlockEntity> EXTRACTOR = create("extractor", ExtractorBlockEntity::new, Blocks.EXTRACTOR);
-		public static final BlockEntityType<MolecularAssemblerBlockEntity> MOLECULAR_ASSEMBLER = create("atomic_reassembler", MolecularAssemblerBlockEntity::new, Blocks.MOLECULAR_ASSEMBLER);
+		public static final BlockEntityType<AtomicReassemblerBlockEntity> MOLECULAR_ASSEMBLER = create("atomic_reassembler", AtomicReassemblerBlockEntity::new, Blocks.ATOMIC_REASSEMBLER);
 		public static final BlockEntityType<BatteryBlockEntity> BATTERY_BOX = create("battery_box", BatteryBlockEntity::new, Blocks.BATTERY_BOX);
 		public static final BlockEntityType<ConduitBlockEntity> CONDUIT = create("conduit", ConduitBlockEntity::new, Blocks.COPPER_WIRE, Blocks.COPPER_CABLE, Blocks.COPPER_BUS_BAR, Blocks.ENERGY_CONDUIT);
 
@@ -328,7 +321,7 @@ public class SpaceFactory implements ModInitializer {
 		public static final RecipeType<PulverizerRecipe> PULVERIZING = create("pulverizing");
 		public static final RecipeType<CompressorRecipe> COMPRESSING = create("compressing");
 		public static final RecipeType<ExtractorRecipe> EXTRACTING = create("extracting");
-		public static final RecipeType<MolecularAssemblerRecipe> MOLECULAR_ASSEMBLY = create("atomic_reassembly");
+		public static final RecipeType<AtomicReassemblerRecipe> ATOMIC_REASSEMBLY = create("atomic_reassembly");
 
 		public static <T extends Recipe<?>> RecipeType<T> create(String name) {
 			return Registry.register(Registry.RECIPE_TYPE, id(name), new RecipeType<T>() {
@@ -349,7 +342,7 @@ public class SpaceFactory implements ModInitializer {
 		public static final RecipeSerializer<PulverizerRecipe> PULVERIZING = register("pulverizing", new SimpleMachineRecipe.Serializer<>(PulverizerRecipe::new, 300));
 		public static final RecipeSerializer<CompressorRecipe> COMPRESSING = register("compressing", new SimpleMachineRecipe.Serializer<>(CompressorRecipe::new, 400));
 		public static final RecipeSerializer<ExtractorRecipe> EXTRACTING = register("extracting", new SimpleMachineRecipe.Serializer<>(ExtractorRecipe::new, 400));
-		public static final RecipeSerializer<MolecularAssemblerRecipe> MOLECULAR_ASSEMBLY = register("atomic_reassembly", new MolecularAssemblerRecipe.Serializer(1000));
+		public static final RecipeSerializer<AtomicReassemblerRecipe> ATOMIC_REASSEMBLY = register("atomic_reassembly", new AtomicReassemblerRecipe.Serializer(1000));
 
 		public static <T extends RecipeSerializer<?>> T register(String name, T entry) {
 			return Registry.register(Registry.RECIPE_SERIALIZER, id(name), entry);

@@ -34,20 +34,20 @@ public class SpaceFactoryPlugin implements REIClientPlugin {
 	public static final CategoryIdentifier<PulverizingDisplay> PULVERIZER = CategoryIdentifier.of("spacefactory:pulverizing");
 	public static final CategoryIdentifier<CompressingDisplay> COMPRESSING = CategoryIdentifier.of("spacefactory:compressing");
 	public static final CategoryIdentifier<ExtractingDisplay> EXTRACTING = CategoryIdentifier.of("spacefactory:extracting");
-	public static final CategoryIdentifier<MolecularAssemblyDisplay> MOLECULAR_ASSEMBLY = CategoryIdentifier.of("spacefactory:atomic_reassembly");
+	public static final CategoryIdentifier<AtomicReassemblyDisplay> ATOMIC_REASSEMBLY = CategoryIdentifier.of("spacefactory:atomic_reassembly");
 
 	@Override
 	public void registerCategories(CategoryRegistry registry) {
 		registry.add(new SimpleMachineCategory(PULVERIZER, EntryStacks.of(SpaceFactory.Blocks.PULVERIZER), "category.spacefactory.pulverizing"));
 		registry.add(new SimpleMachineCategory(COMPRESSING, EntryStacks.of(SpaceFactory.Blocks.COMPRESSOR), "category.spacefactory.compressing"));
 		registry.add(new SimpleMachineCategory(EXTRACTING, EntryStacks.of(SpaceFactory.Blocks.EXTRACTOR), "category.spacefactory.extracting"));
-		registry.add(new MolecularAssemblyCategory(MOLECULAR_ASSEMBLY, EntryStacks.of(SpaceFactory.Blocks.MOLECULAR_ASSEMBLER), "category.spacefactory.atomic_reassembly"));
+		registry.add(new AtomicReassemblyCategory(ATOMIC_REASSEMBLY, EntryStacks.of(SpaceFactory.Blocks.ATOMIC_REASSEMBLER), "category.spacefactory.atomic_reassembly"));
 
 		registry.addWorkstations(BuiltinPlugin.SMELTING, EntryStacks.of(SpaceFactory.Blocks.ELECTRIC_FURNACE));
 		registry.addWorkstations(PULVERIZER, EntryStacks.of(SpaceFactory.Blocks.PULVERIZER));
 		registry.addWorkstations(COMPRESSING, EntryStacks.of(SpaceFactory.Blocks.COMPRESSOR));
 		registry.addWorkstations(EXTRACTING, EntryStacks.of(SpaceFactory.Blocks.EXTRACTOR));
-		registry.addWorkstations(MOLECULAR_ASSEMBLY, EntryStacks.of(SpaceFactory.Blocks.MOLECULAR_ASSEMBLER));
+		registry.addWorkstations(ATOMIC_REASSEMBLY, EntryStacks.of(SpaceFactory.Blocks.ATOMIC_REASSEMBLER));
 	}
 
 	@Override
@@ -55,7 +55,7 @@ public class SpaceFactoryPlugin implements REIClientPlugin {
 		registry.registerRecipeFiller(PulverizerRecipe.class, SpaceFactory.RecipeTypes.PULVERIZING, PulverizingDisplay::new);
 		registry.registerRecipeFiller(CompressorRecipe.class, SpaceFactory.RecipeTypes.COMPRESSING, CompressingDisplay::new);
 		registry.registerRecipeFiller(ExtractorRecipe.class, SpaceFactory.RecipeTypes.EXTRACTING, ExtractingDisplay::new);
-		registry.registerRecipeFiller(MolecularAssemblerRecipe.class, SpaceFactory.RecipeTypes.MOLECULAR_ASSEMBLY, MolecularAssemblyDisplay::new);
+		registry.registerRecipeFiller(AtomicReassemblerRecipe.class, SpaceFactory.RecipeTypes.ATOMIC_REASSEMBLY, AtomicReassemblyDisplay::new);
 
 		registry.registerGlobalDisplayGenerator(new DynamicDisplayGenerator<DefaultInformationDisplay>() {
 			@Override
@@ -73,8 +73,6 @@ public class SpaceFactoryPlugin implements REIClientPlugin {
 									display.line(translateWithNewLines("block.spacefactory.solar_panel.usage", SpaceFactory.Constants.SOLAR_PANEL_OUTPUT));
 								} else if (stack.getItem() == SpaceFactory.Items.DRAGON_ENERGY_ABSORBER) {
 									display.line(translateWithNewLines("block.spacefactory.dragon_energy_absorber.usage", SpaceFactory.Constants.DRAGON_EGG_SYPHON_OUTPUT));
-								} else if (stack.getItem() == SpaceFactory.Items.VANOVOLTAIC_CELL) {
-									display.line(translateWithNewLines("item.spacefactory.vanovoltaic_cell.usage", SpaceFactory.Constants.VANOVOLTAIC_CELL_GENERATION));
 								} else {
 									display.line(translateWithNewLines(key));
 								}
@@ -103,7 +101,7 @@ public class SpaceFactoryPlugin implements REIClientPlugin {
 		registry.registerContainerClickArea(new Rectangle(78, 31, 28, 23), PulverizerScreen.class, PULVERIZER);
 		registry.registerContainerClickArea(new Rectangle(78, 31, 28, 23), CompressorScreen.class, COMPRESSING);
 		registry.registerContainerClickArea(new Rectangle(78, 31, 28, 23), ExtractorScreen.class, EXTRACTING);
-		registry.registerContainerClickArea(new Rectangle(78, 31, 28, 23), MolecularAssemblerScreen.class, MOLECULAR_ASSEMBLY);
+		registry.registerContainerClickArea(new Rectangle(78, 31, 28, 23), MolecularAssemblerScreen.class, ATOMIC_REASSEMBLY);
 	}
 
 	public static List<EntryIngredient> toIngredientEntries(Ingredient ingredient, int count) {

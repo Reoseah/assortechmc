@@ -1,0 +1,10 @@
+{
+  "type": "spacefactory:compressing",
+  "ingredient": {
+    "item": "spacefactory:crystalite_dust",
+    "count": 2
+  },
+  "result": {
+    "item": "spacefactory:crystalite_matrix"
+  }
+}

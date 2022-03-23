@@ -10,7 +10,7 @@ import net.minecraft.screen.slot.Slot;
 import spacefactory.SpaceFactory;
 import spacefactory.api.EU;
 import spacefactory.block.entity.CraftingMachineBlockEntity;
-import spacefactory.block.entity.MolecularAssemblerBlockEntity;
+import spacefactory.block.entity.AtomicReassemblerBlockEntity;
 import spacefactory.screen.property.ReadProperty;
 import spacefactory.screen.property.WriteProperty;
 import spacefactory.screen.slot.GenericOutputSlot;
@@ -23,14 +23,14 @@ public class MolecularAssemblerScreenHandler extends AtScreenHandler {
     private MolecularAssemblerScreenHandler(int syncId, Inventory inventory, PlayerInventory user) {
         super(SpaceFactory.ScreenHandlerTypes.MOLECULAR_ASSEMBLER, syncId, inventory);
 
-        this.addQuickTransferSlot(stack -> true, new Slot(inventory, MolecularAssemblerBlockEntity.SLOT_INPUT_1, 53, 24));
-        this.addQuickTransferSlot(stack -> true, new Slot(inventory, MolecularAssemblerBlockEntity.SLOT_INPUT_2, 53, 46));
-        this.addQuickTransferSlot(EU::isElectricItem, 0, new Slot(inventory, MolecularAssemblerBlockEntity.SLOT_BATTERY, 8, 53));
-        this.addSlot(new GenericOutputSlot(inventory, MolecularAssemblerBlockEntity.SLOT_OUTPUT, 116, 35));
+        this.addQuickTransferSlot(stack -> true, new Slot(inventory, AtomicReassemblerBlockEntity.SLOT_INPUT_1, 53, 24));
+        this.addQuickTransferSlot(stack -> true, new Slot(inventory, AtomicReassemblerBlockEntity.SLOT_INPUT_2, 53, 46));
+        this.addQuickTransferSlot(EU::isElectricItem, 0, new Slot(inventory, AtomicReassemblerBlockEntity.SLOT_BATTERY, 8, 53));
+        this.addSlot(new GenericOutputSlot(inventory, AtomicReassemblerBlockEntity.SLOT_OUTPUT, 116, 35));
         this.addPlayerSlots(user);
     }
 
-    public MolecularAssemblerScreenHandler(int syncId, MolecularAssemblerBlockEntity be, PlayerEntity player) {
+    public MolecularAssemblerScreenHandler(int syncId, AtomicReassemblerBlockEntity be, PlayerEntity player) {
         this(syncId, be, player.getInventory());
 
         this.addProperty(new ReadProperty(() -> be.isActive() ? 1 : 0));

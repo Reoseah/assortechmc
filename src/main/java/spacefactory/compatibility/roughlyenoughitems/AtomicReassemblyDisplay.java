@@ -3,16 +3,15 @@ package spacefactory.compatibility.roughlyenoughitems;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.display.basic.BasicDisplay;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
-import spacefactory.recipe.MolecularAssemblerRecipe;
-import spacefactory.recipe.SimpleMachineRecipe;
+import spacefactory.recipe.AtomicReassemblerRecipe;
 
 import java.util.Collections;
 import java.util.Optional;
 
-public class MolecularAssemblyDisplay extends BasicDisplay {
+public class AtomicReassemblyDisplay extends BasicDisplay {
     private final int duration;
 
-    public MolecularAssemblyDisplay(MolecularAssemblerRecipe recipe) {
+    public AtomicReassemblyDisplay(AtomicReassemblerRecipe recipe) {
         super(SpaceFactoryPlugin.toIngredientEntries(recipe.input1, recipe.input2),
                 Collections.singletonList(EntryIngredients.of(recipe.getOutput())),
                 Optional.of(recipe.getId()));
@@ -25,6 +24,6 @@ public class MolecularAssemblyDisplay extends BasicDisplay {
 
     @Override
     public CategoryIdentifier<?> getCategoryIdentifier() {
-        return SpaceFactoryPlugin.MOLECULAR_ASSEMBLY;
+        return SpaceFactoryPlugin.ATOMIC_REASSEMBLY;
     }
 }

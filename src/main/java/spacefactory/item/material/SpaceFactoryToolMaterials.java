@@ -6,7 +6,7 @@ import spacefactory.SpaceFactory;
 
 public enum SpaceFactoryToolMaterials implements ToolMaterial {
 	BRONZE(2, 350, 5.5F, 2F, 16, Ingredient.fromTag(SpaceFactory.Items.BRONZE_INGOTS)),
-	REFINED_IRON(2, 750, 6.5F, 3F, 8, Ingredient.ofItems(SpaceFactory.Items.REFINED_IRON_INGOT));
+	REFINED_IRON(3, 750, 6.5F, 3F, 8, Ingredient.ofItems(SpaceFactory.Items.REFINED_IRON_INGOT));
 
 	private final int miningLevel;
 	private final int itemDurability;

@@ -13,7 +13,7 @@ import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 import spacefactory.SpaceFactory;
 
-public class MolecularAssemblerRecipe implements Recipe<Inventory> {
+public class AtomicReassemblerRecipe implements Recipe<Inventory> {
     public final Identifier id;
     public final IngredientCount input1;
     public final IngredientCount input2;
@@ -21,7 +21,7 @@ public class MolecularAssemblerRecipe implements Recipe<Inventory> {
     public final float experience;
     public final int duration;
 
-    public MolecularAssemblerRecipe(Identifier id, IngredientCount input1, IngredientCount input2, ItemStack output, float experience, int duration) {
+    public AtomicReassemblerRecipe(Identifier id, IngredientCount input1, IngredientCount input2, ItemStack output, float experience, int duration) {
         this.id = id;
         this.input1 = input1;
         this.input2 = input2;
@@ -55,12 +55,12 @@ public class MolecularAssemblerRecipe implements Recipe<Inventory> {
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return SpaceFactory.RecipeSerializers.MOLECULAR_ASSEMBLY;
+        return SpaceFactory.RecipeSerializers.ATOMIC_REASSEMBLY;
     }
 
     @Override
     public RecipeType<?> getType() {
-        return SpaceFactory.RecipeTypes.MOLECULAR_ASSEMBLY;
+        return SpaceFactory.RecipeTypes.ATOMIC_REASSEMBLY;
     }
 
     @Override
@@ -77,7 +77,7 @@ public class MolecularAssemblerRecipe implements Recipe<Inventory> {
         return this.duration;
     }
 
-    public static class Serializer implements RecipeSerializer<MolecularAssemblerRecipe> {
+    public static class Serializer implements RecipeSerializer<AtomicReassemblerRecipe> {
         protected final int defaultDuration;
 
         public Serializer(int defaultDuration) {
@@ -85,7 +85,7 @@ public class MolecularAssemblerRecipe implements Recipe<Inventory> {
         }
 
         @Override
-        public MolecularAssemblerRecipe read(Identifier id, JsonObject json) {
+        public AtomicReassemblerRecipe read(Identifier id, JsonObject json) {
             JsonArray ingredientsJson = JsonHelper.getArray(json, "input");
             if (ingredientsJson.size() > 2) {
                 throw new JsonParseException("Molecular Assembler recipe takes at most 2 items");
@@ -96,21 +96,21 @@ public class MolecularAssemblerRecipe implements Recipe<Inventory> {
             ItemStack output = ShapedRecipe.outputFromJson(JsonHelper.getObject(json, "result"));
             float experience = JsonHelper.getFloat(json, "experience", 0.0F);
             int cost = JsonHelper.getInt(json, "duration", this.defaultDuration);
-            return new MolecularAssemblerRecipe(id, input1, input2, output, experience, cost);
+            return new AtomicReassemblerRecipe(id, input1, input2, output, experience, cost);
         }
 
         @Override
-        public MolecularAssemblerRecipe read(Identifier id, PacketByteBuf buf) {
+        public AtomicReassemblerRecipe read(Identifier id, PacketByteBuf buf) {
             IngredientCount input1 = IngredientCount.fromPacket(buf);
             IngredientCount input2 = IngredientCount.fromPacket(buf);
             ItemStack output = buf.readItemStack();
             float experience = buf.readFloat();
             int cost = buf.readVarInt();
-            return new MolecularAssemblerRecipe(id, input1, input2, output, experience, cost);
+            return new AtomicReassemblerRecipe(id, input1, input2, output, experience, cost);
         }
 
         @Override
-        public void write(PacketByteBuf buf, MolecularAssemblerRecipe recipe) {
+        public void write(PacketByteBuf buf, AtomicReassemblerRecipe recipe) {
             recipe.input1.write(buf);
             recipe.input2.write(buf);
             buf.writeItemStack(recipe.output);

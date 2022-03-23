@@ -11,10 +11,10 @@ import net.minecraft.util.math.Direction;
 import org.jetbrains.annotations.Nullable;
 import spacefactory.SpaceFactory;
 import spacefactory.api.EU;
-import spacefactory.recipe.MolecularAssemblerRecipe;
+import spacefactory.recipe.AtomicReassemblerRecipe;
 import spacefactory.screen.MolecularAssemblerScreenHandler;
 
-public class MolecularAssemblerBlockEntity extends CraftingMachineBlockEntity<MolecularAssemblerRecipe> {
+public class AtomicReassemblerBlockEntity extends CraftingMachineBlockEntity<AtomicReassemblerRecipe> {
 	public static final int SLOT_INPUT_1 = 0;
 	public static final int SLOT_INPUT_2 = 1;
 	public static final int SLOT_BATTERY = 2;
@@ -24,7 +24,7 @@ public class MolecularAssemblerBlockEntity extends CraftingMachineBlockEntity<Mo
 	private static final int[] BOTTOM_SLOTS = {SLOT_OUTPUT, SLOT_BATTERY};
 	private static final int[] SIDE_SLOTS = {SLOT_BATTERY};
 
-	public MolecularAssemblerBlockEntity(BlockPos pos, BlockState state) {
+	public AtomicReassemblerBlockEntity(BlockPos pos, BlockState state) {
 		super(SpaceFactory.BlockEntityTypes.MOLECULAR_ASSEMBLER, pos, state);
 	}
 
@@ -34,8 +34,8 @@ public class MolecularAssemblerBlockEntity extends CraftingMachineBlockEntity<Mo
 	}
 
 	@Override
-	protected RecipeType<MolecularAssemblerRecipe> getRecipeType() {
-		return SpaceFactory.RecipeTypes.MOLECULAR_ASSEMBLY;
+	protected RecipeType<AtomicReassemblerRecipe> getRecipeType() {
+		return SpaceFactory.RecipeTypes.ATOMIC_REASSEMBLY;
 	}
 
 	@Override
@@ -43,7 +43,7 @@ public class MolecularAssemblerBlockEntity extends CraftingMachineBlockEntity<Mo
 		return 10;
 	}
 
-	protected boolean canAcceptRecipeOutput(@Nullable MolecularAssemblerRecipe recipe) {
+	protected boolean canAcceptRecipeOutput(@Nullable AtomicReassemblerRecipe recipe) {
 		if (recipe == null
 				|| this.inventory.get(SLOT_INPUT_1).isEmpty()
 				|| this.inventory.get(SLOT_INPUT_2).isEmpty()) {
@@ -52,7 +52,7 @@ public class MolecularAssemblerBlockEntity extends CraftingMachineBlockEntity<Mo
 		return this.canAccept(SLOT_OUTPUT, recipe.getOutput());
 	}
 
-	protected void craftRecipe(@Nullable MolecularAssemblerRecipe recipe) {
+	protected void craftRecipe(@Nullable AtomicReassemblerRecipe recipe) {
 		if (this.canAcceptRecipeOutput(recipe)) {
 			assert recipe != null;
 
@@ -74,7 +74,7 @@ public class MolecularAssemblerBlockEntity extends CraftingMachineBlockEntity<Mo
 	}
 
 	@Override
-	protected int getRecipeDuration(MolecularAssemblerRecipe recipe) {
+	protected int getRecipeDuration(AtomicReassemblerRecipe recipe) {
 		return recipe.getDuration();
 	}
 

@@ -19,12 +19,12 @@ import spacefactory.compatibility.roughlyenoughitems.widgets.MachineArrowWidget;
 import java.util.Collections;
 import java.util.List;
 
-public class MolecularAssemblyCategory implements DisplayCategory<MolecularAssemblyDisplay> {
-    private final CategoryIdentifier<? extends MolecularAssemblyDisplay> id;
+public class AtomicReassemblyCategory implements DisplayCategory<AtomicReassemblyDisplay> {
+    private final CategoryIdentifier<? extends AtomicReassemblyDisplay> id;
     private final EntryStack<?> logo;
     private final String name;
 
-    public MolecularAssemblyCategory(CategoryIdentifier<? extends MolecularAssemblyDisplay> id, EntryStack<?> logo, String name) {
+    public AtomicReassemblyCategory(CategoryIdentifier<? extends AtomicReassemblyDisplay> id, EntryStack<?> logo, String name) {
         this.id = id;
         this.logo = logo;
         this.name = name;
@@ -41,21 +41,21 @@ public class MolecularAssemblyCategory implements DisplayCategory<MolecularAssem
     }
 
     @Override
-    public CategoryIdentifier<? extends MolecularAssemblyDisplay> getCategoryIdentifier() {
+    public CategoryIdentifier<? extends AtomicReassemblyDisplay> getCategoryIdentifier() {
         return this.id;
     }
 
-    public DisplayRenderer getDisplayRenderer(MolecularAssemblyDisplay display) {
+    public DisplayRenderer getDisplayRenderer(AtomicReassemblyDisplay display) {
         return SimpleDisplayRenderer.from(Collections.singletonList(display.getInputEntries().get(0)), display.getOutputEntries());
     }
 
-    public List<Widget> setupDisplay(MolecularAssemblyDisplay display, Rectangle bounds) {
+    public List<Widget> setupDisplay(AtomicReassemblyDisplay display, Rectangle bounds) {
         Point startPoint = new Point(bounds.getCenterX() - 41, bounds.getCenterY() - 27);
 
         Widget base = Widgets.createRecipeBase(bounds);
         Widget resultBackground = Widgets.createResultSlotBackground(new Point(startPoint.x + 61, startPoint.y + 19));
         Widget energy = new EnergyCostWidget(new Rectangle(startPoint.x + 1, startPoint.y + 39, 14, 14)).animationDurationMS(10000.0D);
-        Widget arrow = new MachineArrowWidget(new Rectangle(startPoint.x + 24, startPoint.y + 18, 24, 17), MachineArrowWidget.Type.MOLECULAR_ASSEMBLY).cost(this.getEuPerTick(), this.getEuTotal(display)).animationDurationTicks(display.getDuration());
+        Widget arrow = new MachineArrowWidget(new Rectangle(startPoint.x + 24, startPoint.y + 18, 24, 17), MachineArrowWidget.Type.ATOMIC_REASSEMBLY).cost(this.getEuPerTick(), this.getEuTotal(display)).animationDurationTicks(display.getDuration());
         Widget output = Widgets.createSlot(new Point(startPoint.x + 61, startPoint.y + 19)).entries(display.getOutputEntries().get(0)).disableBackground().markOutput();
         Widget input1 = Widgets.createSlot(new Point(startPoint.x + 1, startPoint.y + 1)).entries(display.getInputEntries().get(0)).markInput();
         Widget input2 = Widgets.createSlot(new Point(startPoint.x + 1, startPoint.y + 19)).entries(display.getInputEntries().get(1)).markInput();
@@ -67,7 +67,7 @@ public class MolecularAssemblyCategory implements DisplayCategory<MolecularAssem
         return 10;
     }
 
-    private int getEuTotal(MolecularAssemblyDisplay display) {
+    private int getEuTotal(AtomicReassemblyDisplay display) {
         return this.getEuPerTick() * display.getDuration();
     }
 }
