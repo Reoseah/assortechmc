@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SBS",
+    "SRS",
+    "SGS"
+  ],
+  "key": {
+    "S": {
+      "item": "minecraft:string"
+    },
+    "R": {
+      "item": "spacefactory:raw_rubber"
+    },
+    "B": {
+      "item": "minecraft:black_dye"
+    },
+    "G": {
+      "item": "minecraft:green_dye"
+    }
+  },
+  "result": {
+    "item": "spacefactory:camouflage_cloth"
+  }
+}

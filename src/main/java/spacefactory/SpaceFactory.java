@@ -58,6 +58,7 @@ import net.minecraft.world.gen.trunk.StraightTrunkPlacer;
 import spacefactory.api.EnergyTier;
 import spacefactory.core.item.*;
 import spacefactory.core.recipe.SimpleMachineRecipe;
+import spacefactory.features.PotatoBatteryItem;
 import spacefactory.features.atomic_reassembler.AtomicReassemblerBlock;
 import spacefactory.features.atomic_reassembler.AtomicReassemblerBlockEntity;
 import spacefactory.features.atomic_reassembler.AtomicReassemblerRecipe;
@@ -94,7 +95,6 @@ import spacefactory.features.rubber_tree.RubberSaplingBlock;
 import spacefactory.features.solar_panel.SolarPanelBlock;
 import spacefactory.features.solar_panel.SolarPanelBlockEntity;
 import spacefactory.features.solar_panel.SolarPanelScreenHandler;
-import spacefactory.features.PotatoBatteryItem;
 import spacefactory.mixin.BlocksAccessor;
 import spacefactory.mixin.FoliagePlacerTypeInvoker;
 
@@ -287,10 +287,12 @@ public class SpaceFactory implements ModInitializer {
 		public static final Item MACHETE = register("refined_iron_machete", new MacheteItem(ToolMaterials.REFINED_IRON, 3, -2.4F, settings()));
 		public static final Item REFINED_IRON_UNICUTTER = register("refined_iron_unicutter", new UnicutterItem(ToolMaterials.REFINED_IRON, -1, -1F, settings().maxDamage(256)));
 
+		public static final Item CAMOUFLAGE_CLOTH = register("camouflage_cloth", new Item(settings()));
+
 		public static final Item CRYSTALITE_BLOCK = register("crystalite_block", new BlockItem(Blocks.CRYSTALITE_BLOCK, settings().rarity(Rarity.UNCOMMON)));
 		public static final Item CRYSTALITE_MATRIX = register("crystalite_matrix", new Item(settings().rarity(Rarity.RARE).maxCount(16)));
-		public static final Item RAW_CRYSTALITE_DUST = register("raw_crystalite_dust", new Item(settings()));
 		public static final Item CRYSTALITE_DUST = register("crystalite_dust", new Item(settings().rarity(Rarity.RARE)));
+		public static final Item RAW_CRYSTALITE_DUST = register("raw_crystalite_dust", new Item(settings()));
 		public static final Item QUANTUM_CIRCUIT = register("quantum_circuit", new Item(settings().rarity(Rarity.UNCOMMON)));
 
 		public static final Item END_STONE_IRIDIUM_ORE = register("end_stone_iridium_ore", new BlockItem(Blocks.END_STONE_IRIDIUM_ORE, settings().rarity(Rarity.UNCOMMON)));
@@ -512,70 +514,70 @@ public class SpaceFactory implements ModInitializer {
 	}
 
 	public enum ArmorMaterials implements ArmorMaterial {
-	    BRONZE("spacefactory_bronze", 20, new int[]{2, 5, 6, 2}, 12, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 0.0F, 0.0F, Ingredient.fromTag(Items.BRONZE_INGOTS));
+		BRONZE("spacefactory_bronze", 20, new int[]{2, 5, 6, 2}, 12, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 0.0F, 0.0F, Ingredient.fromTag(Items.BRONZE_INGOTS));
 
-	    private static final int[] BASE_DURABILITY = {13, 15, 16, 11};
+		private static final int[] BASE_DURABILITY = {13, 15, 16, 11};
 
-	    private final String name;
-	    private final int durabilityMultiplier;
-	    private final int[] protectionAmounts;
-	    private final int enchantability;
-	    private final SoundEvent equipSound;
-	    private final float toughness;
-	    private final float knockbackResistance;
-	    private final Ingredient repairIngredient;
+		private final String name;
+		private final int durabilityMultiplier;
+		private final int[] protectionAmounts;
+		private final int enchantability;
+		private final SoundEvent equipSound;
+		private final float toughness;
+		private final float knockbackResistance;
+		private final Ingredient repairIngredient;
 
-	    ArmorMaterials(String name, int durabilityMultiplier, int[] protectionAmounts, int enchantability, SoundEvent equipSound, float toughness, float knockbackResistance, Ingredient repairIngredient) {
-	        this.name = name;
-	        this.durabilityMultiplier = durabilityMultiplier;
-	        this.protectionAmounts = protectionAmounts;
-	        this.enchantability = enchantability;
-	        this.equipSound = equipSound;
-	        this.toughness = toughness;
-	        this.knockbackResistance = knockbackResistance;
-	        this.repairIngredient = repairIngredient;
-	    }
+		ArmorMaterials(String name, int durabilityMultiplier, int[] protectionAmounts, int enchantability, SoundEvent equipSound, float toughness, float knockbackResistance, Ingredient repairIngredient) {
+			this.name = name;
+			this.durabilityMultiplier = durabilityMultiplier;
+			this.protectionAmounts = protectionAmounts;
+			this.enchantability = enchantability;
+			this.equipSound = equipSound;
+			this.toughness = toughness;
+			this.knockbackResistance = knockbackResistance;
+			this.repairIngredient = repairIngredient;
+		}
 
-	    @Override
-	    public int getDurability(EquipmentSlot slot) {
-	        return BASE_DURABILITY[slot.getEntitySlotId()] * this.durabilityMultiplier;
-	    }
+		@Override
+		public int getDurability(EquipmentSlot slot) {
+			return BASE_DURABILITY[slot.getEntitySlotId()] * this.durabilityMultiplier;
+		}
 
-	    @Override
-	    public int getProtectionAmount(EquipmentSlot slot) {
-	        return this.protectionAmounts[slot.getEntitySlotId()];
-	    }
+		@Override
+		public int getProtectionAmount(EquipmentSlot slot) {
+			return this.protectionAmounts[slot.getEntitySlotId()];
+		}
 
-	    @Override
-	    public int getEnchantability() {
-	        return this.enchantability;
-	    }
+		@Override
+		public int getEnchantability() {
+			return this.enchantability;
+		}
 
-	    @Override
-	    public SoundEvent getEquipSound() {
-	        return this.equipSound;
-	    }
+		@Override
+		public SoundEvent getEquipSound() {
+			return this.equipSound;
+		}
 
-	    @Override
-	    public Ingredient getRepairIngredient() {
-	        return this.repairIngredient;
-	    }
+		@Override
+		public Ingredient getRepairIngredient() {
+			return this.repairIngredient;
+		}
 
-	    @Override
-	    @Environment(EnvType.CLIENT)
-	    public String getName() {
-	        return this.name;
-	    }
+		@Override
+		@Environment(EnvType.CLIENT)
+		public String getName() {
+			return this.name;
+		}
 
-	    @Override
-	    public float getToughness() {
-	        return this.toughness;
-	    }
+		@Override
+		public float getToughness() {
+			return this.toughness;
+		}
 
-	    @Override
-	    public float getKnockbackResistance() {
-	        return this.knockbackResistance;
-	    }
+		@Override
+		public float getKnockbackResistance() {
+			return this.knockbackResistance;
+		}
 	}
 
 	public enum ToolMaterials implements ToolMaterial {
