@@ -21,8 +21,16 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 import spacefactory.SpaceFactory;
-import spacefactory.recipe.*;
-import spacefactory.screen.client.*;
+import spacefactory.core.recipe.IngredientCount;
+import spacefactory.features.atomic_reassembler.AtomicReassemblerRecipe;
+import spacefactory.features.atomic_reassembler.AtomicReassemblerScreen;
+import spacefactory.features.compressor.CompressorRecipe;
+import spacefactory.features.compressor.CompressorScreen;
+import spacefactory.features.electric_furnace.ElectricFurnaceScreen;
+import spacefactory.features.extractor.ExtractorRecipe;
+import spacefactory.features.extractor.ExtractorScreen;
+import spacefactory.features.pulverizer.PulverizerRecipe;
+import spacefactory.features.pulverizer.PulverizerScreen;
 
 import java.util.Arrays;
 import java.util.List;
@@ -101,7 +109,7 @@ public class SpaceFactoryPlugin implements REIClientPlugin {
 		registry.registerContainerClickArea(new Rectangle(78, 31, 28, 23), PulverizerScreen.class, PULVERIZER);
 		registry.registerContainerClickArea(new Rectangle(78, 31, 28, 23), CompressorScreen.class, COMPRESSING);
 		registry.registerContainerClickArea(new Rectangle(78, 31, 28, 23), ExtractorScreen.class, EXTRACTING);
-		registry.registerContainerClickArea(new Rectangle(78, 31, 28, 23), MolecularAssemblerScreen.class, ATOMIC_REASSEMBLY);
+		registry.registerContainerClickArea(new Rectangle(78, 31, 28, 23), AtomicReassemblerScreen.class, ATOMIC_REASSEMBLY);
 	}
 
 	public static List<EntryIngredient> toIngredientEntries(Ingredient ingredient, int count) {

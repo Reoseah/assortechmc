@@ -1,6 +1,6 @@
 package spacefactory.compatibility.roughlyenoughitems;
 
-import spacefactory.recipe.CompressorRecipe;
+import spacefactory.features.compressor.CompressorRecipe;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 
 public class CompressingDisplay extends SimpleMachineDisplay {

@@ -3,7 +3,7 @@ package spacefactory.compatibility.roughlyenoughitems;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.display.basic.BasicDisplay;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
-import spacefactory.recipe.AtomicReassemblerRecipe;
+import spacefactory.features.atomic_reassembler.AtomicReassemblerRecipe;
 
 import java.util.Collections;
 import java.util.Optional;

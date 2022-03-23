@@ -1,6 +1,6 @@
 package spacefactory.compatibility.roughlyenoughitems;
 
-import spacefactory.recipe.ExtractorRecipe;
+import spacefactory.features.extractor.ExtractorRecipe;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 
 public class ExtractingDisplay extends SimpleMachineDisplay {

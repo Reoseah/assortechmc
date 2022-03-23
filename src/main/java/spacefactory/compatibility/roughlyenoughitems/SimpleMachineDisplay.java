@@ -1,6 +1,6 @@
 package spacefactory.compatibility.roughlyenoughitems;
 
-import spacefactory.recipe.SimpleMachineRecipe;
+import spacefactory.core.recipe.SimpleMachineRecipe;
 import me.shedaniel.rei.api.common.display.basic.BasicDisplay;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
 

@@ -1,6 +1,6 @@
 package spacefactory.compatibility.roughlyenoughitems;
 
-import spacefactory.recipe.PulverizerRecipe;
+import spacefactory.features.pulverizer.PulverizerRecipe;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 
 public class PulverizingDisplay extends SimpleMachineDisplay {

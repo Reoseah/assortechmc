@@ -18,7 +18,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
-import spacefactory.screen.client.*;
+import spacefactory.features.atomic_reassembler.AtomicReassemblerScreen;
+import spacefactory.features.battery.BatteryBoxScreen;
+import spacefactory.features.compressor.CompressorScreen;
+import spacefactory.features.electric_furnace.ElectricFurnaceScreen;
+import spacefactory.features.extractor.ExtractorScreen;
+import spacefactory.features.generator.GeneratorScreen;
+import spacefactory.features.pulverizer.PulverizerScreen;
+import spacefactory.features.solar_panel.SolarPanelScreen;
 
 @Environment(EnvType.CLIENT)
 public class SpaceFactoryClient implements ClientModInitializer {
@@ -50,7 +57,7 @@ public class SpaceFactoryClient implements ClientModInitializer {
         ScreenRegistry.register(SpaceFactory.ScreenHandlerTypes.ELECTRIC_FURNACE, ElectricFurnaceScreen::new);
         ScreenRegistry.register(SpaceFactory.ScreenHandlerTypes.PULVERIZER, PulverizerScreen::new);
         ScreenRegistry.register(SpaceFactory.ScreenHandlerTypes.COMPRESSOR, CompressorScreen::new);
-        ScreenRegistry.register(SpaceFactory.ScreenHandlerTypes.MOLECULAR_ASSEMBLER, MolecularAssemblerScreen::new);
+        ScreenRegistry.register(SpaceFactory.ScreenHandlerTypes.MOLECULAR_ASSEMBLER, AtomicReassemblerScreen::new);
         ScreenRegistry.register(SpaceFactory.ScreenHandlerTypes.EXTRACTOR, ExtractorScreen::new);
         ScreenRegistry.register(SpaceFactory.ScreenHandlerTypes.BATTERY_BOX, BatteryBoxScreen::new);
 

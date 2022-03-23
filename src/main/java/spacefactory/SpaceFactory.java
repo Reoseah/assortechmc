@@ -4,6 +4,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
 import com.mojang.serialization.Codec;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
@@ -23,11 +25,14 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.*;
+import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.property.Properties;
 import net.minecraft.tag.TagKey;
 import net.minecraft.util.Identifier;
@@ -51,18 +56,47 @@ import net.minecraft.world.gen.stateprovider.BlockStateProvider;
 import net.minecraft.world.gen.stateprovider.SimpleBlockStateProvider;
 import net.minecraft.world.gen.trunk.StraightTrunkPlacer;
 import spacefactory.api.EnergyTier;
-import spacefactory.block.ConduitBlock;
-import spacefactory.block.*;
-import spacefactory.block.entity.*;
-import spacefactory.block.entity.conduit.ConduitBlockEntity;
-import spacefactory.feature.RubberFoliagePlacer;
-import spacefactory.item.*;
-import spacefactory.item.material.SpaceFactoryArmorMaterials;
-import spacefactory.item.material.SpaceFactoryToolMaterials;
+import spacefactory.core.item.*;
+import spacefactory.core.recipe.SimpleMachineRecipe;
+import spacefactory.features.atomic_reassembler.AtomicReassemblerBlock;
+import spacefactory.features.atomic_reassembler.AtomicReassemblerBlockEntity;
+import spacefactory.features.atomic_reassembler.AtomicReassemblerRecipe;
+import spacefactory.features.atomic_reassembler.AtomicReassemblerScreenHandler;
+import spacefactory.features.battery.BatteryBlock;
+import spacefactory.features.battery.BatteryBlockEntity;
+import spacefactory.features.battery.BatteryBoxScreenHandler;
+import spacefactory.features.compressor.CompressorBlock;
+import spacefactory.features.compressor.CompressorBlockEntity;
+import spacefactory.features.compressor.CompressorRecipe;
+import spacefactory.features.compressor.CompressorScreenHandler;
+import spacefactory.features.conduit.ConduitBlock;
+import spacefactory.features.conduit.ConduitBlockEntity;
+import spacefactory.features.dragon_egg_siphon.DragonEggSiphonBlock;
+import spacefactory.features.dragon_egg_siphon.DragonEggSiphonBlockEntity;
+import spacefactory.features.electric_furnace.ElectricFurnaceBlock;
+import spacefactory.features.electric_furnace.ElectricFurnaceBlockEntity;
+import spacefactory.features.electric_furnace.ElectricFurnaceScreenHandler;
+import spacefactory.features.extractor.ExtractorBlock;
+import spacefactory.features.extractor.ExtractorBlockEntity;
+import spacefactory.features.extractor.ExtractorRecipe;
+import spacefactory.features.extractor.ExtractorScreenHandler;
+import spacefactory.features.generator.GeneratorBlock;
+import spacefactory.features.generator.GeneratorBlockEntity;
+import spacefactory.features.generator.GeneratorScreenHandler;
+import spacefactory.features.glypheon_resonance_absorber.GlypheonResonanceAbsorberBlock;
+import spacefactory.features.pulverizer.PulverizerBlock;
+import spacefactory.features.pulverizer.PulverizerBlockEntity;
+import spacefactory.features.pulverizer.PulverizerRecipe;
+import spacefactory.features.pulverizer.PulverizerScreenHandler;
+import spacefactory.features.rubber_tree.AliveRubberLogBlock;
+import spacefactory.features.rubber_tree.RubberFoliagePlacer;
+import spacefactory.features.rubber_tree.RubberSaplingBlock;
+import spacefactory.features.solar_panel.SolarPanelBlock;
+import spacefactory.features.solar_panel.SolarPanelBlockEntity;
+import spacefactory.features.solar_panel.SolarPanelScreenHandler;
+import spacefactory.features.PotatoBatteryItem;
 import spacefactory.mixin.BlocksAccessor;
 import spacefactory.mixin.FoliagePlacerTypeInvoker;
-import spacefactory.recipe.*;
-import spacefactory.screen.*;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -93,13 +127,13 @@ public class SpaceFactory implements ModInitializer {
 		FoliagePlacers.init();
 		ConfiguredFeatures.init();
 		PlacedFeatures.init();
-		ConfiguredFeaturesDependent.init();
-		PlacedFeaturesDependent.init();
+		BiomeConfiguredFeatures.init();
+		BiomePlacedFeatures.init();
 
 		BiomeModifications.create(id("features")) //
 				.add(ModificationPhase.ADDITIONS, BiomeSelectors.categories(Biome.Category.SWAMP, Biome.Category.JUNGLE, Biome.Category.FOREST, Biome.Category.RIVER), (context) -> {
 					if (config.generateRubberTrees) {
-						RegistryKey<PlacedFeature> key = BuiltinRegistries.PLACED_FEATURE.getKey(PlacedFeaturesDependent.RUBBER_TREE_PATCH).orElseThrow();
+						RegistryKey<PlacedFeature> key = BuiltinRegistries.PLACED_FEATURE.getKey(BiomePlacedFeatures.RUBBER_TREE_PATCH).orElseThrow();
 						context.getGenerationSettings().addFeature(GenerationStep.Feature.VEGETAL_DECORATION, key);
 					}
 				});
@@ -216,15 +250,15 @@ public class SpaceFactory implements ModInitializer {
 		public static final Item BRONZE_INGOT = register("bronze_ingot", new Item(settings()));
 		public static final Item BRONZE_NUGGET = register("bronze_nugget", new Item(settings()));
 		public static final Item BRONZE_DUST = register("bronze_dust", new Item(settings()));
-		public static final Item BRONZE_SWORD = register("bronze_sword", new SwordItem(SpaceFactoryToolMaterials.BRONZE, 3, -2.4F, settings()));
-		public static final Item BRONZE_SHOVEL = register("bronze_shovel", new ShovelItem(SpaceFactoryToolMaterials.BRONZE, 1.5F, -3.0F, settings()));
-		public static final Item BRONZE_PICKAXE = register("bronze_pickaxe", new AccessiblePickaxeItem(SpaceFactoryToolMaterials.BRONZE, 1, -2.8F, settings()));
-		public static final Item BRONZE_AXE = register("bronze_axe", new AccessibleAxeItem(SpaceFactoryToolMaterials.BRONZE, 6, -3.1F, settings()));
-		public static final Item BRONZE_HOE = register("bronze_hoe", new AccessibleHoeItem(SpaceFactoryToolMaterials.BRONZE, -2, -1.5F, settings()));
-		public static final Item BRONZE_HELMET = register("bronze_helmet", new ArmorItem(SpaceFactoryArmorMaterials.BRONZE, EquipmentSlot.HEAD, settings()));
-		public static final Item BRONZE_CHESTPLATE = register("bronze_chestplate", new ArmorItem(SpaceFactoryArmorMaterials.BRONZE, EquipmentSlot.CHEST, settings()));
-		public static final Item BRONZE_LEGGINGS = register("bronze_leggings", new ArmorItem(SpaceFactoryArmorMaterials.BRONZE, EquipmentSlot.LEGS, settings()));
-		public static final Item BRONZE_BOOTS = register("bronze_boots", new ArmorItem(SpaceFactoryArmorMaterials.BRONZE, EquipmentSlot.FEET, settings()));
+		public static final Item BRONZE_SWORD = register("bronze_sword", new SwordItem(ToolMaterials.BRONZE, 3, -2.4F, settings()));
+		public static final Item BRONZE_SHOVEL = register("bronze_shovel", new ShovelItem(ToolMaterials.BRONZE, 1.5F, -3.0F, settings()));
+		public static final Item BRONZE_PICKAXE = register("bronze_pickaxe", new AccessiblePickaxeItem(ToolMaterials.BRONZE, 1, -2.8F, settings()));
+		public static final Item BRONZE_AXE = register("bronze_axe", new AccessibleAxeItem(ToolMaterials.BRONZE, 6, -3.1F, settings()));
+		public static final Item BRONZE_HOE = register("bronze_hoe", new AccessibleHoeItem(ToolMaterials.BRONZE, -2, -1.5F, settings()));
+		public static final Item BRONZE_HELMET = register("bronze_helmet", new ArmorItem(ArmorMaterials.BRONZE, EquipmentSlot.HEAD, settings()));
+		public static final Item BRONZE_CHESTPLATE = register("bronze_chestplate", new ArmorItem(ArmorMaterials.BRONZE, EquipmentSlot.CHEST, settings()));
+		public static final Item BRONZE_LEGGINGS = register("bronze_leggings", new ArmorItem(ArmorMaterials.BRONZE, EquipmentSlot.LEGS, settings()));
+		public static final Item BRONZE_BOOTS = register("bronze_boots", new ArmorItem(ArmorMaterials.BRONZE, EquipmentSlot.FEET, settings()));
 
 
 		public static final Item COPPER_WIRE = register("copper_wire", new BlockItem(Blocks.COPPER_WIRE, settings()));
@@ -250,8 +284,8 @@ public class SpaceFactory implements ModInitializer {
 		public static final Item REFINED_IRON_DUST = register("refined_iron_dust", new Item(settings()));
 		public static final Item SMALL_REFINED_IRON_DUST = register("small_refined_iron_dust", new Item(settings()));
 
-		public static final Item MACHETE = register("refined_iron_machete", new MacheteItem(SpaceFactoryToolMaterials.REFINED_IRON, 3, -2.4F, settings()));
-		public static final Item REFINED_IRON_UNICUTTER = register("refined_iron_unicutter", new UnicutterItem(SpaceFactoryToolMaterials.REFINED_IRON, -1, -1F, settings().maxDamage(256)));
+		public static final Item MACHETE = register("refined_iron_machete", new MacheteItem(ToolMaterials.REFINED_IRON, 3, -2.4F, settings()));
+		public static final Item REFINED_IRON_UNICUTTER = register("refined_iron_unicutter", new UnicutterItem(ToolMaterials.REFINED_IRON, -1, -1F, settings().maxDamage(256)));
 
 		public static final Item CRYSTALITE_BLOCK = register("crystalite_block", new BlockItem(Blocks.CRYSTALITE_BLOCK, settings().rarity(Rarity.UNCOMMON)));
 		public static final Item CRYSTALITE_MATRIX = register("crystalite_matrix", new Item(settings().rarity(Rarity.RARE).maxCount(16)));
@@ -317,7 +351,6 @@ public class SpaceFactory implements ModInitializer {
 	}
 
 	public static class RecipeTypes {
-		public static final RecipeType<EmptyRecipe> EMPTY = create("empty");
 		public static final RecipeType<PulverizerRecipe> PULVERIZING = create("pulverizing");
 		public static final RecipeType<CompressorRecipe> COMPRESSING = create("compressing");
 		public static final RecipeType<ExtractorRecipe> EXTRACTING = create("extracting");
@@ -337,8 +370,6 @@ public class SpaceFactory implements ModInitializer {
 	}
 
 	public static class RecipeSerializers {
-		public static final RecipeSerializer<EmptyRecipe> EMPTY = register("empty", new EmptyRecipe.Serializer());
-		public static final RecipeSerializer<?> CONDITIONAL = register("conditional", new ConditionalRecipeSerializer());
 		public static final RecipeSerializer<PulverizerRecipe> PULVERIZING = register("pulverizing", new SimpleMachineRecipe.Serializer<>(PulverizerRecipe::new, 300));
 		public static final RecipeSerializer<CompressorRecipe> COMPRESSING = register("compressing", new SimpleMachineRecipe.Serializer<>(CompressorRecipe::new, 400));
 		public static final RecipeSerializer<ExtractorRecipe> EXTRACTING = register("extracting", new SimpleMachineRecipe.Serializer<>(ExtractorRecipe::new, 400));
@@ -392,7 +423,7 @@ public class SpaceFactory implements ModInitializer {
 		}
 	}
 
-	public static class ConfiguredFeaturesDependent {
+	public static class BiomeConfiguredFeatures {
 		public static final ConfiguredFeature<RandomPatchFeatureConfig, ?> RUBBER_TREE_PATCH = ConfiguredFeatures.register("rubber_tree_patch", //
 				new ConfiguredFeature<>(Feature.RANDOM_PATCH, //
 						net.minecraft.world.gen.feature.ConfiguredFeatures.createRandomPatchFeatureConfig(6, getEntry(BuiltinRegistries.PLACED_FEATURE, PlacedFeatures.RUBBER_TREE))));
@@ -401,8 +432,8 @@ public class SpaceFactory implements ModInitializer {
 		}
 	}
 
-	public static class PlacedFeaturesDependent {
-		public static final PlacedFeature RUBBER_TREE_PATCH = PlacedFeatures.register("rubber_tree_patch", new PlacedFeature(getEntry(BuiltinRegistries.CONFIGURED_FEATURE, ConfiguredFeaturesDependent.RUBBER_TREE_PATCH), //
+	public static class BiomePlacedFeatures {
+		public static final PlacedFeature RUBBER_TREE_PATCH = PlacedFeatures.register("rubber_tree_patch", new PlacedFeature(getEntry(BuiltinRegistries.CONFIGURED_FEATURE, BiomeConfiguredFeatures.RUBBER_TREE_PATCH), //
 				List.of( //
 						RarityFilterPlacementModifier.of(4), //
 						SquarePlacementModifier.of(), //
@@ -419,7 +450,7 @@ public class SpaceFactory implements ModInitializer {
 		public static final ScreenHandlerType<ElectricFurnaceScreenHandler> ELECTRIC_FURNACE = ScreenHandlerRegistry.registerSimple(id("electric_furnace"), ElectricFurnaceScreenHandler::new);
 		public static final ScreenHandlerType<PulverizerScreenHandler> PULVERIZER = ScreenHandlerRegistry.registerSimple(id("pulverizer"), PulverizerScreenHandler::new);
 		public static final ScreenHandlerType<CompressorScreenHandler> COMPRESSOR = ScreenHandlerRegistry.registerSimple(id("compressor"), CompressorScreenHandler::new);
-		public static final ScreenHandlerType<MolecularAssemblerScreenHandler> MOLECULAR_ASSEMBLER = ScreenHandlerRegistry.registerSimple(id("atomic_reassembler"), MolecularAssemblerScreenHandler::new);
+		public static final ScreenHandlerType<AtomicReassemblerScreenHandler> MOLECULAR_ASSEMBLER = ScreenHandlerRegistry.registerSimple(id("atomic_reassembler"), AtomicReassemblerScreenHandler::new);
 		public static final ScreenHandlerType<ExtractorScreenHandler> EXTRACTOR = ScreenHandlerRegistry.registerSimple(id("extractor"), ExtractorScreenHandler::new);
 		public static final ScreenHandlerType<BatteryBoxScreenHandler> BATTERY_BOX = ScreenHandlerRegistry.registerSimple(id("battery_box"), BatteryBoxScreenHandler::new);
 
@@ -478,5 +509,123 @@ public class SpaceFactory implements ModInitializer {
 		public static final int DRAGON_EGG_SYPHON_OUTPUT = 256;
 
 		public static final int VANOVOLTAIC_CELL_GENERATION = 10;
+	}
+
+	public enum ArmorMaterials implements ArmorMaterial {
+	    BRONZE("spacefactory_bronze", 20, new int[]{2, 5, 6, 2}, 12, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 0.0F, 0.0F, Ingredient.fromTag(Items.BRONZE_INGOTS));
+
+	    private static final int[] BASE_DURABILITY = {13, 15, 16, 11};
+
+	    private final String name;
+	    private final int durabilityMultiplier;
+	    private final int[] protectionAmounts;
+	    private final int enchantability;
+	    private final SoundEvent equipSound;
+	    private final float toughness;
+	    private final float knockbackResistance;
+	    private final Ingredient repairIngredient;
+
+	    ArmorMaterials(String name, int durabilityMultiplier, int[] protectionAmounts, int enchantability, SoundEvent equipSound, float toughness, float knockbackResistance, Ingredient repairIngredient) {
+	        this.name = name;
+	        this.durabilityMultiplier = durabilityMultiplier;
+	        this.protectionAmounts = protectionAmounts;
+	        this.enchantability = enchantability;
+	        this.equipSound = equipSound;
+	        this.toughness = toughness;
+	        this.knockbackResistance = knockbackResistance;
+	        this.repairIngredient = repairIngredient;
+	    }
+
+	    @Override
+	    public int getDurability(EquipmentSlot slot) {
+	        return BASE_DURABILITY[slot.getEntitySlotId()] * this.durabilityMultiplier;
+	    }
+
+	    @Override
+	    public int getProtectionAmount(EquipmentSlot slot) {
+	        return this.protectionAmounts[slot.getEntitySlotId()];
+	    }
+
+	    @Override
+	    public int getEnchantability() {
+	        return this.enchantability;
+	    }
+
+	    @Override
+	    public SoundEvent getEquipSound() {
+	        return this.equipSound;
+	    }
+
+	    @Override
+	    public Ingredient getRepairIngredient() {
+	        return this.repairIngredient;
+	    }
+
+	    @Override
+	    @Environment(EnvType.CLIENT)
+	    public String getName() {
+	        return this.name;
+	    }
+
+	    @Override
+	    public float getToughness() {
+	        return this.toughness;
+	    }
+
+	    @Override
+	    public float getKnockbackResistance() {
+	        return this.knockbackResistance;
+	    }
+	}
+
+	public enum ToolMaterials implements ToolMaterial {
+		BRONZE(2, 350, 5.5F, 2F, 16, Ingredient.fromTag(Items.BRONZE_INGOTS)),
+		REFINED_IRON(3, 750, 6.5F, 3F, 8, Ingredient.ofItems(Items.REFINED_IRON_INGOT));
+
+		private final int miningLevel;
+		private final int itemDurability;
+		private final float miningSpeed;
+		private final float attackDamage;
+		private final int enchantability;
+		private final Ingredient repairIngredient;
+
+		ToolMaterials(int miningLevel, int itemDurability, float miningSpeed, float attackDamage, int enchantability, Ingredient repairIngredient) {
+			this.miningLevel = miningLevel;
+			this.itemDurability = itemDurability;
+			this.miningSpeed = miningSpeed;
+			this.attackDamage = attackDamage;
+			this.enchantability = enchantability;
+			this.repairIngredient = repairIngredient;
+		}
+
+		@Override
+		public int getDurability() {
+			return this.itemDurability;
+		}
+
+		@Override
+		public float getMiningSpeedMultiplier() {
+			return this.miningSpeed;
+		}
+
+		@Override
+		public float getAttackDamage() {
+			return this.attackDamage;
+		}
+
+		@Override
+		public int getMiningLevel() {
+			return this.miningLevel;
+		}
+
+		@Override
+		public int getEnchantability() {
+			return this.enchantability;
+		}
+
+		@Override
+		public Ingredient getRepairIngredient() {
+			return this.repairIngredient;
+		}
 	}
 }
