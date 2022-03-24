@@ -250,16 +250,6 @@ public class SpaceFactory implements ModInitializer {
 		public static final Item BRONZE_INGOT = register("bronze_ingot", new Item(settings()));
 		public static final Item BRONZE_NUGGET = register("bronze_nugget", new Item(settings()));
 		public static final Item BRONZE_DUST = register("bronze_dust", new Item(settings()));
-		public static final Item BRONZE_SWORD = register("bronze_sword", new SwordItem(ToolMaterials.BRONZE, 3, -2.4F, settings()));
-		public static final Item BRONZE_SHOVEL = register("bronze_shovel", new ShovelItem(ToolMaterials.BRONZE, 1.5F, -3.0F, settings()));
-		public static final Item BRONZE_PICKAXE = register("bronze_pickaxe", new AccessiblePickaxeItem(ToolMaterials.BRONZE, 1, -2.8F, settings()));
-		public static final Item BRONZE_AXE = register("bronze_axe", new AccessibleAxeItem(ToolMaterials.BRONZE, 6, -3.1F, settings()));
-		public static final Item BRONZE_HOE = register("bronze_hoe", new AccessibleHoeItem(ToolMaterials.BRONZE, -2, -1.5F, settings()));
-		public static final Item BRONZE_HELMET = register("bronze_helmet", new ArmorItem(ArmorMaterials.BRONZE, EquipmentSlot.HEAD, settings()));
-		public static final Item BRONZE_CHESTPLATE = register("bronze_chestplate", new ArmorItem(ArmorMaterials.BRONZE, EquipmentSlot.CHEST, settings()));
-		public static final Item BRONZE_LEGGINGS = register("bronze_leggings", new ArmorItem(ArmorMaterials.BRONZE, EquipmentSlot.LEGS, settings()));
-		public static final Item BRONZE_BOOTS = register("bronze_boots", new ArmorItem(ArmorMaterials.BRONZE, EquipmentSlot.FEET, settings()));
-
 
 		public static final Item COPPER_WIRE = register("copper_wire", new BlockItem(Blocks.COPPER_WIRE, settings()));
 		public static final Item COPPER_CABLE = register("copper_cable", new BlockItem(Blocks.COPPER_CABLE, settings()));
@@ -312,7 +302,6 @@ public class SpaceFactory implements ModInitializer {
 		public static final Item POTATO_BATTERY = register("potato_battery", new PotatoBatteryItem(settings().maxCount(1)));
 
 		public static final TagKey<Item> RUBBERS = TagKey.of(Registry.ITEM_KEY, new Identifier("c:rubbers"));
-		public static final TagKey<Item> BRONZE_INGOTS = TagKey.of(Registry.ITEM_KEY, new Identifier("c:bronze_ingots"));
 
 		private static Item.Settings settings() {
 			return new Item.Settings().group(MAIN);
@@ -514,8 +503,8 @@ public class SpaceFactory implements ModInitializer {
 	}
 
 	public enum ArmorMaterials implements ArmorMaterial {
-		BRONZE("spacefactory_bronze", 20, new int[]{2, 5, 6, 2}, 12, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 0.0F, 0.0F, Ingredient.fromTag(Items.BRONZE_INGOTS));
-
+//		BRONZE("spacefactory_bronze", 20, new int[]{2, 5, 6, 2}, 12, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 0.0F, 0.0F, Ingredient.fromTag(Items.BRONZE_INGOTS));
+		;
 		private static final int[] BASE_DURABILITY = {13, 15, 16, 11};
 
 		private final String name;
@@ -581,7 +570,6 @@ public class SpaceFactory implements ModInitializer {
 	}
 
 	public enum ToolMaterials implements ToolMaterial {
-		BRONZE(2, 350, 5.5F, 2F, 16, Ingredient.fromTag(Items.BRONZE_INGOTS)),
 		REFINED_IRON(3, 750, 6.5F, 3F, 8, Ingredient.ofItems(Items.REFINED_IRON_INGOT));
 
 		private final int miningLevel;
