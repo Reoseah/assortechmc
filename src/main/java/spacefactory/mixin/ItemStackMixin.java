@@ -27,25 +27,20 @@ public abstract class ItemStackMixin {
 	@Inject(at = @At("RETURN"), method = "getEnchantments")
 	public void getEnchantments(CallbackInfoReturnable<NbtList> ci) {
 		if (this.item == SpaceFactory.Items.FLAK_VEST) {
-			boolean hasEnchantment = false;
-			for (int i = 0; i < ci.getReturnValue().size(); ++i) {
-				NbtCompound nbt = ci.getReturnValue().getCompound(i);
-				Enchantment enchantment = Registry.ENCHANTMENT.getOrEmpty(EnchantmentHelper.getIdFromNbt(nbt)).orElse(null);
-				if (enchantment instanceof ProtectionEnchantment) {
-					hasEnchantment = true;
-					break;
-				}
-			}
-			if (!hasEnchantment) {
-				NbtCompound nbt = EnchantmentHelper.createNbt(Registry.ENCHANTMENT.getId(Enchantments.BLAST_PROTECTION), 3);
-				ci.getReturnValue().add(nbt);
-			}
+			NbtCompound nbt = EnchantmentHelper.createNbt(Registry.ENCHANTMENT.getId(Enchantments.BLAST_PROTECTION), 3);
+			ci.getReturnValue().add(nbt);
+		} else if (this.item == SpaceFactory.Items.REFINED_IRON_UNICUTTER) {
+			NbtCompound nbt = EnchantmentHelper.createNbt(Registry.ENCHANTMENT.getId(Enchantments.SILK_TOUCH), 1);
+			ci.getReturnValue().add(nbt);
 		}
 	}
 
 	@Inject(at = @At("RETURN"), method = "addEnchantment", cancellable = true)
 	public void addEnchantment(Enchantment enchantment, int level, CallbackInfo ci) {
-		if (this.item == SpaceFactory.Items.FLAK_VEST && enchantment instanceof ProtectionEnchantment) {
+		if (this.item == SpaceFactory.Items.FLAK_VEST && (enchantment instanceof ProtectionEnchantment || !enchantment.canCombine(Enchantments.BLAST_PROTECTION))) {
+			ci.cancel();
+		}
+		if (this.item == SpaceFactory.Items.REFINED_IRON_UNICUTTER && (enchantment == Enchantments.SILK_TOUCH || !enchantment.canCombine(Enchantments.SILK_TOUCH))) {
 			ci.cancel();
 		}
 	}

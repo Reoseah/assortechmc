@@ -173,7 +173,7 @@ public class ConduitBlock extends BlockWithEntity {
 	@Override
 	public void appendTooltip(ItemStack stack, @Nullable BlockView world, List<Text> tooltip, TooltipContext options) {
 		super.appendTooltip(stack, world, tooltip, options);
-		tooltip.add(new TranslatableText("tooltip.spacefactory.energy_per_tick_max", this.tier.transferRate).formatted(Formatting.GRAY));
+		tooltip.add(new TranslatableText("tooltip.spacefactory.energy_per_tick", this.tier.transferRate).formatted(Formatting.GRAY));
 	}
 
 }

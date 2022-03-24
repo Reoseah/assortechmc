@@ -88,8 +88,8 @@
   "recipe_info.spacefactory.raw_rubber": "Obtained by stripping a part of bark from an alive rubber tree.\nThe tree should have soil below trunk, leaves above and no more than one stripped block, or it will die.",
 
   "tooltip.spacefactory.generators": "%s EU/t (%s)",
-  "tooltip.spacefactory.conventional_fuel": "Conventional Fuel",
-  "tooltip.spacefactory.daylight": "Daylight",
+  "tooltip.spacefactory.conventional_fuel": "Conventional Fuels",
+  "tooltip.spacefactory.sunlight": "Sunlight",
 
   "tooltip.spacefactory.energy" : "%s EU",
   "tooltip.spacefactory.energy_and_capacity" : "%s / %s EU",

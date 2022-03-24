@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "spacefactory:tin_ingot",
+    "spacefactory:bronze_ingot",
+    "spacefactory:refined_iron_ingot",
+    "spacefactory:iridium_ingot",
+    "spacefactory:crystalite_matrix"
+  ]
+}

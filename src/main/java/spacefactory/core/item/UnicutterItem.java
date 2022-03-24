@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
@@ -16,6 +17,7 @@ import net.minecraft.item.ToolMaterial;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.tag.BlockTags;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
@@ -50,6 +52,17 @@ public class UnicutterItem extends ShearsItem {
 	public Multimap<EntityAttribute, EntityAttributeModifier> getAttributeModifiers(EquipmentSlot slot) {
 		return slot == EquipmentSlot.MAINHAND ? this.attributeModifiers : super.getAttributeModifiers(slot);
 	}
+
+	public float getMiningSpeedMultiplier(ItemStack stack, BlockState state) {
+		if (state.isOf(Blocks.COBWEB) || state.isIn(BlockTags.LEAVES)) {
+			return 15.0F;
+		}
+		if (state.isIn(BlockTags.WOOL))
+			return 5.0F;
+
+		return state.isOf(Blocks.VINE) || state.isOf(Blocks.GLOW_LICHEN) ? 2.0F : 0.25F;
+	}
+
 
 	@Override
 	public ActionResult useOnBlock(ItemUsageContext context) {

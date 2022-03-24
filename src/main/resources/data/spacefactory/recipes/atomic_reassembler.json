@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "IGI",
-    "CDC",
+    "CNC",
     "I#I"
   ],
   "key": {
@@ -18,8 +18,8 @@
     "G": {
       "item": "minecraft:glass"
     },
-    "D": {
-      "item": "minecraft:diamond"
+    "N": {
+      "item": "minecraft:nether_star"
     }
   },
   "result": {
