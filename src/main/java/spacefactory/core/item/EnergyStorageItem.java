@@ -35,7 +35,7 @@ public abstract class EnergyStorageItem extends Item implements EU.ElectricItem,
 	public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext context) {
 		super.appendTooltip(stack, world, tooltip, context);
 		if (stack.getCount() == 1) {
-//            tooltip.add(new TranslatableText("container.spacefactory.energy_storage", this.getStoredEnergy(stack), this.getEnergyCapacity()).formatted(Formatting.GRAY));
+//            tooltip.add(new TranslatableText("tooltip.spacefactory.energy_and_capacity", this.getStoredEnergy(stack), this.getEnergyCapacity()).formatted(Formatting.GRAY));
 		}
 	}
 

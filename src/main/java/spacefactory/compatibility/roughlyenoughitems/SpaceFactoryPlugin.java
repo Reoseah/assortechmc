@@ -21,6 +21,7 @@ import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
+import net.minecraft.util.registry.Registry;
 import spacefactory.SpaceFactory;
 import spacefactory.core.recipe.IngredientCount;
 import spacefactory.features.atomic_reassembler.AtomicReassemblerRecipe;
@@ -74,34 +75,19 @@ public class SpaceFactoryPlugin implements REIClientPlugin {
 			public Optional<List<DefaultInformationDisplay>> getUsageFor(EntryStack<?> entry) {
 				return Optional.ofNullable(entry) //
 						.filter(e -> e.getIdentifier() != null && e.getIdentifier().getNamespace().equals(SpaceFactory.MOD_ID)) //
-						.map(e -> e.getValue() instanceof ItemStack stack ? stack.getItem().getTranslationKey() + ".usage" : null) //
+						.map(e -> e.getValue() instanceof ItemStack stack ? Util.createTranslationKey("usage_info", Registry.ITEM.getId(stack.getItem())) : null) //
 						.filter(I18n::hasTranslation) //
-						.map(key -> {
-							DefaultInformationDisplay display = DefaultInformationDisplay.createFromEntry(entry, entry.asFormatStrippedText());
-							if (entry.getValue() instanceof ItemStack stack)
-								if (stack.getItem() == SpaceFactory.Items.GENERATOR) {
-									display.line(translateWithNewLines("block.spacefactory.generator.usage", SpaceFactory.Constants.GENERATOR_OUTPUT, SpaceFactory.Constants.GENERATOR_CONSUMPTION * 100));
-								} else if (stack.getItem() == SpaceFactory.Items.SOLAR_PANEL) {
-									display.line(translateWithNewLines("block.spacefactory.solar_panel.usage", SpaceFactory.Constants.SOLAR_PANEL_OUTPUT));
-								} else if (stack.getItem() == SpaceFactory.Items.DRAGON_ENERGY_ABSORBER) {
-									display.line(translateWithNewLines("block.spacefactory.dragon_energy_absorber.usage", SpaceFactory.Constants.DRAGON_EGG_SYPHON_OUTPUT));
-								} else {
-									display.line(translateWithNewLines(key));
-								}
-							return display;
-						})
+						.map(info -> DefaultInformationDisplay.createFromEntry(entry, entry.asFormatStrippedText()).line(translateWithNewLines(info)))
 						.map(ImmutableList::of);
 			}
 
 			@Override
 			public Optional<List<DefaultInformationDisplay>> getRecipeFor(EntryStack<?> entry) {
-				return Optional.ofNullable(entry.getIdentifier()) //
-						.filter(id -> id.getNamespace().equals(SpaceFactory.MOD_ID)) //
-						.map(id -> Util.createTranslationKey("item",
-								new Identifier(id.getNamespace(), id.getPath() + ".recipe"))) //
+				return Optional.ofNullable(entry) //
+						.filter(e -> e.getIdentifier() != null && e.getIdentifier().getNamespace().equals(SpaceFactory.MOD_ID)) //
+						.map(e -> e.getValue() instanceof ItemStack stack ? Util.createTranslationKey("recipe_info", Registry.ITEM.getId(stack.getItem())) : null) //
 						.filter(I18n::hasTranslation) //
-						.map(info -> DefaultInformationDisplay.createFromEntry(entry, entry.asFormatStrippedText())
-								.line(translateWithNewLines(info)))
+						.map(info -> DefaultInformationDisplay.createFromEntry(entry, entry.asFormatStrippedText()).line(translateWithNewLines(info)))
 						.map(ImmutableList::of);
 			}
 		});

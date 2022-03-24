@@ -169,26 +169,28 @@ public class SpaceFactory implements ModInitializer {
 		public static final Block RUBBER_LOG = register("rubber_log", new PillarBlock(Settings.of(Material.WOOD, state -> state.get(PillarBlock.AXIS) == Direction.Axis.Y ? MapColor.YELLOW : MapColor.BROWN).strength(2F).sounds(BlockSoundGroup.WOOD)));
 		public static final Block ALIVE_RUBBER_LOG = register("alive_rubber_log", new AliveRubberLogBlock(Settings.of(UNMOVABLE_WOOD, MapColor.YELLOW).ticksRandomly().strength(2F).sounds(BlockSoundGroup.WOOD)));
 		public static final Block RUBBER_WOOD = register("rubber_wood", new PillarBlock(Settings.of(Material.WOOD, MapColor.BROWN).strength(2F).sounds(BlockSoundGroup.WOOD)));
+		public static final Block STRIPPED_RUBBER_LOG = register("stripped_rubber_log", new PillarBlock(Settings.of(Material.WOOD, MapColor.YELLOW).strength(2F).sounds(BlockSoundGroup.WOOD)));
 		public static final Block STRIPPED_RUBBER_WOOD = register("stripped_rubber_wood", new PillarBlock(Settings.of(Material.WOOD, MapColor.YELLOW).strength(2F).sounds(BlockSoundGroup.WOOD)));
 		public static final Block RUBBER_LEAVES = register("rubber_leaves", new LeavesBlock(Settings.copy(JUNGLE_LEAVES)));
 		public static final Block RUBBER_SAPLING = register("rubber_sapling", new RubberSaplingBlock(Settings.of(Material.PLANT).noCollision().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.GRASS)));
-		public static final Block STRIPPED_RUBBER_LOG = register("stripped_rubber_log", new PillarBlock(Settings.of(Material.WOOD, MapColor.YELLOW).strength(2F).sounds(BlockSoundGroup.WOOD)));
 
 		public static final Block TIN_ORE = register("tin_ore", new Block(FabricBlockSettings.of(Material.STONE).strength(3F)));
 		public static final Block DEEPSLATE_TIN_ORE = register("deepslate_tin_ore", new Block(FabricBlockSettings.of(Material.STONE).strength(4.5F, 3F)));
 		public static final Block RAW_TIN_BLOCK = register("raw_tin_block", new Block(FabricBlockSettings.of(Material.STONE, MapColor.LIGHT_GRAY).requiresTool().strength(5.0f, 6.0f)));
 		public static final Block TIN_BLOCK = register("tin_block", new Block(FabricBlockSettings.of(Material.METAL, MapColor.LIGHT_GRAY).strength(3F, 6F).sounds(BlockSoundGroup.METAL)));
+
 		public static final Block BRONZE_BLOCK = register("bronze_block", new Block(FabricBlockSettings.of(Material.METAL, MapColor.ORANGE).strength(3F, 6F).sounds(BlockSoundGroup.METAL)));
 
 		public static final Block COPPER_WIRE = register("copper_wire", new ConduitBlock(1, EnergyTier.MEDIUM, FabricBlockSettings.of(Material.METAL).strength(0.5F).sounds(BlockSoundGroup.WOOL)));
 		public static final Block COPPER_CABLE = register("copper_cable", new ConduitBlock(2, EnergyTier.MEDIUM, FabricBlockSettings.of(Material.METAL).strength(0.5F)));
 
 		public static final Block GENERATOR = register("generator", new GeneratorBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 14 : 0)));
-		public static final Block SOLAR_PANEL = register("solar_panel", new SolarPanelBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).mapColor(MapColor.LAPIS_BLUE)));
 		public static final Block ELECTRIC_FURNACE = register("electric_furnace", new ElectricFurnaceBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 14 : 0)));
 		public static final Block PULVERIZER = register("pulverizer", new PulverizerBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 12 : 0)));
 		public static final Block COMPRESSOR = register("compressor", new CompressorBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 12 : 0)));
 		public static final Block EXTRACTOR = register("extractor", new ExtractorBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 12 : 0)));
+		public static final Block SOLAR_PANEL = register("solar_panel", new SolarPanelBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).mapColor(MapColor.LAPIS_BLUE)));
+
 		public static final Block BATTERY_BOX = register("battery_box", new BatteryBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).mapColor(MapColor.SPRUCE_BROWN).sounds(BlockSoundGroup.WOOD)));
 		public static final Block COPPER_BUS_BAR = register("copper_bus_bar", new ConduitBlock(3, EnergyTier.EXTREME, FabricBlockSettings.of(Material.METAL).strength(2F, 5F)));
 		public static final Block ENERGY_CONDUIT = register("reinforced_energy_conduit", new ConduitBlock(4, EnergyTier.EXTREME, FabricBlockSettings.of(Material.METAL).strength(5F, 20F)));
@@ -199,8 +201,8 @@ public class SpaceFactory implements ModInitializer {
 		public static final Block IRIDIUM_BLOCK = register("iridium_block", new Block(FabricBlockSettings.of(Material.METAL).strength(5F, 20F).allowsSpawning(BlocksAccessor::invokeNever)));
 
 		public static final Block ATOMIC_REASSEMBLER = register("atomic_reassembler", new AtomicReassemblerBlock(FabricBlockSettings.copyOf(FabricBlockSettings.copyOf(ADVANCED_MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 14 : 0))));
-		public static final Block DRAGON_ENERGY_ABSORBER = register("dragon_energy_absorber", new DragonEggSiphonBlock(FabricBlockSettings.copyOf(ADVANCED_MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 15 : 0)));
 		public static final Block GLYPHEON_FIELD_EXTRACTOR = register("glypheon_field_extractor", new GlypheonResonanceAbsorberBlock(FabricBlockSettings.copyOf(ADVANCED_MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 14 : 0)));
+		public static final Block DRAGON_ENERGY_ABSORBER = register("dragon_energy_absorber", new DragonEggSiphonBlock(FabricBlockSettings.copyOf(ADVANCED_MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 15 : 0)));
 
 		public static <T extends Block> T register(String name, T entry) {
 			return Registry.register(Registry.BLOCK, id(name), entry);
@@ -275,7 +277,7 @@ public class SpaceFactory implements ModInitializer {
 		public static final Item REFINED_IRON_DUST = register("refined_iron_dust", new Item(settings()));
 		public static final Item SMALL_REFINED_IRON_DUST = register("small_refined_iron_dust", new Item(settings()));
 
-		public static final Item MACHETE = register("refined_iron_machete", new MacheteItem(ToolMaterials.REFINED_IRON, 3, -2.4F, settings()));
+		public static final Item REFINED_IRON_MACHETE = register("refined_iron_machete", new MacheteItem(ToolMaterials.REFINED_IRON, 3, -2.4F, settings()));
 		public static final Item REFINED_IRON_UNICUTTER = register("refined_iron_unicutter", new UnicutterItem(ToolMaterials.REFINED_IRON, -1, -1F, settings().maxDamage(256)));
 
 		public static final Item CAMOUFLAGE_CLOTH = register("camouflage_cloth", new Item(settings()));
@@ -298,8 +300,8 @@ public class SpaceFactory implements ModInitializer {
 
 		public static final Item ATOMIC_REASSEMBLER = register("atomic_reassembler", new BlockItem(Blocks.ATOMIC_REASSEMBLER, settings().rarity(Rarity.RARE)));
 		public static final Item WARP_PRISM = register("warp_prism", new Item(settings().rarity(Rarity.RARE).maxCount(16)));
-		public static final Item DRAGON_ENERGY_ABSORBER = register("dragon_energy_absorber", new BlockItem(Blocks.DRAGON_ENERGY_ABSORBER, settings().rarity(Rarity.RARE)));
 		public static final Item GLYPHEON_FIELD_EXTRACTOR = register("glypheon_field_extractor", new BlockItem(Blocks.GLYPHEON_FIELD_EXTRACTOR, settings().rarity(Rarity.RARE)));
+		public static final Item DRAGON_ENERGY_ABSORBER = register("dragon_energy_absorber", new BlockItem(Blocks.DRAGON_ENERGY_ABSORBER, settings().rarity(Rarity.RARE)));
 
 		public static final Item POTATO_BATTERY = register("potato_battery", new PotatoBatteryItem(settings().maxCount(1)));
 
@@ -499,7 +501,7 @@ public class SpaceFactory implements ModInitializer {
 
 		public static final float SOLAR_PANEL_OUTPUT = 1;
 
-		public static final int DRAGON_EGG_SYPHON_OUTPUT = 256;
+		public static final int DRAGON_EGG_SIPHON_OUTPUT = 256;
 
 		public static final int VANOVOLTAIC_CELL_GENERATION = 10;
 	}

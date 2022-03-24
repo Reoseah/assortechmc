@@ -40,7 +40,7 @@ public class DragonEggSiphonBlockEntity extends InventoryBlockEntity implements 
 			}
 			be.generating = true;
 
-			int energy = SpaceFactory.Constants.DRAGON_EGG_SYPHON_OUTPUT;
+			int energy = SpaceFactory.Constants.DRAGON_EGG_SIPHON_OUTPUT;
 			for (Direction side : Direction.values()) {
 				if (!be.canSend(side)) {
 					continue;

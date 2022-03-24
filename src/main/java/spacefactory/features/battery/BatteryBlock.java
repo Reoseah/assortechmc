@@ -67,7 +67,7 @@ public class BatteryBlock extends InventoryBlock {
     @Override
     public void appendTooltip(ItemStack stack, @Nullable BlockView world, List<Text> tooltip, TooltipContext options) {
         super.appendTooltip(stack, world, tooltip, options);
-        tooltip.add(new TranslatableText("container.spacefactory.energy_max", BatteryBlockEntity.CAPACITY).formatted(Formatting.GRAY));
-        tooltip.add(new TranslatableText("container.spacefactory.energy_per_tick", EnergyTier.LOW.transferRate).formatted(Formatting.GRAY));
+        tooltip.add(new TranslatableText("tooltip.spacefactory.energy_max", BatteryBlockEntity.CAPACITY).formatted(Formatting.GRAY));
+        tooltip.add(new TranslatableText("tooltip.spacefactory.energy_per_tick", EnergyTier.LOW.transferRate).formatted(Formatting.GRAY));
     }
 }

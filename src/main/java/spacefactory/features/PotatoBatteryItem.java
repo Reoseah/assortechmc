@@ -41,7 +41,7 @@ public class PotatoBatteryItem extends EnergyStorageItem {
     @Override
     public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext context) {
         if (stack.getCount() == 1) {
-//            tooltip.add(new TranslatableText("container.spacefactory.energy", this.getStoredEnergy(stack), this.getEnergyCapacity()).formatted(Formatting.GRAY));
+//            tooltip.add(new TranslatableText("tooltip.spacefactory.energy", this.getStoredEnergy(stack), this.getEnergyCapacity()).formatted(Formatting.GRAY));
         }
     }
 

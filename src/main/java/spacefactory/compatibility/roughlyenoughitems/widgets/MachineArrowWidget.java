@@ -68,8 +68,8 @@ public class MachineArrowWidget extends Arrow {
         if (this.isMouseOver(mouseX, mouseY)) {
             MinecraftClient.getInstance().currentScreen
                     .renderTooltip(matrices, ImmutableList.of(
-                                    new TranslatableText("container.spacefactory.energy", this.euTotal),
-                                    new TranslatableText("container.spacefactory.energy_per_tick", this.euPerTick).formatted(Formatting.GRAY)),
+                                    new TranslatableText("tooltip.spacefactory.energy", this.euTotal),
+                                    new TranslatableText("tooltip.spacefactory.energy_per_tick", this.euPerTick).formatted(Formatting.GRAY)),
                             mouseX, mouseY);
         }
     }
