@@ -6,7 +6,10 @@
   "mixins": [
     "AxeItemMixin",
     "BlocksAccessor",
-    "FoliagePlacerTypeInvoker"
+    "EnchantmentHelperMixin",
+    "EnchantmentMixin",
+    "FoliagePlacerTypeInvoker",
+    "ItemStackMixin"
   ],
   "client": [
     "client.BlockModelRendererMixin",

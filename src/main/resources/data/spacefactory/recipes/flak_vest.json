@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "X X",
+    "X#X",
+    "#X#"
+  ],
+  "key": {
+    "#": {
+      "item": "spacefactory:refined_iron_ingot"
+    },
+    "X": {
+      "item": "spacefactory:camouflage_cloth"
+    }
+  },
+  "result": {
+    "item": "spacefactory:flak_vest"
+  }
+}

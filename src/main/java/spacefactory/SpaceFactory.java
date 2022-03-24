@@ -56,7 +56,8 @@ import net.minecraft.world.gen.stateprovider.BlockStateProvider;
 import net.minecraft.world.gen.stateprovider.SimpleBlockStateProvider;
 import net.minecraft.world.gen.trunk.StraightTrunkPlacer;
 import spacefactory.api.EnergyTier;
-import spacefactory.core.item.*;
+import spacefactory.core.item.MacheteItem;
+import spacefactory.core.item.UnicutterItem;
 import spacefactory.core.recipe.SimpleMachineRecipe;
 import spacefactory.features.PotatoBatteryItem;
 import spacefactory.features.atomic_reassembler.AtomicReassemblerBlock;
@@ -278,20 +279,21 @@ public class SpaceFactory implements ModInitializer {
 		public static final Item REFINED_IRON_UNICUTTER = register("refined_iron_unicutter", new UnicutterItem(ToolMaterials.REFINED_IRON, -1, -1F, settings().maxDamage(256)));
 
 		public static final Item CAMOUFLAGE_CLOTH = register("camouflage_cloth", new Item(settings()));
+		public static final Item FLAK_VEST = register("flak_vest", new ArmorItem(ArmorMaterials.FLAK, EquipmentSlot.CHEST, settings().rarity(Rarity.UNCOMMON)));
 
-		public static final Item CRYSTALITE_BLOCK = register("crystalite_block", new BlockItem(Blocks.CRYSTALITE_BLOCK, settings().rarity(Rarity.UNCOMMON)));
+		public static final Item CRYSTALITE_BLOCK = register("crystalite_block", new BlockItem(Blocks.CRYSTALITE_BLOCK, settings().rarity(Rarity.RARE)));
 		public static final Item CRYSTALITE_MATRIX = register("crystalite_matrix", new Item(settings().rarity(Rarity.RARE).maxCount(16)));
 		public static final Item CRYSTALITE_DUST = register("crystalite_dust", new Item(settings().rarity(Rarity.RARE)));
 		public static final Item RAW_CRYSTALITE_DUST = register("raw_crystalite_dust", new Item(settings()));
 		public static final Item QUANTUM_CIRCUIT = register("quantum_circuit", new Item(settings().rarity(Rarity.UNCOMMON)));
 
 		public static final Item END_STONE_IRIDIUM_ORE = register("end_stone_iridium_ore", new BlockItem(Blocks.END_STONE_IRIDIUM_ORE, settings().rarity(Rarity.UNCOMMON)));
-		public static final Item RAW_IRIDIUM_BLOCK = register("raw_iridium_block", new BlockItem(Blocks.RAW_IRIDIUM_BLOCK, settings().rarity(Rarity.EPIC)));
-		public static final Item IRIDIUM_BLOCK = register("iridium_block", new BlockItem(Blocks.IRIDIUM_BLOCK, settings().rarity(Rarity.EPIC)));
-		public static final Item RAW_IRIDIUM = register("raw_iridium", new Item(settings().rarity(Rarity.EPIC)));
-		public static final Item IRIDIUM_INGOT = register("iridium_ingot", new Item(settings().rarity(Rarity.EPIC)));
-		public static final Item IRIDIUM_DUST = register("iridium_dust", new Item(settings().rarity(Rarity.RARE)));
-		public static final Item SMALL_IRIDIUM_DUST = register("small_iridium_dust", new Item(settings().rarity(Rarity.RARE)));
+		public static final Item RAW_IRIDIUM_BLOCK = register("raw_iridium_block", new BlockItem(Blocks.RAW_IRIDIUM_BLOCK, settings().rarity(Rarity.UNCOMMON)));
+		public static final Item IRIDIUM_BLOCK = register("iridium_block", new BlockItem(Blocks.IRIDIUM_BLOCK, settings().rarity(Rarity.UNCOMMON)));
+		public static final Item RAW_IRIDIUM = register("raw_iridium", new Item(settings().rarity(Rarity.UNCOMMON)));
+		public static final Item IRIDIUM_INGOT = register("iridium_ingot", new Item(settings().rarity(Rarity.UNCOMMON)));
+		public static final Item IRIDIUM_DUST = register("iridium_dust", new Item(settings().rarity(Rarity.UNCOMMON)));
+		public static final Item SMALL_IRIDIUM_DUST = register("small_iridium_dust", new Item(settings().rarity(Rarity.UNCOMMON)));
 		public static final Item NETHERITE_SCRAP_DUST = register("netherite_scrap_dust", new Item(settings()));
 
 		public static final Item ATOMIC_REASSEMBLER = register("atomic_reassembler", new BlockItem(Blocks.ATOMIC_REASSEMBLER, settings().rarity(Rarity.RARE)));
@@ -503,8 +505,9 @@ public class SpaceFactory implements ModInitializer {
 	}
 
 	public enum ArmorMaterials implements ArmorMaterial {
-//		BRONZE("spacefactory_bronze", 20, new int[]{2, 5, 6, 2}, 12, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 0.0F, 0.0F, Ingredient.fromTag(Items.BRONZE_INGOTS));
-		;
+		//		BRONZE("spacefactory_bronze", 20, new int[]{2, 5, 6, 2}, 12, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 0.0F, 0.0F, Ingredient.fromTag(Items.BRONZE_INGOTS));
+		FLAK("flak", 15, new int[]{2, 5, 6, 2}, 12, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 0.0F, 0.0F, Ingredient.empty());
+
 		private static final int[] BASE_DURABILITY = {13, 15, 16, 11};
 
 		private final String name;
