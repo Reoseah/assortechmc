@@ -11,11 +11,12 @@ import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.entry.EntryStack;
 import me.shedaniel.rei.api.common.util.EntryStacks;
-import me.shedaniel.rei.plugin.common.BuiltinPlugin;
 import me.shedaniel.rei.plugin.common.displays.DefaultInformationDisplay;
 import net.minecraft.client.resource.language.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Ingredient;
+import net.minecraft.recipe.RecipeType;
+import net.minecraft.recipe.SmeltingRecipe;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -39,6 +40,7 @@ import java.util.Optional;
 public class SpaceFactoryPlugin implements REIClientPlugin {
 	public static final Identifier WIDGETS = SpaceFactory.id("textures/gui/compatibility/rei_widgets.png");
 
+	public static final CategoryIdentifier<ElectricSmeltingDisplay> ELECTRIC_SMELTING = CategoryIdentifier.of("spacefactory:electric_smelting");
 	public static final CategoryIdentifier<PulverizingDisplay> PULVERIZER = CategoryIdentifier.of("spacefactory:pulverizing");
 	public static final CategoryIdentifier<CompressingDisplay> COMPRESSING = CategoryIdentifier.of("spacefactory:compressing");
 	public static final CategoryIdentifier<ExtractingDisplay> EXTRACTING = CategoryIdentifier.of("spacefactory:extracting");
@@ -46,12 +48,13 @@ public class SpaceFactoryPlugin implements REIClientPlugin {
 
 	@Override
 	public void registerCategories(CategoryRegistry registry) {
+		registry.add(new SimpleMachineCategory(ELECTRIC_SMELTING, EntryStacks.of(SpaceFactory.Blocks.ELECTRIC_FURNACE), "category.spacefactory.electric_smelting"));
 		registry.add(new SimpleMachineCategory(PULVERIZER, EntryStacks.of(SpaceFactory.Blocks.PULVERIZER), "category.spacefactory.pulverizing"));
 		registry.add(new SimpleMachineCategory(COMPRESSING, EntryStacks.of(SpaceFactory.Blocks.COMPRESSOR), "category.spacefactory.compressing"));
 		registry.add(new SimpleMachineCategory(EXTRACTING, EntryStacks.of(SpaceFactory.Blocks.EXTRACTOR), "category.spacefactory.extracting"));
 		registry.add(new AtomicReassemblyCategory(ATOMIC_REASSEMBLY, EntryStacks.of(SpaceFactory.Blocks.ATOMIC_REASSEMBLER), "category.spacefactory.atomic_reassembly"));
 
-		registry.addWorkstations(BuiltinPlugin.SMELTING, EntryStacks.of(SpaceFactory.Blocks.ELECTRIC_FURNACE));
+		registry.addWorkstations(ELECTRIC_SMELTING, EntryStacks.of(SpaceFactory.Blocks.ELECTRIC_FURNACE));
 		registry.addWorkstations(PULVERIZER, EntryStacks.of(SpaceFactory.Blocks.PULVERIZER));
 		registry.addWorkstations(COMPRESSING, EntryStacks.of(SpaceFactory.Blocks.COMPRESSOR));
 		registry.addWorkstations(EXTRACTING, EntryStacks.of(SpaceFactory.Blocks.EXTRACTOR));
@@ -60,6 +63,7 @@ public class SpaceFactoryPlugin implements REIClientPlugin {
 
 	@Override
 	public void registerDisplays(DisplayRegistry registry) {
+		registry.registerRecipeFiller(SmeltingRecipe.class, RecipeType.SMELTING, ElectricSmeltingDisplay::new);
 		registry.registerRecipeFiller(PulverizerRecipe.class, SpaceFactory.RecipeTypes.PULVERIZING, PulverizingDisplay::new);
 		registry.registerRecipeFiller(CompressorRecipe.class, SpaceFactory.RecipeTypes.COMPRESSING, CompressingDisplay::new);
 		registry.registerRecipeFiller(ExtractorRecipe.class, SpaceFactory.RecipeTypes.EXTRACTING, ExtractingDisplay::new);

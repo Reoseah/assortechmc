@@ -82,6 +82,8 @@
   "container.spacefactory.energy_per_tick_max": "%s EU/t Max",
   "container.spacefactory.generation": "Generation %s EU/t",
   "container.spacefactory.fuel_ticks": "%s ticks left",
+
+  "category.spacefactory.electric_smelting": "Electric Smelting",
   "category.spacefactory.pulverizing": "Pulverizing",
   "category.spacefactory.compressing": "Compressing",
   "category.spacefactory.extracting": "Extracting",
