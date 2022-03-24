@@ -37,7 +37,7 @@ public abstract class ItemStackMixin {
 				}
 			}
 			if (!hasEnchantment) {
-				NbtCompound nbt = EnchantmentHelper.createNbt(Registry.ENCHANTMENT.getId(Enchantments.BLAST_PROTECTION), 4);
+				NbtCompound nbt = EnchantmentHelper.createNbt(Registry.ENCHANTMENT.getId(Enchantments.BLAST_PROTECTION), 3);
 				ci.getReturnValue().add(nbt);
 			}
 		}
