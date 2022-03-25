@@ -29,7 +29,7 @@ public class UnicutterItem extends ShearsItem {
 	private final Multimap<EntityAttribute, EntityAttributeModifier> attributeModifiers;
 
 	public UnicutterItem(ToolMaterial material, int attackDamage, float attackSpeed, Settings settings) {
-		super(settings);
+		super(settings.maxDamageIfAbsent(material.getDurability()));
 		this.material = material;
 		this.attributeModifiers = ImmutableMultimap.<EntityAttribute, EntityAttributeModifier>builder() //
 				.put(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier(ATTACK_DAMAGE_MODIFIER_ID, "Weapon modifier", attackDamage + material.getAttackDamage(), EntityAttributeModifier.Operation.ADDITION)) //

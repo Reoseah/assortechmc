@@ -22,7 +22,6 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import spacefactory.SpaceFactory;
-import spacefactory.api.EnergyTier;
 import spacefactory.core.block.InventoryBlock;
 
 import java.util.List;
@@ -68,6 +67,6 @@ public class BatteryBlock extends InventoryBlock {
     public void appendTooltip(ItemStack stack, @Nullable BlockView world, List<Text> tooltip, TooltipContext options) {
         super.appendTooltip(stack, world, tooltip, options);
         tooltip.add(new TranslatableText("tooltip.spacefactory.energy_max", BatteryBlockEntity.CAPACITY).formatted(Formatting.GRAY));
-        tooltip.add(new TranslatableText("tooltip.spacefactory.energy_per_tick", EnergyTier.LOW.transferRate).formatted(Formatting.GRAY));
+        tooltip.add(new TranslatableText("tooltip.spacefactory.energy_per_tick", 32).formatted(Formatting.GRAY));
     }
 }

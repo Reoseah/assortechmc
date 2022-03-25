@@ -56,8 +56,8 @@ public class ConduitNetwork {
 
 		for (Iterator<ConduitPath> it = this.cache.get(pos).iterator(); it.hasNext(); ) {
 			ConduitPath path = it.next();
-			EU.Receiver endpoint = EU.getReceiver(this.world, path.end);
-			if (endpoint == null || !endpoint.canReceive(path.side)) {
+			EU.Receiver endpoint = EU.findReceiver(this.world, path.end);
+			if (endpoint == null || !endpoint.canReceiveEnergy(path.side)) {
 				it.remove();
 				if (this.cache.get(pos).isEmpty()) {
 					this.cache.remove(pos);
@@ -65,7 +65,7 @@ public class ConduitNetwork {
 				continue;
 			}
             int min = Math.min(left, average + excess);
-            int inserted = endpoint.receive(min, path.side);
+            int inserted = endpoint.receiveEnergy(min, path.side);
 			left -= inserted;
 			excess = min - inserted;
 

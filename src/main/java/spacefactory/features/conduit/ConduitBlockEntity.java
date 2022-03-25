@@ -5,7 +5,6 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import spacefactory.SpaceFactory;
-import spacefactory.api.EnergyTier;
 
 public class ConduitBlockEntity extends BlockEntity {
     protected int current = 0;
@@ -14,11 +13,11 @@ public class ConduitBlockEntity extends BlockEntity {
         super(SpaceFactory.BlockEntityTypes.CONDUIT, pos, state);
     }
 
-    public EnergyTier getTier() {
+    public int getTransferRate() {
         if (this.getCachedState().getBlock() instanceof ConduitBlock block) {
-            return block.tier;
+            return 1024;
         }
-        return EnergyTier.MEDIUM;
+        return 128;
     }
 
     @Override
@@ -30,7 +29,7 @@ public class ConduitBlockEntity extends BlockEntity {
     }
 
     protected int getTransferLimit() {
-        return this.getTier().transferRate;
+        return this.getTransferRate();
     }
 
     public static void tick(World world, BlockPos pos, BlockState state, ConduitBlockEntity be) {

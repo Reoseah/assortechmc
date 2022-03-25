@@ -11,14 +11,21 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import spacefactory.SpaceFactory;
 import spacefactory.api.EU;
-import spacefactory.api.EnergyTier;
+import spacefactory.api.LimitedEUReceiver;
 import spacefactory.core.block.entity.ElectricInventoryBlockEntity;
 
 public class BatteryBlockEntity extends ElectricInventoryBlockEntity implements EU.Receiver, EU.Sender {
 	public static final int CAPACITY = 100000;
 
+	protected final LimitedEUReceiver receiver;
+
 	public BatteryBlockEntity(BlockPos pos, BlockState state) {
 		super(SpaceFactory.BlockEntityTypes.BATTERY_BOX, pos, state);
+		this.receiver = new LimitedEUReceiver(this, 32);
+	}
+
+	public EU.Receiver getEUReceiver() {
+		return this.receiver;
 	}
 
 	@Override
@@ -33,26 +40,22 @@ public class BatteryBlockEntity extends ElectricInventoryBlockEntity implements 
 	}
 
 	public static void tick(World world, BlockPos pos, BlockState state, BatteryBlockEntity be) {
-		ElectricInventoryBlockEntity.tick(world, pos, state, be);
+		be.receiver.resetLimit();
 //        EnergyStorageUtil.move(be.getItemApi(0, EnergyStorage.ITEM), be.energy, Integer.MAX_VALUE, null);
-//        EnergyStorageUtil.move(be.energy, be.getItemApi(1, EnergyStorage.ITEM), Integer.MAX_VALUE, null);
+		be.energy -= EU.tryCharge(be.energy, be.getStack(1));
+
 		Direction facing = be.getCachedState().get(Properties.FACING);
-		be.energy -= EU.send(be.energy, world, pos.offset(facing), facing.getOpposite());
+		be.energy -= EU.trySend(be.energy, world, pos.offset(facing), facing.getOpposite());
 	}
 
 	@Override
-	protected EnergyTier getEnergyTier() {
-		return EnergyTier.LOW;
-	}
-
-	@Override
-	public boolean canReceive(Direction side) {
+	public boolean canReceiveEnergy(Direction side) {
 		return side != this.getCachedState().get(BatteryBlock.FACING);
 	}
 
 	@Override
-	public int receive(int energy, Direction side) {
-		if (!this.canReceive(side)) {
+	public int receiveEnergy(int energy, Direction side) {
+		if (!this.canReceiveEnergy(side)) {
 			return 0;
 		}
 		int change = Math.min(CAPACITY - this.energy, energy);
@@ -62,7 +65,7 @@ public class BatteryBlockEntity extends ElectricInventoryBlockEntity implements 
 	}
 
 	@Override
-	public boolean canSend(Direction side) {
+	public boolean canSendEnergy(Direction side) {
 		return side == this.getCachedState().get(BatteryBlock.FACING);
 	}
 }

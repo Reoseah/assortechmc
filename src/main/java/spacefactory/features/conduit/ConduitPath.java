@@ -76,9 +76,9 @@ public class ConduitPath {
 		}
 		BlockEntity entity = world.getBlockEntity(pos);
 		if (reverse) {
-			return entity instanceof EU.Sender sender && sender.canSend(side.getOpposite());
+			return entity instanceof EU.Sender sender && sender.canSendEnergy(side.getOpposite());
 		}
-		return entity instanceof EU.Receiver receiver && receiver.canReceive(side.getOpposite());
+		return entity instanceof EU.Receiver receiver && receiver.canReceiveEnergy(side.getOpposite());
 	}
 
 	private static class Link {

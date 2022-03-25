@@ -14,7 +14,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import spacefactory.api.EU;
-import spacefactory.api.EnergyTier;
+import spacefactory.api.LimitedEUReceiver;
 
 import java.util.Optional;
 
@@ -25,6 +25,8 @@ public abstract class CraftingMachineBlockEntity<R extends Recipe<Inventory>> ex
 	private static final int[] BOTTOM_SLOTS = {2, 1};
 	private static final int[] SIDE_SLOTS = {1};
 
+	protected final LimitedEUReceiver receiver;
+
 	@SuppressWarnings("OptionalUsedAsFieldOrParameterType")
 	protected @Nullable Optional<R> cachedRecipe;
 	protected int progress;
@@ -32,7 +34,21 @@ public abstract class CraftingMachineBlockEntity<R extends Recipe<Inventory>> ex
 
 	public CraftingMachineBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
 		super(type, pos, state);
+		this.receiver = new LimitedEUReceiver(this, this.getEnergyPerTick());
 	}
+
+	public EU.Receiver getEUReceiver() {
+		return this.receiver;
+	}
+
+	@Override
+	public int receiveEnergy(int energy, Direction side) {
+		int change = Math.min(Math.min(this.getEnergyPerTick() - this.energy, energy), this.getEnergyPerTick());
+		this.energy += change;
+		this.markDirty();
+		return change;
+	}
+
 
 	protected abstract RecipeType<R> getRecipeType();
 
@@ -78,11 +94,6 @@ public abstract class CraftingMachineBlockEntity<R extends Recipe<Inventory>> ex
 	}
 
 	@Override
-	protected EnergyTier getEnergyTier() {
-		return EnergyTier.LOW;
-	}
-
-	@Override
 	public void readNbt(NbtCompound nbt) {
 		super.readNbt(nbt);
 		this.progress = nbt.getShort("Progress");
@@ -112,9 +123,10 @@ public abstract class CraftingMachineBlockEntity<R extends Recipe<Inventory>> ex
 	}
 
 	public static <R extends Recipe<Inventory>> void tick(World world, BlockPos pos, BlockState state, CraftingMachineBlockEntity<R> be) {
-		ElectricInventoryBlockEntity.tick(world, pos, state, be);
-//          FIXME
-//        EnergyStorageUtil.move(be.getItemApi(be.getInventorySize() - 2, EnergyStorage.ITEM), be.energy, Integer.MAX_VALUE, null);
+		be.receiver.resetLimit();
+
+		// FIXME
+		// EnergyStorageUtil.move(be.getItemApi(be.getInventorySize() - 2, EnergyStorage.ITEM), be.energy, Integer.MAX_VALUE, null);
 
 		boolean wasActive = be.active;
 
@@ -173,13 +185,5 @@ public abstract class CraftingMachineBlockEntity<R extends Recipe<Inventory>> ex
 	@Override
 	public boolean canExtract(int slot, ItemStack stack, Direction dir) {
 		return true;
-	}
-
-	@Override
-	public int receive(int energy, Direction side) {
-		int change = Math.min(CAPACITY - this.energy, energy);
-		this.energy += change;
-		this.markDirty();
-		return change;
 	}
 }

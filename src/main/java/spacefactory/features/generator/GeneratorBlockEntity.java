@@ -15,7 +15,6 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import spacefactory.SpaceFactory;
 import spacefactory.api.EU;
-import spacefactory.api.EnergyTier;
 import spacefactory.core.block.entity.ElectricInventoryBlockEntity;
 
 public class GeneratorBlockEntity extends ElectricInventoryBlockEntity implements SidedInventory, EU.Sender {
@@ -38,11 +37,6 @@ public class GeneratorBlockEntity extends ElectricInventoryBlockEntity implement
 	@Override
 	public ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
 		return new GeneratorScreenHandler(syncId, this, player);
-	}
-
-	@Override
-	protected EnergyTier getEnergyTier() {
-		return EnergyTier.LOW;
 	}
 
 	@Override
@@ -96,20 +90,16 @@ public class GeneratorBlockEntity extends ElectricInventoryBlockEntity implement
 	}
 
 	public static void tick(World world, BlockPos pos, BlockState state, GeneratorBlockEntity be) {
-		ElectricInventoryBlockEntity.tick(world, pos, state, be);
-
 		boolean wasBurning = be.fuelLeft > 0;
 		boolean markDirty = false;
 
 		if (be.energy > 0) {
-			int energy = be.getEnergyTier().transferRate;
-			// TODO
-//			energy -= EnergyStorageUtil.move(be.energy, be.getItemApi(1, EnergyStorage.ITEM), Integer.MAX_VALUE, null);
+			int energy = be.energy;
 			for (Direction side : Direction.values()) {
-				if (!be.canSend(side)) {
+				if (!be.canSendEnergy(side)) {
 					continue;
 				}
-				energy -= EU.send(be.energy, world, pos.offset(side), side.getOpposite());
+				energy -= EU.trySend(be.energy, world, pos.offset(side), side.getOpposite());
 				if (energy == 0) {
 					break;
 				}

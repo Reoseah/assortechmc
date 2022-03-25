@@ -24,7 +24,6 @@ import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.Nullable;
 import spacefactory.SpaceFactory;
 import spacefactory.api.EU;
-import spacefactory.api.EnergyTier;
 
 import java.util.List;
 
@@ -75,11 +74,11 @@ public class ConduitBlock extends BlockWithEntity {
 		};
 	}
 
-	public final EnergyTier tier;
+	public final int transferRate;
 
-	public ConduitBlock(int radius, EnergyTier tier, Settings settings) {
+	public ConduitBlock(int radius, int transferRate, Settings settings) {
 		super(settings);
-		this.tier = tier;
+		this.transferRate = transferRate;
 		this.setDefaultState(this.getDefaultState()
 				.with(DOWN, false)
 				.with(UP, false)
@@ -112,7 +111,7 @@ public class ConduitBlock extends BlockWithEntity {
 			return true;
 		}
 		if (view instanceof World world) {
-			return EU.isElectricBlock(world, pos, side);
+			return EU.canInteract(world, pos, side);
 		}
 		return false;
 	}
@@ -173,7 +172,7 @@ public class ConduitBlock extends BlockWithEntity {
 	@Override
 	public void appendTooltip(ItemStack stack, @Nullable BlockView world, List<Text> tooltip, TooltipContext options) {
 		super.appendTooltip(stack, world, tooltip, options);
-		tooltip.add(new TranslatableText("tooltip.spacefactory.energy_per_tick", this.tier.transferRate).formatted(Formatting.GRAY));
+		tooltip.add(new TranslatableText("tooltip.spacefactory.energy_per_tick", this.transferRate).formatted(Formatting.GRAY));
 	}
 
 }

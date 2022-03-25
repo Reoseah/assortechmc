@@ -72,19 +72,16 @@ public class SolarPanelBlockEntity extends InventoryBlockEntity implements Sided
 				be.generating = true;
 
 				int energy = PRODUCTION;
-				// TODO
-//                EnergyStorage itemEnergy = be.getItemApi(0, EnergyStorage.ITEM);
-//                if (itemEnergy != null) {
-//                    EnergyStorageUtil.move(producedEnergy, itemEnergy, PRODUCTION, null);
-//                }
+				int slot = 0;
+				energy -= EU.tryCharge(energy, be.getStack(0));
 				for (Direction side : Direction.values()) {
-					if (!be.canSend(side)) {
-						continue;
-					}
-					energy -= EU.send(energy, world, pos.offset(side), side.getOpposite());
-					if (energy == 0) {
+					if (energy == slot) {
 						break;
 					}
+					if (!be.canSendEnergy(side)) {
+						continue;
+					}
+					energy -= EU.trySend(energy, world, pos.offset(side), side.getOpposite());
 				}
 				return;
 			}
@@ -97,7 +94,7 @@ public class SolarPanelBlockEntity extends InventoryBlockEntity implements Sided
 	}
 
 	@Override
-	public boolean canSend(Direction side) {
+	public boolean canSendEnergy(Direction side) {
 		return side != Direction.UP;
 	}
 }
