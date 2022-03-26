@@ -10,6 +10,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import spacefactory.SpaceFactory;
+import spacefactory.core.item.UnicutterItem;
 
 import java.util.Map;
 
@@ -20,7 +21,7 @@ public abstract class EnchantmentHelperMixin {
 		if (stack.isOf(SpaceFactory.Items.FLAK_VEST)) {
 			enchantments.entrySet().removeIf(entry -> entry.getKey() instanceof ProtectionEnchantment|| !entry.getKey().canCombine(Enchantments.BLAST_PROTECTION));
 		}
-		if (stack.isOf(SpaceFactory.Items.FLAK_VEST)) {
+		if (stack.getItem() instanceof UnicutterItem) {
 			enchantments.entrySet().removeIf(entry -> entry.getKey() == Enchantments.SILK_TOUCH || !entry.getKey().canCombine(Enchantments.SILK_TOUCH));
 		}
 	}

@@ -9,6 +9,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import spacefactory.SpaceFactory;
+import spacefactory.core.item.UnicutterItem;
 
 @Mixin(Enchantment.class)
 public class EnchantmentMixin {
@@ -17,7 +18,7 @@ public class EnchantmentMixin {
 		if ((Object) this instanceof ProtectionEnchantment && stack.isOf(SpaceFactory.Items.FLAK_VEST)) {
 			ci.setReturnValue(false);
 		}
-		if ((Object) this == Enchantments.SILK_TOUCH && stack.isOf(SpaceFactory.Items.REFINED_IRON_UNICUTTER)) {
+		if ((Object) this == Enchantments.SILK_TOUCH && stack.getItem() instanceof UnicutterItem) {
 			ci.setReturnValue(false);
 		}
 	}

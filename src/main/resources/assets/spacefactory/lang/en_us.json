@@ -55,9 +55,10 @@
   "item.spacefactory.circuit": "Circuit",
 
   "item.spacefactory.nether_quartz_dust": "Nether Quartz Dust",
-  "item.spacefactory.silicon_ingot": "Silicon Ingot",
+  "item.spacefactory.silicon_ingot": "Silicon",
 
   "item.spacefactory.refined_iron_ingot": "Refined Iron Ingot",
+  "item.spacefactory.refined_iron_nugget": "Refined Iron Nugget",
   "item.spacefactory.refined_iron_dust": "Refined Iron Dust",
   "item.spacefactory.small_refined_iron_dust": "Tiny Pile of Refined Iron Dust",
   "item.spacefactory.refined_iron_machete": "Refined Iron Machete",

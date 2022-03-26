@@ -270,6 +270,7 @@ public class SpaceFactory implements ModInitializer {
 		public static final Item REINFORCED_ENERGY_CONDUIT = register("reinforced_energy_conduit", new BlockItem(Blocks.ENERGY_CONDUIT, settings()));
 
 		public static final Item REFINED_IRON_INGOT = register("refined_iron_ingot", new Item(settings().rarity(Rarity.RARE)));
+		public static final Item REFINED_IRON_NUGGET = register("refined_iron_nugget", new Item(settings()));
 		public static final Item REFINED_IRON_DUST = register("refined_iron_dust", new Item(settings()));
 		public static final Item SMALL_REFINED_IRON_DUST = register("small_refined_iron_dust", new Item(settings()));
 		public static final Item REFINED_IRON_MACHETE = register("refined_iron_machete", new MacheteItem(ToolMaterials.REFINED_IRON, 2, -2F, settings()));

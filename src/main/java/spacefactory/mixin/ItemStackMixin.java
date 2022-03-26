@@ -17,6 +17,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import spacefactory.SpaceFactory;
+import spacefactory.core.item.UnicutterItem;
 
 @Mixin(ItemStack.class)
 public abstract class ItemStackMixin {
@@ -29,7 +30,7 @@ public abstract class ItemStackMixin {
 		if (this.item == SpaceFactory.Items.FLAK_VEST) {
 			NbtCompound nbt = EnchantmentHelper.createNbt(Registry.ENCHANTMENT.getId(Enchantments.BLAST_PROTECTION), 3);
 			ci.getReturnValue().add(nbt);
-		} else if (this.item == SpaceFactory.Items.REFINED_IRON_UNICUTTER) {
+		} else if (this.item instanceof UnicutterItem) {
 			NbtCompound nbt = EnchantmentHelper.createNbt(Registry.ENCHANTMENT.getId(Enchantments.SILK_TOUCH), 1);
 			ci.getReturnValue().add(nbt);
 		}
@@ -40,7 +41,7 @@ public abstract class ItemStackMixin {
 		if (this.item == SpaceFactory.Items.FLAK_VEST && (enchantment instanceof ProtectionEnchantment || !enchantment.canCombine(Enchantments.BLAST_PROTECTION))) {
 			ci.cancel();
 		}
-		if (this.item == SpaceFactory.Items.REFINED_IRON_UNICUTTER && (enchantment == Enchantments.SILK_TOUCH || !enchantment.canCombine(Enchantments.SILK_TOUCH))) {
+		if (this.item instanceof UnicutterItem && (enchantment == Enchantments.SILK_TOUCH || !enchantment.canCombine(Enchantments.SILK_TOUCH))) {
 			ci.cancel();
 		}
 	}
