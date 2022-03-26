@@ -2,7 +2,6 @@
   "replace": false,
   "values": [
     "spacefactory:tin_block",
-    "spacefactory:bronze_block",
     "spacefactory:iridium_block",
     "spacefactory:crystalite_block"
   ]

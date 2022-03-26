@@ -84,6 +84,8 @@ import spacefactory.features.generator.GeneratorBlock;
 import spacefactory.features.generator.GeneratorBlockEntity;
 import spacefactory.features.generator.GeneratorScreenHandler;
 import spacefactory.features.glypheon_resonance_absorber.GlypheonResonanceAbsorberBlock;
+import spacefactory.features.nano_steel.NanoSteelMacheteItem;
+import spacefactory.features.nano_steel.NanoSteelUnicutterItem;
 import spacefactory.features.pulverizer.PulverizerBlock;
 import spacefactory.features.pulverizer.PulverizerBlockEntity;
 import spacefactory.features.pulverizer.PulverizerRecipe;
@@ -103,8 +105,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
-
-import static net.minecraft.block.Blocks.JUNGLE_LEAVES;
 
 @SuppressWarnings("unused")
 public class SpaceFactory implements ModInitializer {
@@ -165,7 +165,7 @@ public class SpaceFactory implements ModInitializer {
 		public static final Block RUBBER_WOOD = register("rubber_wood", new PillarBlock(Settings.of(Material.WOOD, MapColor.BROWN).strength(2F).sounds(BlockSoundGroup.WOOD)));
 		public static final Block STRIPPED_RUBBER_LOG = register("stripped_rubber_log", new PillarBlock(Settings.of(Material.WOOD, MapColor.YELLOW).strength(2F).sounds(BlockSoundGroup.WOOD)));
 		public static final Block STRIPPED_RUBBER_WOOD = register("stripped_rubber_wood", new PillarBlock(Settings.of(Material.WOOD, MapColor.YELLOW).strength(2F).sounds(BlockSoundGroup.WOOD)));
-		public static final Block RUBBER_LEAVES = register("rubber_leaves", new LeavesBlock(Settings.copy(JUNGLE_LEAVES)));
+		public static final Block RUBBER_LEAVES = register("rubber_leaves", new LeavesBlock(Settings.of(Material.LEAVES).strength(0.2F).ticksRandomly().sounds(BlockSoundGroup.GRASS).nonOpaque().allowsSpawning(BlocksAccessor::invokeCanSpawnOnLeaves).suffocates(BlocksAccessor::invokeNever).blockVision(BlocksAccessor::invokeNever)));
 		public static final Block RUBBER_SAPLING = register("rubber_sapling", new RubberSaplingBlock(Settings.of(Material.PLANT).noCollision().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.GRASS)));
 
 		public static final Block TIN_ORE = register("tin_ore", new Block(FabricBlockSettings.of(Material.STONE).strength(3F)));
@@ -173,7 +173,6 @@ public class SpaceFactory implements ModInitializer {
 		public static final Block RAW_TIN_BLOCK = register("raw_tin_block", new Block(FabricBlockSettings.of(Material.STONE, MapColor.LIGHT_GRAY).requiresTool().strength(5.0f, 6.0f)));
 		public static final Block TIN_BLOCK = register("tin_block", new Block(FabricBlockSettings.of(Material.METAL, MapColor.LIGHT_GRAY).strength(3F, 6F).sounds(BlockSoundGroup.METAL)));
 
-		public static final Block BRONZE_BLOCK = register("bronze_block", new Block(FabricBlockSettings.of(Material.METAL, MapColor.ORANGE).strength(3F, 6F).sounds(BlockSoundGroup.METAL)));
 
 		public static final Block COPPER_WIRE = register("copper_wire", new ConduitBlock(1, 128, FabricBlockSettings.of(Material.METAL).strength(0.5F).sounds(BlockSoundGroup.WOOL)));
 		public static final Block COPPER_CABLE = register("copper_cable", new ConduitBlock(2, 128, FabricBlockSettings.of(Material.METAL).strength(0.5F)));
@@ -203,6 +202,14 @@ public class SpaceFactory implements ModInitializer {
 		}
 
 		public static void init() {
+			for (Block block : Registry.BLOCK) {
+				if (Registry.BLOCK.getId(block).getNamespace().equals(MOD_ID)) {
+					for (BlockState state : block.getStateManager().getStates()) {
+						Block.STATE_IDS.add(state);
+					}
+				}
+			}
+
 			FlammableBlockRegistry.getDefaultInstance().add(Blocks.RUBBER_LOG, 5, 5);
 			FlammableBlockRegistry.getDefaultInstance().add(Blocks.ALIVE_RUBBER_LOG, 5, 5);
 			FlammableBlockRegistry.getDefaultInstance().add(Blocks.STRIPPED_RUBBER_LOG, 5, 5);
@@ -242,11 +249,6 @@ public class SpaceFactory implements ModInitializer {
 		public static final Item TIN_INGOT = register("tin_ingot", new Item(settings()));
 		public static final Item TIN_NUGGET = register("tin_nugget", new Item(settings()));
 		public static final Item TIN_DUST = register("tin_dust", new Item(settings()));
-
-		public static final Item BRONZE_BLOCK = register("bronze_block", new BlockItem(Blocks.BRONZE_BLOCK, settings()));
-		public static final Item BRONZE_INGOT = register("bronze_ingot", new Item(settings()));
-		public static final Item BRONZE_NUGGET = register("bronze_nugget", new Item(settings()));
-		public static final Item BRONZE_DUST = register("bronze_dust", new Item(settings()));
 
 		public static final Item COPPER_WIRE = register("copper_wire", new BlockItem(Blocks.COPPER_WIRE, settings()));
 		public static final Item COPPER_CABLE = register("copper_cable", new BlockItem(Blocks.COPPER_CABLE, settings()));
@@ -294,8 +296,8 @@ public class SpaceFactory implements ModInitializer {
 		public static final Item ATOMIC_REASSEMBLER = register("atomic_reassembler", new BlockItem(Blocks.ATOMIC_REASSEMBLER, settings().rarity(Rarity.RARE)));
 
 		public static final Item NANO_STEEL_INGOT = register("nano_steel_ingot", new Item(settings().rarity(Rarity.RARE)));
-		public static final Item NANO_STEEL_MACHETE = register("nano_steel_machete", new MacheteItem(ToolMaterials.NANO_STRUCTURED_STEEL, 2, -2F, settings().rarity(Rarity.RARE)));
-		public static final Item NANO_STEEL_UNICUTTER = register("nano_steel_unicutter", new UnicutterItem(ToolMaterials.NANO_STRUCTURED_STEEL, -1, -1F, settings().maxDamage(700).rarity(Rarity.RARE)));
+		public static final Item NANO_STEEL_MACHETE = register("nano_steel_machete", new NanoSteelMacheteItem(ToolMaterials.NANO_STRUCTURED_STEEL, 2, -2F, settings().rarity(Rarity.RARE)));
+		public static final Item NANO_STEEL_UNICUTTER = register("nano_steel_unicutter", new NanoSteelUnicutterItem(ToolMaterials.NANO_STRUCTURED_STEEL, -1, -1F, settings().maxDamage(700).rarity(Rarity.RARE)));
 
 		public static final Item WARP_PRISM = register("warp_prism", new Item(settings().rarity(Rarity.RARE).maxCount(16)));
 		public static final Item GLYPHEON_FIELD_EXTRACTOR = register("glypheon_field_extractor", new BlockItem(Blocks.GLYPHEON_FIELD_EXTRACTOR, settings().rarity(Rarity.RARE)));
@@ -504,7 +506,6 @@ public class SpaceFactory implements ModInitializer {
 	}
 
 	public enum ArmorMaterials implements ArmorMaterial {
-		//		BRONZE("spacefactory_bronze", 20, new int[]{2, 5, 6, 2}, 12, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 0.0F, 0.0F, Ingredient.fromTag(Items.BRONZE_INGOTS));
 		FLAK("flak", 15, new int[]{2, 5, 6, 2}, 12, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 0.0F, 0.0F, Ingredient.empty());
 
 		private static final int[] BASE_DURABILITY = {13, 15, 16, 11};

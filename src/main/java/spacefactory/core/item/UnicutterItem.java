@@ -24,6 +24,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import spacefactory.SpaceFactory;
 
+// TODO make it cut chains? allow to add other blocks through a tag like vanilla tools?
 public class UnicutterItem extends ShearsItem {
 	private final ToolMaterial material;
 	private final Multimap<EntityAttribute, EntityAttributeModifier> attributeModifiers;

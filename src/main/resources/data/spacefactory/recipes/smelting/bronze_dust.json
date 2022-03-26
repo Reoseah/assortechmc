@@ -1,7 +1,0 @@
-{
-  "type": "minecraft:smelting",
-  "ingredient": {
-    "tag": "c:bronze_dusts"
-  },
-  "result": "spacefactory:bronze_ingot"
-}

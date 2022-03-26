@@ -14,7 +14,6 @@
   "block.spacefactory.raw_tin_block": "Block of Raw Tin",
   "block.spacefactory.tin_block": "Block of Tin",
 
-  "block.spacefactory.bronze_block": "Block of Bronze",
 
   "block.spacefactory.copper_wire": "Copper Wire",
   "block.spacefactory.copper_cable": "Copper Cable",
@@ -52,10 +51,6 @@
   "item.spacefactory.tin_ingot": "Tin Ingot",
   "item.spacefactory.tin_nugget": "Tin Nugget",
   "item.spacefactory.tin_dust": "Tin Dust",
-
-  "item.spacefactory.bronze_ingot": "Bronze Ingot",
-  "item.spacefactory.bronze_nugget": "Bronze Nugget",
-  "item.spacefactory.bronze_dust": "Bronze Dust",
 
   "item.spacefactory.circuit": "Circuit",
 
@@ -99,6 +94,8 @@
   "tooltip.spacefactory.energy_and_capacity" : "%s / %s EU",
   "tooltip.spacefactory.energy_per_tick" : "%s EU/t",
   "tooltip.spacefactory.energy_per_tick_and_limit" : "%s / %s EU/t",
+
+  "tooltip.spacefactory.self_regeneration": "Self-Regeneration",
 
   "container.spacefactory.fuel_ticks": "%s ticks left",
 
