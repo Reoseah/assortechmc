@@ -2,11 +2,11 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "spacefactory:refined_iron_ingot"
+      "tag": "c:iridium_ingots"
     }
   ],
   "result": {
-    "item": "spacefactory:refined_iron_nugget",
+    "item": "spacefactory:iridium_nugget",
     "count": 9
   }
 }

@@ -58,9 +58,7 @@
   "item.spacefactory.silicon_ingot": "Silicon",
 
   "item.spacefactory.refined_iron_ingot": "Refined Iron Ingot",
-  "item.spacefactory.refined_iron_nugget": "Refined Iron Nugget",
   "item.spacefactory.refined_iron_dust": "Refined Iron Dust",
-  "item.spacefactory.small_refined_iron_dust": "Tiny Pile of Refined Iron Dust",
   "item.spacefactory.refined_iron_machete": "Refined Iron Machete",
   "item.spacefactory.refined_iron_unicutter": "Refined Iron Unicutter",
 
@@ -75,6 +73,7 @@
   "item.spacefactory.netherite_scrap_dust": "Pulverized Netherite Scrap",
   "item.spacefactory.raw_iridium": "Raw Iridium",
   "item.spacefactory.iridium_ingot": "Iridium Ingot",
+  "item.spacefactory.iridium_nugget": "Iridium Nugget",
   "item.spacefactory.iridium_dust": "Iridium Dust",
   "item.spacefactory.small_iridium_dust": "Tiny Pile of Iridium Dust",
 

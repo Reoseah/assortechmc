@@ -270,10 +270,8 @@ public class SpaceFactory implements ModInitializer {
 		public static final Item REINFORCED_ENERGY_CONDUIT = register("reinforced_energy_conduit", new BlockItem(Blocks.ENERGY_CONDUIT, settings()));
 
 		public static final Item REFINED_IRON_INGOT = register("refined_iron_ingot", new Item(settings().rarity(Rarity.RARE)));
-		public static final Item REFINED_IRON_NUGGET = register("refined_iron_nugget", new Item(settings()));
 		public static final Item REFINED_IRON_DUST = register("refined_iron_dust", new Item(settings()));
-		public static final Item SMALL_REFINED_IRON_DUST = register("small_refined_iron_dust", new Item(settings()));
-		public static final Item REFINED_IRON_MACHETE = register("refined_iron_machete", new MacheteItem(ToolMaterials.REFINED_IRON, 2, -2F, settings()));
+		public static final Item REFINED_IRON_MACHETE = register("refined_iron_machete", new MacheteItem(ToolMaterials.REFINED_IRON, 2, -2.2F, settings()));
 		public static final Item REFINED_IRON_UNICUTTER = register("refined_iron_unicutter", new UnicutterItem(ToolMaterials.REFINED_IRON, -1, -1F, settings().maxDamage(250)));
 
 		public static final Item CAMOUFLAGE_CLOTH = register("camouflage_cloth", new Item(settings()));
@@ -290,6 +288,7 @@ public class SpaceFactory implements ModInitializer {
 		public static final Item IRIDIUM_BLOCK = register("iridium_block", new BlockItem(Blocks.IRIDIUM_BLOCK, settings().rarity(Rarity.UNCOMMON)));
 		public static final Item RAW_IRIDIUM = register("raw_iridium", new Item(settings().rarity(Rarity.UNCOMMON)));
 		public static final Item IRIDIUM_INGOT = register("iridium_ingot", new Item(settings().rarity(Rarity.UNCOMMON)));
+		public static final Item IRIDIUM_NUGGET = register("iridium_nugget", new Item(settings().rarity(Rarity.UNCOMMON)));
 		public static final Item IRIDIUM_DUST = register("iridium_dust", new Item(settings().rarity(Rarity.UNCOMMON)));
 		public static final Item SMALL_IRIDIUM_DUST = register("small_iridium_dust", new Item(settings().rarity(Rarity.UNCOMMON)));
 		public static final Item NETHERITE_SCRAP_DUST = register("netherite_scrap_dust", new Item(settings()));
@@ -297,7 +296,7 @@ public class SpaceFactory implements ModInitializer {
 		public static final Item ATOMIC_REASSEMBLER = register("atomic_reassembler", new BlockItem(Blocks.ATOMIC_REASSEMBLER, settings().rarity(Rarity.RARE)));
 
 		public static final Item NANO_STEEL_INGOT = register("nano_steel_ingot", new Item(settings().rarity(Rarity.RARE)));
-		public static final Item NANO_STEEL_MACHETE = register("nano_steel_machete", new NanoSteelMacheteItem(ToolMaterials.NANO_STRUCTURED_STEEL, 2, -2F, settings().rarity(Rarity.RARE)));
+		public static final Item NANO_STEEL_MACHETE = register("nano_steel_machete", new NanoSteelMacheteItem(ToolMaterials.NANO_STRUCTURED_STEEL, 2, -2.2F, settings().rarity(Rarity.RARE)));
 		public static final Item NANO_STEEL_UNICUTTER = register("nano_steel_unicutter", new NanoSteelUnicutterItem(ToolMaterials.NANO_STRUCTURED_STEEL, -1, -1F, settings().maxDamage(700).rarity(Rarity.RARE)));
 
 		public static final Item WARP_PRISM = register("warp_prism", new Item(settings().rarity(Rarity.RARE).maxCount(16)));

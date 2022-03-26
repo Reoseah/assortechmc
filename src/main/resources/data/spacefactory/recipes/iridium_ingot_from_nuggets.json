@@ -7,10 +7,10 @@
   ],
   "key": {
     "#": {
-      "item": "spacefactory:refined_iron_nugget"
+      "item": "spacefactory:iridium_nugget"
     }
   },
   "result": {
-    "item": "spacefactory:refined_iron_ingot"
+    "item": "spacefactory:iridium_ingot"
   }
 }

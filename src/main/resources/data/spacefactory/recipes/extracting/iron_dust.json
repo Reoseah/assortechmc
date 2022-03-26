@@ -1,11 +1,11 @@
 {
   "type": "spacefactory:extracting",
   "ingredient": {
-    "tag": "c:iron_dusts"
+    "tag": "c:iron_dusts",
+    "count": 3
   },
   "result": {
-    "item": "spacefactory:small_refined_iron_dust",
-    "count": 6
-  },
-  "experience": 0.1
+    "item": "spacefactory:refined_iron_dust",
+    "count": 2
+  }
 }
