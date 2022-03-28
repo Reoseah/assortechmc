@@ -44,13 +44,12 @@ import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStep;
+import net.minecraft.world.gen.YOffset;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.feature.size.TwoLayersFeatureSize;
 import net.minecraft.world.gen.foliage.FoliagePlacer;
 import net.minecraft.world.gen.foliage.FoliagePlacerType;
-import net.minecraft.world.gen.placementmodifier.BiomePlacementModifier;
-import net.minecraft.world.gen.placementmodifier.RarityFilterPlacementModifier;
-import net.minecraft.world.gen.placementmodifier.SquarePlacementModifier;
+import net.minecraft.world.gen.placementmodifier.*;
 import net.minecraft.world.gen.stateprovider.BlockStateProvider;
 import net.minecraft.world.gen.stateprovider.SimpleBlockStateProvider;
 import net.minecraft.world.gen.trunk.StraightTrunkPlacer;
@@ -128,11 +127,18 @@ public class SpaceFactory implements ModInitializer {
 		BiomeConfiguredFeatures.init();
 		BiomePlacedFeatures.init();
 
-		BiomeModifications.create(id("features")) //
+		BiomeModifications.create(id("rubber_trees")) //
 				.add(ModificationPhase.ADDITIONS, BiomeSelectors.categories(Biome.Category.SWAMP, Biome.Category.JUNGLE, Biome.Category.FOREST, Biome.Category.RIVER), (context) -> {
 					if (config.generateRubberTrees) {
-						RegistryKey<PlacedFeature> key = BuiltinRegistries.PLACED_FEATURE.getKey(BiomePlacedFeatures.RUBBER_TREE_PATCH).orElseThrow();
-						context.getGenerationSettings().addFeature(GenerationStep.Feature.VEGETAL_DECORATION, key);
+						RegistryKey<PlacedFeature> rubberTreePatch = getKey(BiomePlacedFeatures.RUBBER_TREE_PATCH);
+						context.getGenerationSettings().addFeature(GenerationStep.Feature.VEGETAL_DECORATION, rubberTreePatch);
+					}
+				});
+		BiomeModifications.create(id("ores")) //
+				.add(ModificationPhase.ADDITIONS, BiomeSelectors.foundInOverworld(), (context) -> {
+					if (config.generateOres) {
+						RegistryKey<PlacedFeature> tinOre = getKey(BiomePlacedFeatures.TIN_ORE);
+						context.getGenerationSettings().addFeature(GenerationStep.Feature.UNDERGROUND_ORES, tinOre);
 					}
 				});
 	}
@@ -149,22 +155,48 @@ public class SpaceFactory implements ModInitializer {
 		return registry.getEntry(registry.getKey(entry).orElseThrow()).orElseThrow();
 	}
 
+	private static RegistryKey<PlacedFeature> getKey(PlacedFeature feature) {
+		return BuiltinRegistries.PLACED_FEATURE.getKey(feature).orElseThrow();
+	}
+
 	public static class Config {
+		public static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
+
 		@SerializedName("generate_rubber_trees")
 		public boolean generateRubberTrees = true;
+		@SerializedName("rubber_tree_tries")
+		public int rubberTreesTries = 6;
+
+		@SerializedName("generate_ores")
+		public boolean generateOres = true;
+
+		@SerializedName("tin_veins_per_chunk")
+		public int tinVeinsPerChunk = 16;
+		@SerializedName("tin_vein_size")
+		public int tinVeinSize = 8;
+		@SerializedName("tin_min_height")
+		public int tinMinHeight = 25;
+		@SerializedName("tin_max_height")
+		public int tinMaxHeight = 80;
 
 		public void reset() {
 			this.generateRubberTrees = true;
+			this.rubberTreesTries = 6;
+
+			this.generateOres = true;
+			this.tinVeinsPerChunk = 16;
+			this.tinVeinSize = 8;
+			this.tinMinHeight = 25;
+			this.tinMaxHeight = 80;
 		}
 
 		public static void load() {
-			Gson gson = new GsonBuilder().setPrettyPrinting().create();
 			Path configPath = FabricLoader.getInstance().getConfigDir().resolve("spacefactory.json");
 
 			try {
 				if (Files.exists(configPath)) {
 					BufferedReader reader = Files.newBufferedReader(configPath);
-					config = gson.fromJson(reader, Config.class);
+					config = GSON.fromJson(reader, Config.class);
 					reader.close();
 				} else {
 					write();
@@ -176,11 +208,10 @@ public class SpaceFactory implements ModInitializer {
 		}
 
 		public static void write() {
-			Gson gson = new GsonBuilder().setPrettyPrinting().create();
 			Path configPath = FabricLoader.getInstance().getConfigDir().resolve("spacefactory.json");
 			try {
 				BufferedWriter writer = Files.newBufferedWriter(configPath);
-				gson.toJson(config, writer);
+				GSON.toJson(config, writer);
 				writer.flush();
 				writer.close();
 			} catch (IOException e) {
@@ -441,8 +472,19 @@ public class SpaceFactory implements ModInitializer {
 	public static class ConfiguredFeatures {
 		private static final BlockStateProvider RUBBER_LOGS = SimpleBlockStateProvider.of(Blocks.ALIVE_RUBBER_LOG);
 		private static final BlockStateProvider RUBBER_LEAVES = SimpleBlockStateProvider.of(Blocks.RUBBER_LEAVES);
+		public static final TreeFeatureConfig RUBBER_TREE_CONFIG = new TreeFeatureConfig.Builder( //
+				RUBBER_LOGS, new StraightTrunkPlacer(5, 2, 0), //
+				RUBBER_LEAVES, new RubberFoliagePlacer(UniformIntProvider.create(2, 2), UniformIntProvider.create(1, 1), 5), //
+				new TwoLayersFeatureSize(1, 0, 1)).build();
 
-		public static final ConfiguredFeature<TreeFeatureConfig, ?> RUBBER_TREE = register("rubber_tree", new ConfiguredFeature<>(Feature.TREE, new TreeFeatureConfig.Builder(RUBBER_LOGS, new StraightTrunkPlacer(5, 2, 0), RUBBER_LEAVES, new RubberFoliagePlacer(UniformIntProvider.create(2, 2), UniformIntProvider.create(1, 1), 5), new TwoLayersFeatureSize(1, 0, 1)).build()));
+		private static final OreFeatureConfig TIN_ORE_CONFIG = new OreFeatureConfig(List.of( //
+				OreFeatureConfig.createTarget(OreConfiguredFeatures.STONE_ORE_REPLACEABLES, Blocks.TIN_ORE.getDefaultState()), //
+				OreFeatureConfig.createTarget(OreConfiguredFeatures.DEEPSLATE_ORE_REPLACEABLES, Blocks.DEEPSLATE_TIN_ORE.getDefaultState())
+		), config.tinVeinSize);
+
+		public static final ConfiguredFeature<TreeFeatureConfig, ?> RUBBER_TREE = register("rubber_tree", new ConfiguredFeature<>(Feature.TREE, RUBBER_TREE_CONFIG));
+
+		public static final ConfiguredFeature<OreFeatureConfig, ?> TIN_ORE = register("tin_ore", new ConfiguredFeature<>(Feature.ORE, TIN_ORE_CONFIG));
 
 		public static <T extends ConfiguredFeature<?, ?>> T register(String name, T entry) {
 			return Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, id(name), entry);
@@ -466,7 +508,7 @@ public class SpaceFactory implements ModInitializer {
 	public static class BiomeConfiguredFeatures {
 		public static final ConfiguredFeature<RandomPatchFeatureConfig, ?> RUBBER_TREE_PATCH = ConfiguredFeatures.register("rubber_tree_patch", //
 				new ConfiguredFeature<>(Feature.RANDOM_PATCH, //
-						net.minecraft.world.gen.feature.ConfiguredFeatures.createRandomPatchFeatureConfig(6, getEntry(BuiltinRegistries.PLACED_FEATURE, PlacedFeatures.RUBBER_TREE))));
+						net.minecraft.world.gen.feature.ConfiguredFeatures.createRandomPatchFeatureConfig(config.rubberTreesTries, getEntry(BuiltinRegistries.PLACED_FEATURE, PlacedFeatures.RUBBER_TREE))));
 
 		public static void init() {
 		}
@@ -479,6 +521,16 @@ public class SpaceFactory implements ModInitializer {
 						SquarePlacementModifier.of(), //
 						net.minecraft.world.gen.feature.PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, //
 						BiomePlacementModifier.of())));
+
+		public static final PlacedFeature TIN_ORE = PlacedFeatures.register("tin_ore", new PlacedFeature(getEntry(BuiltinRegistries.CONFIGURED_FEATURE, ConfiguredFeatures.TIN_ORE), //
+				List.of( //
+						CountPlacementModifier.of(config.tinVeinsPerChunk), //
+						SquarePlacementModifier.of(), //
+						HeightRangePlacementModifier.uniform( //
+								YOffset.fixed(config.tinMinHeight), //
+								YOffset.fixed(config.tinMaxHeight)), //
+						BiomePlacementModifier.of()
+				)));
 
 		public static void init() {
 		}
