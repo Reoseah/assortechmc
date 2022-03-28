@@ -33,6 +33,7 @@ import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.property.Properties;
+import net.minecraft.structure.rule.BlockStateMatchRuleTest;
 import net.minecraft.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
@@ -128,17 +129,24 @@ public class SpaceFactory implements ModInitializer {
 		BiomePlacedFeatures.init();
 
 		BiomeModifications.create(id("rubber_trees")) //
-				.add(ModificationPhase.ADDITIONS, BiomeSelectors.categories(Biome.Category.SWAMP, Biome.Category.JUNGLE, Biome.Category.FOREST, Biome.Category.RIVER), (context) -> {
+				.add(ModificationPhase.ADDITIONS, BiomeSelectors.categories(Biome.Category.SWAMP, Biome.Category.JUNGLE, Biome.Category.FOREST, Biome.Category.RIVER), context -> {
 					if (config.generateRubberTrees) {
 						RegistryKey<PlacedFeature> rubberTreePatch = getKey(BiomePlacedFeatures.RUBBER_TREE_PATCH);
 						context.getGenerationSettings().addFeature(GenerationStep.Feature.VEGETAL_DECORATION, rubberTreePatch);
 					}
 				});
-		BiomeModifications.create(id("ores")) //
-				.add(ModificationPhase.ADDITIONS, BiomeSelectors.foundInOverworld(), (context) -> {
+		BiomeModifications.create(id("overworld_ores")) //
+				.add(ModificationPhase.ADDITIONS, BiomeSelectors.foundInOverworld(), context -> {
 					if (config.generateOres) {
 						RegistryKey<PlacedFeature> tinOre = getKey(BiomePlacedFeatures.TIN_ORE);
 						context.getGenerationSettings().addFeature(GenerationStep.Feature.UNDERGROUND_ORES, tinOre);
+					}
+				});
+		BiomeModifications.create(id("the_end_ores")) //
+				.add(ModificationPhase.ADDITIONS, BiomeSelectors.foundInTheEnd(), context -> {
+					if (config.generateOres) {
+						RegistryKey<PlacedFeature> iridiumOre = getKey(BiomePlacedFeatures.IRIDIUM_ORE);
+						context.getGenerationSettings().addFeature(GenerationStep.Feature.UNDERGROUND_ORES, iridiumOre);
 					}
 				});
 	}
@@ -179,16 +187,14 @@ public class SpaceFactory implements ModInitializer {
 		@SerializedName("tin_max_height")
 		public int tinMaxHeight = 80;
 
-		public void reset() {
-			this.generateRubberTrees = true;
-			this.rubberTreesTries = 6;
-
-			this.generateOres = true;
-			this.tinVeinsPerChunk = 16;
-			this.tinVeinSize = 8;
-			this.tinMinHeight = 25;
-			this.tinMaxHeight = 80;
-		}
+		@SerializedName("iridium_veins_per_chunk")
+		public int iridiumVeinsPerChunk = 4;
+		@SerializedName("iridium_vein_size")
+		public int iridiumVeinSize = 4;
+		@SerializedName("iridium_min_height")
+		public int iridiumMinHeight = 0;
+		@SerializedName("iridium_max_height")
+		public int iridiumMaxHeight = 64;
 
 		public static void load() {
 			Path configPath = FabricLoader.getInstance().getConfigDir().resolve("spacefactory.json");
@@ -482,9 +488,14 @@ public class SpaceFactory implements ModInitializer {
 				OreFeatureConfig.createTarget(OreConfiguredFeatures.DEEPSLATE_ORE_REPLACEABLES, Blocks.DEEPSLATE_TIN_ORE.getDefaultState())
 		), config.tinVeinSize);
 
+		private static final OreFeatureConfig IRIDIUM_ORE_CONFIG = new OreFeatureConfig(List.of( //
+				OreFeatureConfig.createTarget(new BlockStateMatchRuleTest(net.minecraft.block.Blocks.END_STONE.getDefaultState()), Blocks.END_STONE_IRIDIUM_ORE.getDefaultState())), config.iridiumVeinSize);
+
+
 		public static final ConfiguredFeature<TreeFeatureConfig, ?> RUBBER_TREE = register("rubber_tree", new ConfiguredFeature<>(Feature.TREE, RUBBER_TREE_CONFIG));
 
 		public static final ConfiguredFeature<OreFeatureConfig, ?> TIN_ORE = register("tin_ore", new ConfiguredFeature<>(Feature.ORE, TIN_ORE_CONFIG));
+		public static final ConfiguredFeature<OreFeatureConfig, ?> IRIDIUM_ORE = register("iridium_ore", new ConfiguredFeature<>(Feature.ORE, IRIDIUM_ORE_CONFIG));
 
 		public static <T extends ConfiguredFeature<?, ?>> T register(String name, T entry) {
 			return Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, id(name), entry);
@@ -529,6 +540,16 @@ public class SpaceFactory implements ModInitializer {
 						HeightRangePlacementModifier.uniform( //
 								YOffset.fixed(config.tinMinHeight), //
 								YOffset.fixed(config.tinMaxHeight)), //
+						BiomePlacementModifier.of()
+				)));
+		public static final PlacedFeature IRIDIUM_ORE = PlacedFeatures.register("iridium_ore",
+				new PlacedFeature(getEntry(BuiltinRegistries.CONFIGURED_FEATURE, ConfiguredFeatures.IRIDIUM_ORE), //
+				List.of( //
+						CountPlacementModifier.of(config.iridiumVeinsPerChunk), //
+						SquarePlacementModifier.of(), //
+						HeightRangePlacementModifier.uniform( //
+								YOffset.fixed(config.iridiumMinHeight), //
+								YOffset.fixed(config.iridiumMaxHeight)), //
 						BiomePlacementModifier.of()
 				)));
 
