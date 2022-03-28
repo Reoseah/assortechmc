@@ -83,7 +83,6 @@ import spacefactory.features.extractor.ExtractorScreenHandler;
 import spacefactory.features.generator.GeneratorBlock;
 import spacefactory.features.generator.GeneratorBlockEntity;
 import spacefactory.features.generator.GeneratorScreenHandler;
-import spacefactory.features.glypheon_resonance_absorber.GlypheonResonanceAbsorberBlock;
 import spacefactory.features.nano_steel.NanoSteelMacheteItem;
 import spacefactory.features.nano_steel.NanoSteelUnicutterItem;
 import spacefactory.features.pulverizer.PulverizerBlock;
@@ -150,6 +149,47 @@ public class SpaceFactory implements ModInitializer {
 		return registry.getEntry(registry.getKey(entry).orElseThrow()).orElseThrow();
 	}
 
+	public static class Config {
+		@SerializedName("generate_rubber_trees")
+		public boolean generateRubberTrees = true;
+
+		public void reset() {
+			this.generateRubberTrees = true;
+		}
+
+		public static void load() {
+			Gson gson = new GsonBuilder().setPrettyPrinting().create();
+			Path configPath = FabricLoader.getInstance().getConfigDir().resolve("spacefactory.json");
+
+			try {
+				if (Files.exists(configPath)) {
+					BufferedReader reader = Files.newBufferedReader(configPath);
+					config = gson.fromJson(reader, Config.class);
+					reader.close();
+				} else {
+					write();
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+				config = new Config();
+			}
+		}
+
+		public static void write() {
+			Gson gson = new GsonBuilder().setPrettyPrinting().create();
+			Path configPath = FabricLoader.getInstance().getConfigDir().resolve("spacefactory.json");
+			try {
+				BufferedWriter writer = Files.newBufferedWriter(configPath);
+				gson.toJson(config, writer);
+				writer.flush();
+				writer.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+				config = new Config();
+			}
+		}
+	}
+
 	public static class Materials {
 		public static final Material MACHINE = new FabricMaterialBuilder(MapColor.IRON_GRAY).build();
 	}
@@ -188,13 +228,18 @@ public class SpaceFactory implements ModInitializer {
 		public static final Block COPPER_BUS_BAR = register("copper_bus_bar", new ConduitBlock(3, 1024, FabricBlockSettings.of(Material.METAL).strength(2F, 5F)));
 		public static final Block ENERGY_CONDUIT = register("reinforced_energy_conduit", new ConduitBlock(4, 1024, FabricBlockSettings.of(Material.METAL).strength(5F, 20F)));
 
-		public static final Block CRYSTALITE_BLOCK = register("crystalite_block", new Block(FabricBlockSettings.of(Material.GLASS, MapColor.LIGHT_BLUE).luminance(15).strength(5F, 20F).sounds(BlockSoundGroup.GLASS).allowsSpawning(BlocksAccessor::invokeNever)));
+		public static final Block CRYSTALITE_BLOCK = register("crystalite_block", new Block(FabricBlockSettings.of(Material.GLASS, MapColor.LIGHT_BLUE).luminance(15).strength(5F, 20F).slipperiness(0.98F).sounds(BlockSoundGroup.GLASS).allowsSpawning(BlocksAccessor::invokeNever)));
+
+		public static final Block ATOMIC_REASSEMBLER = register("atomic_reassembler", new AtomicReassemblerBlock(FabricBlockSettings.copyOf(FabricBlockSettings.copyOf(ADVANCED_MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 14 : 0))));
+
+		public static final Block NANO_STEEL_BLOCK = register("nano_steel_block", new Block(FabricBlockSettings.of(Material.METAL, MapColor.DARK_AQUA).strength(12F, 20F)));
+		public static final Block REINFORCED_STONE = register("reinforced_stone", new Block(FabricBlockSettings.of(Material.STONE, MapColor.DARK_AQUA).strength(10F, 15F)));
+		public static final Block REINFORCED_GLASS = register("reinforced_glass", new GlassBlock(FabricBlockSettings.of(Material.GLASS).strength(7F, 10F).nonOpaque().sounds(BlockSoundGroup.GLASS)));
+
 		public static final Block END_STONE_IRIDIUM_ORE = register("end_stone_iridium_ore", new Block(FabricBlockSettings.of(Material.STONE, MapColor.PALE_YELLOW).strength(3F, 9F)));
 		public static final Block RAW_IRIDIUM_BLOCK = register("raw_iridium_block", new Block(FabricBlockSettings.of(Material.STONE, MapColor.WHITE).requiresTool().strength(7.0f, 10.0f)));
 		public static final Block IRIDIUM_BLOCK = register("iridium_block", new Block(FabricBlockSettings.of(Material.METAL).strength(5F, 20F).allowsSpawning(BlocksAccessor::invokeNever)));
 
-		public static final Block ATOMIC_REASSEMBLER = register("atomic_reassembler", new AtomicReassemblerBlock(FabricBlockSettings.copyOf(FabricBlockSettings.copyOf(ADVANCED_MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 14 : 0))));
-		public static final Block GLYPHEON_FIELD_EXTRACTOR = register("glypheon_field_extractor", new GlypheonResonanceAbsorberBlock(FabricBlockSettings.copyOf(ADVANCED_MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 14 : 0)));
 		public static final Block DRAGON_ENERGY_ABSORBER = register("dragon_energy_absorber", new DragonEggSiphonBlock(FabricBlockSettings.copyOf(ADVANCED_MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 15 : 0)));
 
 		public static <T extends Block> T register(String name, T entry) {
@@ -283,6 +328,17 @@ public class SpaceFactory implements ModInitializer {
 		public static final Item RAW_CRYSTALITE_DUST = register("raw_crystalite_dust", new Item(settings()));
 		public static final Item QUANTUM_CIRCUIT = register("quantum_circuit", new Item(settings().rarity(Rarity.UNCOMMON)));
 
+		public static final Item ATOMIC_REASSEMBLER = register("atomic_reassembler", new BlockItem(Blocks.ATOMIC_REASSEMBLER, settings().rarity(Rarity.RARE)));
+
+		public static final Item NANO_STEEL_BLOCK = register("nano_steel_block", new BlockItem(Blocks.NANO_STEEL_BLOCK, settings().rarity(Rarity.RARE)));
+		public static final Item NANO_STEEL_INGOT = register("nano_steel_ingot", new Item(settings().rarity(Rarity.RARE)));
+		public static final Item NANO_STEEL_MACHETE = register("nano_steel_machete", new NanoSteelMacheteItem(ToolMaterials.NANO_STRUCTURED_STEEL, 2, -2.2F, settings().rarity(Rarity.RARE)));
+		public static final Item NANO_STEEL_UNICUTTER = register("nano_steel_unicutter", new NanoSteelUnicutterItem(ToolMaterials.NANO_STRUCTURED_STEEL, -1, -1F, settings().maxDamage(700).rarity(Rarity.RARE)));
+		public static final Item REINFORCED_STONE = register("reinforced_stone", new BlockItem(Blocks.REINFORCED_STONE, settings()));
+		public static final Item REINFORCED_GLASS = register("reinforced_glass", new BlockItem(Blocks.REINFORCED_GLASS, settings()));
+
+		public static final Item WARP_PRISM = register("warp_prism", new Item(settings().rarity(Rarity.RARE).maxCount(16)));
+
 		public static final Item END_STONE_IRIDIUM_ORE = register("end_stone_iridium_ore", new BlockItem(Blocks.END_STONE_IRIDIUM_ORE, settings().rarity(Rarity.UNCOMMON)));
 		public static final Item RAW_IRIDIUM_BLOCK = register("raw_iridium_block", new BlockItem(Blocks.RAW_IRIDIUM_BLOCK, settings().rarity(Rarity.UNCOMMON)));
 		public static final Item IRIDIUM_BLOCK = register("iridium_block", new BlockItem(Blocks.IRIDIUM_BLOCK, settings().rarity(Rarity.UNCOMMON)));
@@ -293,14 +349,7 @@ public class SpaceFactory implements ModInitializer {
 		public static final Item SMALL_IRIDIUM_DUST = register("small_iridium_dust", new Item(settings().rarity(Rarity.UNCOMMON)));
 		public static final Item NETHERITE_SCRAP_DUST = register("netherite_scrap_dust", new Item(settings()));
 
-		public static final Item ATOMIC_REASSEMBLER = register("atomic_reassembler", new BlockItem(Blocks.ATOMIC_REASSEMBLER, settings().rarity(Rarity.RARE)));
 
-		public static final Item NANO_STEEL_INGOT = register("nano_steel_ingot", new Item(settings().rarity(Rarity.RARE)));
-		public static final Item NANO_STEEL_MACHETE = register("nano_steel_machete", new NanoSteelMacheteItem(ToolMaterials.NANO_STRUCTURED_STEEL, 2, -2.2F, settings().rarity(Rarity.RARE)));
-		public static final Item NANO_STEEL_UNICUTTER = register("nano_steel_unicutter", new NanoSteelUnicutterItem(ToolMaterials.NANO_STRUCTURED_STEEL, -1, -1F, settings().maxDamage(700).rarity(Rarity.RARE)));
-
-		public static final Item WARP_PRISM = register("warp_prism", new Item(settings().rarity(Rarity.RARE).maxCount(16)));
-		public static final Item GLYPHEON_FIELD_EXTRACTOR = register("glypheon_field_extractor", new BlockItem(Blocks.GLYPHEON_FIELD_EXTRACTOR, settings().rarity(Rarity.RARE)));
 		public static final Item DRAGON_ENERGY_ABSORBER = register("dragon_energy_absorber", new BlockItem(Blocks.DRAGON_ENERGY_ABSORBER, settings().rarity(Rarity.RARE)));
 
 		public static final Item POTATO_BATTERY = register("potato_battery", new PotatoBatteryItem(settings().maxCount(1)));
@@ -453,47 +502,6 @@ public class SpaceFactory implements ModInitializer {
 		}
 	}
 
-	public static class Config {
-		@SerializedName("generate_rubber_trees")
-		public boolean generateRubberTrees = true;
-
-		public void reset() {
-			this.generateRubberTrees = true;
-		}
-
-		public static void load() {
-			Gson gson = new GsonBuilder().setPrettyPrinting().create();
-			Path configPath = FabricLoader.getInstance().getConfigDir().resolve("spacefactory.json");
-
-			try {
-				if (Files.exists(configPath)) {
-					BufferedReader reader = Files.newBufferedReader(configPath);
-					config = gson.fromJson(reader, Config.class);
-					reader.close();
-				} else {
-					write();
-				}
-			} catch (IOException e) {
-				e.printStackTrace();
-				config = new Config();
-			}
-		}
-
-		public static void write() {
-			Gson gson = new GsonBuilder().setPrettyPrinting().create();
-			Path configPath = FabricLoader.getInstance().getConfigDir().resolve("spacefactory.json");
-			try {
-				BufferedWriter writer = Files.newBufferedWriter(configPath);
-				gson.toJson(config, writer);
-				writer.flush();
-				writer.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-				config = new Config();
-			}
-		}
-	}
-
 	public static class Constants {
 		public static final int GENERATOR_OUTPUT = 10;
 		public static final int GENERATOR_CONSUMPTION = 4;
@@ -573,8 +581,8 @@ public class SpaceFactory implements ModInitializer {
 	}
 
 	public enum ToolMaterials implements ToolMaterial {
-		REFINED_IRON(3, 750, 6.5F, 3F, 8, Ingredient.ofItems(Items.REFINED_IRON_INGOT)),
-		NANO_STRUCTURED_STEEL(4, 1500, 7.5F, 4F, 0, Ingredient.ofItems(Items.NANO_STEEL_INGOT));
+		REFINED_IRON(2, 750, 6.5F, 3F, 8, Ingredient.ofItems(Items.REFINED_IRON_INGOT)),
+		NANO_STRUCTURED_STEEL(3, 1500, 7.5F, 4F, 0, Ingredient.ofItems(Items.NANO_STEEL_INGOT));
 
 		private final int miningLevel;
 		private final int itemDurability;

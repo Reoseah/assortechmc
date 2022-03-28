@@ -29,48 +29,49 @@ import spacefactory.features.solar_panel.SolarPanelScreen;
 
 @Environment(EnvType.CLIENT)
 public class SpaceFactoryClient implements ClientModInitializer {
-    @Override
-    public void onInitializeClient() {
-        BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutoutMipped(), SpaceFactory.Blocks.RUBBER_LEAVES, SpaceFactory.Blocks.RUBBER_SAPLING);
+	@Override
+	public void onInitializeClient() {
+		BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutoutMipped(), SpaceFactory.Blocks.RUBBER_LEAVES, SpaceFactory.Blocks.RUBBER_SAPLING);
+		BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutoutMipped(), SpaceFactory.Blocks.REINFORCED_GLASS);
 
-        ColorProviderRegistry.BLOCK.register((state, world, pos, tintIndex) -> {
-            int color = world != null && pos != null ? BiomeColors.getFoliageColor(world, pos) : FoliageColors.getDefaultColor();
-            return color;
-        }, SpaceFactory.Blocks.RUBBER_LEAVES);
-        ColorProviderRegistry.ITEM.register((stack, tintIndex) -> FoliageColors.getDefaultColor(), SpaceFactory.Blocks.RUBBER_LEAVES);
+		ColorProviderRegistry.BLOCK.register((state, world, pos, tintIndex) -> {
+			int color = world != null && pos != null ? BiomeColors.getFoliageColor(world, pos) : FoliageColors.getDefaultColor();
+			return color;
+		}, SpaceFactory.Blocks.RUBBER_LEAVES);
+		ColorProviderRegistry.ITEM.register((stack, tintIndex) -> FoliageColors.getDefaultColor(), SpaceFactory.Blocks.RUBBER_LEAVES);
 
-        FabricModelPredicateProviderRegistry.register(SpaceFactory.id("energy"), new UnclampedModelPredicateProvider() {
-            @Override
-            public float unclampedCall(ItemStack stack, @Nullable ClientWorld world, @Nullable LivingEntity entity, int seed) {
+		FabricModelPredicateProviderRegistry.register(SpaceFactory.id("energy"), new UnclampedModelPredicateProvider() {
+			@Override
+			public float unclampedCall(ItemStack stack, @Nullable ClientWorld world, @Nullable LivingEntity entity, int seed) {
 //                return SimpleBatteryItem.getStoredEnergyUnchecked(stack);
-                return 0;
-            }
+				return 0;
+			}
 
-            @Override
-            public float call(ItemStack stack, @Nullable ClientWorld world, @Nullable LivingEntity entity, int seed) {
-                return this.unclampedCall(stack, world, entity, seed);
-            }
-        });
+			@Override
+			public float call(ItemStack stack, @Nullable ClientWorld world, @Nullable LivingEntity entity, int seed) {
+				return this.unclampedCall(stack, world, entity, seed);
+			}
+		});
 
-        ScreenRegistry.register(SpaceFactory.ScreenHandlerTypes.GENERATOR, GeneratorScreen::new);
-        ScreenRegistry.register(SpaceFactory.ScreenHandlerTypes.SOLAR_PANEL, SolarPanelScreen::new);
-        ScreenRegistry.register(SpaceFactory.ScreenHandlerTypes.ELECTRIC_FURNACE, ElectricFurnaceScreen::new);
-        ScreenRegistry.register(SpaceFactory.ScreenHandlerTypes.PULVERIZER, PulverizerScreen::new);
-        ScreenRegistry.register(SpaceFactory.ScreenHandlerTypes.COMPRESSOR, CompressorScreen::new);
-        ScreenRegistry.register(SpaceFactory.ScreenHandlerTypes.MOLECULAR_ASSEMBLER, AtomicReassemblerScreen::new);
-        ScreenRegistry.register(SpaceFactory.ScreenHandlerTypes.EXTRACTOR, ExtractorScreen::new);
-        ScreenRegistry.register(SpaceFactory.ScreenHandlerTypes.BATTERY_BOX, BatteryBoxScreen::new);
+		ScreenRegistry.register(SpaceFactory.ScreenHandlerTypes.GENERATOR, GeneratorScreen::new);
+		ScreenRegistry.register(SpaceFactory.ScreenHandlerTypes.SOLAR_PANEL, SolarPanelScreen::new);
+		ScreenRegistry.register(SpaceFactory.ScreenHandlerTypes.ELECTRIC_FURNACE, ElectricFurnaceScreen::new);
+		ScreenRegistry.register(SpaceFactory.ScreenHandlerTypes.PULVERIZER, PulverizerScreen::new);
+		ScreenRegistry.register(SpaceFactory.ScreenHandlerTypes.COMPRESSOR, CompressorScreen::new);
+		ScreenRegistry.register(SpaceFactory.ScreenHandlerTypes.MOLECULAR_ASSEMBLER, AtomicReassemblerScreen::new);
+		ScreenRegistry.register(SpaceFactory.ScreenHandlerTypes.EXTRACTOR, ExtractorScreen::new);
+		ScreenRegistry.register(SpaceFactory.ScreenHandlerTypes.BATTERY_BOX, BatteryBoxScreen::new);
 
-        ClientPlayNetworking.registerGlobalReceiver(SpaceFactory.id("burnt_cable"), (client, handler, buf, responseSender) -> {
-            BlockPos pos = buf.readBlockPos();
-            client.execute(() -> {
-                if (client.world != null) {
-                    for (int i = 0; i < 8; i++) {
-                        client.world.addParticle(ParticleTypes.LARGE_SMOKE, pos.getX() + client.world.random.nextFloat(), pos.getY() + client.world.random.nextFloat(), pos.getZ() + client.world.random.nextFloat(), 0, 0, 0);
-                    }
-                }
-            });
-        });
-    }
+		ClientPlayNetworking.registerGlobalReceiver(SpaceFactory.id("burnt_cable"), (client, handler, buf, responseSender) -> {
+			BlockPos pos = buf.readBlockPos();
+			client.execute(() -> {
+				if (client.world != null) {
+					for (int i = 0; i < 8; i++) {
+						client.world.addParticle(ParticleTypes.LARGE_SMOKE, pos.getX() + client.world.random.nextFloat(), pos.getY() + client.world.random.nextFloat(), pos.getZ() + client.world.random.nextFloat(), 0, 0, 0);
+					}
+				}
+			});
+		});
+	}
 
 }

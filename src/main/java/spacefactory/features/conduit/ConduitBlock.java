@@ -27,7 +27,7 @@ import spacefactory.api.EU;
 
 import java.util.List;
 
-public class ConduitBlock extends BlockWithEntity {
+public class ConduitBlock extends BlockWithEntity implements EU.ElectricBlock {
 	public static final BooleanProperty DOWN = Properties.DOWN;
 	public static final BooleanProperty UP = Properties.UP;
 	public static final BooleanProperty NORTH = Properties.NORTH;

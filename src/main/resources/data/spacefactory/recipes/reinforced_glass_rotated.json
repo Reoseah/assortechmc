@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "I#I",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:glass"
+    },
+    "I": {
+      "item": "spacefactory:nano_steel_ingot"
+    }
+  },
+  "result": {
+    "item": "spacefactory:reinforced_glass",
+    "count": 7
+  }
+}

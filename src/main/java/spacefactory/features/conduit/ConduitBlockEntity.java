@@ -3,10 +3,12 @@ package spacefactory.features.conduit;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import spacefactory.SpaceFactory;
+import spacefactory.api.EU;
 
-public class ConduitBlockEntity extends BlockEntity {
+public class ConduitBlockEntity extends BlockEntity implements EU.Receiver {
     protected int current = 0;
 
     public ConduitBlockEntity(BlockPos pos, BlockState state) {
@@ -39,45 +41,8 @@ public class ConduitBlockEntity extends BlockEntity {
         }
     }
 
-//    public static class EnergyInserter implements EnergyStorage {
-//        protected final ConduitNetwork network;
-//        protected final BlockPos pos;
-//        protected final Direction side; // doesn't matter for cables currently
-//
-//        public EnergyInserter(ConduitNetwork network, BlockPos pos, Direction side) {
-//            this.network = network;
-//            this.pos = pos;
-//            this.side = side;
-//        }
-//
-//        @Override
-//        public boolean supportsInsertion() {
-//            return true;
-//        }
-//
-//        @Override
-//        public long insert(long maxAmount, TransactionContext transaction) {
-//            return this.network.send(this.pos, maxAmount, transaction);
-//        }
-//
-//        @Override
-//        public boolean supportsExtraction() {
-//            return false;
-//        }
-//
-//        @Override
-//        public long extract(long maxAmount, TransactionContext transaction) {
-//            return 0;
-//        }
-//
-//        @Override
-//        public long getAmount() {
-//            return 0;
-//        }
-//
-//        @Override
-//        public long getCapacity() {
-//            return Long.MAX_VALUE;
-//        }
-//    }
+    @Override
+    public int receiveEnergy(int energy, Direction side) {
+        return ConduitNetwork.of(this.world).send(this.pos, energy);
+    }
 }

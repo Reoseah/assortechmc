@@ -4,6 +4,7 @@ import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.HorizontalFacingBlock;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
@@ -11,13 +12,16 @@ import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.BlockMirror;
 import net.minecraft.util.BlockRotation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import spacefactory.core.block.InventoryBlock;
+import net.minecraft.world.WorldAccess;
+import spacefactory.api.EU;
+import spacefactory.core.block.entity.CraftingMachineBlockEntity;
 
 /**
  * Extends {@link InventoryBlock} with horizontal facing and normal/lit properties.
  */
-public abstract class OrientableMachineBlock extends InventoryBlock {
+public abstract class OrientableMachineBlock extends InventoryBlock implements EU.ElectricBlock {
 	public static final DirectionProperty FACING = HorizontalFacingBlock.FACING;
 	public static final BooleanProperty LIT = Properties.LIT;
 
@@ -46,5 +50,15 @@ public abstract class OrientableMachineBlock extends InventoryBlock {
 	@Override
 	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
 		builder.add(FACING, LIT);
+	}
+
+
+	@Override
+	public EU.Receiver getEnergyReceiver(BlockState state, WorldAccess world, BlockPos pos) {
+		BlockEntity be = world.getBlockEntity(pos);
+		if (be instanceof CraftingMachineBlockEntity craftingMachine) {
+			return craftingMachine.getEUReceiver();
+		}
+		return EU.ElectricBlock.super.getEnergyReceiver(state, world, pos);
 	}
 }

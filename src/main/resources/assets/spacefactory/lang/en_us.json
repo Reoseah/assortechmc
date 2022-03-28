@@ -33,8 +33,11 @@
   "block.spacefactory.iridium_block": "Block of Iridium",
 
   "block.spacefactory.atomic_reassembler": "Atomic Reassembler",
+  "block.spacefactory.nano_steel_block": "Nano Steel Block",
+  "block.spacefactory.reinforced_stone": "Reinforced Stone",
+  "block.spacefactory.reinforced_glass": "Reinforced Glass",
+
   "block.spacefactory.dragon_energy_absorber": "Dragon Energy Siphon",
-  "block.spacefactory.glypheon_field_extractor": "Glyph-Field Absorber",
 
   "item.spacefactory.copper_nugget": "Copper Nugget",
   "item.spacefactory.stone_dust": "Stone Dust",

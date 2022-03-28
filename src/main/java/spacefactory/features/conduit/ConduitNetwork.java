@@ -40,7 +40,7 @@ public class ConduitNetwork {
 	/**
 	 * Tries to send specified amount of energy through cables, returns amount that was sent.
 	 */
-	public long send(BlockPos pos, int amount, TransactionContext transaction) {
+	public int send(BlockPos pos, int amount) {
         int left = amount;
 
 		if (!this.cache.containsKey(pos)) {

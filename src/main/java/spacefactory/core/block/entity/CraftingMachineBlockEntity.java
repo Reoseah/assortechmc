@@ -34,7 +34,7 @@ public abstract class CraftingMachineBlockEntity<R extends Recipe<Inventory>> ex
 
 	public CraftingMachineBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
 		super(type, pos, state);
-		this.receiver = new LimitedEUReceiver(this, this.getEnergyPerTick());
+		this.receiver = new LimitedEUReceiver(this, 32);
 	}
 
 	public EU.Receiver getEUReceiver() {
@@ -43,7 +43,7 @@ public abstract class CraftingMachineBlockEntity<R extends Recipe<Inventory>> ex
 
 	@Override
 	public int receiveEnergy(int energy, Direction side) {
-		int change = Math.min(Math.min(this.getEnergyPerTick() - this.energy, energy), this.getEnergyPerTick());
+		int change = Math.min(Math.min(CAPACITY - this.energy, energy), this.getEnergyPerTick());
 		this.energy += change;
 		this.markDirty();
 		return change;
