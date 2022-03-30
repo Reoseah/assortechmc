@@ -18,9 +18,6 @@ public class EnchantmentMixin {
 		if ((Object) this instanceof ProtectionEnchantment && stack.isOf(SpaceFactory.Items.FLAK_VEST)) {
 			ci.setReturnValue(false);
 		}
-		if ((Object) this == Enchantments.SILK_TOUCH && stack.getItem() instanceof UnicutterItem) {
-			ci.setReturnValue(false);
-		}
 	}
 
 }

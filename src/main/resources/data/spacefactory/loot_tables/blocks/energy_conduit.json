@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "spacefactory:reinforced_energy_conduit"
+          "name": "spacefactory:energy_conduit"
         }
       ],
       "conditions": [

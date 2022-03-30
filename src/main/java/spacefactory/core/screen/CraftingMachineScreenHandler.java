@@ -16,7 +16,7 @@ import spacefactory.core.screen.slot.GenericOutputSlot;
 
 public abstract class CraftingMachineScreenHandler extends InventoryScreenHandler {
 	protected boolean active;
-	protected int energy;
+	protected int energy, capacity;
 	protected int progress, recipeDuration;
 
 	private CraftingMachineScreenHandler(ScreenHandlerType<?> type, int syncId, Inventory inventory, PlayerInventory user) {
@@ -33,6 +33,7 @@ public abstract class CraftingMachineScreenHandler extends InventoryScreenHandle
 
 		this.addProperty(new ReadProperty(() -> be.isActive() ? 1 : 0));
 		this.addProperty(new ReadProperty(be::getEnergy));
+		this.addProperty(new ReadProperty(be::getCapacity));
 		this.addProperty(new ReadProperty(be::getProgress));
 		this.addProperty(new ReadProperty(be::getRecipeDuration));
 	}
@@ -43,6 +44,7 @@ public abstract class CraftingMachineScreenHandler extends InventoryScreenHandle
 
 		this.addProperty(new WriteProperty(value -> this.active = value == 1));
 		this.addProperty(new WriteProperty(value -> this.energy = value));
+		this.addProperty(new WriteProperty(value -> this.capacity = value));
 		this.addProperty(new WriteProperty(value -> this.progress = value));
 		this.addProperty(new WriteProperty(value -> this.recipeDuration = value));
 	}
@@ -60,11 +62,15 @@ public abstract class CraftingMachineScreenHandler extends InventoryScreenHandle
 
 	@Environment(EnvType.CLIENT)
 	public int getEnergyDisplay() {
-		return this.energy * 13 / CraftingMachineBlockEntity.CAPACITY;
+		return this.energy * 13 / this.capacity;
 	}
 
 	@Environment(EnvType.CLIENT)
 	public int getEnergy() {
 		return this.energy;
+	}
+
+	public int getCapacity() {
+		return this.capacity;
 	}
 }

@@ -1,0 +1,10 @@
+{
+  "type": "spacefactory:extracting",
+  "ingredient": {
+    "item": "minecraft:beetroot"
+  },
+  "result": {
+    "item": "minecraft:red_dye",
+    "count": 2
+  }
+}

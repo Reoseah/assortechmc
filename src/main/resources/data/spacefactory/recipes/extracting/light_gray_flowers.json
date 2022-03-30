@@ -1,0 +1,10 @@
+{
+  "type": "spacefactory:extracting",
+  "ingredient": {
+    "tag": "spacefactory:light_gray_flowers"
+  },
+  "result": {
+    "item": "minecraft:light_gray_dye",
+    "count": 2
+  }
+}

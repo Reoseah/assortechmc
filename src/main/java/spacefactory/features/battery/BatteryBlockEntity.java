@@ -1,6 +1,7 @@
 package spacefactory.features.battery;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.screen.ScreenHandler;
@@ -11,26 +12,28 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import spacefactory.SpaceFactory;
 import spacefactory.api.EU;
-import spacefactory.api.LimitedEUReceiver;
-import spacefactory.core.block.entity.ElectricInventoryBlockEntity;
+import spacefactory.core.block.entity.MachineBlockEntity;
 
-public class BatteryBlockEntity extends ElectricInventoryBlockEntity implements EU.Receiver, EU.Sender {
+public class BatteryBlockEntity extends MachineBlockEntity implements EU.Sender {
 	public static final int CAPACITY = 100000;
 
-	protected final LimitedEUReceiver receiver;
-
 	public BatteryBlockEntity(BlockPos pos, BlockState state) {
-		super(SpaceFactory.BlockEntityTypes.BATTERY_BOX, pos, state);
-		this.receiver = new LimitedEUReceiver(this, 32);
-	}
-
-	public EU.Receiver getEUReceiver() {
-		return this.receiver;
+		super(SpaceFactory.BlockEntityTypes.BATTERY, pos, state);
 	}
 
 	@Override
 	protected int getInventorySize() {
 		return 2;
+	}
+
+	@Override
+	protected int getCapacity() {
+		return CAPACITY;
+	}
+
+	@Override
+	protected int getReceiveRate() {
+		return 20;
 	}
 
 	@Nullable
@@ -39,29 +42,17 @@ public class BatteryBlockEntity extends ElectricInventoryBlockEntity implements 
 		return new BatteryBoxScreenHandler(syncId, this, player);
 	}
 
-	public static void tick(World world, BlockPos pos, BlockState state, BatteryBlockEntity be) {
-		be.receiver.resetLimit();
-//        EnergyStorageUtil.move(be.getItemApi(0, EnergyStorage.ITEM), be.energy, Integer.MAX_VALUE, null);
-		be.energy -= EU.tryCharge(be.energy, be.getStack(1));
+	public void tick(World world, BlockPos pos, BlockState state, BlockEntity be) {
+		super.tick(world, pos, state, be);
+		this.energy -= EU.tryCharge(this.energy, this.getStack(1));
 
 		Direction facing = be.getCachedState().get(Properties.FACING);
-		be.energy -= EU.trySend(be.energy, world, pos.offset(facing), facing.getOpposite());
+		this.energy -= EU.trySend(this.energy, world, pos.offset(facing), facing.getOpposite());
 	}
 
 	@Override
 	public boolean canReceiveEnergy(Direction side) {
 		return side != this.getCachedState().get(BatteryBlock.FACING);
-	}
-
-	@Override
-	public int receiveEnergy(int energy, Direction side) {
-		if (!this.canReceiveEnergy(side)) {
-			return 0;
-		}
-		int change = Math.min(CAPACITY - this.energy, energy);
-		this.energy += change;
-		this.markDirty();
-		return change;
 	}
 
 	@Override

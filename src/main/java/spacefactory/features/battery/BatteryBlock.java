@@ -3,8 +3,6 @@ package spacefactory.features.battery;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityTicker;
-import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
@@ -19,10 +17,7 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.Nullable;
-import spacefactory.SpaceFactory;
 import spacefactory.api.EU;
 import spacefactory.core.block.InventoryBlock;
 
@@ -41,28 +36,10 @@ public class BatteryBlock extends InventoryBlock implements EU.ElectricBlock {
 		return this.getDefaultState().with(FACING, ctx.getPlayer() != null && ctx.getPlayer().isSneaking() ? direction : direction.getOpposite());
 	}
 
-	public BlockState rotate(BlockState state, BlockRotation rotation) {
-		return state.with(FACING, rotation.rotate(state.get(FACING)));
-	}
-
-	public BlockState mirror(BlockState state, BlockMirror mirror) {
-		return state.rotate(mirror.getRotation(state.get(FACING)));
-	}
-
-	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-		builder.add(FACING);
-	}
-
 	@Nullable
 	@Override
 	public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
 		return new BatteryBlockEntity(pos, state);
-	}
-
-	@Override
-	@Nullable
-	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-		return world.isClient ? null : checkType(type, SpaceFactory.BlockEntityTypes.BATTERY_BOX, BatteryBlockEntity::tick);
 	}
 
 	@Override
@@ -72,12 +49,17 @@ public class BatteryBlock extends InventoryBlock implements EU.ElectricBlock {
 		tooltip.add(new TranslatableText("tooltip.spacefactory.energy_per_tick", 32).formatted(Formatting.GRAY));
 	}
 
-	@Override
-	public EU.Receiver getEnergyReceiver(BlockState state, WorldAccess world, BlockPos pos) {
-		BlockEntity be = world.getBlockEntity(pos);
-		if (be instanceof BatteryBlockEntity battery) {
-			return battery.getEUReceiver();
-		}
-		return EU.ElectricBlock.super.getEnergyReceiver(state, world, pos);
+
+	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+		builder.add(FACING);
 	}
+
+	public BlockState rotate(BlockState state, BlockRotation rotation) {
+		return state.with(FACING, rotation.rotate(state.get(FACING)));
+	}
+
+	public BlockState mirror(BlockState state, BlockMirror mirror) {
+		return state.rotate(mirror.getRotation(state.get(FACING)));
+	}
+
 }

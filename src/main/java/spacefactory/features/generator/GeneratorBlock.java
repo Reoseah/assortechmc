@@ -20,13 +20,14 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import spacefactory.SpaceFactory;
+import spacefactory.api.EU;
 import spacefactory.core.block.OrientableMachineBlock;
 
 import java.util.List;
 import java.util.Random;
 
 public class GeneratorBlock extends OrientableMachineBlock {
-	public static final Text TOOLTIP = new TranslatableText("tooltip.spacefactory.generators", SpaceFactory.Constants.GENERATOR_OUTPUT, new TranslatableText("tooltip.spacefactory.conventional_fuel")).formatted(Formatting.GRAY);
+	public static final Text TOOLTIP = new TranslatableText("tooltip.spacefactory.generators", SpaceFactory.config.generatorProduction, new TranslatableText("tooltip.spacefactory.conventional_fuel")).formatted(Formatting.GRAY);
 
 	public GeneratorBlock(Settings settings) {
 		super(settings);
@@ -53,21 +54,21 @@ public class GeneratorBlock extends OrientableMachineBlock {
 	@Environment(EnvType.CLIENT)
 	public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
 		if (state.get(LIT)) {
-			double x = pos.getX() + 0.5D;
+			double x = pos.getX() + 0.5;
 			double y = pos.getY();
-			double z = pos.getZ() + 0.5D;
-			if (random.nextDouble() < 0.1D) {
-				world.playSound(x, y, z, SoundEvents.BLOCK_FURNACE_FIRE_CRACKLE, SoundCategory.BLOCKS, 1.0F, 1.0F, false);
+			double z = pos.getZ() + 0.5;
+			if (random.nextDouble() < 0.1) {
+				world.playSound(x, y + 0.5, z, SoundEvents.BLOCK_FURNACE_FIRE_CRACKLE, SoundCategory.BLOCKS, 1F, 1F, false);
 			}
 
 			Direction facing = state.get(FACING);
-			Direction.Axis axis = facing.getAxis();
-			double d = random.nextDouble() * 0.6D - 0.3D;
-			double dx = axis == Direction.Axis.X ? facing.getOffsetX() * 0.52D : d;
-			double dy = random.nextDouble() * 9.0D / 16.0D;
-			double dz = axis == Direction.Axis.Z ? facing.getOffsetZ() * 0.52D : d;
-			world.addParticle(ParticleTypes.SMOKE, x + dx, y + dy, z + dz, 0.0D, 0.0D, 0.0D);
-			world.addParticle(ParticleTypes.FLAME, x + dx, y + dy, z + dz, 0.0D, 0.0D, 0.0D);
+
+			double dx = facing.getAxis() == Direction.Axis.X ? facing.getOffsetX() * 0.52 : random.nextDouble() * 0.6 - 0.3;
+			double dz = facing.getAxis() == Direction.Axis.Z ? facing.getOffsetZ() * 0.52 : random.nextDouble() * 0.6 - 0.3;
+			double dy = random.nextDouble() * 9.0 / 16.0;
+
+			world.addParticle(ParticleTypes.SMOKE, x + dx, y + dy, z + dz, 0, 0, 0);
+			world.addParticle(ParticleTypes.FLAME, x + dx, y + dy, z + dz, 0, 0, 0);
 		}
 	}
 }

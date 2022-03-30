@@ -2,12 +2,12 @@
   "parent": "block/block",
   "textures": {
     "particle": "#block",
-    "block": "spacefactory:block/reinforced_energy_conduit"
+    "block": "spacefactory:block/energy_conduit"
   },
   "elements": [
     {
-      "from": [ 4, 0, 4 ],
-      "to": [ 12, 4, 12 ],
+      "from": [ 4, 4, 4 ],
+      "to": [ 12, 12, 12 ],
       "faces": {
         "north": { "texture": "#block" },
         "south": { "texture": "#block" },

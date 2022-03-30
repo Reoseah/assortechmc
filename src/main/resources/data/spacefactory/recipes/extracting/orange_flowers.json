@@ -1,0 +1,10 @@
+{
+  "type": "spacefactory:extracting",
+  "ingredient": {
+    "tag": "spacefactory:orange_flowers"
+  },
+  "result": {
+    "item": "minecraft:orange_dye",
+    "count": 2
+  }
+}

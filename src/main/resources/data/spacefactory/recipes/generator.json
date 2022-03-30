@@ -1,16 +1,13 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "ICI",
-    "WWW",
-    "IFI"
+    "#",
+    "C",
+    "F"
   ],
   "key": {
-    "I": {
-      "item": "minecraft:iron_ingot"
-    },
-    "W": {
-      "item": "spacefactory:copper_cable"
+    "#": {
+      "item": "spacefactory:machine_frame"
     },
     "C": {
       "item": "spacefactory:circuit"

@@ -1,25 +1,22 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "ICI",
-    "WGW",
-    "IBI"
+    " G ",
+    "NCN",
+    " # "
   ],
   "key": {
+    "#": {
+      "item": "spacefactory:machine_frame"
+    },
     "C": {
       "item": "spacefactory:circuit"
     },
     "G": {
       "item": "minecraft:glass"
     },
-    "I": {
-      "item": "minecraft:iron_ingot"
-    },
-    "W": {
-      "item": "spacefactory:copper_cable"
-    },
-    "B": {
-      "item": "minecraft:gold_block"
+    "N": {
+      "item": "minecraft:gold_nugget"
     }
   },
   "result": {

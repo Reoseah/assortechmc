@@ -1,19 +1,19 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "ICI",
-    "S S",
-    "IPI"
+    " # ",
+    "GCG",
+    " P "
   ],
   "key": {
-    "S": {
-      "item": "minecraft:smooth_stone"
+    "#": {
+      "item": "spacefactory:machine_frame"
     },
     "C": {
-      "tag": "c:circuits"
+      "item": "spacefactory:circuit"
     },
-    "I": {
-      "item": "minecraft:iron_ingot"
+    "G": {
+      "item": "minecraft:glass_pane"
     },
     "P": {
       "item": "minecraft:piston"

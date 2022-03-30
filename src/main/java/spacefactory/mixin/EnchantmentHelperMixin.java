@@ -21,8 +21,5 @@ public abstract class EnchantmentHelperMixin {
 		if (stack.isOf(SpaceFactory.Items.FLAK_VEST)) {
 			enchantments.entrySet().removeIf(entry -> entry.getKey() instanceof ProtectionEnchantment|| !entry.getKey().canCombine(Enchantments.BLAST_PROTECTION));
 		}
-		if (stack.getItem() instanceof UnicutterItem) {
-			enchantments.entrySet().removeIf(entry -> entry.getKey() == Enchantments.SILK_TOUCH || !entry.getKey().canCombine(Enchantments.SILK_TOUCH));
-		}
 	}
 }

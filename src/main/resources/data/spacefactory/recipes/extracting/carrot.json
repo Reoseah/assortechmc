@@ -1,0 +1,10 @@
+{
+  "type": "spacefactory:extracting",
+  "ingredient": {
+    "item": "minecraft:carrot",
+    "count": 2
+  },
+  "result": {
+    "item": "minecraft:orange_dye"
+  }
+}

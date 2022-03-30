@@ -54,6 +54,8 @@ import net.minecraft.world.gen.placementmodifier.*;
 import net.minecraft.world.gen.stateprovider.BlockStateProvider;
 import net.minecraft.world.gen.stateprovider.SimpleBlockStateProvider;
 import net.minecraft.world.gen.trunk.StraightTrunkPlacer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import spacefactory.core.item.MacheteItem;
 import spacefactory.core.item.UnicutterItem;
 import spacefactory.core.recipe.SimpleMachineRecipe;
@@ -108,11 +110,9 @@ import java.util.List;
 @SuppressWarnings("unused")
 public class SpaceFactory implements ModInitializer {
 	public static final String MOD_ID = "spacefactory";
-	public static Config config = new Config();
+	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
-	static {
-		Config.load();
-	}
+	public static Config config = Config.load();
 
 	@Override
 	public void onInitialize() {
@@ -196,33 +196,38 @@ public class SpaceFactory implements ModInitializer {
 		@SerializedName("iridium_max_height")
 		public int iridiumMaxHeight = 64;
 
-		public static void load() {
+		@SerializedName("generator_production")
+		public int generatorProduction = 10;
+		@SerializedName("generator_burn_rate")
+		public int generatorBurnRate = 4;
+
+		@SerializedName("solar_panel_production")
+		public int solarPanelProduction = 1;
+
+		public static Config load() {
 			Path configPath = FabricLoader.getInstance().getConfigDir().resolve("spacefactory.json");
 
-			try {
-				if (Files.exists(configPath)) {
-					BufferedReader reader = Files.newBufferedReader(configPath);
-					config = GSON.fromJson(reader, Config.class);
-					reader.close();
-				} else {
-					write();
+			if (Files.exists(configPath)) {
+				try (BufferedReader reader = Files.newBufferedReader(configPath)) {
+					return GSON.fromJson(reader, Config.class);
+				} catch (IOException e) {
+					LOGGER.warn("Error while reading config, using defaults", e);
+					return new Config();
 				}
-			} catch (IOException e) {
-				e.printStackTrace();
-				config = new Config();
+			} else {
+				LOGGER.info("Missing config file, creating default");
+				Config config = new Config();
+				write(config);
+				return config;
 			}
 		}
 
-		public static void write() {
+		public static void write(Config config) {
 			Path configPath = FabricLoader.getInstance().getConfigDir().resolve("spacefactory.json");
-			try {
-				BufferedWriter writer = Files.newBufferedWriter(configPath);
+			try (BufferedWriter writer = Files.newBufferedWriter(configPath)) {
 				GSON.toJson(config, writer);
-				writer.flush();
-				writer.close();
 			} catch (IOException e) {
-				e.printStackTrace();
-				config = new Config();
+				LOGGER.warn("Error while writing config", e);
 			}
 		}
 	}
@@ -250,27 +255,33 @@ public class SpaceFactory implements ModInitializer {
 		public static final Block RAW_TIN_BLOCK = register("raw_tin_block", new Block(FabricBlockSettings.of(Material.STONE, MapColor.LIGHT_GRAY).requiresTool().strength(5.0f, 6.0f)));
 		public static final Block TIN_BLOCK = register("tin_block", new Block(FabricBlockSettings.of(Material.METAL, MapColor.LIGHT_GRAY).strength(3F, 6F).sounds(BlockSoundGroup.METAL)));
 
-
 		public static final Block COPPER_WIRE = register("copper_wire", new ConduitBlock(1, 128, FabricBlockSettings.of(Material.METAL).strength(0.5F).sounds(BlockSoundGroup.WOOL)));
 		public static final Block COPPER_CABLE = register("copper_cable", new ConduitBlock(2, 128, FabricBlockSettings.of(Material.METAL).strength(0.5F)));
 
+		public static final Block MACHINE_FRAME = register("machine_frame", new Block(MACHINE_SETTINGS));
+
 		public static final Block GENERATOR = register("generator", new GeneratorBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 14 : 0)));
+		public static final Block BATTERY_BOX = register("battery_box", new BatteryBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).mapColor(MapColor.SPRUCE_BROWN).sounds(BlockSoundGroup.WOOD)));
 		public static final Block ELECTRIC_FURNACE = register("electric_furnace", new ElectricFurnaceBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 14 : 0)));
 		public static final Block PULVERIZER = register("pulverizer", new PulverizerBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 12 : 0)));
 		public static final Block COMPRESSOR = register("compressor", new CompressorBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 12 : 0)));
 		public static final Block EXTRACTOR = register("extractor", new ExtractorBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 12 : 0)));
 		public static final Block SOLAR_PANEL = register("solar_panel", new SolarPanelBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).mapColor(MapColor.LAPIS_BLUE)));
 
-		public static final Block BATTERY_BOX = register("battery_box", new BatteryBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).mapColor(MapColor.SPRUCE_BROWN).sounds(BlockSoundGroup.WOOD)));
 		public static final Block COPPER_BUS_BAR = register("copper_bus_bar", new ConduitBlock(3, 1024, FabricBlockSettings.of(Material.METAL).strength(2F, 5F)));
-		public static final Block ENERGY_CONDUIT = register("reinforced_energy_conduit", new ConduitBlock(4, 1024, FabricBlockSettings.of(Material.METAL).strength(5F, 20F)));
+		public static final Block ENERGY_CONDUIT = register("energy_conduit", new ConduitBlock(4, 1024, FabricBlockSettings.of(Material.METAL).strength(5F, 20F)));
 
 		public static final Block CRYSTALITE_BLOCK = register("crystalite_block", new Block(FabricBlockSettings.of(Material.GLASS, MapColor.LIGHT_BLUE).luminance(15).strength(5F, 20F).slipperiness(0.98F).sounds(BlockSoundGroup.GLASS).allowsSpawning(BlocksAccessor::invokeNever)));
 
 		public static final Block ATOMIC_REASSEMBLER = register("atomic_reassembler", new AtomicReassemblerBlock(FabricBlockSettings.copyOf(FabricBlockSettings.copyOf(ADVANCED_MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 14 : 0))));
 
 		public static final Block NANO_STEEL_BLOCK = register("nano_steel_block", new Block(FabricBlockSettings.of(Material.METAL, MapColor.DARK_AQUA).strength(12F, 20F)));
-		public static final Block REINFORCED_STONE = register("reinforced_stone", new Block(FabricBlockSettings.of(Material.STONE, MapColor.DARK_AQUA).strength(10F, 15F)));
+
+		public static final AbstractBlock.Settings REINFORCED_STONE_SETTINGS = FabricBlockSettings.of(Material.STONE, MapColor.DARK_AQUA).strength(10F, 15F);
+		public static final Block REINFORCED_STONE = register("reinforced_stone", new Block(REINFORCED_STONE_SETTINGS));
+		public static final Block REINFORCED_STONE_TILES = register("reinforced_stone_tiles", new Block(REINFORCED_STONE_SETTINGS));
+		public static final Block REINFORCED_STONE_STAIRS = register("reinforced_stone_stairs", new StairsBlock(REINFORCED_STONE_TILES.getDefaultState(), REINFORCED_STONE_SETTINGS));
+		public static final Block REINFORCED_STONE_SLAB = register("reinforced_stone_slab", new SlabBlock(REINFORCED_STONE_SETTINGS));
 		public static final Block REINFORCED_GLASS = register("reinforced_glass", new GlassBlock(FabricBlockSettings.of(Material.GLASS).strength(7F, 10F).nonOpaque().sounds(BlockSoundGroup.GLASS)));
 
 		public static final Block END_STONE_IRIDIUM_ORE = register("end_stone_iridium_ore", new Block(FabricBlockSettings.of(Material.STONE, MapColor.PALE_YELLOW).strength(3F, 9F)));
@@ -336,6 +347,8 @@ public class SpaceFactory implements ModInitializer {
 		public static final Item COPPER_CABLE = register("copper_cable", new BlockItem(Blocks.COPPER_CABLE, settings()));
 		public static final Item CIRCUIT = register("circuit", new Item(settings()));
 
+		public static final Item MACHINE_FRAME = register("machine_frame", new BlockItem(Blocks.MACHINE_FRAME, settings()));
+
 		public static final Item GENERATOR = register("generator", new BlockItem(Blocks.GENERATOR, settings()));
 
 		public static final Item ELECTRIC_FURNACE = register("electric_furnace", new BlockItem(Blocks.ELECTRIC_FURNACE, settings()));
@@ -349,7 +362,7 @@ public class SpaceFactory implements ModInitializer {
 
 		public static final Item BATTERY_BOX = register("battery_box", new BlockItem(Blocks.BATTERY_BOX, settings()));
 		public static final Item COPPER_BUS_BAR = register("copper_bus_bar", new BlockItem(Blocks.COPPER_BUS_BAR, settings()));
-		public static final Item REINFORCED_ENERGY_CONDUIT = register("reinforced_energy_conduit", new BlockItem(Blocks.ENERGY_CONDUIT, settings()));
+		public static final Item energy_conduit = register("energy_conduit", new BlockItem(Blocks.ENERGY_CONDUIT, settings()));
 
 		public static final Item REFINED_IRON_INGOT = register("refined_iron_ingot", new Item(settings().rarity(Rarity.RARE)));
 		public static final Item REFINED_IRON_DUST = register("refined_iron_dust", new Item(settings()));
@@ -372,10 +385,15 @@ public class SpaceFactory implements ModInitializer {
 		public static final Item NANO_STEEL_MACHETE = register("nano_steel_machete", new NanoSteelMacheteItem(ToolMaterials.NANO_STRUCTURED_STEEL, 2, -2.2F, settings().rarity(Rarity.RARE)));
 		public static final Item NANO_STEEL_UNICUTTER = register("nano_steel_unicutter", new NanoSteelUnicutterItem(ToolMaterials.NANO_STRUCTURED_STEEL, -1, -1F, settings().maxDamage(700).rarity(Rarity.RARE)));
 		public static final Item REINFORCED_STONE = register("reinforced_stone", new BlockItem(Blocks.REINFORCED_STONE, settings()));
+		public static final Item REINFORCED_STONE_TILES = register("reinforced_stone_tiles", new BlockItem(Blocks.REINFORCED_STONE_TILES, settings()));
+		public static final Item REINFORCED_STONE_STAIRS = register("reinforced_stone_stairs", new BlockItem(Blocks.REINFORCED_STONE_STAIRS, settings()));
+		public static final Item REINFORCED_STONE_SLAB = register("reinforced_stone_slab", new BlockItem(Blocks.REINFORCED_STONE_SLAB, settings()));
 		public static final Item REINFORCED_GLASS = register("reinforced_glass", new BlockItem(Blocks.REINFORCED_GLASS, settings()));
 
+		public static final Item ENDER_PEARL_DUST = register("ender_pearl_dust", new Item(settings()));
 		public static final Item WARP_PRISM = register("warp_prism", new Item(settings().rarity(Rarity.RARE).maxCount(16)));
 
+		public static final Item NETHERITE_SCRAP_DUST = register("netherite_scrap_dust", new Item(settings()));
 		public static final Item END_STONE_IRIDIUM_ORE = register("end_stone_iridium_ore", new BlockItem(Blocks.END_STONE_IRIDIUM_ORE, settings().rarity(Rarity.UNCOMMON)));
 		public static final Item RAW_IRIDIUM_BLOCK = register("raw_iridium_block", new BlockItem(Blocks.RAW_IRIDIUM_BLOCK, settings().rarity(Rarity.UNCOMMON)));
 		public static final Item IRIDIUM_BLOCK = register("iridium_block", new BlockItem(Blocks.IRIDIUM_BLOCK, settings().rarity(Rarity.UNCOMMON)));
@@ -384,8 +402,6 @@ public class SpaceFactory implements ModInitializer {
 		public static final Item IRIDIUM_NUGGET = register("iridium_nugget", new Item(settings().rarity(Rarity.UNCOMMON)));
 		public static final Item IRIDIUM_DUST = register("iridium_dust", new Item(settings().rarity(Rarity.UNCOMMON)));
 		public static final Item SMALL_IRIDIUM_DUST = register("small_iridium_dust", new Item(settings().rarity(Rarity.UNCOMMON)));
-		public static final Item NETHERITE_SCRAP_DUST = register("netherite_scrap_dust", new Item(settings()));
-
 
 		public static final Item DRAGON_ENERGY_ABSORBER = register("dragon_energy_absorber", new BlockItem(Blocks.DRAGON_ENERGY_ABSORBER, settings().rarity(Rarity.RARE)));
 
@@ -419,7 +435,7 @@ public class SpaceFactory implements ModInitializer {
 		public static final BlockEntityType<CompressorBlockEntity> COMPRESSOR = create("compressor", CompressorBlockEntity::new, Blocks.COMPRESSOR);
 		public static final BlockEntityType<ExtractorBlockEntity> EXTRACTOR = create("extractor", ExtractorBlockEntity::new, Blocks.EXTRACTOR);
 		public static final BlockEntityType<AtomicReassemblerBlockEntity> MOLECULAR_ASSEMBLER = create("atomic_reassembler", AtomicReassemblerBlockEntity::new, Blocks.ATOMIC_REASSEMBLER);
-		public static final BlockEntityType<BatteryBlockEntity> BATTERY_BOX = create("battery_box", BatteryBlockEntity::new, Blocks.BATTERY_BOX);
+		public static final BlockEntityType<BatteryBlockEntity> BATTERY = create("battery_box", BatteryBlockEntity::new, Blocks.BATTERY_BOX);
 		public static final BlockEntityType<ConduitBlockEntity> CONDUIT = create("conduit", ConduitBlockEntity::new, Blocks.COPPER_WIRE, Blocks.COPPER_CABLE, Blocks.COPPER_BUS_BAR, Blocks.ENERGY_CONDUIT);
 
 		public static <T extends BlockEntity> BlockEntityType<T> create(String name, FabricBlockEntityTypeBuilder.Factory<T> factory, Block... blocks) {
@@ -544,14 +560,14 @@ public class SpaceFactory implements ModInitializer {
 				)));
 		public static final PlacedFeature IRIDIUM_ORE = PlacedFeatures.register("iridium_ore",
 				new PlacedFeature(getEntry(BuiltinRegistries.CONFIGURED_FEATURE, ConfiguredFeatures.IRIDIUM_ORE), //
-				List.of( //
-						CountPlacementModifier.of(config.iridiumVeinsPerChunk), //
-						SquarePlacementModifier.of(), //
-						HeightRangePlacementModifier.uniform( //
-								YOffset.fixed(config.iridiumMinHeight), //
-								YOffset.fixed(config.iridiumMaxHeight)), //
-						BiomePlacementModifier.of()
-				)));
+						List.of( //
+								CountPlacementModifier.of(config.iridiumVeinsPerChunk), //
+								SquarePlacementModifier.of(), //
+								HeightRangePlacementModifier.uniform( //
+										YOffset.fixed(config.iridiumMinHeight), //
+										YOffset.fixed(config.iridiumMaxHeight)), //
+								BiomePlacementModifier.of()
+						)));
 
 		public static void init() {
 		}
@@ -576,14 +592,7 @@ public class SpaceFactory implements ModInitializer {
 	}
 
 	public static class Constants {
-		public static final int GENERATOR_OUTPUT = 10;
-		public static final int GENERATOR_CONSUMPTION = 4;
-
-		public static final float SOLAR_PANEL_OUTPUT = 1;
-
 		public static final int DRAGON_EGG_SIPHON_OUTPUT = 256;
-
-		public static final int VANOVOLTAIC_CELL_GENERATION = 10;
 	}
 
 	public enum ArmorMaterials implements ArmorMaterial {

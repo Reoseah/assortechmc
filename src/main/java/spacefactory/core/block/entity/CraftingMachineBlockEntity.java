@@ -1,6 +1,7 @@
 package spacefactory.core.block.entity;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SidedInventory;
@@ -14,18 +15,13 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import spacefactory.api.EU;
-import spacefactory.api.LimitedEUReceiver;
 
 import java.util.Optional;
 
-public abstract class CraftingMachineBlockEntity<R extends Recipe<Inventory>> extends ElectricInventoryBlockEntity implements SidedInventory, EU.Receiver {
-	public static final int CAPACITY = 400;
-
+public abstract class CraftingMachineBlockEntity<R extends Recipe<Inventory>> extends MachineBlockEntity implements SidedInventory, EU.Receiver {
 	private static final int[] TOP_SLOTS = {0};
 	private static final int[] BOTTOM_SLOTS = {2, 1};
 	private static final int[] SIDE_SLOTS = {1};
-
-	protected final LimitedEUReceiver receiver;
 
 	@SuppressWarnings("OptionalUsedAsFieldOrParameterType")
 	protected @Nullable Optional<R> cachedRecipe;
@@ -34,21 +30,17 @@ public abstract class CraftingMachineBlockEntity<R extends Recipe<Inventory>> ex
 
 	public CraftingMachineBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
 		super(type, pos, state);
-		this.receiver = new LimitedEUReceiver(this, 32);
-	}
-
-	public EU.Receiver getEUReceiver() {
-		return this.receiver;
 	}
 
 	@Override
-	public int receiveEnergy(int energy, Direction side) {
-		int change = Math.min(Math.min(CAPACITY - this.energy, energy), this.getEnergyPerTick());
-		this.energy += change;
-		this.markDirty();
-		return change;
+	public int getCapacity() {
+		return this.getEnergyPerTick();
 	}
 
+	@Override
+	protected int getReceiveRate() {
+		return this.getEnergyPerTick();
+	}
 
 	protected abstract RecipeType<R> getRecipeType();
 
@@ -68,13 +60,6 @@ public abstract class CraftingMachineBlockEntity<R extends Recipe<Inventory>> ex
 		return this.active;
 	}
 
-	public int getRecipeDuration() {
-		if (this.cachedRecipe != null && this.cachedRecipe.isPresent()) {
-			this.getRecipeDuration(this.cachedRecipe.get());
-		}
-		return 0;
-	}
-
 	@SuppressWarnings("OptionalAssignedToNull")
 	protected R findRecipe(World world) {
 		if (world == null) {
@@ -91,6 +76,10 @@ public abstract class CraftingMachineBlockEntity<R extends Recipe<Inventory>> ex
 	protected void resetCachedRecipe() {
 		this.cachedRecipe = null;
 		this.progress = 0;
+	}
+
+	public int getRecipeDuration() {
+		return this.cachedRecipe != null && this.cachedRecipe.isPresent() ? this.getRecipeDuration(this.cachedRecipe.get()) : 0;
 	}
 
 	@Override
@@ -122,41 +111,41 @@ public abstract class CraftingMachineBlockEntity<R extends Recipe<Inventory>> ex
 		}
 	}
 
-	public static <R extends Recipe<Inventory>> void tick(World world, BlockPos pos, BlockState state, CraftingMachineBlockEntity<R> be) {
-		be.receiver.resetLimit();
+	public void tick(World world, BlockPos pos, BlockState state, BlockEntity be) {
+		super.tick(world, pos, state, be);
 
 		// FIXME
 		// EnergyStorageUtil.move(be.getItemApi(be.getInventorySize() - 2, EnergyStorage.ITEM), be.energy, Integer.MAX_VALUE, null);
 
-		boolean wasActive = be.active;
+		boolean wasActive = this.active;
 
-		if (be.progress > 0 && !be.hasEnergyPerTick()) {
-			be.progress = Math.max(be.progress - 2, 0);
+		if (this.progress > 0 && !this.hasEnergyPerTick()) {
+			this.progress = Math.max(this.progress - 2, 0);
 		} else {
-			R recipe = be.findRecipe(world);
+			R recipe = this.findRecipe(world);
 
-			if (be.canAcceptRecipeOutput(recipe) && be.hasEnergyPerTick()) {
-				if (!be.active) {
-					be.active = true;
+			if (this.canAcceptRecipeOutput(recipe) && this.hasEnergyPerTick()) {
+				if (!this.active) {
+					this.active = true;
 				}
-				be.energy -= be.getEnergyPerTick();
-				be.progress += 1;
-				if (be.progress >= be.getRecipeDuration(recipe)) {
-					be.craftRecipe(recipe);
+				this.energy -= this.getEnergyPerTick();
+				this.progress += 1;
+				if (this.progress >= this.getRecipeDuration(recipe)) {
+					this.craftRecipe(recipe);
 
-					be.progress = 0;
+					this.progress = 0;
 				}
-				be.markDirty();
-			} else if (be.active || be.progress > 0) {
-				be.active = false;
-				if (!be.canAcceptRecipeOutput(recipe)) {
-					be.progress = 0;
+				this.markDirty();
+			} else if (this.active || this.progress > 0) {
+				this.active = false;
+				if (!this.canAcceptRecipeOutput(recipe)) {
+					this.progress = 0;
 				}
-				be.markDirty();
+				this.markDirty();
 			}
 		}
-		if (wasActive != be.active) {
-			world.setBlockState(be.pos, be.getCachedState().with(Properties.LIT, be.active), 3);
+		if (wasActive != this.active) {
+			world.setBlockState(this.pos, this.getCachedState().with(Properties.LIT, this.active), 3);
 		}
 	}
 

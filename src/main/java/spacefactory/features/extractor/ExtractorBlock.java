@@ -20,10 +20,4 @@ public class ExtractorBlock extends OrientableMachineBlock {
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
         return new ExtractorBlockEntity(pos, state);
     }
-
-    @Override
-    @Nullable
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return world.isClient ? null : checkType(type, SpaceFactory.BlockEntityTypes.EXTRACTOR, ExtractorBlockEntity::tick);
-    }
 }

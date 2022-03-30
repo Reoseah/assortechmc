@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "spacefactory:block/reinforced_stone_slab"
+    },
+    "type=double": {
+      "model": "spacefactory:block/reinforced_stone_tiles"
+    },
+    "type=top": {
+      "model": "spacefactory:block/reinforced_stone_slab_top"
+    }
+  }
+}

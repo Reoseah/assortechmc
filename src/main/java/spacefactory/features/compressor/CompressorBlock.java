@@ -20,10 +20,4 @@ public class CompressorBlock extends OrientableMachineBlock {
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
         return new CompressorBlockEntity(pos, state);
     }
-
-    @Override
-    @Nullable
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return world.isClient ? null : checkType(type, SpaceFactory.BlockEntityTypes.COMPRESSOR, CompressorBlockEntity::tick);
-    }
 }

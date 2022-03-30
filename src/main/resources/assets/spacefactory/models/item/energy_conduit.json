@@ -2,8 +2,8 @@
   "parent": "block/block",
   "textures": {
     "particle": "#side",
-    "end": "spacefactory:block/reinforced_energy_conduit",
-    "side": "spacefactory:item/reinforced_energy_conduit"
+    "end": "spacefactory:block/energy_conduit",
+    "side": "spacefactory:item/energy_conduit"
   },
   "display": {
     "firstperson_righthand": {

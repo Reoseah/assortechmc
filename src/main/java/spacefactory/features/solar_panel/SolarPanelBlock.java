@@ -21,7 +21,7 @@ import spacefactory.core.block.InventoryBlock;
 import java.util.List;
 
 public class SolarPanelBlock extends InventoryBlock implements EU.ElectricBlock {
-	public static final Text TOOLTIP = new TranslatableText("tooltip.spacefactory.generators", SpaceFactory.Constants.SOLAR_PANEL_OUTPUT, new TranslatableText("tooltip.spacefactory.sunlight")).formatted(Formatting.GRAY);
+	public static final Text TOOLTIP = new TranslatableText("tooltip.spacefactory.generators", SpaceFactory.config.solarPanelProduction, new TranslatableText("tooltip.spacefactory.sunlight")).formatted(Formatting.GRAY);
 
 	public SolarPanelBlock(Settings settings) {
 		super(settings);

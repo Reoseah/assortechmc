@@ -1,0 +1,10 @@
+{
+  "type": "spacefactory:extracting",
+  "ingredient": {
+    "tag": "spacefactory:tall_yellow_flowers"
+  },
+  "result": {
+    "item": "minecraft:yellow_dye",
+    "count": 3
+  }
+}

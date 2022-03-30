@@ -110,8 +110,8 @@ public class ConduitBlock extends BlockWithEntity implements EU.ElectricBlock {
 		if (block instanceof ConduitBlock) {
 			return true;
 		}
-		if (view instanceof World world) {
-			return EU.canInteract(world, pos, side);
+		if (view instanceof WorldAccess world) {
+			return EU.canInteract(world, pos.offset(side), side.getOpposite());
 		}
 		return false;
 	}

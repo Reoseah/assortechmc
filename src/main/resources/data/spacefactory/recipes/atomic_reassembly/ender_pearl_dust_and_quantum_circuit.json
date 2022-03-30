@@ -2,7 +2,7 @@
   "type": "spacefactory:atomic_reassembly",
   "input": [
     {
-      "item": "minecraft:ender_pearl",
+      "tag": "c:ender_pearl_dusts",
       "count": 2
     },
     {

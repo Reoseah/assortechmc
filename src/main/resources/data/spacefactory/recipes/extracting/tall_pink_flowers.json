@@ -1,0 +1,10 @@
+{
+  "type": "spacefactory:extracting",
+  "ingredient": {
+    "tag": "spacefactory:tall_pink_flowers"
+  },
+  "result": {
+    "item": "minecraft:pink_dye",
+    "count": 3
+  }
+}

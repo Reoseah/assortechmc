@@ -1,28 +1,23 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "ICI",
-    "DDD",
-    "IPI"
+    "FFF",
+    "S#S",
+    " C "
   ],
   "key": {
-    "P": {
-      "item": "minecraft:piston"
+    "#": {
+      "item": "spacefactory:machine_frame"
     },
     "C": {
-      "tag": "c:circuits"
+      "item": "spacefactory:circuit"
     },
-    "I": {
-      "item": "minecraft:iron_ingot"
+    "S": {
+      "item": "minecraft:smooth_stone"
     },
-    "D": [
-      {
-        "item": "minecraft:diamond"
-      },
-      {
-        "tag": "c:diamond_dusts"
-      }
-    ]
+    "F": {
+      "item": "minecraft:flint"
+    }
   },
   "result": {
     "item": "spacefactory:pulverizer"

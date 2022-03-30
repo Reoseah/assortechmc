@@ -59,7 +59,7 @@ public class AtomicReassemblerScreen extends HandledScreen<AtomicReassemblerScre
 
     protected void drawMouseoverTooltip(MatrixStack matrices, int x, int y) {
         if (this.isPointWithinBounds(54, 9, 14, 14, x, y)) {
-            this.renderTooltip(matrices, new TranslatableText("tooltip.spacefactory.energy_and_capacity", this.handler.getEnergy(), CraftingMachineBlockEntity.CAPACITY).formatted(Formatting.GRAY), x, y);
+            this.renderTooltip(matrices, new TranslatableText("tooltip.spacefactory.energy_and_capacity", this.handler.getEnergy(), this.handler.capacity).formatted(Formatting.GRAY), x, y);
         }
         super.drawMouseoverTooltip(matrices, x, y);
     }

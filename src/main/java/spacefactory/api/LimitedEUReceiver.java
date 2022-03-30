@@ -2,6 +2,11 @@ package spacefactory.api;
 
 import net.minecraft.util.math.Direction;
 
+/**
+ * Wrapper over parent EU.Receiver that restricts maximum energy received by it.
+ * <p>
+ * Together with {@link #resetLimit()} you can restrict maximum energy received per tick.
+ */
 public class LimitedEUReceiver implements EU.Receiver {
 	protected final EU.Receiver parent;
 	protected final int max;
@@ -19,8 +24,10 @@ public class LimitedEUReceiver implements EU.Receiver {
 
 	@Override
 	public int receiveEnergy(int energy, Direction side) {
-		int limited = Math.min(this.max - this.total, energy);
-		return this.parent.receiveEnergy(limited, side);
+		int limit = this.max - this.total;
+		int accepted = this.parent.receiveEnergy(Math.min(energy, limit), side);
+		this.total += accepted;
+		return accepted;
 	}
 
 	public void resetLimit() {

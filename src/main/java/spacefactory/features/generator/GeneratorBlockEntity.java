@@ -15,13 +15,11 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import spacefactory.SpaceFactory;
 import spacefactory.api.EU;
-import spacefactory.core.block.entity.ElectricInventoryBlockEntity;
+import spacefactory.core.block.entity.InventoryBlockEntity;
 
-public class GeneratorBlockEntity extends ElectricInventoryBlockEntity implements SidedInventory, EU.Sender {
-	private static final int[] TOP_SLOTS = {1};
-	private static final int[] BOTTOM_SLOTS = {0};
-	private static final int[] SIDE_SLOTS = {0};
+import java.util.Locale;
 
+public class GeneratorBlockEntity extends InventoryBlockEntity implements SidedInventory, EU.Sender {
 	protected int fuelLeft, fuelDuration;
 
 	public GeneratorBlockEntity(BlockPos pos, BlockState state) {
@@ -63,11 +61,7 @@ public class GeneratorBlockEntity extends ElectricInventoryBlockEntity implement
 
 	@Override
 	public int[] getAvailableSlots(Direction side) {
-		return switch (side) {
-			case DOWN -> BOTTOM_SLOTS;
-			case UP -> TOP_SLOTS;
-			default -> SIDE_SLOTS;
-		};
+		return new int[]{0};
 	}
 
 	@Override
@@ -77,11 +71,7 @@ public class GeneratorBlockEntity extends ElectricInventoryBlockEntity implement
 
 	@Override
 	public boolean canInsert(int slot, ItemStack stack, @Nullable Direction dir) {
-		return switch (slot) {
-			case 0 -> AbstractFurnaceBlockEntity.canUseAsFuel(stack);
-			case 1 -> EU.isElectricItem(stack);
-			default -> true;
-		};
+		return AbstractFurnaceBlockEntity.canUseAsFuel(stack);
 	}
 
 	@Override
@@ -89,52 +79,48 @@ public class GeneratorBlockEntity extends ElectricInventoryBlockEntity implement
 		return slot != 0 || !AbstractFurnaceBlockEntity.canUseAsFuel(stack);
 	}
 
+	public boolean canConsumeFuel() {
+		return 0 < AbstractFurnaceBlockEntity.createFuelTimeMap().getOrDefault(this.getStack(0).getItem(), 0) / SpaceFactory.config.generatorBurnRate;
+	}
+
+	public void consumeFuel() {
+		int fuelValue = AbstractFurnaceBlockEntity.createFuelTimeMap().getOrDefault(this.getStack(0).getItem(), 0);
+		if (fuelValue > 0) {
+			this.getStack(0).decrement(1);
+			this.fuelDuration = this.fuelLeft = fuelValue / SpaceFactory.config.generatorBurnRate;
+			this.markDirty();
+		} else {
+			throw new IllegalStateException(String.format(Locale.ROOT, "%s is not a valid fuel", this.getStack(0)));
+		}
+	}
+
 	public static void tick(World world, BlockPos pos, BlockState state, GeneratorBlockEntity be) {
 		boolean wasBurning = be.fuelLeft > 0;
-		boolean markDirty = false;
 
-		if (be.energy > 0) {
-			int energy = be.energy;
+		if (wasBurning || be.canConsumeFuel()) {
+			boolean sentAnyEnergy = false;
+			int energy = SpaceFactory.config.generatorProduction;
 			for (Direction side : Direction.values()) {
-				if (!be.canSendEnergy(side)) {
-					continue;
+				int sent = EU.trySend(energy, world, pos.offset(side), side.getOpposite());
+				energy -= sent;
+				if (sent > 0) {
+					sentAnyEnergy = true;
 				}
-				energy -= EU.trySend(be.energy, world, pos.offset(side), side.getOpposite());
 				if (energy == 0) {
 					break;
 				}
 			}
+			if (!wasBurning && sentAnyEnergy) {
+				be.consumeFuel();
+			}
+			be.fuelLeft--;
+			be.markDirty();
 		}
 
-		if (be.fuelLeft <= 0 && be.energy < SpaceFactory.Constants.GENERATOR_OUTPUT) {
-			// TODO only consume fuel if there's a consumer...
-			ItemStack fuel = be.inventory.get(0);
-			int value = AbstractFurnaceBlockEntity.createFuelTimeMap().getOrDefault(fuel.getItem(), 0) / SpaceFactory.Constants.GENERATOR_CONSUMPTION;
-			if (value > 0) {
-				fuel.decrement(1);
-				be.fuelDuration = be.fuelLeft = value;
-				markDirty = true;
-			} else {
-				be.fuelDuration = 0;
-				markDirty = true;
-			}
-		}
-		if (be.fuelLeft > 0) {
-			be.fuelLeft--;
-			if (be.energy < SpaceFactory.Constants.GENERATOR_OUTPUT) {
-				be.energy = Math.min(be.energy + SpaceFactory.Constants.GENERATOR_OUTPUT, SpaceFactory.Constants.GENERATOR_OUTPUT);
-			}
-			markDirty = true;
-		}
 		boolean isBurning = be.fuelLeft > 0;
 
 		if (isBurning != wasBurning) {
 			world.setBlockState(pos, be.getCachedState().with(Properties.LIT, isBurning));
-			markDirty = true;
-		}
-		if (markDirty) {
-			be.markDirty();
 		}
 	}
-
 }

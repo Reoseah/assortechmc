@@ -22,8 +22,6 @@ public class GeneratorScreenHandler extends InventoryScreenHandler {
         super(SpaceFactory.ScreenHandlerTypes.GENERATOR, syncId, inventory);
 
         this.addQuickTransferSlot(AbstractFurnaceBlockEntity::canUseAsFuel, new GenericFuelSlot(this.inventory, 0, 80, 54));
-        this.addQuickTransferSlot(EU::isElectricItem, new Slot(inventory, 1, 80, 18));
-
         this.addPlayerSlots(user);
     }
 

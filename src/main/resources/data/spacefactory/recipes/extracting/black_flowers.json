@@ -1,0 +1,10 @@
+{
+  "type": "spacefactory:extracting",
+  "ingredient": {
+    "tag": "spacefactory:black_flowers"
+  },
+  "result": {
+    "item": "minecraft:black_dye",
+    "count": 2
+  }
+}

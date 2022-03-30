@@ -4,7 +4,6 @@ import net.fabricmc.fabric.api.item.v1.FabricItem;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
@@ -16,8 +15,6 @@ import org.jetbrains.annotations.Nullable;
  * Contains core API for using SpaceFactory EU energy.
  */
 public abstract class EU {
-
-
 	/**
 	 * Implement on a block that needs to interact with EU electricity
 	 * and override methods if you need to customize behavior.

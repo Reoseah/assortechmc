@@ -14,19 +14,20 @@
   "block.spacefactory.raw_tin_block": "Block of Raw Tin",
   "block.spacefactory.tin_block": "Block of Tin",
 
-
   "block.spacefactory.copper_wire": "Copper Wire",
   "block.spacefactory.copper_cable": "Copper Cable",
 
+  "block.spacefactory.machine_frame": "Machine Frame",
+
   "block.spacefactory.generator": "Generator",
-  "block.spacefactory.battery_box": "Battery",
+  "block.spacefactory.battery_box": "Redstone Battery",
   "block.spacefactory.electric_furnace": "Electric Furnace",
   "block.spacefactory.pulverizer": "Pulverizer",
   "block.spacefactory.compressor": "Compressor",
   "block.spacefactory.extractor": "Extractor",
   "block.spacefactory.solar_panel": "Solar Panel",
   "block.spacefactory.copper_bus_bar": "Copper Bus Bar",
-  "block.spacefactory.reinforced_energy_conduit": "Energy Bus",
+  "block.spacefactory.energy_conduit": "Energy Bus",
   "block.spacefactory.crystalite_block": "Block of Crystalite",
   "block.spacefactory.end_stone_iridium_ore": "Iridium Ore",
   "block.spacefactory.raw_iridium_block": "Block of Raw Iridium",
@@ -35,6 +36,9 @@
   "block.spacefactory.atomic_reassembler": "Atomic Reassembler",
   "block.spacefactory.nano_steel_block": "Nano Steel Block",
   "block.spacefactory.reinforced_stone": "Reinforced Stone",
+  "block.spacefactory.reinforced_stone_tiles": "Reinforced Stone Tiles",
+  "block.spacefactory.reinforced_stone_stairs": "Reinforced Stone Stairs",
+  "block.spacefactory.reinforced_stone_slab": "Reinforced Stone Slab",
   "block.spacefactory.reinforced_glass": "Reinforced Glass",
 
   "block.spacefactory.dragon_energy_absorber": "Dragon Energy Siphon",
@@ -84,6 +88,7 @@
   "item.spacefactory.nano_steel_machete": "Nano Steel Machete",
   "item.spacefactory.nano_steel_unicutter": "Nano Steel Unicutter",
 
+  "item.spacefactory.ender_pearl_dust": "Ender Pearl Powder",
   "item.spacefactory.warp_prism": "Warp Prism",
   "item.spacefactory.potato_battery": "Potato Battery",
 
@@ -98,7 +103,7 @@
   "tooltip.spacefactory.energy_per_tick" : "%s EU/t",
   "tooltip.spacefactory.energy_per_tick_and_limit" : "%s / %s EU/t",
 
-  "tooltip.spacefactory.self_regeneration": "Self-Regeneration",
+  "tooltip.spacefactory.self_regeneration": "Self Repair",
 
   "container.spacefactory.fuel_ticks": "%s ticks left",
 

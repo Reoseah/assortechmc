@@ -30,18 +30,12 @@ public abstract class ItemStackMixin {
 		if (this.item == SpaceFactory.Items.FLAK_VEST) {
 			NbtCompound nbt = EnchantmentHelper.createNbt(Registry.ENCHANTMENT.getId(Enchantments.BLAST_PROTECTION), 3);
 			ci.getReturnValue().add(nbt);
-		} else if (this.item instanceof UnicutterItem) {
-			NbtCompound nbt = EnchantmentHelper.createNbt(Registry.ENCHANTMENT.getId(Enchantments.SILK_TOUCH), 1);
-			ci.getReturnValue().add(nbt);
 		}
 	}
 
 	@Inject(at = @At("RETURN"), method = "addEnchantment", cancellable = true)
 	public void addEnchantment(Enchantment enchantment, int level, CallbackInfo ci) {
 		if (this.item == SpaceFactory.Items.FLAK_VEST && (enchantment instanceof ProtectionEnchantment || !enchantment.canCombine(Enchantments.BLAST_PROTECTION))) {
-			ci.cancel();
-		}
-		if (this.item instanceof UnicutterItem && (enchantment == Enchantments.SILK_TOUCH || !enchantment.canCombine(Enchantments.SILK_TOUCH))) {
 			ci.cancel();
 		}
 	}

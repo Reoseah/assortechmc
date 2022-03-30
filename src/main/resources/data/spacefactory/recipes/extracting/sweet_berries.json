@@ -1,0 +1,10 @@
+{
+  "type": "spacefactory:extracting",
+  "ingredient": {
+    "item": "minecraft:sweet_berries",
+    "count": 4
+  },
+  "result": {
+    "item": "minecraft:red_dye"
+  }
+}
