@@ -49,7 +49,9 @@ allprojects {
 
     loom {
         shareCaches()
+        accessWidenerPath = file("src/main/resources/spacefactory.accesswidener")
     }
+
 
     java {
         withSourcesJar()

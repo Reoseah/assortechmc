@@ -114,8 +114,7 @@ public abstract class CraftingMachineBlockEntity<R extends Recipe<Inventory>> ex
 	public void tick(World world, BlockPos pos, BlockState state, BlockEntity be) {
 		super.tick(world, pos, state, be);
 
-		// FIXME
-		// EnergyStorageUtil.move(be.getItemApi(be.getInventorySize() - 2, EnergyStorage.ITEM), be.energy, Integer.MAX_VALUE, null);
+		this.energy += EU.tryDischarge(this.getCapacity() - this.energy, this.getStack(this.getInventorySize() - 2));
 
 		boolean wasActive = this.active;
 

@@ -14,7 +14,7 @@ import spacefactory.api.EU;
 
 import java.util.List;
 
-public class PotatoBatteryItem extends Item implements EU.SimpleNonRechargeableItem {
+public class PotatoBatteryItem extends Item implements EU.SimpleDischargeableItem {
 	public static final int CAPACITY = 500, TRANSFER_RATE = 1;
 
 	public PotatoBatteryItem(Settings settings) {

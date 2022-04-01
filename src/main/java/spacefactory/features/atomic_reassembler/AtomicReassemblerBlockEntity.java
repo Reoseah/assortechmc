@@ -24,7 +24,7 @@ public class AtomicReassemblerBlockEntity extends CraftingMachineBlockEntity<Ato
 	private static final int[] SIDE_SLOTS = {SLOT_BATTERY};
 
 	public AtomicReassemblerBlockEntity(BlockPos pos, BlockState state) {
-		super(SpaceFactory.BlockEntityTypes.MOLECULAR_ASSEMBLER, pos, state);
+		super(SpaceFactory.BlockEntityTypes.ATOMIC_REASSEMBLER, pos, state);
 	}
 
 	@Override

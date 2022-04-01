@@ -15,8 +15,6 @@ import spacefactory.api.EU;
 import spacefactory.core.block.entity.InventoryBlockEntity;
 
 public class SolarPanelBlockEntity extends InventoryBlockEntity implements SidedInventory, EU.Sender {
-	public static final int PRODUCTION = 1;
-
 	public boolean generating = false, skyView = false;
 
 	public SolarPanelBlockEntity(BlockPos pos, BlockState state) {
@@ -71,7 +69,7 @@ public class SolarPanelBlockEntity extends InventoryBlockEntity implements Sided
 				}
 				be.generating = true;
 
-				int energy = PRODUCTION;
+				int energy = SpaceFactory.config.solarPanelProduction;
 				int slot = 0;
 				energy -= EU.tryCharge(energy, be.getStack(0));
 				for (Direction side : Direction.values()) {

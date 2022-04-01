@@ -20,9 +20,6 @@ public abstract class EU {
 	 * and override methods if you need to customize behavior.
 	 * <p>
 	 * The default behavior is try to cast block entity to {@link EU.Receiver} or {@link EU.Sender}.
-	 *
-	 * @apiNote currently there's no guarantee that returned objects can be cached,
-	 * this is to be changed in future versions
 	 */
 	public interface ElectricBlock {
 		default @Nullable EU.Sender getEnergySender(BlockState state, WorldAccess world, BlockPos pos) {
@@ -145,11 +142,11 @@ public abstract class EU {
 			return false;
 		}
 
-		default int discharge(ItemStack stack, int amount, boolean commit) {
+		default int discharge(ItemStack stack, int max, boolean commit) {
 			if (!this.canDischarge(stack) || stack.getCount() > 1) {
 				return 0;
 			}
-			int change = Math.min(Math.min(this.getEnergy(stack), amount), this.getTransferLimit(stack));
+			int change = Math.min(Math.min(this.getEnergy(stack), max), this.getTransferLimit(stack));
 			if (commit) {
 				this.setEnergy(stack, this.getEnergy(stack) - change);
 			}
@@ -169,7 +166,17 @@ public abstract class EU {
 		return 0;
 	}
 
-	public interface SimpleNonRechargeableItem extends EU.ElectricItem, FabricItem {
+	public static int tryDischarge(int max, ItemStack stack) {
+		if (stack.getItem() instanceof ElectricItem electricItem) {
+			return electricItem.discharge(stack, max, true);
+		}
+		return 0;
+	}
+
+	/**
+	 * Implement this interface on your item class to make it function as a simple non-rechargeable battery.
+	 */
+	public interface SimpleDischargeableItem extends EU.ElectricItem, FabricItem {
 		String ENERGY_KEY = "energy";
 
 		@Override
@@ -200,8 +207,10 @@ public abstract class EU {
 			return ItemStack.areItemsEqual(oldStack, newStack);
 		}
 	}
-
-	public interface SimpleRechargeableItem extends SimpleNonRechargeableItem {
+	/**
+	 * Implement this interface on your item class to make it function as a simple rechargeable battery.
+	 */
+	public interface SimpleRechargeableItem extends SimpleDischargeableItem {
 		@Override
 		default boolean canCharge(ItemStack stack) {
 			return true;

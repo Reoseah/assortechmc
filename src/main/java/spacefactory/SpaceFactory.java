@@ -97,8 +97,6 @@ import spacefactory.features.rubber_tree.RubberSaplingBlock;
 import spacefactory.features.solar_panel.SolarPanelBlock;
 import spacefactory.features.solar_panel.SolarPanelBlockEntity;
 import spacefactory.features.solar_panel.SolarPanelScreenHandler;
-import spacefactory.mixin.BlocksAccessor;
-import spacefactory.mixin.FoliagePlacerTypeInvoker;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -239,15 +237,15 @@ public class SpaceFactory implements ModInitializer {
 	public static class Blocks {
 		private static final Material UNMOVABLE_WOOD = new FabricMaterialBuilder(MapColor.OAK_TAN).blocksPistons().burnable().build();
 
-		private static final AbstractBlock.Settings MACHINE_SETTINGS = Settings.of(Materials.MACHINE).strength(3F, 6F).sounds(BlockSoundGroup.METAL).requiresTool().allowsSpawning(BlocksAccessor::invokeNever);
-		private static final AbstractBlock.Settings ADVANCED_MACHINE_SETTINGS = Settings.of(Materials.MACHINE).strength(10F, 30F).sounds(BlockSoundGroup.METAL).requiresTool().allowsSpawning(BlocksAccessor::invokeNever);
+		private static final AbstractBlock.Settings MACHINE_SETTINGS = Settings.of(Materials.MACHINE).strength(3F, 6F).sounds(BlockSoundGroup.METAL).requiresTool().allowsSpawning(net.minecraft.block.Blocks::never);
+		private static final AbstractBlock.Settings ADVANCED_MACHINE_SETTINGS = Settings.of(Materials.MACHINE).strength(10F, 30F).sounds(BlockSoundGroup.METAL).requiresTool().allowsSpawning(net.minecraft.block.Blocks::never);
 
 		public static final Block RUBBER_LOG = register("rubber_log", new PillarBlock(Settings.of(Material.WOOD, state -> state.get(PillarBlock.AXIS) == Direction.Axis.Y ? MapColor.YELLOW : MapColor.BROWN).strength(2F).sounds(BlockSoundGroup.WOOD)));
 		public static final Block ALIVE_RUBBER_LOG = register("alive_rubber_log", new AliveRubberLogBlock(Settings.of(UNMOVABLE_WOOD, MapColor.YELLOW).ticksRandomly().strength(2F).sounds(BlockSoundGroup.WOOD)));
 		public static final Block RUBBER_WOOD = register("rubber_wood", new PillarBlock(Settings.of(Material.WOOD, MapColor.BROWN).strength(2F).sounds(BlockSoundGroup.WOOD)));
 		public static final Block STRIPPED_RUBBER_LOG = register("stripped_rubber_log", new PillarBlock(Settings.of(Material.WOOD, MapColor.YELLOW).strength(2F).sounds(BlockSoundGroup.WOOD)));
 		public static final Block STRIPPED_RUBBER_WOOD = register("stripped_rubber_wood", new PillarBlock(Settings.of(Material.WOOD, MapColor.YELLOW).strength(2F).sounds(BlockSoundGroup.WOOD)));
-		public static final Block RUBBER_LEAVES = register("rubber_leaves", new LeavesBlock(Settings.of(Material.LEAVES).strength(0.2F).ticksRandomly().sounds(BlockSoundGroup.GRASS).nonOpaque().allowsSpawning(BlocksAccessor::invokeCanSpawnOnLeaves).suffocates(BlocksAccessor::invokeNever).blockVision(BlocksAccessor::invokeNever)));
+		public static final Block RUBBER_LEAVES = register("rubber_leaves", new LeavesBlock(Settings.of(Material.LEAVES).strength(0.2F).ticksRandomly().sounds(BlockSoundGroup.GRASS).nonOpaque().allowsSpawning(net.minecraft.block.Blocks::canSpawnOnLeaves).suffocates(net.minecraft.block.Blocks::never).blockVision(net.minecraft.block.Blocks::never)));
 		public static final Block RUBBER_SAPLING = register("rubber_sapling", new RubberSaplingBlock(Settings.of(Material.PLANT).noCollision().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.GRASS)));
 
 		public static final Block TIN_ORE = register("tin_ore", new Block(FabricBlockSettings.of(Material.STONE).strength(3F)));
@@ -271,7 +269,7 @@ public class SpaceFactory implements ModInitializer {
 		public static final Block COPPER_BUS_BAR = register("copper_bus_bar", new ConduitBlock(3, 1024, FabricBlockSettings.of(Material.METAL).strength(2F, 5F)));
 		public static final Block ENERGY_CONDUIT = register("energy_conduit", new ConduitBlock(4, 1024, FabricBlockSettings.of(Material.METAL).strength(5F, 20F)));
 
-		public static final Block CRYSTALITE_BLOCK = register("crystalite_block", new Block(FabricBlockSettings.of(Material.GLASS, MapColor.LIGHT_BLUE).luminance(15).strength(5F, 20F).slipperiness(0.98F).sounds(BlockSoundGroup.GLASS).allowsSpawning(BlocksAccessor::invokeNever)));
+		public static final Block CRYSTALITE_BLOCK = register("crystalite_block", new Block(FabricBlockSettings.of(Material.GLASS, MapColor.LIGHT_BLUE).luminance(15).strength(5F, 20F).slipperiness(0.98F).sounds(BlockSoundGroup.GLASS).allowsSpawning(net.minecraft.block.Blocks::never)));
 
 		public static final Block ATOMIC_REASSEMBLER = register("atomic_reassembler", new AtomicReassemblerBlock(FabricBlockSettings.copyOf(FabricBlockSettings.copyOf(ADVANCED_MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 14 : 0))));
 
@@ -286,7 +284,7 @@ public class SpaceFactory implements ModInitializer {
 
 		public static final Block END_STONE_IRIDIUM_ORE = register("end_stone_iridium_ore", new Block(FabricBlockSettings.of(Material.STONE, MapColor.PALE_YELLOW).strength(3F, 9F)));
 		public static final Block RAW_IRIDIUM_BLOCK = register("raw_iridium_block", new Block(FabricBlockSettings.of(Material.STONE, MapColor.WHITE).requiresTool().strength(7.0f, 10.0f)));
-		public static final Block IRIDIUM_BLOCK = register("iridium_block", new Block(FabricBlockSettings.of(Material.METAL).strength(5F, 20F).allowsSpawning(BlocksAccessor::invokeNever)));
+		public static final Block IRIDIUM_BLOCK = register("iridium_block", new Block(FabricBlockSettings.of(Material.METAL).strength(5F, 20F).allowsSpawning(net.minecraft.block.Blocks::never)));
 
 		public static final Block DRAGON_ENERGY_ABSORBER = register("dragon_energy_absorber", new DragonEggSiphonBlock(FabricBlockSettings.copyOf(ADVANCED_MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 15 : 0)));
 
@@ -434,7 +432,7 @@ public class SpaceFactory implements ModInitializer {
 		public static final BlockEntityType<PulverizerBlockEntity> PULVERIZER = create("pulverizer", PulverizerBlockEntity::new, Blocks.PULVERIZER);
 		public static final BlockEntityType<CompressorBlockEntity> COMPRESSOR = create("compressor", CompressorBlockEntity::new, Blocks.COMPRESSOR);
 		public static final BlockEntityType<ExtractorBlockEntity> EXTRACTOR = create("extractor", ExtractorBlockEntity::new, Blocks.EXTRACTOR);
-		public static final BlockEntityType<AtomicReassemblerBlockEntity> MOLECULAR_ASSEMBLER = create("atomic_reassembler", AtomicReassemblerBlockEntity::new, Blocks.ATOMIC_REASSEMBLER);
+		public static final BlockEntityType<AtomicReassemblerBlockEntity> ATOMIC_REASSEMBLER = create("atomic_reassembler", AtomicReassemblerBlockEntity::new, Blocks.ATOMIC_REASSEMBLER);
 		public static final BlockEntityType<BatteryBlockEntity> BATTERY = create("battery_box", BatteryBlockEntity::new, Blocks.BATTERY_BOX);
 		public static final BlockEntityType<ConduitBlockEntity> CONDUIT = create("conduit", ConduitBlockEntity::new, Blocks.COPPER_WIRE, Blocks.COPPER_CABLE, Blocks.COPPER_BUS_BAR, Blocks.ENERGY_CONDUIT);
 
@@ -484,7 +482,7 @@ public class SpaceFactory implements ModInitializer {
 		public static final FoliagePlacerType<RubberFoliagePlacer> RUBBER = create("rubber_foliage_placer", RubberFoliagePlacer.CODEC);
 
 		public static <T extends FoliagePlacer> FoliagePlacerType<T> create(String name, Codec<T> codec) {
-			return Registry.register(Registry.FOLIAGE_PLACER_TYPE, id(name), FoliagePlacerTypeInvoker.create(codec));
+			return Registry.register(Registry.FOLIAGE_PLACER_TYPE, id(name), new FoliagePlacerType<>(codec));
 		}
 
 		public static void init() {

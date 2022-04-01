@@ -22,6 +22,7 @@
       "spacefactory.compatibility.roughlyenoughitems.SpaceFactoryPlugin"
     ]
   },
+  "accessWidener": "spacefactory.accesswidener",
   "mixins": [
     "spacefactory.mixins.json"
   ],
