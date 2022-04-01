@@ -1,19 +1,12 @@
 {
     "parent": "block/cube",
-    "display": {
-        "firstperson_righthand": {
-            "rotation": [ 0, 135, 0 ],
-            "translation": [ 0, 0, 0 ],
-            "scale": [ 0.40, 0.40, 0.40 ]
-        }
-    },
     "textures": {
-        "particle": "spacefactory:block/battery_front",
-        "down": "spacefactory:block/machine",
-        "up": "spacefactory:block/machine",
-        "north": "spacefactory:block/battery_front",
-        "east": "spacefactory:block/battery_side",
-        "south": "spacefactory:block/battery_side",
-        "west": "spacefactory:block/battery_side"
+        "particle": "spacefactory:block/redstone_battery0",
+        "down": "spacefactory:block/battery_output",
+        "up": "spacefactory:block/battery_input",
+        "north": "spacefactory:block/redstone_battery0",
+        "east": "spacefactory:block/redstone_battery0",
+        "south": "spacefactory:block/redstone_battery0",
+        "west": "spacefactory:block/redstone_battery0"
     }
 }

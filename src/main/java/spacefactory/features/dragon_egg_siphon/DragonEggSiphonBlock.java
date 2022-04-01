@@ -2,6 +2,7 @@ package spacefactory.features.dragon_egg_siphon;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -28,48 +29,47 @@ import java.util.List;
 import java.util.Random;
 
 public class DragonEggSiphonBlock extends InventoryBlock {
-	public static final Text TOOLTIP = new TranslatableText("tooltip.spacefactory.generators", SpaceFactory.Constants.DRAGON_EGG_SIPHON_OUTPUT, new TranslatableText(Items.DRAGON_EGG.getTranslationKey())).formatted(Formatting.GRAY);
+    public static final Text TOOLTIP = new TranslatableText("tooltip.spacefactory.generators", SpaceFactory.config.dragonEggSiphonProduction, Items.DRAGON_EGG.getName()).formatted(Formatting.GRAY);
 
-	public static final BooleanProperty LIT = Properties.LIT;
+    public static final BooleanProperty LIT = Properties.LIT;
 
-	public DragonEggSiphonBlock(Settings settings) {
-		super(settings);
-		this.setDefaultState(this.stateManager.getDefaultState()
-				.with(LIT, false));
-	}
+    public DragonEggSiphonBlock(AbstractBlock.Settings settings) {
+        super(settings);
+        this.setDefaultState(this.getDefaultState().with(LIT, false));
+    }
 
-	@Override
-	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-		builder.add(LIT);
-	}
+    @Override
+    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+        builder.add(LIT);
+    }
 
-	@Nullable
-	@Override
-	public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-		return new DragonEggSiphonBlockEntity(pos, state);
-	}
+    @Nullable
+    @Override
+    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+        return new DragonEggSiphonBlockEntity(pos, state);
+    }
 
-	@Override
-	@Nullable
-	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-		return world.isClient ? null : checkType(type, SpaceFactory.BlockEntityTypes.DRAGON_ENERGY_ABSORBER, DragonEggSiphonBlockEntity::tick);
-	}
+    @Override
+    @Nullable
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
+        return world.isClient ? null : checkType(type, SpaceFactory.BlockEntityTypes.DRAGON_ENERGY_ABSORBER, DragonEggSiphonBlockEntity::tick);
+    }
 
-	@Override
-	public void appendTooltip(ItemStack stack, @Nullable BlockView world, List<Text> tooltip, TooltipContext options) {
-		tooltip.add(TOOLTIP);
-	}
+    @Override
+    public void appendTooltip(ItemStack stack, @Nullable BlockView world, List<Text> tooltip, TooltipContext options) {
+        tooltip.add(TOOLTIP);
+    }
 
-	@Override
-	@Environment(EnvType.CLIENT)
-	public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
-		if (state.get(LIT)) {
-			double x = pos.getX() + random.nextFloat();
-			double y = pos.getY() + 1 + random.nextFloat() * 1.5;
-			double z = pos.getZ() + random.nextFloat();
+    @Override
+    @Environment(EnvType.CLIENT)
+    public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
+        if (state.get(LIT)) {
+            double x = pos.getX() + random.nextFloat();
+            double y = pos.getY() + 1 + random.nextFloat() * 1.5;
+            double z = pos.getZ() + random.nextFloat();
 
-			world.addParticle(ParticleTypes.PORTAL, x, y, z, 0, 0, 0);
-		}
-	}
+            world.addParticle(ParticleTypes.PORTAL, x, y, z, 0, 0, 0);
+        }
+    }
 
 }

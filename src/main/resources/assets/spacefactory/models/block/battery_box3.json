@@ -1,0 +1,12 @@
+{
+    "parent": "block/cube",
+    "textures": {
+        "particle": "spacefactory:block/redstone_battery3",
+        "down": "spacefactory:block/battery_output",
+        "up": "spacefactory:block/battery_input",
+        "north": "spacefactory:block/redstone_battery3",
+        "east": "spacefactory:block/redstone_battery3",
+        "south": "spacefactory:block/redstone_battery3",
+        "west": "spacefactory:block/redstone_battery3"
+    }
+}

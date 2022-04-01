@@ -1,27 +1,131 @@
 {
   "variants": {
-    "facing=down": {
-      "model": "spacefactory:block/battery_box",
-      "x": 90
-    },
-    "facing=east": {
-      "model": "spacefactory:block/battery_box",
-      "y": 90
-    },
-    "facing=north": {
+    "charge=0,facing=down": {
       "model": "spacefactory:block/battery_box"
     },
-    "facing=south": {
+    "charge=0,facing=up": {
       "model": "spacefactory:block/battery_box",
-      "y": 180
+      "x": 180,
+      "uvlock": true
     },
-    "facing=up": {
+    "charge=0,facing=north": {
       "model": "spacefactory:block/battery_box",
-      "x": 270
+      "x": 90,
+      "y": 180,
+      "uvlock": true
     },
-    "facing=west": {
+    "charge=0,facing=south": {
       "model": "spacefactory:block/battery_box",
-      "y": 270
+      "x": 90,
+      "uvlock": true
+    },
+    "charge=0,facing=west": {
+      "model": "spacefactory:block/battery_box",
+      "x": 90,
+      "y": 90,
+      "uvlock": true
+    },
+    "charge=0,facing=east": {
+      "model": "spacefactory:block/battery_box",
+      "x": 90,
+      "y": 270,
+      "uvlock": true
+    },
+
+    "charge=1,facing=down": {
+      "model": "spacefactory:block/battery_box1"
+    },
+    "charge=1,facing=up": {
+      "model": "spacefactory:block/battery_box1",
+      "x": 180,
+      "uvlock": true
+    },
+    "charge=1,facing=north": {
+      "model": "spacefactory:block/battery_box1",
+      "x": 90,
+      "y": 180,
+      "uvlock": true
+    },
+    "charge=1,facing=south": {
+      "model": "spacefactory:block/battery_box1",
+      "x": 90,
+      "uvlock": true
+    },
+    "charge=1,facing=west": {
+      "model": "spacefactory:block/battery_box1",
+      "x": 90,
+      "y": 90,
+      "uvlock": true
+    },
+    "charge=1,facing=east": {
+      "model": "spacefactory:block/battery_box1",
+      "x": 90,
+      "y": 270,
+      "uvlock": true
+    },
+
+    "charge=2,facing=down": {
+      "model": "spacefactory:block/battery_box2"
+    },
+    "charge=2,facing=up": {
+      "model": "spacefactory:block/battery_box2",
+      "x": 180,
+      "uvlock": true
+    },
+    "charge=2,facing=north": {
+      "model": "spacefactory:block/battery_box2",
+      "x": 90,
+      "y": 180,
+      "uvlock": true
+    },
+    "charge=2,facing=south": {
+      "model": "spacefactory:block/battery_box2",
+      "x": 90,
+      "uvlock": true
+    },
+    "charge=2,facing=west": {
+      "model": "spacefactory:block/battery_box2",
+      "x": 90,
+      "y": 90,
+      "uvlock": true
+    },
+    "charge=2,facing=east": {
+      "model": "spacefactory:block/battery_box2",
+      "x": 90,
+      "y": 270,
+      "uvlock": true
+    },
+
+    "charge=3,facing=down": {
+      "model": "spacefactory:block/battery_box3"
+    },
+    "charge=3,facing=up": {
+      "model": "spacefactory:block/battery_box3",
+      "x": 180,
+      "uvlock": true
+    },
+    "charge=3,facing=north": {
+      "model": "spacefactory:block/battery_box3",
+      "x": 90,
+      "y": 180,
+      "uvlock": true
+    },
+    "charge=3,facing=south": {
+      "model": "spacefactory:block/battery_box3",
+      "x": 90,
+      "uvlock": true
+    },
+    "charge=3,facing=west": {
+      "model": "spacefactory:block/battery_box3",
+      "x": 90,
+      "y": 90,
+      "uvlock": true
+    },
+    "charge=3,facing=east": {
+      "model": "spacefactory:block/battery_box3",
+      "x": 90,
+      "y": 270,
+      "uvlock": true
     }
   }
 }

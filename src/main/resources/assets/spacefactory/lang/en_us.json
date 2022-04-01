@@ -88,7 +88,7 @@
   "item.spacefactory.nano_steel_machete": "Nano Steel Machete",
   "item.spacefactory.nano_steel_unicutter": "Nano Steel Unicutter",
 
-  "item.spacefactory.ender_pearl_dust": "Ender Pearl Powder",
+  "item.spacefactory.ender_pearl_dust": "Ender Pearl Dust",
   "item.spacefactory.warp_prism": "Warp Prism",
   "item.spacefactory.potato_battery": "Potato Battery",
 
@@ -102,6 +102,8 @@
   "tooltip.spacefactory.energy_and_capacity" : "%s / %s EU",
   "tooltip.spacefactory.energy_per_tick" : "%s EU/t",
   "tooltip.spacefactory.energy_per_tick_and_limit" : "%s / %s EU/t",
+
+  "tooltip.spacefactory.battery_capacity": "0-%s EU, -%s EU/s Discharge",
 
   "tooltip.spacefactory.self_regeneration": "Self Repair",
 

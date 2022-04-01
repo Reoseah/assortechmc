@@ -37,10 +37,11 @@ public class DragonEggSiphonBlockEntity extends InventoryBlockEntity implements 
 		if (dragonEgg) {
 			if (!be.generating) {
 				be.markDirty();
+				world.setBlockState(pos, state.with(Properties.LIT, true));
 			}
 			be.generating = true;
 
-			int energy = SpaceFactory.Constants.DRAGON_EGG_SIPHON_OUTPUT;
+			int energy = SpaceFactory.config.dragonEggSiphonProduction;
 			for (Direction side : Direction.values()) {
 				if (!be.canSendEnergy(side)) {
 					continue;
@@ -50,7 +51,6 @@ public class DragonEggSiphonBlockEntity extends InventoryBlockEntity implements 
 					break;
 				}
 			}
-			world.setBlockState(pos, state.with(Properties.LIT, true));
 			return;
 		}
 		if (be.generating || dragonEgg != be.dragonEgg) {
