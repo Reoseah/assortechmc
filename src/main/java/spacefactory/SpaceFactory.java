@@ -214,6 +214,22 @@ public class SpaceFactory implements ModInitializer {
         @SerializedName("redstone_battery_transfer_rate")
         public int redstoneBatteryRate = 20;
 
+        @SerializedName("copper_wire_transfer_rate")
+        public int copperWireTransferRate = 100;
+        @SerializedName("copper_bus_transfer_rate")
+        public int copperBusTransferRate = 1000;
+
+        @SerializedName("electric_furnace_consumption")
+        public int electricFurnaceConsumption = 3;
+        @SerializedName("pulverizer_consumption")
+        public int pulverizerConsumption = 2;
+        @SerializedName("compressor_consumption")
+        public int compressorConsumption = 2;
+        @SerializedName("extractor_consumption")
+        public int extractorConsumption = 2;
+        @SerializedName("atomic_reassembler_consumption")
+        public int atomicReassemblerConsumption = 10;
+
         public static Config load() {
             Path configPath = FabricLoader.getInstance().getConfigDir().resolve("spacefactory.json");
 
@@ -265,8 +281,8 @@ public class SpaceFactory implements ModInitializer {
         public static final Block RAW_TIN_BLOCK = register("raw_tin_block", new Block(FabricBlockSettings.of(Material.STONE, MapColor.LIGHT_GRAY).requiresTool().strength(5.0f, 6.0f)));
         public static final Block TIN_BLOCK = register("tin_block", new Block(FabricBlockSettings.of(Material.METAL, MapColor.LIGHT_GRAY).strength(3F, 6F).sounds(BlockSoundGroup.METAL)));
 
-        public static final Block COPPER_WIRE = register("copper_wire", new ConduitBlock(1, 128, FabricBlockSettings.of(Material.METAL).strength(0.5F).sounds(BlockSoundGroup.WOOL)));
-        public static final Block COPPER_CABLE = register("copper_cable", new ConduitBlock(2, 128, FabricBlockSettings.of(Material.METAL).strength(0.5F)));
+        public static final Block COPPER_WIRE = register("copper_wire", new ConduitBlock(1, FabricBlockSettings.of(Material.METAL).strength(0.5F).sounds(BlockSoundGroup.WOOL)));
+        public static final Block COPPER_CABLE = register("copper_cable", new ConduitBlock(2, FabricBlockSettings.of(Material.METAL).strength(0.5F)));
 
         public static final Block MACHINE_FRAME = register("machine_frame", new Block(MACHINE_SETTINGS));
 
@@ -278,8 +294,8 @@ public class SpaceFactory implements ModInitializer {
         public static final Block EXTRACTOR = register("extractor", new ExtractorBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 12 : 0)));
         public static final Block SOLAR_PANEL = register("solar_panel", new SolarPanelBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).mapColor(MapColor.LAPIS_BLUE)));
 
-        public static final Block COPPER_BUS_BAR = register("copper_bus_bar", new ConduitBlock(3, 1024, FabricBlockSettings.of(Material.METAL).strength(2F, 5F)));
-        public static final Block ENERGY_CONDUIT = register("energy_conduit", new ConduitBlock(4, 1024, FabricBlockSettings.of(Material.METAL).strength(5F, 20F)));
+        public static final Block COPPER_BUS_BAR = register("copper_bus_bar", new ConduitBlock(3, FabricBlockSettings.of(Material.METAL).strength(2F, 5F)));
+        public static final Block ENERGY_CONDUIT = register("energy_conduit", new ConduitBlock(4, FabricBlockSettings.of(Material.METAL).strength(5F, 20F)));
 
         public static final Block CRYSTALITE_BLOCK = register("crystalite_block", new Block(FabricBlockSettings.of(Material.GLASS, MapColor.LIGHT_BLUE).luminance(15).strength(5F, 20F).slipperiness(0.98F).sounds(BlockSoundGroup.GLASS).allowsSpawning(net.minecraft.block.Blocks::never)));
 

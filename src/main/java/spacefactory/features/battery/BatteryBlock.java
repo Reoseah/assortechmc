@@ -24,15 +24,14 @@ import spacefactory.core.block.InventoryBlock;
 import java.util.List;
 
 public class BatteryBlock extends InventoryBlock implements EU.ElectricBlock {
-    public static final Text IO_TOOLTIP = new TranslatableText("tooltip.spacefactory.energy_per_tick", SpaceFactory.config.redstoneBatteryRate).formatted(Formatting.GRAY);
-    public static final Text CAPACITY_TOOLTIP = new TranslatableText("tooltip.spacefactory.battery_capacity", SpaceFactory.config.redstoneBatteryCapacity, SpaceFactory.config.redstoneBatteryDischarge).formatted(Formatting.GRAY);
+    public static final Text IO_TOOLTIP = new TranslatableText("tooltip.spacefactory.energy_per_tick", SpaceFactory.config.redstoneBatteryRate, SpaceFactory.config.redstoneBatteryDischarge).formatted(Formatting.GRAY);
+    public static final Text CAPACITY_TOOLTIP = new TranslatableText("tooltip.spacefactory.battery_capacity", SpaceFactory.config.redstoneBatteryCapacity).formatted(Formatting.GRAY);
 
     public static final EnumProperty<Direction> FACING = Properties.FACING;
-    public static final IntProperty CHARGE = IntProperty.of("charge", 0, 3);
 
     public BatteryBlock(Settings settings) {
         super(settings);
-        this.setDefaultState(this.getDefaultState().with(FACING, Direction.DOWN).with(CHARGE, 0));
+        this.setDefaultState(this.getDefaultState().with(FACING, Direction.DOWN));
     }
 
     public BlockState getPlacementState(ItemPlacementContext ctx) {
@@ -55,6 +54,6 @@ public class BatteryBlock extends InventoryBlock implements EU.ElectricBlock {
     }
 
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(CHARGE, FACING);
+        builder.add(FACING);
     }
 }

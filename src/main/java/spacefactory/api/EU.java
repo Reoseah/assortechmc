@@ -11,6 +11,8 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.function.Consumer;
+
 /**
  * Contains core API for using SpaceFactory EU energy.
  */
@@ -115,7 +117,7 @@ public abstract class EU {
     public interface ElectricItem {
         int getEnergy(ItemStack stack);
 
-        void setEnergy(ItemStack stack, int amount);
+        ItemStack withEnergy(ItemStack stack, int amount);
 
         int getCapacity(ItemStack stack);
 
@@ -125,14 +127,12 @@ public abstract class EU {
             return false;
         }
 
-        default int charge(ItemStack stack, int amount, boolean commit) {
+        default int charge(ItemStack stack, int amount, Consumer<ItemStack> stackSaver) {
             if (!this.canCharge(stack) || stack.getCount() > 1) {
                 return 0;
             }
             int change = Math.min(Math.min(this.getCapacity(stack) - this.getEnergy(stack), amount), this.getTransferLimit(stack));
-            if (commit) {
-                this.setEnergy(stack, this.getEnergy(stack) - change);
-            }
+            stackSaver.accept(this.withEnergy(stack, this.getEnergy(stack) + change));
             return change;
         }
 
@@ -140,14 +140,12 @@ public abstract class EU {
             return false;
         }
 
-        default int discharge(ItemStack stack, int max, boolean commit) {
+        default int discharge(ItemStack stack, int max, Consumer<ItemStack> stackSaver) {
             if (!this.canDischarge(stack) || stack.getCount() > 1) {
                 return 0;
             }
             int change = Math.min(Math.min(this.getEnergy(stack), max), this.getTransferLimit(stack));
-            if (commit) {
-                this.setEnergy(stack, this.getEnergy(stack) - change);
-            }
+            stackSaver.accept(this.withEnergy(stack, this.getEnergy(stack) - change));
             return change;
         }
 
@@ -157,16 +155,16 @@ public abstract class EU {
         return stack.getItem() instanceof ElectricItem;
     }
 
-    public static int tryCharge(int energy, ItemStack stack) {
+    public static int tryCharge(int energy, ItemStack stack, Consumer<ItemStack> stackSaver) {
         if (stack.getItem() instanceof ElectricItem electricItem) {
-            return electricItem.charge(stack, energy, true);
+            return electricItem.charge(stack, energy, stackSaver);
         }
         return 0;
     }
 
-    public static int tryDischarge(int max, ItemStack stack) {
+    public static int tryDischarge(int max, ItemStack stack, Consumer<ItemStack> stackSaver) {
         if (stack.getItem() instanceof ElectricItem electricItem) {
-            return electricItem.discharge(stack, max, true);
+            return electricItem.discharge(stack, max, stackSaver);
         }
         return 0;
     }
@@ -182,11 +180,13 @@ public abstract class EU {
             return stack.hasNbt() ? stack.getNbt().getInt(ENERGY_KEY) : 0;
         }
 
-        default void setEnergy(ItemStack stack, int energy) {
+        default ItemStack withEnergy(ItemStack stack, int energy) {
             if (energy == 0) {
                 stack.removeSubNbt(ENERGY_KEY);
+                return stack;
             } else {
                 stack.getOrCreateNbt().putInt(ENERGY_KEY, energy);
+                return stack;
             }
         }
 

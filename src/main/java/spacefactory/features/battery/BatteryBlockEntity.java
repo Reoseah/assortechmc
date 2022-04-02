@@ -42,15 +42,15 @@ public class BatteryBlockEntity extends MachineBlockEntity implements EU.Sender 
     public void tick(World world, BlockPos pos, BlockState state, BlockEntity be) {
         super.tick(world, pos, state, be);
 
-        this.energy += EU.tryDischarge(this.getCapacity() - this.energy, this.getStack(0));
-        this.energy -= EU.tryCharge(this.energy, this.getStack(1));
+        this.energy += EU.tryDischarge(this.getCapacity() - this.energy, this.getStack(0), stack -> this.setStack(0, stack));
+        this.energy -= EU.tryCharge(this.energy, this.getStack(1), stack -> this.setStack(1, stack));
 
-        if (world.getTime() % 20 == 0) {
+        if (world.getTime() % 20 == 0 && this.energy > 0) {
             this.energy -= SpaceFactory.config.redstoneBatteryDischarge;
         }
 
         Direction facing = be.getCachedState().get(BatteryBlock.FACING);
-        this.energy -= EU.trySend(Math.max(this.energy, SpaceFactory.config.redstoneBatteryOutput), world, pos.offset(facing), facing.getOpposite());
+        this.energy -= EU.trySend(Math.min(this.energy, SpaceFactory.config.redstoneBatteryRate), world, pos.offset(facing), facing.getOpposite());
     }
 
     @Override

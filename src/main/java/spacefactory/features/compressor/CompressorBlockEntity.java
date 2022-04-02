@@ -25,7 +25,7 @@ public class CompressorBlockEntity extends CraftingMachineBlockEntity<Compressor
 
     @Override
     protected int getEnergyPerTick() {
-        return 2;
+        return SpaceFactory.config.compressorConsumption;
     }
 
     @Override

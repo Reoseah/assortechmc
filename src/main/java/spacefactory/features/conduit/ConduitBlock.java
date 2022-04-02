@@ -28,151 +28,152 @@ import spacefactory.api.EU;
 import java.util.List;
 
 public class ConduitBlock extends BlockWithEntity implements EU.ElectricBlock {
-	public static final BooleanProperty DOWN = Properties.DOWN;
-	public static final BooleanProperty UP = Properties.UP;
-	public static final BooleanProperty NORTH = Properties.NORTH;
-	public static final BooleanProperty SOUTH = Properties.SOUTH;
-	public static final BooleanProperty EAST = Properties.EAST;
-	public static final BooleanProperty WEST = Properties.WEST;
+    public static final BooleanProperty DOWN = Properties.DOWN;
+    public static final BooleanProperty UP = Properties.UP;
+    public static final BooleanProperty NORTH = Properties.NORTH;
+    public static final BooleanProperty SOUTH = Properties.SOUTH;
+    public static final BooleanProperty EAST = Properties.EAST;
+    public static final BooleanProperty WEST = Properties.WEST;
 
-	public final VoxelShape[] shapes;
+    public final VoxelShape[] shapes;
 
-	public static VoxelShape[] generateShapes(int radius) {
-		VoxelShape[] shapes = new VoxelShape[64];
-		float min = 8 - radius;
-		float max = 8 + radius;
-		VoxelShape center = Block.createCuboidShape(min, min, min, max, max, max);
-		VoxelShape[] connections = {
-				Block.createCuboidShape(min, 0, min, max, max, max),
-				Block.createCuboidShape(min, min, min, max, 16, max),
-				Block.createCuboidShape(min, min, 0, max, max, max),
-				Block.createCuboidShape(min, min, min, max, max, 16),
-				Block.createCuboidShape(0, min, min, max, max, max),
-				Block.createCuboidShape(min, min, min, 16, max, max)
-		};
+    public static VoxelShape[] generateShapes(int radius) {
+        VoxelShape[] shapes = new VoxelShape[64];
+        float min = 8 - radius;
+        float max = 8 + radius;
+        VoxelShape center = Block.createCuboidShape(min, min, min, max, max, max);
+        VoxelShape[] connections = {
+                Block.createCuboidShape(min, 0, min, max, max, max),
+                Block.createCuboidShape(min, min, min, max, 16, max),
+                Block.createCuboidShape(min, min, 0, max, max, max),
+                Block.createCuboidShape(min, min, min, max, max, 16),
+                Block.createCuboidShape(0, min, min, max, max, max),
+                Block.createCuboidShape(min, min, min, 16, max, max)
+        };
 
-		for (int i = 0; i < 64; i++) {
-			VoxelShape shape = center;
-			for (int face = 0; face < 6; face++) {
-				if ((i & 1 << face) != 0) {
-					shape = VoxelShapes.union(shape, connections[face]);
-				}
-			}
-			shapes[i] = shape;
-		}
-		return shapes;
-	}
+        for (int i = 0; i < 64; i++) {
+            VoxelShape shape = center;
+            for (int face = 0; face < 6; face++) {
+                if ((i & 1 << face) != 0) {
+                    shape = VoxelShapes.union(shape, connections[face]);
+                }
+            }
+            shapes[i] = shape;
+        }
+        return shapes;
+    }
 
-	public static BooleanProperty getConnectionProperty(Direction direction) {
-		return switch (direction) {
-			case NORTH -> NORTH;
-			case SOUTH -> SOUTH;
-			case WEST -> WEST;
-			case EAST -> EAST;
-			case DOWN -> DOWN;
-			case UP -> UP;
-		};
-	}
+    public static BooleanProperty getConnectionProperty(Direction direction) {
+        return switch (direction) {
+            case NORTH -> NORTH;
+            case SOUTH -> SOUTH;
+            case WEST -> WEST;
+            case EAST -> EAST;
+            case DOWN -> DOWN;
+            case UP -> UP;
+        };
+    }
 
-	public final int transferRate;
+    public ConduitBlock(int radius, Settings settings) {
+        super(settings);
+        this.setDefaultState(this.getDefaultState()
+                .with(DOWN, false)
+                .with(UP, false)
+                .with(NORTH, false)
+                .with(SOUTH, false)
+                .with(EAST, false)
+                .with(WEST, false));
+        this.shapes = generateShapes(radius);
+    }
 
-	public ConduitBlock(int radius, int transferRate, Settings settings) {
-		super(settings);
-		this.transferRate = transferRate;
-		this.setDefaultState(this.getDefaultState()
-				.with(DOWN, false)
-				.with(UP, false)
-				.with(NORTH, false)
-				.with(SOUTH, false)
-				.with(EAST, false)
-				.with(WEST, false));
-		this.shapes = generateShapes(radius);
-	}
+    @Override
+    public BlockState getPlacementState(ItemPlacementContext ctx) {
+        return this.getStateForPos(ctx.getWorld(), ctx.getBlockPos());
+    }
 
-	@Override
-	public BlockState getPlacementState(ItemPlacementContext ctx) {
-		return this.getStateForPos(ctx.getWorld(), ctx.getBlockPos());
-	}
+    public BlockState getStateForPos(BlockView world, BlockPos pos) {
+        return this.getDefaultState()
+                .with(DOWN, this.connectsTo(world, pos, Direction.DOWN))
+                .with(UP, this.connectsTo(world, pos, Direction.UP))
+                .with(WEST, this.connectsTo(world, pos, Direction.WEST))
+                .with(EAST, this.connectsTo(world, pos, Direction.EAST))
+                .with(NORTH, this.connectsTo(world, pos, Direction.NORTH))
+                .with(SOUTH, this.connectsTo(world, pos, Direction.SOUTH));
+    }
 
-	public BlockState getStateForPos(BlockView world, BlockPos pos) {
-		return this.getDefaultState()
-				.with(DOWN, this.connectsTo(world, pos, Direction.DOWN))
-				.with(UP, this.connectsTo(world, pos, Direction.UP))
-				.with(WEST, this.connectsTo(world, pos, Direction.WEST))
-				.with(EAST, this.connectsTo(world, pos, Direction.EAST))
-				.with(NORTH, this.connectsTo(world, pos, Direction.NORTH))
-				.with(SOUTH, this.connectsTo(world, pos, Direction.SOUTH));
-	}
+    protected boolean connectsTo(BlockView view, BlockPos pos, Direction side) {
+        BlockState neighbor = view.getBlockState(pos.offset(side));
+        Block block = neighbor.getBlock();
+        if (block instanceof ConduitBlock) {
+            return true;
+        }
+        if (view instanceof WorldAccess world) {
+            return EU.canInteract(world, pos.offset(side), side.getOpposite());
+        }
+        return false;
+    }
 
-	protected boolean connectsTo(BlockView view, BlockPos pos, Direction side) {
-		BlockState neighbor = view.getBlockState(pos.offset(side));
-		Block block = neighbor.getBlock();
-		if (block instanceof ConduitBlock) {
-			return true;
-		}
-		if (view instanceof WorldAccess world) {
-			return EU.canInteract(world, pos.offset(side), side.getOpposite());
-		}
-		return false;
-	}
+    @Override
+    public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState newState, WorldAccess world, BlockPos pos, BlockPos posFrom) {
+        BlockState state2 = state.with(getConnectionProperty(direction), this.connectsTo(world, pos, direction));
+        if (world instanceof World) {
+            ConduitNetwork.of((World) world).onCableUpdate(pos);
+        }
+        return state2;
+    }
 
-	@Override
-	public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState newState, WorldAccess world, BlockPos pos, BlockPos posFrom) {
-		BlockState state2 = state.with(getConnectionProperty(direction), this.connectsTo(world, pos, direction));
-		if (world instanceof World) {
-			ConduitNetwork.of((World) world).onCableUpdate(pos);
-		}
-		return state2;
-	}
+    @Override
+    public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
+        super.onPlaced(world, pos, state, placer, itemStack);
+        ConduitNetwork.of(world).onCableUpdate(pos);
+    }
 
-	@Override
-	public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
-		super.onPlaced(world, pos, state, placer, itemStack);
-		ConduitNetwork.of(world).onCableUpdate(pos);
-	}
+    public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
+        super.onStateReplaced(state, world, pos, newState, moved);
+        ConduitNetwork.of(world).onCableUpdate(pos);
+    }
 
-	public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
-		super.onStateReplaced(state, world, pos, newState, moved);
-		ConduitNetwork.of(world).onCableUpdate(pos);
-	}
+    @Override
+    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+        builder.add(DOWN, UP, NORTH, SOUTH, EAST, WEST);
+    }
 
-	@Override
-	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-		builder.add(DOWN, UP, NORTH, SOUTH, EAST, WEST);
-	}
+    @Override
+    public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
+        int i = (state.get(DOWN) ? 1 : 0) |
+                (state.get(UP) ? 2 : 0) |
+                (state.get(NORTH) ? 4 : 0) |
+                (state.get(SOUTH) ? 8 : 0) |
+                (state.get(WEST) ? 16 : 0) |
+                (state.get(EAST) ? 32 : 0);
+        return this.shapes[i];
+    }
 
-	@Override
-	public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-		int i = (state.get(DOWN) ? 1 : 0) |
-				(state.get(UP) ? 2 : 0) |
-				(state.get(NORTH) ? 4 : 0) |
-				(state.get(SOUTH) ? 8 : 0) |
-				(state.get(WEST) ? 16 : 0) |
-				(state.get(EAST) ? 32 : 0);
-		return this.shapes[i];
-	}
+    @Override
+    public BlockRenderType getRenderType(BlockState state) {
+        return BlockRenderType.MODEL;
+    }
 
-	@Override
-	public BlockRenderType getRenderType(BlockState state) {
-		return BlockRenderType.MODEL;
-	}
+    @Nullable
+    @Override
+    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+        return new ConduitBlockEntity(pos, state);
+    }
 
-	@Nullable
-	@Override
-	public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-		return new ConduitBlockEntity(pos, state);
-	}
+    @Override
+    @Nullable
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
+        return world.isClient ? null : checkType(type, SpaceFactory.BlockEntityTypes.CONDUIT, ConduitBlockEntity::tick);
+    }
 
-	@Override
-	@Nullable
-	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-		return world.isClient ? null : checkType(type, SpaceFactory.BlockEntityTypes.CONDUIT, ConduitBlockEntity::tick);
-	}
-
-	@Override
-	public void appendTooltip(ItemStack stack, @Nullable BlockView world, List<Text> tooltip, TooltipContext options) {
-		super.appendTooltip(stack, world, tooltip, options);
-		tooltip.add(new TranslatableText("tooltip.spacefactory.energy_per_tick", this.transferRate).formatted(Formatting.GRAY));
-	}
+    @Override
+    public void appendTooltip(ItemStack stack, @Nullable BlockView world, List<Text> tooltip, TooltipContext options) {
+        super.appendTooltip(stack, world, tooltip, options);
+        if (this == SpaceFactory.Blocks.COPPER_WIRE || this == SpaceFactory.Blocks.COPPER_CABLE) {
+            tooltip.add(new TranslatableText("tooltip.spacefactory.energy_per_tick", SpaceFactory.config.copperWireTransferRate).formatted(Formatting.GRAY));
+        } else {
+            tooltip.add(new TranslatableText("tooltip.spacefactory.energy_per_tick", SpaceFactory.config.copperBusTransferRate).formatted(Formatting.GRAY));
+        }
+    }
 
 }

@@ -14,115 +14,116 @@ import spacefactory.api.EU;
 import spacefactory.core.block.entity.CraftingMachineBlockEntity;
 
 public class AtomicReassemblerBlockEntity extends CraftingMachineBlockEntity<AtomicReassemblerRecipe> {
-	public static final int SLOT_INPUT_1 = 0;
-	public static final int SLOT_INPUT_2 = 1;
-	public static final int SLOT_BATTERY = 2;
-	public static final int SLOT_OUTPUT = 3;
+    public static final int SLOT_INPUT_1 = 0;
+    public static final int SLOT_INPUT_2 = 1;
+    public static final int SLOT_BATTERY = 2;
+    public static final int SLOT_OUTPUT = 3;
 
-	private static final int[] TOP_SLOTS = {SLOT_INPUT_1, SLOT_INPUT_2};
-	private static final int[] BOTTOM_SLOTS = {SLOT_OUTPUT, SLOT_BATTERY};
-	private static final int[] SIDE_SLOTS = {SLOT_BATTERY};
+    private static final int[] TOP_SLOTS = {SLOT_INPUT_1, SLOT_INPUT_2};
+    private static final int[] BOTTOM_SLOTS = {SLOT_OUTPUT, SLOT_BATTERY};
+    private static final int[] SIDE_SLOTS = {SLOT_BATTERY};
 
-	public AtomicReassemblerBlockEntity(BlockPos pos, BlockState state) {
-		super(SpaceFactory.BlockEntityTypes.ATOMIC_REASSEMBLER, pos, state);
-	}
+    public AtomicReassemblerBlockEntity(BlockPos pos, BlockState state) {
+        super(SpaceFactory.BlockEntityTypes.ATOMIC_REASSEMBLER, pos, state);
+    }
 
-	@Override
-	protected int getInventorySize() {
-		return 4;
-	}
+    @Override
+    protected int getInventorySize() {
+        return 4;
+    }
 
-	@Override
-	protected RecipeType<AtomicReassemblerRecipe> getRecipeType() {
-		return SpaceFactory.RecipeTypes.ATOMIC_REASSEMBLY;
-	}
+    @Override
+    protected RecipeType<AtomicReassemblerRecipe> getRecipeType() {
+        return SpaceFactory.RecipeTypes.ATOMIC_REASSEMBLY;
+    }
 
-	@Override
-	protected int getEnergyPerTick() {
-		return 10;
-	}
+    @Override
+    protected int getEnergyPerTick() {
+        return SpaceFactory.config.atomicReassemblerConsumption;
+    }
 
-	protected boolean canAcceptRecipeOutput(@Nullable AtomicReassemblerRecipe recipe) {
-		if (recipe == null
-				|| this.inventory.get(SLOT_INPUT_1).isEmpty()
-				|| this.inventory.get(SLOT_INPUT_2).isEmpty()) {
-			return false;
-		}
-		return this.canAccept(SLOT_OUTPUT, recipe.getOutput());
-	}
+    @Override
+    protected int getRecipeDuration(AtomicReassemblerRecipe recipe) {
+        return recipe.getDuration();
+    }
 
-	protected void craftRecipe(@Nullable AtomicReassemblerRecipe recipe) {
-		if (this.canAcceptRecipeOutput(recipe)) {
-			assert recipe != null;
+    protected boolean canAcceptRecipeOutput(@Nullable AtomicReassemblerRecipe recipe) {
+        if (recipe == null
+                || this.inventory.get(SLOT_INPUT_1).isEmpty()
+                || this.inventory.get(SLOT_INPUT_2).isEmpty()) {
+            return false;
+        }
+        return this.canAccept(SLOT_OUTPUT, recipe.getOutput());
+    }
 
-			ItemStack input1 = this.inventory.get(SLOT_INPUT_1);
-			ItemStack input2 = this.inventory.get(SLOT_INPUT_2);
+    protected void craftRecipe(@Nullable AtomicReassemblerRecipe recipe) {
+        if (this.canAcceptRecipeOutput(recipe)) {
+            assert recipe != null;
 
-			ItemStack slot = this.inventory.get(SLOT_OUTPUT);
-			ItemStack output = recipe.getOutput();
+            ItemStack input1 = this.inventory.get(SLOT_INPUT_1);
+            ItemStack input2 = this.inventory.get(SLOT_INPUT_2);
 
-			input1.decrement(recipe.input1.test(input1) ? recipe.input1.count : recipe.input2.count);
-			input2.decrement(recipe.input2.test(input2) ? recipe.input2.count : recipe.input1.count);
+            ItemStack slot = this.inventory.get(SLOT_OUTPUT);
+            ItemStack output = recipe.getOutput();
 
-			if (slot.isEmpty()) {
-				this.inventory.set(SLOT_OUTPUT, output.copy());
-			} else if (slot.getItem() == output.getItem()) {
-				slot.increment(output.getCount());
-			}
-		}
-	}
+            input1.decrement(recipe.input1.test(input1) ? recipe.input1.count : recipe.input2.count);
+            input2.decrement(recipe.input2.test(input2) ? recipe.input2.count : recipe.input1.count);
 
-	@Override
-	protected int getRecipeDuration(AtomicReassemblerRecipe recipe) {
-		return recipe.getDuration();
-	}
+            if (slot.isEmpty()) {
+                this.inventory.set(SLOT_OUTPUT, output.copy());
+            } else if (slot.getItem() == output.getItem()) {
+                slot.increment(output.getCount());
+            }
+        }
+    }
 
-	@Nullable
-	@Override
-	public ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
-		return new AtomicReassemblerScreenHandler(syncId, this, player);
-	}
 
-	@Override
-	public void setStack(int slot, ItemStack stack) {
-		ItemStack previous = this.inventory.get(slot);
-		boolean needsRecipeUpdate = stack.isEmpty() || !stack.isItemEqualIgnoreDamage(previous) || !ItemStack.areNbtEqual(stack, previous);
+    @Nullable
+    @Override
+    public ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
+        return new AtomicReassemblerScreenHandler(syncId, this, player);
+    }
 
-		this.inventory.set(slot, stack);
+    @Override
+    public void setStack(int slot, ItemStack stack) {
+        ItemStack previous = this.inventory.get(slot);
+        boolean needsRecipeUpdate = stack.isEmpty() || !stack.isItemEqualIgnoreDamage(previous) || !ItemStack.areNbtEqual(stack, previous);
 
-		if (needsRecipeUpdate && (slot == SLOT_INPUT_1 || slot == SLOT_INPUT_2)) {
-			this.resetCachedRecipe();
-		}
-	}
+        this.inventory.set(slot, stack);
 
-	@Override
-	public boolean isValid(int slot, ItemStack offer) {
-		return switch (slot) {
-			case SLOT_OUTPUT -> false;
-			case SLOT_BATTERY -> EU.isElectricItem(offer);
-			default -> true;
-		};
-	}
+        if (needsRecipeUpdate && (slot == SLOT_INPUT_1 || slot == SLOT_INPUT_2)) {
+            this.resetCachedRecipe();
+        }
+    }
 
-	@Override
-	public int[] getAvailableSlots(Direction side) {
-		return switch (side) {
-			case UP -> TOP_SLOTS;
-			case DOWN -> BOTTOM_SLOTS;
-			default -> SIDE_SLOTS;
-		};
-	}
+    @Override
+    public boolean isValid(int slot, ItemStack offer) {
+        return switch (slot) {
+            case SLOT_OUTPUT -> false;
+            case SLOT_BATTERY -> EU.isElectricItem(offer);
+            default -> true;
+        };
+    }
 
-	@Override
-	public boolean canInsert(int slot, ItemStack stack, @Nullable Direction side) {
-		return this.isValid(slot, stack);
-	}
+    @Override
+    public int[] getAvailableSlots(Direction side) {
+        return switch (side) {
+            case UP -> TOP_SLOTS;
+            case DOWN -> BOTTOM_SLOTS;
+            default -> SIDE_SLOTS;
+        };
+    }
 
-	@Override
-	public boolean canExtract(int slot, ItemStack stack, Direction side) {
-		if (side == Direction.DOWN && slot == SLOT_BATTERY) {
-			return !EU.isElectricItem(stack);
-		}
-		return true;
-	}
+    @Override
+    public boolean canInsert(int slot, ItemStack stack, @Nullable Direction side) {
+        return this.isValid(slot, stack);
+    }
+
+    @Override
+    public boolean canExtract(int slot, ItemStack stack, Direction side) {
+        if (side == Direction.DOWN && slot == SLOT_BATTERY) {
+            return !EU.isElectricItem(stack);
+        }
+        return true;
+    }
 }

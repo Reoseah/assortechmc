@@ -71,7 +71,7 @@ public class SolarPanelBlockEntity extends InventoryBlockEntity implements Sided
 
 				int energy = SpaceFactory.config.solarPanelProduction;
 				int slot = 0;
-				energy -= EU.tryCharge(energy, be.getStack(0));
+				energy -= EU.tryCharge(energy, be.getStack(0), stack -> be.setStack(0, stack));
 				for (Direction side : Direction.values()) {
 					if (energy == slot) {
 						break;

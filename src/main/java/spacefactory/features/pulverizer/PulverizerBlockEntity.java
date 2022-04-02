@@ -25,7 +25,7 @@ public class PulverizerBlockEntity extends CraftingMachineBlockEntity<Pulverizer
 
     @Override
     protected int getEnergyPerTick() {
-        return 2;
+        return SpaceFactory.config.pulverizerConsumption;
     }
 
     @Override

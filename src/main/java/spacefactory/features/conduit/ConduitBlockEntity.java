@@ -16,10 +16,10 @@ public class ConduitBlockEntity extends BlockEntity implements EU.Receiver {
     }
 
     public int getTransferRate() {
-        if (this.getCachedState().getBlock() instanceof ConduitBlock block) {
-            return 1024;
+        if (this.getCachedState().isOf(SpaceFactory.Blocks.COPPER_WIRE) || this.getCachedState().isOf(SpaceFactory.Blocks.COPPER_CABLE)) {
+            return SpaceFactory.config.copperWireTransferRate;
         }
-        return 128;
+        return SpaceFactory.config.copperBusTransferRate;
     }
 
     @Override

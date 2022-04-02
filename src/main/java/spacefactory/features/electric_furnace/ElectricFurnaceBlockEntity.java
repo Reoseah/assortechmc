@@ -24,7 +24,7 @@ public class ElectricFurnaceBlockEntity extends CraftingMachineBlockEntity<Smelt
 
     @Override
     protected int getEnergyPerTick() {
-        return 3;
+        return SpaceFactory.config.electricFurnaceConsumption;
     }
 
     @Override

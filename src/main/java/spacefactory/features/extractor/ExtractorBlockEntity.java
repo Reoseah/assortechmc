@@ -26,7 +26,7 @@ public class ExtractorBlockEntity extends CraftingMachineBlockEntity<ExtractorRe
 
     @Override
     protected int getEnergyPerTick() {
-        return 2;
+        return SpaceFactory.config.extractorConsumption;
     }
 
     @Override

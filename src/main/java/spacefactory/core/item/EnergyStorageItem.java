@@ -25,7 +25,7 @@ public abstract class EnergyStorageItem extends Item implements EU.SimpleRecharg
 			stacks.add(new ItemStack(this));
 
 			ItemStack full = new ItemStack(this);
-			this.setEnergy(full, this.getCapacity(full));
+			this.withEnergy(full, this.getCapacity(full));
 			stacks.add(full);
 		}
 	}

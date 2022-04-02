@@ -67,7 +67,7 @@
   "item.spacefactory.refined_iron_ingot": "Refined Iron Ingot",
   "item.spacefactory.refined_iron_dust": "Refined Iron Dust",
   "item.spacefactory.refined_iron_machete": "Refined Iron Machete",
-  "item.spacefactory.refined_iron_unicutter": "Refined Iron Unicutter",
+  "item.spacefactory.refined_iron_unicutter": "Refined Iron Wire Cutter",
 
   "item.spacefactory.camouflage_cloth": "Camouflage Cloth",
   "item.spacefactory.flak_vest": "Flak Vest",
@@ -86,7 +86,7 @@
 
   "item.spacefactory.nano_steel_ingot": "Nano-Structured Steel Ingot",
   "item.spacefactory.nano_steel_machete": "Nano Steel Machete",
-  "item.spacefactory.nano_steel_unicutter": "Nano Steel Unicutter",
+  "item.spacefactory.nano_steel_unicutter": "Nano Steel Wire Cutter",
 
   "item.spacefactory.ender_pearl_dust": "Ender Pearl Dust",
   "item.spacefactory.warp_prism": "Warp Prism",
@@ -103,7 +103,8 @@
   "tooltip.spacefactory.energy_per_tick" : "%s EU/t",
   "tooltip.spacefactory.energy_per_tick_and_limit" : "%s / %s EU/t",
 
-  "tooltip.spacefactory.battery_capacity": "0-%s EU, -%s EU/s Discharge",
+  "tooltip.spacefactory.battery_rate": "%s EU/t, -%s EU/s Discharge",
+  "tooltip.spacefactory.battery_capacity": "0-%s EU Capacity",
 
   "tooltip.spacefactory.self_regeneration": "Self Repair",
 

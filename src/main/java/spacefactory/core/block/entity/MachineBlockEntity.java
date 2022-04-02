@@ -12,7 +12,7 @@ import spacefactory.api.EU;
 
 public abstract class MachineBlockEntity extends InventoryBlockEntity implements EU.Receiver, BlockEntityTicker<BlockEntity> {
 	protected int energy = 0;
-	protected int received = 0;
+	protected int current = 0;
 
 	protected MachineBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
 		super(type, pos, state);
@@ -28,14 +28,14 @@ public abstract class MachineBlockEntity extends InventoryBlockEntity implements
 
 	@Override
 	public void tick(World world, BlockPos pos, BlockState state, BlockEntity be) {
-		this.received = 0;
+		this.current = 0;
 	}
 
 	@Override
 	public int receiveEnergy(int energy, Direction side) {
-		int limit = this.getReceiveRate() - this.received;
+		int limit = this.getReceiveRate() - this.current;
 		int accepted = this.addEnergy(Math.min(energy, limit));
-		this.received += accepted;
+		this.current += accepted;
 		return accepted;
 	}
 
