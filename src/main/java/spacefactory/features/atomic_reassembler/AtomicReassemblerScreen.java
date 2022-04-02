@@ -1,6 +1,8 @@
 package spacefactory.features.atomic_reassembler;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.util.math.MatrixStack;
@@ -12,6 +14,7 @@ import net.minecraft.util.Identifier;
 import spacefactory.SpaceFactory;
 import spacefactory.core.block.entity.CraftingMachineBlockEntity;
 
+@Environment(EnvType.CLIENT)
 public class AtomicReassemblerScreen extends HandledScreen<AtomicReassemblerScreenHandler> {
     private static final Identifier TEXTURE = SpaceFactory.id("textures/gui/atomic_reassembler.png");
 
@@ -58,7 +61,7 @@ public class AtomicReassemblerScreen extends HandledScreen<AtomicReassemblerScre
     }
 
     protected void drawMouseoverTooltip(MatrixStack matrices, int x, int y) {
-        if (this.isPointWithinBounds(54, 9, 14, 14, x, y)) {
+        if (this.isPointWithinBounds(9, 34, 14, 14, x, y)) {
             this.renderTooltip(matrices, new TranslatableText("tooltip.spacefactory.energy_and_capacity", this.handler.getEnergy(), this.handler.capacity).formatted(Formatting.GRAY), x, y);
         }
         super.drawMouseoverTooltip(matrices, x, y);

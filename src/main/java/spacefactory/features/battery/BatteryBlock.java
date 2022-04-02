@@ -24,7 +24,7 @@ import spacefactory.core.block.InventoryBlock;
 import java.util.List;
 
 public class BatteryBlock extends InventoryBlock implements EU.ElectricBlock {
-    public static final Text IO_TOOLTIP = new TranslatableText("tooltip.spacefactory.energy_per_tick", SpaceFactory.config.redstoneBatteryRate, SpaceFactory.config.redstoneBatteryDischarge).formatted(Formatting.GRAY);
+    public static final Text IO_TOOLTIP = new TranslatableText("tooltip.spacefactory.battery_rate", SpaceFactory.config.redstoneBatteryRate, SpaceFactory.config.redstoneBatteryDischarge).formatted(Formatting.GRAY);
     public static final Text CAPACITY_TOOLTIP = new TranslatableText("tooltip.spacefactory.battery_capacity", SpaceFactory.config.redstoneBatteryCapacity).formatted(Formatting.GRAY);
 
     public static final EnumProperty<Direction> FACING = Properties.FACING;

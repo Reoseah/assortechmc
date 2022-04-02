@@ -14,6 +14,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
+import spacefactory.SpaceFactory;
 import spacefactory.api.EU;
 
 import java.util.Optional;
@@ -34,12 +35,12 @@ public abstract class CraftingMachineBlockEntity<R extends Recipe<Inventory>> ex
 
     @Override
     public int getCapacity() {
-        return this.getEnergyPerTick();
+        return SpaceFactory.config.craftingMachineCapacity;
     }
 
     @Override
     protected int getReceiveRate() {
-        return this.getEnergyPerTick();
+        return SpaceFactory.config.craftingMachineRate;
     }
 
     protected abstract RecipeType<R> getRecipeType();

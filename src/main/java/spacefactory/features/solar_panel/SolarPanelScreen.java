@@ -1,5 +1,7 @@
 package spacefactory.features.solar_panel;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import spacefactory.features.solar_panel.SolarPanelScreenHandler;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
@@ -10,6 +12,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
+@Environment(EnvType.CLIENT)
 public class SolarPanelScreen extends HandledScreen<SolarPanelScreenHandler> {
     private static final Identifier TEXTURE = new Identifier("spacefactory:textures/gui/solar_panel.png");
 

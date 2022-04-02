@@ -60,6 +60,7 @@ import spacefactory.core.item.MacheteItem;
 import spacefactory.core.item.UnicutterItem;
 import spacefactory.core.recipe.SimpleMachineRecipe;
 import spacefactory.features.PotatoBatteryItem;
+import spacefactory.core.item.WrenchItem;
 import spacefactory.features.atomic_reassembler.AtomicReassemblerBlock;
 import spacefactory.features.atomic_reassembler.AtomicReassemblerBlockEntity;
 import spacefactory.features.atomic_reassembler.AtomicReassemblerRecipe;
@@ -87,6 +88,7 @@ import spacefactory.features.generator.GeneratorBlockEntity;
 import spacefactory.features.generator.GeneratorScreenHandler;
 import spacefactory.features.nano_steel.NanoSteelMacheteItem;
 import spacefactory.features.nano_steel.NanoSteelUnicutterItem;
+import spacefactory.features.nano_steel.NanoSteelWrenchItem;
 import spacefactory.features.pulverizer.PulverizerBlock;
 import spacefactory.features.pulverizer.PulverizerBlockEntity;
 import spacefactory.features.pulverizer.PulverizerRecipe;
@@ -218,6 +220,11 @@ public class SpaceFactory implements ModInitializer {
         public int copperWireTransferRate = 100;
         @SerializedName("copper_bus_transfer_rate")
         public int copperBusTransferRate = 1000;
+
+        @SerializedName("crafting_machine_energy_buffer")
+        public int craftingMachineCapacity = 100;
+        @SerializedName("crafting_machine_receive_rate")
+        public int craftingMachineRate = 10;
 
         @SerializedName("electric_furnace_consumption")
         public int electricFurnaceConsumption = 3;
@@ -394,6 +401,7 @@ public class SpaceFactory implements ModInitializer {
         public static final Item REFINED_IRON_INGOT = register("refined_iron_ingot", new Item(settings().rarity(Rarity.RARE)));
         public static final Item REFINED_IRON_DUST = register("refined_iron_dust", new Item(settings()));
         public static final Item REFINED_IRON_MACHETE = register("refined_iron_machete", new MacheteItem(ToolMaterials.REFINED_IRON, 2, -2.2F, settings()));
+        public static final Item REFINED_IRON_WRENCH = register("refined_iron_wrench", new WrenchItem(ToolMaterials.REFINED_IRON, 0, -1.8F, settings()));
         public static final Item REFINED_IRON_UNICUTTER = register("refined_iron_unicutter", new UnicutterItem(ToolMaterials.REFINED_IRON, -1, -1F, settings().maxDamage(250)));
 
         public static final Item CAMOUFLAGE_CLOTH = register("camouflage_cloth", new Item(settings()));
@@ -410,6 +418,7 @@ public class SpaceFactory implements ModInitializer {
         public static final Item NANO_STEEL_BLOCK = register("nano_steel_block", new BlockItem(Blocks.NANO_STEEL_BLOCK, settings().rarity(Rarity.RARE)));
         public static final Item NANO_STEEL_INGOT = register("nano_steel_ingot", new Item(settings().rarity(Rarity.RARE)));
         public static final Item NANO_STEEL_MACHETE = register("nano_steel_machete", new NanoSteelMacheteItem(ToolMaterials.NANO_STRUCTURED_STEEL, 2, -2.2F, settings().rarity(Rarity.RARE)));
+        public static final Item NANO_STEEL_WRENCH = register("nano_steel_wrench", new NanoSteelWrenchItem(ToolMaterials.NANO_STRUCTURED_STEEL, 0, -1.8F, settings().maxDamage(700).rarity(Rarity.RARE)));
         public static final Item NANO_STEEL_UNICUTTER = register("nano_steel_unicutter", new NanoSteelUnicutterItem(ToolMaterials.NANO_STRUCTURED_STEEL, -1, -1F, settings().maxDamage(700).rarity(Rarity.RARE)));
         public static final Item REINFORCED_STONE = register("reinforced_stone", new BlockItem(Blocks.REINFORCED_STONE, settings()));
         public static final Item REINFORCED_STONE_TILES = register("reinforced_stone_tiles", new BlockItem(Blocks.REINFORCED_STONE_TILES, settings()));

@@ -1,5 +1,7 @@
 package spacefactory.features.battery;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import spacefactory.SpaceFactory;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
@@ -11,6 +13,7 @@ import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 
+@Environment(EnvType.CLIENT)
 public class BatteryBoxScreen extends HandledScreen<BatteryBoxScreenHandler> {
     private static final Identifier TEXTURE = SpaceFactory.id("textures/gui/energy_storage.png");
 

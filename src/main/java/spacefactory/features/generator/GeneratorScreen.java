@@ -1,5 +1,7 @@
 package spacefactory.features.generator;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 import spacefactory.SpaceFactory;
@@ -12,6 +14,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
+@Environment(EnvType.CLIENT)
 public class GeneratorScreen extends HandledScreen<GeneratorScreenHandler> {
     private static final Identifier TEXTURE = SpaceFactory.id("textures/gui/generator.png");
 

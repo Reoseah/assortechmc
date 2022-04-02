@@ -1,5 +1,7 @@
 package spacefactory.core.screen.client;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import spacefactory.core.block.entity.CraftingMachineBlockEntity;
 import spacefactory.core.screen.CraftingMachineScreenHandler;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -12,6 +14,7 @@ import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 
+@Environment(EnvType.CLIENT)
 public abstract class CraftingMachineScreen<T extends CraftingMachineScreenHandler> extends HandledScreen<T> {
     public CraftingMachineScreen(T handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);
@@ -55,7 +58,7 @@ public abstract class CraftingMachineScreen<T extends CraftingMachineScreenHandl
 
     protected void drawMouseoverTooltip(MatrixStack matrices, int x, int y) {
         if (this.isPointWithinBounds(54, 36, 14, 14, x, y)) {
-            this.renderTooltip(matrices, new TranslatableText("tooltip.spacefactory.energy_and_capacity", this.handler.getEnergy(), this.handler.getCapacity()).formatted(Formatting.GRAY), x, y);
+            this.renderTooltip(matrices, new TranslatableText("tooltip.spacefactory.energy_per_tick_and_limit", this.handler.getEnergy(), this.handler.getCapacity()).formatted(Formatting.GRAY), x, y);
         }
         super.drawMouseoverTooltip(matrices, x, y);
     }
