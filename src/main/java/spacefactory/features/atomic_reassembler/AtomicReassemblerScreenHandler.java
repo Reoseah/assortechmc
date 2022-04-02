@@ -39,7 +39,6 @@ public class AtomicReassemblerScreenHandler extends InventoryScreenHandler {
 		this.addProperty(new ReadProperty(be::getRecipeDuration));
 	}
 
-	@Environment(EnvType.CLIENT)
 	public AtomicReassemblerScreenHandler(int syncId, PlayerInventory user) {
 		this(syncId, new SimpleInventory(4), user);
 
