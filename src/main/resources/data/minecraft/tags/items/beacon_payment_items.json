@@ -1,7 +1,6 @@
 {
   "replace": false,
   "values": [
-    "spacefactory:tin_ingot",
     "spacefactory:refined_iron_ingot",
     "spacefactory:nano_steel_ingot",
     "spacefactory:iridium_ingot",

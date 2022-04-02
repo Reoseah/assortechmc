@@ -135,13 +135,6 @@ public class SpaceFactory implements ModInitializer {
                         context.getGenerationSettings().addFeature(GenerationStep.Feature.VEGETAL_DECORATION, rubberTreePatch);
                     }
                 });
-        BiomeModifications.create(id("overworld_ores")) //
-                .add(ModificationPhase.ADDITIONS, BiomeSelectors.foundInOverworld(), context -> {
-                    if (config.generateOres) {
-                        RegistryKey<PlacedFeature> tinOre = getKey(BiomePlacedFeatures.TIN_ORE);
-                        context.getGenerationSettings().addFeature(GenerationStep.Feature.UNDERGROUND_ORES, tinOre);
-                    }
-                });
         BiomeModifications.create(id("the_end_ores")) //
                 .add(ModificationPhase.ADDITIONS, BiomeSelectors.foundInTheEnd(), context -> {
                     if (config.generateOres) {
@@ -179,15 +172,6 @@ public class SpaceFactory implements ModInitializer {
 
         @SerializedName("generate_ores")
         public boolean generateOres = true;
-
-        @SerializedName("tin_veins_per_chunk")
-        public int tinVeinsPerChunk = 16;
-        @SerializedName("tin_vein_size")
-        public int tinVeinSize = 8;
-        @SerializedName("tin_min_height")
-        public int tinMinHeight = 25;
-        @SerializedName("tin_max_height")
-        public int tinMaxHeight = 80;
 
         @SerializedName("iridium_veins_per_chunk")
         public int iridiumVeinsPerChunk = 4;
@@ -283,11 +267,6 @@ public class SpaceFactory implements ModInitializer {
         public static final Block RUBBER_LEAVES = register("rubber_leaves", new LeavesBlock(Settings.of(Material.LEAVES).strength(0.2F).ticksRandomly().sounds(BlockSoundGroup.GRASS).nonOpaque().allowsSpawning(net.minecraft.block.Blocks::canSpawnOnLeaves).suffocates(net.minecraft.block.Blocks::never).blockVision(net.minecraft.block.Blocks::never)));
         public static final Block RUBBER_SAPLING = register("rubber_sapling", new RubberSaplingBlock(Settings.of(Material.PLANT).noCollision().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.GRASS)));
 
-        public static final Block TIN_ORE = register("tin_ore", new Block(FabricBlockSettings.of(Material.STONE).strength(3F)));
-        public static final Block DEEPSLATE_TIN_ORE = register("deepslate_tin_ore", new Block(FabricBlockSettings.of(Material.STONE).strength(4.5F, 3F)));
-        public static final Block RAW_TIN_BLOCK = register("raw_tin_block", new Block(FabricBlockSettings.of(Material.STONE, MapColor.LIGHT_GRAY).requiresTool().strength(5.0f, 6.0f)));
-        public static final Block TIN_BLOCK = register("tin_block", new Block(FabricBlockSettings.of(Material.METAL, MapColor.LIGHT_GRAY).strength(3F, 6F).sounds(BlockSoundGroup.METAL)));
-
         public static final Block COPPER_WIRE = register("copper_wire", new ConduitBlock(1, FabricBlockSettings.of(Material.METAL).strength(0.5F).sounds(BlockSoundGroup.WOOL)));
         public static final Block COPPER_CABLE = register("copper_cable", new ConduitBlock(2, FabricBlockSettings.of(Material.METAL).strength(0.5F)));
 
@@ -367,15 +346,6 @@ public class SpaceFactory implements ModInitializer {
         public static final Item RAW_RUBBER = register("raw_rubber", new Item(settings()));
         public static final Item RUBBER = register("rubber", new Item(settings()));
 
-        public static final Item TIN_ORE = register("tin_ore", new BlockItem(Blocks.TIN_ORE, settings()));
-        public static final Item DEEPSLATE_TIN_ORE = register("deepslate_tin_ore", new BlockItem(Blocks.DEEPSLATE_TIN_ORE, settings()));
-        public static final Item RAW_TIN_BLOCK = register("raw_tin_block", new BlockItem(Blocks.RAW_TIN_BLOCK, settings()));
-        public static final Item TIN_BLOCK = register("tin_block", new BlockItem(Blocks.TIN_BLOCK, settings()));
-        public static final Item RAW_TIN = register("raw_tin", new Item(settings()));
-        public static final Item TIN_INGOT = register("tin_ingot", new Item(settings()));
-        public static final Item TIN_NUGGET = register("tin_nugget", new Item(settings()));
-        public static final Item TIN_DUST = register("tin_dust", new Item(settings()));
-
         public static final Item COPPER_WIRE = register("copper_wire", new BlockItem(Blocks.COPPER_WIRE, settings()));
         public static final Item COPPER_CABLE = register("copper_cable", new BlockItem(Blocks.COPPER_CABLE, settings()));
         public static final Item CIRCUIT = register("circuit", new Item(settings()));
@@ -420,6 +390,7 @@ public class SpaceFactory implements ModInitializer {
         public static final Item NANO_STEEL_MACHETE = register("nano_steel_machete", new NanoSteelMacheteItem(ToolMaterials.NANO_STRUCTURED_STEEL, 2, -2.2F, settings().rarity(Rarity.RARE)));
         public static final Item NANO_STEEL_WRENCH = register("nano_steel_wrench", new NanoSteelWrenchItem(ToolMaterials.NANO_STRUCTURED_STEEL, 0, -1.8F, settings().maxDamage(700).rarity(Rarity.RARE)));
         public static final Item NANO_STEEL_UNICUTTER = register("nano_steel_unicutter", new NanoSteelUnicutterItem(ToolMaterials.NANO_STRUCTURED_STEEL, -1, -1F, settings().maxDamage(700).rarity(Rarity.RARE)));
+
         public static final Item REINFORCED_STONE = register("reinforced_stone", new BlockItem(Blocks.REINFORCED_STONE, settings()));
         public static final Item REINFORCED_STONE_TILES = register("reinforced_stone_tiles", new BlockItem(Blocks.REINFORCED_STONE_TILES, settings()));
         public static final Item REINFORCED_STONE_STAIRS = register("reinforced_stone_stairs", new BlockItem(Blocks.REINFORCED_STONE_STAIRS, settings()));
@@ -535,19 +506,13 @@ public class SpaceFactory implements ModInitializer {
                 RUBBER_LEAVES, new RubberFoliagePlacer(UniformIntProvider.create(2, 2), UniformIntProvider.create(1, 1), 5), //
                 new TwoLayersFeatureSize(1, 0, 1)).build();
 
-        private static final OreFeatureConfig TIN_ORE_CONFIG = new OreFeatureConfig(List.of( //
-                OreFeatureConfig.createTarget(OreConfiguredFeatures.STONE_ORE_REPLACEABLES, Blocks.TIN_ORE.getDefaultState()), //
-                OreFeatureConfig.createTarget(OreConfiguredFeatures.DEEPSLATE_ORE_REPLACEABLES, Blocks.DEEPSLATE_TIN_ORE.getDefaultState())
-        ), config.tinVeinSize);
-
         private static final OreFeatureConfig IRIDIUM_ORE_CONFIG = new OreFeatureConfig(List.of( //
                 OreFeatureConfig.createTarget(new BlockStateMatchRuleTest(net.minecraft.block.Blocks.END_STONE.getDefaultState()), Blocks.END_STONE_IRIDIUM_ORE.getDefaultState())), config.iridiumVeinSize);
 
 
         public static final ConfiguredFeature<TreeFeatureConfig, ?> RUBBER_TREE = register("rubber_tree", new ConfiguredFeature<>(Feature.TREE, RUBBER_TREE_CONFIG));
 
-        public static final ConfiguredFeature<OreFeatureConfig, ?> TIN_ORE = register("tin_ore", new ConfiguredFeature<>(Feature.ORE, TIN_ORE_CONFIG));
-        public static final ConfiguredFeature<OreFeatureConfig, ?> IRIDIUM_ORE = register("iridium_ore", new ConfiguredFeature<>(Feature.ORE, IRIDIUM_ORE_CONFIG));
+         public static final ConfiguredFeature<OreFeatureConfig, ?> IRIDIUM_ORE = register("iridium_ore", new ConfiguredFeature<>(Feature.ORE, IRIDIUM_ORE_CONFIG));
 
         public static <T extends ConfiguredFeature<?, ?>> T register(String name, T entry) {
             return Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, id(name), entry);
@@ -585,15 +550,7 @@ public class SpaceFactory implements ModInitializer {
                         net.minecraft.world.gen.feature.PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, //
                         BiomePlacementModifier.of())));
 
-        public static final PlacedFeature TIN_ORE = PlacedFeatures.register("tin_ore", new PlacedFeature(getEntry(BuiltinRegistries.CONFIGURED_FEATURE, ConfiguredFeatures.TIN_ORE), //
-                List.of( //
-                        CountPlacementModifier.of(config.tinVeinsPerChunk), //
-                        SquarePlacementModifier.of(), //
-                        HeightRangePlacementModifier.uniform( //
-                                YOffset.fixed(config.tinMinHeight), //
-                                YOffset.fixed(config.tinMaxHeight)), //
-                        BiomePlacementModifier.of()
-                )));
+
         public static final PlacedFeature IRIDIUM_ORE = PlacedFeatures.register("iridium_ore",
                 new PlacedFeature(getEntry(BuiltinRegistries.CONFIGURED_FEATURE, ConfiguredFeatures.IRIDIUM_ORE), //
                         List.of( //

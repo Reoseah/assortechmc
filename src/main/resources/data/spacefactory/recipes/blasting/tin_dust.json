@@ -1,7 +1,0 @@
-{
-  "type": "minecraft:blasting",
-  "ingredient": {
-    "tag": "c:tin_dusts"
-  },
-  "result": "spacefactory:tin_ingot"
-}

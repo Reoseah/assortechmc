@@ -9,11 +9,6 @@
   "block.spacefactory.rubber_leaves": "Rubber Tree Leaves",
   "block.spacefactory.rubber_sapling": "Rubber Tree Sapling",
 
-  "block.spacefactory.tin_ore": "Tin Ore",
-  "block.spacefactory.deepslate_tin_ore": "Deepslate Tin Ore",
-  "block.spacefactory.raw_tin_block": "Block of Raw Tin",
-  "block.spacefactory.tin_block": "Block of Tin",
-
   "block.spacefactory.copper_wire": "Copper Wire",
   "block.spacefactory.copper_cable": "Copper Cable",
 
@@ -53,11 +48,6 @@
 
   "item.spacefactory.raw_rubber": "Raw Rubber",
   "item.spacefactory.rubber": "Rubber",
-
-  "item.spacefactory.raw_tin": "Raw Tin",
-  "item.spacefactory.tin_ingot": "Tin Ingot",
-  "item.spacefactory.tin_nugget": "Tin Nugget",
-  "item.spacefactory.tin_dust": "Tin Dust",
 
   "item.spacefactory.circuit": "Circuit",
 
