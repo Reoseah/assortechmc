@@ -11,6 +11,7 @@ import net.fabricmc.fabric.api.object.builder.v1.client.model.FabricModelPredica
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.color.world.BiomeColors;
 import net.minecraft.client.color.world.FoliageColors;
+import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;
 import net.minecraft.client.item.UnclampedModelPredicateProvider;
 import net.minecraft.client.render.RenderLayer;
@@ -79,15 +80,15 @@ public class SpaceFactoryClient implements ClientModInitializer {
         ModelPredicateProviderRegistry.register(SpaceFactory.Items.NANO_STEEL_WRENCH, SpaceFactory.id("open"),
                 wrenchOpenPredicate);
 
-        ScreenRegistry.register(SpaceFactory.ScreenHandlerTypes.GENERATOR, GeneratorScreen::new);
-        ScreenRegistry.register(SpaceFactory.ScreenHandlerTypes.SOLAR_PANEL, SolarPanelScreen::new);
-        ScreenRegistry.register(SpaceFactory.ScreenHandlerTypes.ELECTRIC_FURNACE, ElectricFurnaceScreen::new);
-        ScreenRegistry.register(SpaceFactory.ScreenHandlerTypes.PULVERIZER, PulverizerScreen::new);
-        ScreenRegistry.register(SpaceFactory.ScreenHandlerTypes.COMPRESSOR, CompressorScreen::new);
-        ScreenRegistry.register(SpaceFactory.ScreenHandlerTypes.MOLECULAR_ASSEMBLER, AtomicReassemblerScreen::new);
-        ScreenRegistry.register(SpaceFactory.ScreenHandlerTypes.EXTRACTOR, ExtractorScreen::new);
-        ScreenRegistry.register(SpaceFactory.ScreenHandlerTypes.BATTERY_BOX, BatteryBoxScreen::new);
-
+        HandledScreens.register(SpaceFactory.ScreenHandlerTypes.GENERATOR, GeneratorScreen::new);
+        HandledScreens.register(SpaceFactory.ScreenHandlerTypes.SOLAR_PANEL, SolarPanelScreen::new);
+        HandledScreens.register(SpaceFactory.ScreenHandlerTypes.ELECTRIC_FURNACE, ElectricFurnaceScreen::new);
+        HandledScreens.register(SpaceFactory.ScreenHandlerTypes.PULVERIZER, PulverizerScreen::new);
+        HandledScreens.register(SpaceFactory.ScreenHandlerTypes.COMPRESSOR, CompressorScreen::new);
+        HandledScreens.register(SpaceFactory.ScreenHandlerTypes.MOLECULAR_ASSEMBLER, AtomicReassemblerScreen::new);
+        HandledScreens.register(SpaceFactory.ScreenHandlerTypes.EXTRACTOR, ExtractorScreen::new);
+        HandledScreens.register(SpaceFactory.ScreenHandlerTypes.BATTERY_BOX, BatteryBoxScreen::new);
+        
         ClientPlayNetworking.registerGlobalReceiver(SpaceFactory.id("burnt_cable"), (client, handler, buf, responseSender) -> {
             BlockPos pos = buf.readBlockPos();
             client.execute(() -> {
