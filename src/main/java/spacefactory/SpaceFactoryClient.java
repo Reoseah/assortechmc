@@ -76,6 +76,8 @@ public class SpaceFactoryClient implements ClientModInitializer {
         };
         ModelPredicateProviderRegistry.register(SpaceFactory.Items.REFINED_IRON_WRENCH, SpaceFactory.id("open"),
                 wrenchOpenPredicate);
+        ModelPredicateProviderRegistry.register(SpaceFactory.Items.NANO_STEEL_WRENCH, SpaceFactory.id("open"),
+                wrenchOpenPredicate);
 
         ScreenRegistry.register(SpaceFactory.ScreenHandlerTypes.GENERATOR, GeneratorScreen::new);
         ScreenRegistry.register(SpaceFactory.ScreenHandlerTypes.SOLAR_PANEL, SolarPanelScreen::new);

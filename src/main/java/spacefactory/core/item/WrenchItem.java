@@ -50,8 +50,7 @@ public class WrenchItem extends ToolItem {
         BlockState state = world.getBlockState(pos);
         PlayerEntity player = context.getPlayer();
         Hand hand = context.getHand();
-        if (state.getBlock() instanceof Wrenchable wrenchable //
-                && wrenchable.useWrench(state, world, pos, context.getSide(), player, hand, context.getHitPos())) {
+        if (Wrenchable.tryWrench(state, world, pos, context.getSide(), player, hand, context.getHitPos())) {
             if (player != null) {
                 context.getStack().damage(1, player, p -> p.sendToolBreakStatus(hand));
             }

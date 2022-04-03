@@ -1,0 +1,16 @@
+{
+  "parent": "block/block",
+  "textures": {
+    "particle": "#block",
+    "block": "spacefactory:block/reinforced_stone_covered_conduit"
+  },
+  "elements": [
+    {
+      "from": [ 0, 0, 0 ],
+      "to": [ 16, 16, 16 ],
+      "faces": {
+        "down": { "texture": "#block" }
+      }
+    }
+  ]
+}

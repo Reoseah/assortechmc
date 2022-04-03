@@ -29,5 +29,14 @@ public interface Wrenchable {
     boolean useWrench(BlockState state, World world, BlockPos pos, Direction side, @Nullable PlayerEntity player,
                       Hand hand, Vec3d hitPos);
 
-
+    /**
+     * Shorthand for casting bock to {@link Wrenchable} and if successful calling {@link #useWrench}.
+     */
+    static boolean tryWrench(BlockState state, World world, BlockPos pos, Direction side, @Nullable PlayerEntity player,
+                             Hand hand, Vec3d hitPos) {
+        if (state.getBlock() instanceof Wrenchable wrenchable) {
+            return wrenchable.useWrench(state, world, pos, side, player, hand, hitPos);
+        }
+        return false;
+    }
 }

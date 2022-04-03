@@ -34,6 +34,14 @@ public class PotatoBatteryItem extends Item implements EU.SimpleDischargeableIte
     }
 
     @Override
+    public ItemStack withEnergy(ItemStack stack, int energy) {
+        if (energy == 0) {
+            return ItemStack.EMPTY;
+        }
+        return EU.SimpleDischargeableItem.super.withEnergy(stack, energy);
+    }
+
+    @Override
     public void appendStacks(ItemGroup group, DefaultedList<ItemStack> stacks) {
         if (this.isIn(group)) {
             stacks.add(new ItemStack(this));

@@ -6,7 +6,7 @@
   "overrides": [
     {
       "predicate": {
-        "open": 1
+        "spacefactory:open": 1
       },
       "model": "spacefactory:item/nano_steel_wrench_open"
     }

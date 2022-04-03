@@ -170,7 +170,7 @@ public abstract class EU {
     }
 
     /**
-     * Implement this interface on your item class to make it function as a simple non-rechargeable battery.
+     * Implement this interface on your item class to make it function like a simple non-rechargeable battery.
      */
     public interface SimpleDischargeableItem extends EU.ElectricItem, FabricItem {
         String ENERGY_KEY = "energy";
@@ -207,7 +207,7 @@ public abstract class EU {
     }
 
     /**
-     * Implement this interface on your item class to make it function as a simple rechargeable battery.
+     * Implement this interface on your item class to make it function like a simple rechargeable battery.
      */
     public interface SimpleRechargeableItem extends SimpleDischargeableItem {
         @Override

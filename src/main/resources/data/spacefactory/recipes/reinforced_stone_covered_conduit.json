@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "spacefactory:reinforced_stone_tiles"
+    },
+    {
+      "item": "spacefactory:energy_conduit"
+    }
+  ],
+  "result": {
+    "item": "spacefactory:reinforced_stone_covered_conduit"
+  }
+}

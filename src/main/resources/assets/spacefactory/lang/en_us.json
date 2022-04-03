@@ -34,6 +34,7 @@
   "block.spacefactory.reinforced_stone_tiles": "Reinforced Stone Tiles",
   "block.spacefactory.reinforced_stone_stairs": "Reinforced Stone Stairs",
   "block.spacefactory.reinforced_stone_slab": "Reinforced Stone Slab",
+  "block.spacefactory.reinforced_stone_covered_conduit": "Reinforced Stone Covered Conduit",
   "block.spacefactory.reinforced_glass": "Reinforced Glass",
 
   "block.spacefactory.dragon_energy_absorber": "Dragon Energy Siphon",
@@ -95,19 +96,18 @@
   "tooltip.spacefactory.energy_per_tick" : "%s EU/t",
   "tooltip.spacefactory.energy_per_tick_and_limit" : "%s / %s EU/t",
 
-  "tooltip.spacefactory.battery_rate": "%s EU/t, -%s EU/s Self Discharge",
+  "tooltip.spacefactory.battery_rate": "%s EU/t, -%s EU/s Discharge",
   "tooltip.spacefactory.battery_capacity": "0-%s EU Capacity",
 
   "tooltip.spacefactory.self_regeneration": "Self Repair",
 
   "container.spacefactory.fuel_ticks": "%s ticks left",
 
+  "death.attack.spacefactory.uninsulated_wire_shock": "%s touched live uninsulated wire",
+
   "category.spacefactory.electric_smelting": "Electric Smelting",
   "category.spacefactory.pulverizing": "Pulverizing",
   "category.spacefactory.compressing": "Compressing",
   "category.spacefactory.extracting": "Extracting",
-  "category.spacefactory.atomic_reassembly": "Atomic Reassembly",
-
-  "options.spacefactory.title": "Space Factory Options",
-  "controls.spacefactory.reset": "Reset"
+  "category.spacefactory.atomic_reassembly": "Atomic Reassembly"
 }

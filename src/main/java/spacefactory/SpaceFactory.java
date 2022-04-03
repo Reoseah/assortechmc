@@ -23,6 +23,7 @@ import net.minecraft.block.AbstractBlock.Settings;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.item.*;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.Recipe;
@@ -74,6 +75,7 @@ import spacefactory.features.compressor.CompressorRecipe;
 import spacefactory.features.compressor.CompressorScreenHandler;
 import spacefactory.features.conduit.ConduitBlock;
 import spacefactory.features.conduit.ConduitBlockEntity;
+import spacefactory.features.conduit.CoveredConduitBlock;
 import spacefactory.features.dragon_egg_siphon.DragonEggSiphonBlock;
 import spacefactory.features.dragon_egg_siphon.DragonEggSiphonBlockEntity;
 import spacefactory.features.electric_furnace.ElectricFurnaceBlock;
@@ -205,6 +207,11 @@ public class SpaceFactory implements ModInitializer {
         @SerializedName("copper_bus_transfer_rate")
         public int copperBusTransferRate = 1000;
 
+        @SerializedName("minimum_shock_current")
+        public int minShockCurrent = 10;
+        @SerializedName("shock_current_to_damage_coefficient")
+        public int shockCurrentToDamageCoefficient = 15;
+
         @SerializedName("crafting_machine_energy_buffer")
         public int craftingMachineCapacity = 100;
         @SerializedName("crafting_machine_receive_rate")
@@ -267,8 +274,8 @@ public class SpaceFactory implements ModInitializer {
         public static final Block RUBBER_LEAVES = register("rubber_leaves", new LeavesBlock(Settings.of(Material.LEAVES).strength(0.2F).ticksRandomly().sounds(BlockSoundGroup.GRASS).nonOpaque().allowsSpawning(net.minecraft.block.Blocks::canSpawnOnLeaves).suffocates(net.minecraft.block.Blocks::never).blockVision(net.minecraft.block.Blocks::never)));
         public static final Block RUBBER_SAPLING = register("rubber_sapling", new RubberSaplingBlock(Settings.of(Material.PLANT).noCollision().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.GRASS)));
 
-        public static final Block COPPER_WIRE = register("copper_wire", new ConduitBlock(1, FabricBlockSettings.of(Material.METAL).strength(0.5F).sounds(BlockSoundGroup.WOOL)));
-        public static final Block COPPER_CABLE = register("copper_cable", new ConduitBlock(2, FabricBlockSettings.of(Material.METAL).strength(0.5F)));
+        public static final Block COPPER_WIRE = register("copper_wire", new ConduitBlock(1, false, FabricBlockSettings.of(Material.METAL).strength(0.5F).sounds(BlockSoundGroup.WOOL)));
+        public static final Block COPPER_CABLE = register("copper_cable", new ConduitBlock(2, true, FabricBlockSettings.of(Material.METAL).strength(0.5F)));
 
         public static final Block MACHINE_FRAME = register("machine_frame", new Block(MACHINE_SETTINGS));
 
@@ -280,8 +287,8 @@ public class SpaceFactory implements ModInitializer {
         public static final Block EXTRACTOR = register("extractor", new ExtractorBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 12 : 0)));
         public static final Block SOLAR_PANEL = register("solar_panel", new SolarPanelBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).mapColor(MapColor.LAPIS_BLUE)));
 
-        public static final Block COPPER_BUS_BAR = register("copper_bus_bar", new ConduitBlock(3, FabricBlockSettings.of(Material.METAL).strength(2F, 5F)));
-        public static final Block ENERGY_CONDUIT = register("energy_conduit", new ConduitBlock(4, FabricBlockSettings.of(Material.METAL).strength(5F, 20F)));
+        public static final Block COPPER_BUS_BAR = register("copper_bus_bar", new ConduitBlock(3, false, FabricBlockSettings.of(Material.METAL).strength(2F, 5F)));
+        public static final Block ENERGY_CONDUIT = register("energy_conduit", new ConduitBlock(4, true, FabricBlockSettings.of(Material.METAL).strength(5F, 20F)));
 
         public static final Block CRYSTALITE_BLOCK = register("crystalite_block", new Block(FabricBlockSettings.of(Material.GLASS, MapColor.LIGHT_BLUE).luminance(15).strength(5F, 20F).slipperiness(0.98F).sounds(BlockSoundGroup.GLASS).allowsSpawning(net.minecraft.block.Blocks::never)));
 
@@ -294,6 +301,7 @@ public class SpaceFactory implements ModInitializer {
         public static final Block REINFORCED_STONE_TILES = register("reinforced_stone_tiles", new Block(REINFORCED_STONE_SETTINGS));
         public static final Block REINFORCED_STONE_STAIRS = register("reinforced_stone_stairs", new StairsBlock(REINFORCED_STONE_TILES.getDefaultState(), REINFORCED_STONE_SETTINGS));
         public static final Block REINFORCED_STONE_SLAB = register("reinforced_stone_slab", new SlabBlock(REINFORCED_STONE_SETTINGS));
+        public static final Block REINFORCED_STONE_COVERED_CONDUIT = register("reinforced_stone_covered_conduit", new CoveredConduitBlock(REINFORCED_STONE_SETTINGS));
         public static final Block REINFORCED_GLASS = register("reinforced_glass", new GlassBlock(FabricBlockSettings.of(Material.GLASS).strength(7F, 10F).nonOpaque().sounds(BlockSoundGroup.GLASS)));
 
         public static final Block END_STONE_IRIDIUM_ORE = register("end_stone_iridium_ore", new Block(FabricBlockSettings.of(Material.STONE, MapColor.PALE_YELLOW).strength(3F, 9F)));
@@ -395,6 +403,7 @@ public class SpaceFactory implements ModInitializer {
         public static final Item REINFORCED_STONE_TILES = register("reinforced_stone_tiles", new BlockItem(Blocks.REINFORCED_STONE_TILES, settings()));
         public static final Item REINFORCED_STONE_STAIRS = register("reinforced_stone_stairs", new BlockItem(Blocks.REINFORCED_STONE_STAIRS, settings()));
         public static final Item REINFORCED_STONE_SLAB = register("reinforced_stone_slab", new BlockItem(Blocks.REINFORCED_STONE_SLAB, settings()));
+        public static final Item REINFORCED_STONE_COVERED_CONDUIT = register("reinforced_stone_covered_conduit", new BlockItem(Blocks.REINFORCED_STONE_COVERED_CONDUIT, settings()));
         public static final Item REINFORCED_GLASS = register("reinforced_glass", new BlockItem(Blocks.REINFORCED_GLASS, settings()));
 
         public static final Item ENDER_PEARL_DUST = register("ender_pearl_dust", new Item(settings()));
@@ -443,7 +452,7 @@ public class SpaceFactory implements ModInitializer {
         public static final BlockEntityType<ExtractorBlockEntity> EXTRACTOR = create("extractor", ExtractorBlockEntity::new, Blocks.EXTRACTOR);
         public static final BlockEntityType<AtomicReassemblerBlockEntity> ATOMIC_REASSEMBLER = create("atomic_reassembler", AtomicReassemblerBlockEntity::new, Blocks.ATOMIC_REASSEMBLER);
         public static final BlockEntityType<BatteryBlockEntity> BATTERY = create("battery_box", BatteryBlockEntity::new, Blocks.BATTERY_BOX);
-        public static final BlockEntityType<ConduitBlockEntity> CONDUIT = create("conduit", ConduitBlockEntity::new, Blocks.COPPER_WIRE, Blocks.COPPER_CABLE, Blocks.COPPER_BUS_BAR, Blocks.ENERGY_CONDUIT);
+        public static final BlockEntityType<ConduitBlockEntity> CONDUIT = create("conduit", ConduitBlockEntity::new, Blocks.COPPER_WIRE, Blocks.COPPER_CABLE, Blocks.COPPER_BUS_BAR, Blocks.ENERGY_CONDUIT, Blocks.REINFORCED_STONE_COVERED_CONDUIT);
 
         public static <T extends BlockEntity> BlockEntityType<T> create(String name, FabricBlockEntityTypeBuilder.Factory<T> factory, Block... blocks) {
             BlockEntityType<T> type = FabricBlockEntityTypeBuilder.create(factory, blocks).build();
@@ -512,7 +521,7 @@ public class SpaceFactory implements ModInitializer {
 
         public static final ConfiguredFeature<TreeFeatureConfig, ?> RUBBER_TREE = register("rubber_tree", new ConfiguredFeature<>(Feature.TREE, RUBBER_TREE_CONFIG));
 
-         public static final ConfiguredFeature<OreFeatureConfig, ?> IRIDIUM_ORE = register("iridium_ore", new ConfiguredFeature<>(Feature.ORE, IRIDIUM_ORE_CONFIG));
+        public static final ConfiguredFeature<OreFeatureConfig, ?> IRIDIUM_ORE = register("iridium_ore", new ConfiguredFeature<>(Feature.ORE, IRIDIUM_ORE_CONFIG));
 
         public static <T extends ConfiguredFeature<?, ?>> T register(String name, T entry) {
             return Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, id(name), entry);
@@ -582,6 +591,12 @@ public class SpaceFactory implements ModInitializer {
         public static <T extends ScreenHandlerType<?>> T register(String name, T entry) {
             return Registry.register(Registry.SCREEN_HANDLER, id(name), entry);
         }
+    }
+
+    public static class DamageSources {
+        public static final DamageSource UNINSULATED_WIRE_SHOCK = new DamageSource("spacefactory.uninsulated_wire_shock") {
+
+        };
     }
 
     public enum ArmorMaterials implements ArmorMaterial {
