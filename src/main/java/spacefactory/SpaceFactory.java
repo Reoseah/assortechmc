@@ -59,9 +59,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import spacefactory.core.item.MacheteItem;
 import spacefactory.core.item.UnicutterItem;
+import spacefactory.core.item.WrenchItem;
 import spacefactory.core.recipe.SimpleMachineRecipe;
 import spacefactory.features.PotatoBatteryItem;
-import spacefactory.core.item.WrenchItem;
 import spacefactory.features.atomic_reassembler.AtomicReassemblerBlock;
 import spacefactory.features.atomic_reassembler.AtomicReassemblerBlockEntity;
 import spacefactory.features.atomic_reassembler.AtomicReassemblerRecipe;
@@ -315,13 +315,48 @@ public class SpaceFactory implements ModInitializer {
         }
 
         public static void init() {
-            for (Block block : Registry.BLOCK) {
-                if (Registry.BLOCK.getId(block).getNamespace().equals(MOD_ID)) {
-                    for (BlockState state : block.getStateManager().getStates()) {
-                        Block.STATE_IDS.add(state);
-                    }
-                }
-            }
+            register("rubber_log", RUBBER_LOG);
+            register("alive_rubber_log", ALIVE_RUBBER_LOG);
+            register("rubber_wood", RUBBER_WOOD);
+            register("stripped_rubber_log", STRIPPED_RUBBER_LOG);
+            register("stripped_rubber_wood", STRIPPED_RUBBER_WOOD);
+            register("rubber_leaves", RUBBER_LEAVES);
+            register("rubber_sapling", RUBBER_SAPLING);
+
+            register("copper_wire", COPPER_WIRE);
+            register("copper_cable", COPPER_CABLE);
+
+            register("machine_frame", new Block(MACHINE_SETTINGS));
+
+            register("generator", GENERATOR);
+            register("battery_box", BATTERY_BOX);
+            register("electric_furnace", ELECTRIC_FURNACE);
+            register("pulverizer", PULVERIZER);
+            register("compressor", COMPRESSOR);
+            register("extractor", EXTRACTOR);
+            register("solar_panel", SOLAR_PANEL);
+
+            register("copper_bus_bar", COPPER_BUS_BAR);
+            register("energy_conduit", ENERGY_CONDUIT);
+
+            register("crystalite_block", CRYSTALITE_BLOCK);
+
+            register("atomic_reassembler", ATOMIC_REASSEMBLER);
+
+            register("nano_steel_block", NANO_STEEL_BLOCK);
+
+            register("reinforced_stone", REINFORCED_STONE);
+            register("reinforced_stone_tiles", REINFORCED_STONE_TILES);
+            register("reinforced_stone_stairs", REINFORCED_STONE_STAIRS);
+            register("reinforced_stone_slab", REINFORCED_STONE_SLAB);
+            register("reinforced_stone_covered_conduit", REINFORCED_STONE_COVERED_CONDUIT);
+            register("reinforced_glass", REINFORCED_GLASS);
+
+            register("end_stone_iridium_ore", END_STONE_IRIDIUM_ORE);
+            register("raw_iridium_block", RAW_IRIDIUM_BLOCK);
+            register("iridium_block", IRIDIUM_BLOCK);
+
+            register("dragon_energy_absorber", DRAGON_ENERGY_ABSORBER);
 
             FlammableBlockRegistry.getDefaultInstance().add(Blocks.RUBBER_LOG, 5, 5);
             FlammableBlockRegistry.getDefaultInstance().add(Blocks.ALIVE_RUBBER_LOG, 5, 5);
