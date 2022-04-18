@@ -9,7 +9,6 @@ import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.screen.slot.Slot;
 import spacefactory.SpaceFactory;
 import spacefactory.api.EU;
-import spacefactory.features.solar_panel.SolarPanelBlockEntity;
 import spacefactory.core.screen.InventoryScreenHandler;
 import spacefactory.core.screen.property.ReadProperty;
 import spacefactory.core.screen.property.WriteProperty;

@@ -10,8 +10,6 @@ import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
 import spacefactory.SpaceFactory;
 import spacefactory.core.block.entity.CraftingMachineBlockEntity;
-import spacefactory.features.pulverizer.PulverizerRecipe;
-import spacefactory.features.pulverizer.PulverizerScreenHandler;
 
 public class PulverizerBlockEntity extends CraftingMachineBlockEntity<PulverizerRecipe> {
     public PulverizerBlockEntity(BlockPos pos, BlockState state) {

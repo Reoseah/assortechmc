@@ -2,8 +2,6 @@ package spacefactory.features.extractor;
 
 import spacefactory.SpaceFactory;
 import spacefactory.core.block.entity.CraftingMachineBlockEntity;
-import spacefactory.features.extractor.ExtractorRecipe;
-import spacefactory.features.extractor.ExtractorScreenHandler;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;

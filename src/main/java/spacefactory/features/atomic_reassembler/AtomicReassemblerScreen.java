@@ -12,7 +12,6 @@ import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import spacefactory.SpaceFactory;
-import spacefactory.core.block.entity.CraftingMachineBlockEntity;
 
 @Environment(EnvType.CLIENT)
 public class AtomicReassemblerScreen extends HandledScreen<AtomicReassemblerScreenHandler> {

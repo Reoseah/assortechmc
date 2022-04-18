@@ -12,7 +12,6 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.Nullable;
 import spacefactory.SpaceFactory;
 import spacefactory.api.EU;

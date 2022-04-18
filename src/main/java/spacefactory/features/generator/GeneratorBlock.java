@@ -20,7 +20,6 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import spacefactory.SpaceFactory;
-import spacefactory.api.EU;
 import spacefactory.core.block.OrientableMachineBlock;
 
 import java.util.List;

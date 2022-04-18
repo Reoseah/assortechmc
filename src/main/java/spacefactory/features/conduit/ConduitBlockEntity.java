@@ -2,10 +2,7 @@ package spacefactory.features.conduit;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import spacefactory.SpaceFactory;

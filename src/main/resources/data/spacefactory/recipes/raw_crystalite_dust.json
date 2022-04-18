@@ -2,12 +2,12 @@
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "LGL",
-    "GDG",
+    "GRG",
     "LGL"
   ],
   "key": {
-    "D": {
-      "tag": "c:diamond_dusts"
+    "R": {
+      "item": "minecraft:redstone"
     },
     "G": {
       "item": "minecraft:glowstone_dust"

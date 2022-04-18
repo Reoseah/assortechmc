@@ -117,10 +117,10 @@ public class SpaceFactory implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        Blocks.init();
+        Blocks.register();
         BlockEntityTypes.init();
         ScreenHandlerTypes.init();
-        Items.init();
+        Items.register();
         RecipeTypes.init();
         RecipeSerializers.init();
         FoliagePlacers.init();
@@ -147,10 +147,6 @@ public class SpaceFactory implements ModInitializer {
 
     public static Identifier id(String path) {
         return new Identifier("spacefactory", path);
-    }
-
-    public static <T> T register(Registry<? super T> registry, String name, T entry) {
-        return Registry.register(registry, id(name), entry);
     }
 
     public static <T> RegistryEntry<T> getEntry(Registry<T> registry, T entry) {
@@ -257,16 +253,16 @@ public class SpaceFactory implements ModInitializer {
 
     public static class Materials {
         public static final Material MACHINE = new FabricMaterialBuilder(MapColor.IRON_GRAY).build();
+        public static final Material UNMOVABLE_WOOD = new FabricMaterialBuilder(MapColor.OAK_TAN).blocksPistons().burnable().build();
     }
 
     public static class Blocks {
-        private static final Material UNMOVABLE_WOOD = new FabricMaterialBuilder(MapColor.OAK_TAN).blocksPistons().burnable().build();
 
         private static final AbstractBlock.Settings MACHINE_SETTINGS = Settings.of(Materials.MACHINE).strength(3F, 6F).sounds(BlockSoundGroup.METAL).requiresTool().allowsSpawning(net.minecraft.block.Blocks::never);
         private static final AbstractBlock.Settings ADVANCED_MACHINE_SETTINGS = Settings.of(Materials.MACHINE).strength(10F, 30F).sounds(BlockSoundGroup.METAL).requiresTool().allowsSpawning(net.minecraft.block.Blocks::never);
 
         public static final Block RUBBER_LOG = new PillarBlock(Settings.of(Material.WOOD, state -> state.get(PillarBlock.AXIS) == Direction.Axis.Y ? MapColor.YELLOW : MapColor.BROWN).strength(2F).sounds(BlockSoundGroup.WOOD));
-        public static final Block ALIVE_RUBBER_LOG = new AliveRubberLogBlock(Settings.of(UNMOVABLE_WOOD, MapColor.YELLOW).ticksRandomly().strength(2F).sounds(BlockSoundGroup.WOOD));
+        public static final Block ALIVE_RUBBER_LOG = new AliveRubberLogBlock(Settings.of(Materials.UNMOVABLE_WOOD, MapColor.YELLOW).ticksRandomly().strength(2F).sounds(BlockSoundGroup.WOOD));
         public static final Block RUBBER_WOOD = new PillarBlock(Settings.of(Material.WOOD, MapColor.BROWN).strength(2F).sounds(BlockSoundGroup.WOOD));
         public static final Block STRIPPED_RUBBER_LOG = new PillarBlock(Settings.of(Material.WOOD, MapColor.YELLOW).strength(2F).sounds(BlockSoundGroup.WOOD));
         public static final Block STRIPPED_RUBBER_WOOD = new PillarBlock(Settings.of(Material.WOOD, MapColor.YELLOW).strength(2F).sounds(BlockSoundGroup.WOOD));
@@ -295,7 +291,7 @@ public class SpaceFactory implements ModInitializer {
 
         public static final Block NANO_STEEL_BLOCK = new Block(FabricBlockSettings.of(Material.METAL, MapColor.DARK_AQUA).strength(12F, 20F));
 
-        public static final AbstractBlock.Settings REINFORCED_STONE_SETTINGS = FabricBlockSettings.of(Material.STONE, MapColor.DARK_AQUA).strength(10F, 15F);
+        private static final AbstractBlock.Settings REINFORCED_STONE_SETTINGS = FabricBlockSettings.of(Material.STONE, MapColor.DARK_AQUA).strength(10F, 15F);
         public static final Block REINFORCED_STONE = new Block(REINFORCED_STONE_SETTINGS);
         public static final Block REINFORCED_STONE_TILES = new Block(REINFORCED_STONE_SETTINGS);
         public static final Block REINFORCED_STONE_STAIRS = new StairsBlock(REINFORCED_STONE_TILES.getDefaultState(), REINFORCED_STONE_SETTINGS);
@@ -309,11 +305,11 @@ public class SpaceFactory implements ModInitializer {
 
         public static final Block DRAGON_ENERGY_ABSORBER = new DragonEggSiphonBlock(FabricBlockSettings.copyOf(ADVANCED_MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 15 : 0));
 
-        public static <T extends Block> T register(String name, T entry) {
-            return Registry.register(Registry.BLOCK, id(name), entry);
+        private static void register(String name, Block entry) {
+            Registry.register(Registry.BLOCK, id(name), entry);
         }
 
-        public static void init() {
+        public static void register() {
             register("rubber_log", RUBBER_LOG);
             register("alive_rubber_log", ALIVE_RUBBER_LOG);
             register("rubber_wood", RUBBER_WOOD);
@@ -370,92 +366,92 @@ public class SpaceFactory implements ModInitializer {
     public static class Items {
         public static final ItemGroup MAIN = FabricItemGroupBuilder.build(id("main"), () -> new ItemStack(SpaceFactory.Items.QUANTUM_CIRCUIT));
 
-        public static final Item COPPER_NUGGET = register("copper_nugget", new Item(settings()));
+        public static final Item COPPER_NUGGET = new Item(settings());
 
-        public static final Item STONE_DUST = register("stone_dust", new Item(settings()));
-        public static final Item COAL_DUST = register("coal_dust", new Item(settings()));
-        public static final Item COPPER_DUST = register("copper_dust", new Item(settings()));
-        public static final Item IRON_DUST = register("iron_dust", new Item(settings()));
-        public static final Item GOLD_DUST = register("gold_dust", new Item(settings()));
-        public static final Item DIAMOND_DUST = register("diamond_dust", new Item(settings()));
+        public static final Item STONE_DUST = new Item(settings());
+        public static final Item COAL_DUST = new Item(settings());
+        public static final Item COPPER_DUST = new Item(settings());
+        public static final Item IRON_DUST = new Item(settings());
+        public static final Item GOLD_DUST = new Item(settings());
+        public static final Item DIAMOND_DUST = new Item(settings());
 
-        public static final Item RUBBER_LOG = register("rubber_log", new BlockItem(Blocks.RUBBER_LOG, settings()));
-        public static final Item STRIPPED_RUBBER_LOG = register("stripped_rubber_log", new BlockItem(Blocks.STRIPPED_RUBBER_LOG, settings()));
-        public static final Item RUBBER_WOOD = register("rubber_wood", new BlockItem(Blocks.RUBBER_WOOD, settings()));
-        public static final Item STRIPPED_RUBBER_WOOD = register("stripped_rubber_wood", new BlockItem(Blocks.STRIPPED_RUBBER_WOOD, settings()));
-        public static final Item RUBBER_LEAVES = register("rubber_leaves", new BlockItem(Blocks.RUBBER_LEAVES, settings()));
-        public static final Item RUBBER_SAPLING = register("rubber_sapling", new BlockItem(Blocks.RUBBER_SAPLING, settings()));
-        public static final Item RAW_RUBBER = register("raw_rubber", new Item(settings()));
-        public static final Item RUBBER = register("rubber", new Item(settings()));
+        public static final Item RUBBER_LOG = new BlockItem(Blocks.RUBBER_LOG, settings());
+        public static final Item STRIPPED_RUBBER_LOG = new BlockItem(Blocks.STRIPPED_RUBBER_LOG, settings());
+        public static final Item RUBBER_WOOD = new BlockItem(Blocks.RUBBER_WOOD, settings());
+        public static final Item STRIPPED_RUBBER_WOOD = new BlockItem(Blocks.STRIPPED_RUBBER_WOOD, settings());
+        public static final Item RUBBER_LEAVES = new BlockItem(Blocks.RUBBER_LEAVES, settings());
+        public static final Item RUBBER_SAPLING = new BlockItem(Blocks.RUBBER_SAPLING, settings());
+        public static final Item RAW_RUBBER = new Item(settings());
+        public static final Item RUBBER = new Item(settings());
 
-        public static final Item COPPER_WIRE = register("copper_wire", new BlockItem(Blocks.COPPER_WIRE, settings()));
-        public static final Item COPPER_CABLE = register("copper_cable", new BlockItem(Blocks.COPPER_CABLE, settings()));
-        public static final Item CIRCUIT = register("circuit", new Item(settings()));
+        public static final Item COPPER_WIRE = new BlockItem(Blocks.COPPER_WIRE, settings());
+        public static final Item COPPER_CABLE = new BlockItem(Blocks.COPPER_CABLE, settings());
+        public static final Item CIRCUIT = new Item(settings());
 
-        public static final Item MACHINE_FRAME = register("machine_frame", new BlockItem(Blocks.MACHINE_FRAME, settings()));
+        public static final Item MACHINE_FRAME = new BlockItem(Blocks.MACHINE_FRAME, settings());
 
-        public static final Item GENERATOR = register("generator", new BlockItem(Blocks.GENERATOR, settings()));
+        public static final Item GENERATOR = new BlockItem(Blocks.GENERATOR, settings());
 
-        public static final Item BATTERY_BOX = register("battery_box", new BlockItem(Blocks.BATTERY_BOX, settings()));
+        public static final Item BATTERY_BOX = new BlockItem(Blocks.BATTERY_BOX, settings());
 
-        public static final Item ELECTRIC_FURNACE = register("electric_furnace", new BlockItem(Blocks.ELECTRIC_FURNACE, settings()));
-        public static final Item PULVERIZER = register("pulverizer", new BlockItem(Blocks.PULVERIZER, settings()));
-        public static final Item COMPRESSOR = register("compressor", new BlockItem(Blocks.COMPRESSOR, settings()));
-        public static final Item EXTRACTOR = register("extractor", new BlockItem(Blocks.EXTRACTOR, settings()));
+        public static final Item ELECTRIC_FURNACE = new BlockItem(Blocks.ELECTRIC_FURNACE, settings());
+        public static final Item PULVERIZER = new BlockItem(Blocks.PULVERIZER, settings());
+        public static final Item COMPRESSOR = new BlockItem(Blocks.COMPRESSOR, settings());
+        public static final Item EXTRACTOR = new BlockItem(Blocks.EXTRACTOR, settings());
 
-        public static final Item NETHER_QUARTZ_DUST = register("nether_quartz_dust", new Item(settings()));
-        public static final Item SILICON_INGOT = register("silicon_ingot", new Item(settings()));
-        public static final Item SOLAR_PANEL = register("solar_panel", new BlockItem(Blocks.SOLAR_PANEL, settings()));
+        public static final Item NETHER_QUARTZ_DUST = new Item(settings());
+        public static final Item SILICON_INGOT = new Item(settings());
+        public static final Item SOLAR_PANEL = new BlockItem(Blocks.SOLAR_PANEL, settings());
 
-        public static final Item COPPER_BUS_BAR = register("copper_bus_bar", new BlockItem(Blocks.COPPER_BUS_BAR, settings()));
-        public static final Item ENERGY_CONDUIT = register("energy_conduit", new BlockItem(Blocks.ENERGY_CONDUIT, settings()));
+        public static final Item COPPER_BUS_BAR = new BlockItem(Blocks.COPPER_BUS_BAR, settings());
+        public static final Item ENERGY_CONDUIT = new BlockItem(Blocks.ENERGY_CONDUIT, settings());
 
-        public static final Item REFINED_IRON_INGOT = register("refined_iron_ingot", new Item(settings().rarity(Rarity.RARE)));
-        public static final Item REFINED_IRON_DUST = register("refined_iron_dust", new Item(settings()));
-        public static final Item REFINED_IRON_MACHETE = register("refined_iron_machete", new MacheteItem(ToolMaterials.REFINED_IRON, 2, -2.2F, settings()));
-        public static final Item REFINED_IRON_WRENCH = register("refined_iron_wrench", new WrenchItem(ToolMaterials.REFINED_IRON, 0, -1.8F, settings()));
-        public static final Item REFINED_IRON_UNICUTTER = register("refined_iron_unicutter", new UnicutterItem(ToolMaterials.REFINED_IRON, -1, -1F, settings().maxDamage(250)));
+        public static final Item REFINED_IRON_INGOT = new Item(settings().rarity(Rarity.RARE));
+        public static final Item REFINED_IRON_DUST = new Item(settings());
+        public static final Item REFINED_IRON_MACHETE = new MacheteItem(ToolMaterials.REFINED_IRON, 2, -2.2F, settings());
+        public static final Item REFINED_IRON_WRENCH = new WrenchItem(ToolMaterials.REFINED_IRON, 0, -1.8F, settings());
+        public static final Item REFINED_IRON_UNICUTTER = new UnicutterItem(ToolMaterials.REFINED_IRON, -1, -1F, settings().maxDamage(250));
 
-        public static final Item CAMOUFLAGE_CLOTH = register("camouflage_cloth", new Item(settings()));
-        public static final Item FLAK_VEST = register("flak_vest", new ArmorItem(ArmorMaterials.FLAK, EquipmentSlot.CHEST, settings().rarity(Rarity.UNCOMMON)));
+        public static final Item CAMOUFLAGE_CLOTH = new Item(settings());
+        public static final Item FLAK_VEST = new ArmorItem(ArmorMaterials.FLAK, EquipmentSlot.CHEST, settings().rarity(Rarity.UNCOMMON));
 
-        public static final Item CRYSTALITE_BLOCK = register("crystalite_block", new BlockItem(Blocks.CRYSTALITE_BLOCK, settings().rarity(Rarity.RARE)));
-        public static final Item CRYSTALITE_MATRIX = register("crystalite_matrix", new Item(settings().rarity(Rarity.RARE).maxCount(16)));
-        public static final Item CRYSTALITE_DUST = register("crystalite_dust", new Item(settings().rarity(Rarity.RARE)));
-        public static final Item RAW_CRYSTALITE_DUST = register("raw_crystalite_dust", new Item(settings()));
-        public static final Item QUANTUM_CIRCUIT = register("quantum_circuit", new Item(settings().rarity(Rarity.UNCOMMON)));
+        public static final Item CRYSTALITE_BLOCK = new BlockItem(Blocks.CRYSTALITE_BLOCK, settings().rarity(Rarity.RARE));
+        public static final Item CRYSTALITE_MATRIX = new Item(settings().rarity(Rarity.RARE).maxCount(16));
+        public static final Item CRYSTALITE_DUST = new Item(settings().rarity(Rarity.RARE));
+        public static final Item RAW_CRYSTALITE_DUST = new Item(settings());
+        public static final Item QUANTUM_CIRCUIT = new Item(settings().rarity(Rarity.UNCOMMON));
 
-        public static final Item ATOMIC_REASSEMBLER = register("atomic_reassembler", new BlockItem(Blocks.ATOMIC_REASSEMBLER, settings().rarity(Rarity.RARE)));
+        public static final Item ATOMIC_REASSEMBLER = new BlockItem(Blocks.ATOMIC_REASSEMBLER, settings().rarity(Rarity.RARE));
 
-        public static final Item NANO_STEEL_BLOCK = register("nano_steel_block", new BlockItem(Blocks.NANO_STEEL_BLOCK, settings().rarity(Rarity.RARE)));
-        public static final Item NANO_STEEL_INGOT = register("nano_steel_ingot", new Item(settings().rarity(Rarity.RARE)));
-        public static final Item NANO_STEEL_MACHETE = register("nano_steel_machete", new NanoSteelMacheteItem(ToolMaterials.NANO_STRUCTURED_STEEL, 2, -2.2F, settings().rarity(Rarity.RARE)));
-        public static final Item NANO_STEEL_WRENCH = register("nano_steel_wrench", new NanoSteelWrenchItem(ToolMaterials.NANO_STRUCTURED_STEEL, 0, -1.8F, settings().maxDamage(700).rarity(Rarity.RARE)));
-        public static final Item NANO_STEEL_UNICUTTER = register("nano_steel_unicutter", new NanoSteelUnicutterItem(ToolMaterials.NANO_STRUCTURED_STEEL, -1, -1F, settings().maxDamage(700).rarity(Rarity.RARE)));
+        public static final Item NANO_STEEL_BLOCK = new BlockItem(Blocks.NANO_STEEL_BLOCK, settings().rarity(Rarity.RARE));
+        public static final Item NANO_STEEL_INGOT = new Item(settings().rarity(Rarity.RARE));
+        public static final Item NANO_STEEL_MACHETE = new NanoSteelMacheteItem(ToolMaterials.NANO_STRUCTURED_STEEL, 2, -2.2F, settings().rarity(Rarity.RARE));
+        public static final Item NANO_STEEL_WRENCH = new NanoSteelWrenchItem(ToolMaterials.NANO_STRUCTURED_STEEL, 0, -1.8F, settings().maxDamage(700).rarity(Rarity.RARE));
+        public static final Item NANO_STEEL_UNICUTTER = new NanoSteelUnicutterItem(ToolMaterials.NANO_STRUCTURED_STEEL, -1, -1F, settings().maxDamage(700).rarity(Rarity.RARE));
 
-        public static final Item REINFORCED_STONE = register("reinforced_stone", new BlockItem(Blocks.REINFORCED_STONE, settings()));
-        public static final Item REINFORCED_STONE_TILES = register("reinforced_stone_tiles", new BlockItem(Blocks.REINFORCED_STONE_TILES, settings()));
-        public static final Item REINFORCED_STONE_STAIRS = register("reinforced_stone_stairs", new BlockItem(Blocks.REINFORCED_STONE_STAIRS, settings()));
-        public static final Item REINFORCED_STONE_SLAB = register("reinforced_stone_slab", new BlockItem(Blocks.REINFORCED_STONE_SLAB, settings()));
-        public static final Item REINFORCED_STONE_COVERED_CONDUIT = register("reinforced_stone_covered_conduit", new BlockItem(Blocks.REINFORCED_STONE_COVERED_CONDUIT, settings()));
-        public static final Item REINFORCED_GLASS = register("reinforced_glass", new BlockItem(Blocks.REINFORCED_GLASS, settings()));
+        public static final Item REINFORCED_STONE = new BlockItem(Blocks.REINFORCED_STONE, settings());
+        public static final Item REINFORCED_STONE_TILES = new BlockItem(Blocks.REINFORCED_STONE_TILES, settings());
+        public static final Item REINFORCED_STONE_STAIRS = new BlockItem(Blocks.REINFORCED_STONE_STAIRS, settings());
+        public static final Item REINFORCED_STONE_SLAB = new BlockItem(Blocks.REINFORCED_STONE_SLAB, settings());
+        public static final Item REINFORCED_STONE_COVERED_CONDUIT = new BlockItem(Blocks.REINFORCED_STONE_COVERED_CONDUIT, settings());
+        public static final Item REINFORCED_GLASS = new BlockItem(Blocks.REINFORCED_GLASS, settings());
 
-        public static final Item ENDER_PEARL_DUST = register("ender_pearl_dust", new Item(settings()));
-        public static final Item WARP_PRISM = register("warp_prism", new Item(settings().rarity(Rarity.RARE).maxCount(16)));
+        public static final Item ENDER_PEARL_DUST = new Item(settings());
+        public static final Item WARP_PRISM = new Item(settings().rarity(Rarity.RARE).maxCount(16));
 
-        public static final Item NETHERITE_SCRAP_DUST = register("netherite_scrap_dust", new Item(settings()));
-        public static final Item END_STONE_IRIDIUM_ORE = register("end_stone_iridium_ore", new BlockItem(Blocks.END_STONE_IRIDIUM_ORE, settings().rarity(Rarity.UNCOMMON)));
-        public static final Item RAW_IRIDIUM_BLOCK = register("raw_iridium_block", new BlockItem(Blocks.RAW_IRIDIUM_BLOCK, settings().rarity(Rarity.UNCOMMON)));
-        public static final Item IRIDIUM_BLOCK = register("iridium_block", new BlockItem(Blocks.IRIDIUM_BLOCK, settings().rarity(Rarity.UNCOMMON)));
-        public static final Item RAW_IRIDIUM = register("raw_iridium", new Item(settings().rarity(Rarity.UNCOMMON)));
-        public static final Item IRIDIUM_INGOT = register("iridium_ingot", new Item(settings().rarity(Rarity.UNCOMMON)));
-        public static final Item IRIDIUM_NUGGET = register("iridium_nugget", new Item(settings().rarity(Rarity.UNCOMMON)));
-        public static final Item IRIDIUM_DUST = register("iridium_dust", new Item(settings().rarity(Rarity.UNCOMMON)));
-        public static final Item SMALL_IRIDIUM_DUST = register("small_iridium_dust", new Item(settings().rarity(Rarity.UNCOMMON)));
+        public static final Item NETHERITE_SCRAP_DUST = new Item(settings());
+        public static final Item END_STONE_IRIDIUM_ORE = new BlockItem(Blocks.END_STONE_IRIDIUM_ORE, settings().rarity(Rarity.UNCOMMON));
+        public static final Item RAW_IRIDIUM_BLOCK = new BlockItem(Blocks.RAW_IRIDIUM_BLOCK, settings().rarity(Rarity.UNCOMMON));
+        public static final Item IRIDIUM_BLOCK = new BlockItem(Blocks.IRIDIUM_BLOCK, settings().rarity(Rarity.UNCOMMON));
+        public static final Item RAW_IRIDIUM = new Item(settings().rarity(Rarity.UNCOMMON));
+        public static final Item IRIDIUM_INGOT = new Item(settings().rarity(Rarity.UNCOMMON));
+        public static final Item IRIDIUM_NUGGET = new Item(settings().rarity(Rarity.UNCOMMON));
+        public static final Item IRIDIUM_DUST = new Item(settings().rarity(Rarity.UNCOMMON));
+        public static final Item SMALL_IRIDIUM_DUST = new Item(settings().rarity(Rarity.UNCOMMON));
 
-        public static final Item DRAGON_ENERGY_ABSORBER = register("dragon_energy_absorber", new BlockItem(Blocks.DRAGON_ENERGY_ABSORBER, settings().rarity(Rarity.RARE)));
+        public static final Item DRAGON_ENERGY_ABSORBER = new BlockItem(Blocks.DRAGON_ENERGY_ABSORBER, settings().rarity(Rarity.RARE));
 
-        public static final Item POTATO_BATTERY = register("potato_battery", new PotatoBatteryItem(settings().maxCount(1)));
+        public static final Item POTATO_BATTERY = new PotatoBatteryItem(settings().maxCount(1));
 
         public static final TagKey<Item> RUBBERS = TagKey.of(Registry.ITEM_KEY, new Identifier("c:rubbers"));
 
@@ -463,11 +459,98 @@ public class SpaceFactory implements ModInitializer {
             return new Item.Settings().group(MAIN);
         }
 
-        public static <T extends Item> T register(String name, T entry) {
-            return Registry.register(Registry.ITEM, id(name), entry);
+        private static void register(String name, Item entry) {
+            Registry.register(Registry.ITEM, id(name), entry);
         }
 
-        public static void init() {
+        public static void register() {
+            register("copper_nugget", COPPER_NUGGET);
+
+            register("stone_dust", STONE_DUST);
+            register("coal_dust", COAL_DUST);
+            register("copper_dust", COPPER_DUST);
+            register("iron_dust", IRON_DUST);
+            register("gold_dust", GOLD_DUST);
+            register("diamond_dust", DIAMOND_DUST);
+
+            register("rubber_log", RUBBER_LOG);
+            register("stripped_rubber_log", STRIPPED_RUBBER_LOG);
+            register("rubber_wood", RUBBER_WOOD);
+            register("stripped_rubber_wood", STRIPPED_RUBBER_WOOD);
+            register("rubber_leaves", RUBBER_LEAVES);
+            register("rubber_sapling", RUBBER_SAPLING);
+            register("raw_rubber", RAW_RUBBER);
+            register("rubber", RUBBER);
+
+            register("copper_wire", COPPER_WIRE);
+            register("copper_cable", COPPER_CABLE);
+            register("circuit", CIRCUIT);
+
+            register("machine_frame", MACHINE_FRAME);
+
+            register("generator", GENERATOR);
+
+            register("battery_box", BATTERY_BOX);
+
+            register("electric_furnace", ELECTRIC_FURNACE);
+            register("pulverizer", PULVERIZER);
+            register("compressor", COMPRESSOR);
+            register("extractor", EXTRACTOR);
+
+            register("nether_quartz_dust", NETHER_QUARTZ_DUST);
+            register("silicon_ingot", SILICON_INGOT);
+            register("solar_panel", SOLAR_PANEL);
+
+            register("copper_bus_bar", COPPER_BUS_BAR);
+            register("energy_conduit", ENERGY_CONDUIT);
+
+            register("refined_iron_ingot", REFINED_IRON_INGOT);
+            register("refined_iron_dust", REFINED_IRON_DUST);
+            register("refined_iron_machete", REFINED_IRON_MACHETE);
+            register("refined_iron_wrench", REFINED_IRON_WRENCH);
+            register("refined_iron_unicutter", REFINED_IRON_UNICUTTER);
+
+            register("camouflage_cloth", CAMOUFLAGE_CLOTH);
+            register("flak_vest", FLAK_VEST);
+
+            register("crystalite_block", CRYSTALITE_BLOCK);
+            register("crystalite_matrix", CRYSTALITE_MATRIX);
+            register("crystalite_dust", CRYSTALITE_DUST);
+            register("raw_crystalite_dust", RAW_CRYSTALITE_DUST);
+            register("quantum_circuit", QUANTUM_CIRCUIT);
+
+            register("atomic_reassembler", ATOMIC_REASSEMBLER);
+
+            register("nano_steel_block", NANO_STEEL_BLOCK);
+            register("nano_steel_ingot", NANO_STEEL_INGOT);
+            register("nano_steel_machete", NANO_STEEL_MACHETE);
+            register("nano_steel_wrench", NANO_STEEL_WRENCH);
+            register("nano_steel_unicutter", NANO_STEEL_UNICUTTER);
+
+            register("reinforced_stone", REINFORCED_STONE);
+            register("reinforced_stone_tiles", REINFORCED_STONE_TILES);
+            register("reinforced_stone_stairs", REINFORCED_STONE_STAIRS);
+            register("reinforced_stone_slab", REINFORCED_STONE_SLAB);
+            register("reinforced_stone_covered_conduit", REINFORCED_STONE_COVERED_CONDUIT);
+            register("reinforced_glass", REINFORCED_GLASS);
+
+            register("ender_pearl_dust", ENDER_PEARL_DUST);
+            register("warp_prism", WARP_PRISM);
+
+            register("netherite_scrap_dust", NETHERITE_SCRAP_DUST);
+            register("end_stone_iridium_ore", END_STONE_IRIDIUM_ORE);
+            register("raw_iridium_block", RAW_IRIDIUM_BLOCK);
+            register("iridium_block", IRIDIUM_BLOCK);
+            register("raw_iridium", RAW_IRIDIUM);
+            register("iridium_ingot", IRIDIUM_INGOT);
+            register("iridium_nugget", IRIDIUM_NUGGET);
+            register("iridium_dust", IRIDIUM_DUST);
+            register("small_iridium_dust", SMALL_IRIDIUM_DUST);
+
+            register("dragon_energy_absorber", DRAGON_ENERGY_ABSORBER);
+
+            register("potato_battery", POTATO_BATTERY);
+
             FuelRegistry.INSTANCE.add(RUBBERS, 100);
 
             ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(RUBBER_SAPLING, 0.3F);

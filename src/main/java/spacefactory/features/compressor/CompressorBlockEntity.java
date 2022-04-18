@@ -2,8 +2,6 @@ package spacefactory.features.compressor;
 
 import spacefactory.SpaceFactory;
 import spacefactory.core.block.entity.CraftingMachineBlockEntity;
-import spacefactory.features.compressor.CompressorRecipe;
-import spacefactory.features.compressor.CompressorScreenHandler;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;

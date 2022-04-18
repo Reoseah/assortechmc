@@ -1,7 +1,6 @@
 package spacefactory.features.generator;
 
 import spacefactory.SpaceFactory;
-import spacefactory.api.EU;
 import spacefactory.core.screen.InventoryScreenHandler;
 import spacefactory.core.screen.property.ReadProperty;
 import spacefactory.core.screen.property.WriteProperty;
@@ -13,7 +12,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.screen.slot.Slot;
 
 public class GeneratorScreenHandler extends InventoryScreenHandler {
     protected int fuelLeft, fuelDuration, energy;

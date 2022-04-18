@@ -5,7 +5,6 @@ import net.fabricmc.api.Environment;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 import spacefactory.SpaceFactory;
-import spacefactory.features.generator.GeneratorScreenHandler;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.render.GameRenderer;

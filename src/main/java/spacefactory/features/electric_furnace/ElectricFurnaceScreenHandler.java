@@ -1,7 +1,6 @@
 package spacefactory.features.electric_furnace;
 
 import spacefactory.SpaceFactory;
-import spacefactory.features.electric_furnace.ElectricFurnaceBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import spacefactory.core.screen.CraftingMachineScreenHandler;

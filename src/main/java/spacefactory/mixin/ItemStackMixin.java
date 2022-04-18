@@ -17,7 +17,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import spacefactory.SpaceFactory;
-import spacefactory.core.item.UnicutterItem;
 
 @Mixin(ItemStack.class)
 public abstract class ItemStackMixin {
