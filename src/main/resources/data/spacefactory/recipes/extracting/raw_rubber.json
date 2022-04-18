@@ -1,7 +1,7 @@
 {
   "type": "spacefactory:extracting",
   "ingredient": {
-    "tag": "c:raw_rubber"
+    "tag": "c:raw_rubbers"
   },
   "result": {
     "item": "spacefactory:rubber",

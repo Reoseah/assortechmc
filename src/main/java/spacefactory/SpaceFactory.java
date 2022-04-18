@@ -109,7 +109,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
-@SuppressWarnings("unused")
 public class SpaceFactory implements ModInitializer {
     public static final String MOD_ID = "spacefactory";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
@@ -266,49 +265,49 @@ public class SpaceFactory implements ModInitializer {
         private static final AbstractBlock.Settings MACHINE_SETTINGS = Settings.of(Materials.MACHINE).strength(3F, 6F).sounds(BlockSoundGroup.METAL).requiresTool().allowsSpawning(net.minecraft.block.Blocks::never);
         private static final AbstractBlock.Settings ADVANCED_MACHINE_SETTINGS = Settings.of(Materials.MACHINE).strength(10F, 30F).sounds(BlockSoundGroup.METAL).requiresTool().allowsSpawning(net.minecraft.block.Blocks::never);
 
-        public static final Block RUBBER_LOG = register("rubber_log", new PillarBlock(Settings.of(Material.WOOD, state -> state.get(PillarBlock.AXIS) == Direction.Axis.Y ? MapColor.YELLOW : MapColor.BROWN).strength(2F).sounds(BlockSoundGroup.WOOD)));
-        public static final Block ALIVE_RUBBER_LOG = register("alive_rubber_log", new AliveRubberLogBlock(Settings.of(UNMOVABLE_WOOD, MapColor.YELLOW).ticksRandomly().strength(2F).sounds(BlockSoundGroup.WOOD)));
-        public static final Block RUBBER_WOOD = register("rubber_wood", new PillarBlock(Settings.of(Material.WOOD, MapColor.BROWN).strength(2F).sounds(BlockSoundGroup.WOOD)));
-        public static final Block STRIPPED_RUBBER_LOG = register("stripped_rubber_log", new PillarBlock(Settings.of(Material.WOOD, MapColor.YELLOW).strength(2F).sounds(BlockSoundGroup.WOOD)));
-        public static final Block STRIPPED_RUBBER_WOOD = register("stripped_rubber_wood", new PillarBlock(Settings.of(Material.WOOD, MapColor.YELLOW).strength(2F).sounds(BlockSoundGroup.WOOD)));
-        public static final Block RUBBER_LEAVES = register("rubber_leaves", new LeavesBlock(Settings.of(Material.LEAVES).strength(0.2F).ticksRandomly().sounds(BlockSoundGroup.GRASS).nonOpaque().allowsSpawning(net.minecraft.block.Blocks::canSpawnOnLeaves).suffocates(net.minecraft.block.Blocks::never).blockVision(net.minecraft.block.Blocks::never)));
-        public static final Block RUBBER_SAPLING = register("rubber_sapling", new RubberSaplingBlock(Settings.of(Material.PLANT).noCollision().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.GRASS)));
+        public static final Block RUBBER_LOG = new PillarBlock(Settings.of(Material.WOOD, state -> state.get(PillarBlock.AXIS) == Direction.Axis.Y ? MapColor.YELLOW : MapColor.BROWN).strength(2F).sounds(BlockSoundGroup.WOOD));
+        public static final Block ALIVE_RUBBER_LOG = new AliveRubberLogBlock(Settings.of(UNMOVABLE_WOOD, MapColor.YELLOW).ticksRandomly().strength(2F).sounds(BlockSoundGroup.WOOD));
+        public static final Block RUBBER_WOOD = new PillarBlock(Settings.of(Material.WOOD, MapColor.BROWN).strength(2F).sounds(BlockSoundGroup.WOOD));
+        public static final Block STRIPPED_RUBBER_LOG = new PillarBlock(Settings.of(Material.WOOD, MapColor.YELLOW).strength(2F).sounds(BlockSoundGroup.WOOD));
+        public static final Block STRIPPED_RUBBER_WOOD = new PillarBlock(Settings.of(Material.WOOD, MapColor.YELLOW).strength(2F).sounds(BlockSoundGroup.WOOD));
+        public static final Block RUBBER_LEAVES = new LeavesBlock(Settings.of(Material.LEAVES).strength(0.2F).ticksRandomly().sounds(BlockSoundGroup.GRASS).nonOpaque().allowsSpawning(net.minecraft.block.Blocks::canSpawnOnLeaves).suffocates(net.minecraft.block.Blocks::never).blockVision(net.minecraft.block.Blocks::never));
+        public static final Block RUBBER_SAPLING = new RubberSaplingBlock(Settings.of(Material.PLANT).noCollision().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.GRASS));
 
-        public static final Block COPPER_WIRE = register("copper_wire", new ConduitBlock(1, false, FabricBlockSettings.of(Material.METAL).strength(0.5F).sounds(BlockSoundGroup.WOOL)));
-        public static final Block COPPER_CABLE = register("copper_cable", new ConduitBlock(2, true, FabricBlockSettings.of(Material.METAL).strength(0.5F)));
+        public static final Block COPPER_WIRE = new ConduitBlock(1, false, FabricBlockSettings.of(Material.METAL).strength(0.5F).sounds(BlockSoundGroup.WOOL));
+        public static final Block COPPER_CABLE = new ConduitBlock(2, true, FabricBlockSettings.of(Material.METAL).strength(0.5F));
 
-        public static final Block MACHINE_FRAME = register("machine_frame", new Block(MACHINE_SETTINGS));
+        public static final Block MACHINE_FRAME = new Block(MACHINE_SETTINGS);
 
-        public static final Block GENERATOR = register("generator", new GeneratorBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 14 : 0)));
-        public static final Block BATTERY_BOX = register("battery_box", new BatteryBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS)));
-        public static final Block ELECTRIC_FURNACE = register("electric_furnace", new ElectricFurnaceBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 14 : 0)));
-        public static final Block PULVERIZER = register("pulverizer", new PulverizerBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 12 : 0)));
-        public static final Block COMPRESSOR = register("compressor", new CompressorBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 12 : 0)));
-        public static final Block EXTRACTOR = register("extractor", new ExtractorBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 12 : 0)));
-        public static final Block SOLAR_PANEL = register("solar_panel", new SolarPanelBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).mapColor(MapColor.LAPIS_BLUE)));
+        public static final Block GENERATOR = new GeneratorBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 14 : 0));
+        public static final Block BATTERY_BOX = new BatteryBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS));
+        public static final Block ELECTRIC_FURNACE = new ElectricFurnaceBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 14 : 0));
+        public static final Block PULVERIZER = new PulverizerBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 12 : 0));
+        public static final Block COMPRESSOR = new CompressorBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 12 : 0));
+        public static final Block EXTRACTOR = new ExtractorBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 12 : 0));
+        public static final Block SOLAR_PANEL = new SolarPanelBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).mapColor(MapColor.LAPIS_BLUE));
 
-        public static final Block COPPER_BUS_BAR = register("copper_bus_bar", new ConduitBlock(3, false, FabricBlockSettings.of(Material.METAL).strength(2F, 5F)));
-        public static final Block ENERGY_CONDUIT = register("energy_conduit", new ConduitBlock(4, true, FabricBlockSettings.of(Material.METAL).strength(5F, 20F)));
+        public static final Block COPPER_BUS_BAR = new ConduitBlock(3, false, FabricBlockSettings.of(Material.METAL).strength(2F, 5F));
+        public static final Block ENERGY_CONDUIT = new ConduitBlock(4, true, FabricBlockSettings.of(Material.METAL).strength(5F, 20F));
 
-        public static final Block CRYSTALITE_BLOCK = register("crystalite_block", new Block(FabricBlockSettings.of(Material.GLASS, MapColor.LIGHT_BLUE).luminance(15).strength(5F, 20F).slipperiness(0.98F).sounds(BlockSoundGroup.GLASS).allowsSpawning(net.minecraft.block.Blocks::never)));
+        public static final Block CRYSTALITE_BLOCK = new Block(FabricBlockSettings.of(Material.GLASS, MapColor.LIGHT_BLUE).luminance(15).strength(5F, 20F).slipperiness(0.98F).sounds(BlockSoundGroup.GLASS).allowsSpawning(net.minecraft.block.Blocks::never));
 
-        public static final Block ATOMIC_REASSEMBLER = register("atomic_reassembler", new AtomicReassemblerBlock(FabricBlockSettings.copyOf(FabricBlockSettings.copyOf(ADVANCED_MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 14 : 0))));
+        public static final Block ATOMIC_REASSEMBLER = new AtomicReassemblerBlock(FabricBlockSettings.copyOf(FabricBlockSettings.copyOf(ADVANCED_MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 14 : 0)));
 
-        public static final Block NANO_STEEL_BLOCK = register("nano_steel_block", new Block(FabricBlockSettings.of(Material.METAL, MapColor.DARK_AQUA).strength(12F, 20F)));
+        public static final Block NANO_STEEL_BLOCK = new Block(FabricBlockSettings.of(Material.METAL, MapColor.DARK_AQUA).strength(12F, 20F));
 
         public static final AbstractBlock.Settings REINFORCED_STONE_SETTINGS = FabricBlockSettings.of(Material.STONE, MapColor.DARK_AQUA).strength(10F, 15F);
-        public static final Block REINFORCED_STONE = register("reinforced_stone", new Block(REINFORCED_STONE_SETTINGS));
-        public static final Block REINFORCED_STONE_TILES = register("reinforced_stone_tiles", new Block(REINFORCED_STONE_SETTINGS));
-        public static final Block REINFORCED_STONE_STAIRS = register("reinforced_stone_stairs", new StairsBlock(REINFORCED_STONE_TILES.getDefaultState(), REINFORCED_STONE_SETTINGS));
-        public static final Block REINFORCED_STONE_SLAB = register("reinforced_stone_slab", new SlabBlock(REINFORCED_STONE_SETTINGS));
-        public static final Block REINFORCED_STONE_COVERED_CONDUIT = register("reinforced_stone_covered_conduit", new CoveredConduitBlock(REINFORCED_STONE_SETTINGS));
-        public static final Block REINFORCED_GLASS = register("reinforced_glass", new GlassBlock(FabricBlockSettings.of(Material.GLASS).strength(7F, 10F).nonOpaque().sounds(BlockSoundGroup.GLASS)));
+        public static final Block REINFORCED_STONE = new Block(REINFORCED_STONE_SETTINGS);
+        public static final Block REINFORCED_STONE_TILES = new Block(REINFORCED_STONE_SETTINGS);
+        public static final Block REINFORCED_STONE_STAIRS = new StairsBlock(REINFORCED_STONE_TILES.getDefaultState(), REINFORCED_STONE_SETTINGS);
+        public static final Block REINFORCED_STONE_SLAB = new SlabBlock(REINFORCED_STONE_SETTINGS);
+        public static final Block REINFORCED_STONE_COVERED_CONDUIT = new CoveredConduitBlock(REINFORCED_STONE_SETTINGS);
+        public static final Block REINFORCED_GLASS = new GlassBlock(FabricBlockSettings.of(Material.GLASS).strength(7F, 10F).nonOpaque().sounds(BlockSoundGroup.GLASS));
 
-        public static final Block END_STONE_IRIDIUM_ORE = register("end_stone_iridium_ore", new Block(FabricBlockSettings.of(Material.STONE, MapColor.PALE_YELLOW).strength(3F, 9F)));
-        public static final Block RAW_IRIDIUM_BLOCK = register("raw_iridium_block", new Block(FabricBlockSettings.of(Material.STONE, MapColor.WHITE).requiresTool().strength(7.0f, 10.0f)));
-        public static final Block IRIDIUM_BLOCK = register("iridium_block", new Block(FabricBlockSettings.of(Material.METAL).strength(5F, 20F).allowsSpawning(net.minecraft.block.Blocks::never)));
+        public static final Block END_STONE_IRIDIUM_ORE = new Block(FabricBlockSettings.of(Material.STONE, MapColor.PALE_YELLOW).strength(3F, 9F));
+        public static final Block RAW_IRIDIUM_BLOCK = new Block(FabricBlockSettings.of(Material.STONE, MapColor.WHITE).requiresTool().strength(7.0f, 10.0f));
+        public static final Block IRIDIUM_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(5F, 20F).allowsSpawning(net.minecraft.block.Blocks::never));
 
-        public static final Block DRAGON_ENERGY_ABSORBER = register("dragon_energy_absorber", new DragonEggSiphonBlock(FabricBlockSettings.copyOf(ADVANCED_MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 15 : 0)));
+        public static final Block DRAGON_ENERGY_ABSORBER = new DragonEggSiphonBlock(FabricBlockSettings.copyOf(ADVANCED_MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 15 : 0));
 
         public static <T extends Block> T register(String name, T entry) {
             return Registry.register(Registry.BLOCK, id(name), entry);
@@ -326,7 +325,7 @@ public class SpaceFactory implements ModInitializer {
             register("copper_wire", COPPER_WIRE);
             register("copper_cable", COPPER_CABLE);
 
-            register("machine_frame", new Block(MACHINE_SETTINGS));
+            register("machine_frame", MACHINE_FRAME);
 
             register("generator", GENERATOR);
             register("battery_box", BATTERY_BOX);
@@ -595,16 +594,14 @@ public class SpaceFactory implements ModInitializer {
                         BiomePlacementModifier.of())));
 
 
-        public static final PlacedFeature IRIDIUM_ORE = PlacedFeatures.register("iridium_ore",
-                new PlacedFeature(getEntry(BuiltinRegistries.CONFIGURED_FEATURE, ConfiguredFeatures.IRIDIUM_ORE), //
-                        List.of( //
-                                CountPlacementModifier.of(config.iridiumVeinsPerChunk), //
-                                SquarePlacementModifier.of(), //
-                                HeightRangePlacementModifier.uniform( //
-                                        YOffset.fixed(config.iridiumMinHeight), //
-                                        YOffset.fixed(config.iridiumMaxHeight)), //
-                                BiomePlacementModifier.of()
-                        )));
+        public static final PlacedFeature IRIDIUM_ORE = PlacedFeatures.register("iridium_ore", new PlacedFeature(getEntry(BuiltinRegistries.CONFIGURED_FEATURE, ConfiguredFeatures.IRIDIUM_ORE), //
+                List.of( //
+                        CountPlacementModifier.of(config.iridiumVeinsPerChunk), //
+                        SquarePlacementModifier.of(), //
+                        HeightRangePlacementModifier.uniform( //
+                                YOffset.fixed(config.iridiumMinHeight), //
+                                YOffset.fixed(config.iridiumMaxHeight)), //
+                        BiomePlacementModifier.of())));
 
         public static void init() {
         }
@@ -702,8 +699,7 @@ public class SpaceFactory implements ModInitializer {
     }
 
     public enum ToolMaterials implements ToolMaterial {
-        REFINED_IRON(2, 750, 6.5F, 3F, 8, Ingredient.ofItems(Items.REFINED_IRON_INGOT)),
-        NANO_STRUCTURED_STEEL(3, 1500, 7.5F, 4F, 0, Ingredient.ofItems(Items.NANO_STEEL_INGOT));
+        REFINED_IRON(2, 750, 6.5F, 3F, 8, Ingredient.ofItems(Items.REFINED_IRON_INGOT)), NANO_STRUCTURED_STEEL(3, 1500, 7.5F, 4F, 0, Ingredient.ofItems(Items.NANO_STEEL_INGOT));
 
         private final int miningLevel;
         private final int itemDurability;
