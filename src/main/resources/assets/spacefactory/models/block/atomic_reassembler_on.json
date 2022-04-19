@@ -1,9 +1,9 @@
 {
   "parent": "minecraft:block/orientable_with_bottom",
   "textures": {
-    "top": "spacefactory:block/atomic_reassembler_top_on",
+    "top": "spacefactory:block/atomic_reassembler_top",
     "front": "spacefactory:block/atomic_reassembler_front_on",
-    "side": "spacefactory:block/advanced_machine_side",
-    "bottom": "spacefactory:block/advanced_machine_bottom"
+    "side": "spacefactory:block/machine_side",
+    "bottom": "spacefactory:block/machine_bottom"
   }
 }

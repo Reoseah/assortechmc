@@ -25,7 +25,6 @@ import org.jetbrains.annotations.Nullable;
 import spacefactory.api.EU;
 import spacefactory.api.Wrenchable;
 import spacefactory.features.atomic_reassembler.AtomicReassemblerScreen;
-import spacefactory.features.battery.BatteryBoxScreen;
 import spacefactory.features.compressor.CompressorScreen;
 import spacefactory.features.electric_furnace.ElectricFurnaceScreen;
 import spacefactory.features.extractor.ExtractorScreen;
@@ -85,8 +84,7 @@ public class SpaceFactoryClient implements ClientModInitializer {
         HandledScreens.register(SpaceFactory.ScreenHandlerTypes.COMPRESSOR, CompressorScreen::new);
         HandledScreens.register(SpaceFactory.ScreenHandlerTypes.MOLECULAR_ASSEMBLER, AtomicReassemblerScreen::new);
         HandledScreens.register(SpaceFactory.ScreenHandlerTypes.EXTRACTOR, ExtractorScreen::new);
-        HandledScreens.register(SpaceFactory.ScreenHandlerTypes.BATTERY_BOX, BatteryBoxScreen::new);
-        
+
         ClientPlayNetworking.registerGlobalReceiver(SpaceFactory.id("burnt_cable"), (client, handler, buf, responseSender) -> {
             BlockPos pos = buf.readBlockPos();
             client.execute(() -> {

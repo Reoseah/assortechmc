@@ -15,9 +15,8 @@
   "block.spacefactory.machine_frame": "Machine Frame",
 
   "block.spacefactory.generator": "Generator",
-  "block.spacefactory.battery_box": "Redstone Battery",
   "block.spacefactory.electric_furnace": "Electric Furnace",
-  "block.spacefactory.pulverizer": "Pulverizer",
+  "block.spacefactory.pulverizer": "Macerator",
   "block.spacefactory.compressor": "Compressor",
   "block.spacefactory.extractor": "Extractor",
   "block.spacefactory.solar_panel": "Solar Panel",
@@ -28,8 +27,8 @@
   "block.spacefactory.raw_iridium_block": "Block of Raw Iridium",
   "block.spacefactory.iridium_block": "Block of Iridium",
 
-  "block.spacefactory.atomic_reassembler": "Atomic Reassembler",
-  "block.spacefactory.nano_steel_block": "Nano Steel Block",
+  "block.spacefactory.atomic_reassembler": "Atomic Reconstructor",
+  "block.spacefactory.nano_steel_block": "Block of Nano-Steel",
   "block.spacefactory.reinforced_stone": "Reinforced Stone",
   "block.spacefactory.reinforced_stone_tiles": "Reinforced Stone Tiles",
   "block.spacefactory.reinforced_stone_stairs": "Reinforced Stone Stairs",
@@ -37,7 +36,7 @@
   "block.spacefactory.reinforced_stone_covered_conduit": "Reinforced Stone Covered Conduit",
   "block.spacefactory.reinforced_glass": "Reinforced Glass",
 
-  "block.spacefactory.dragon_energy_absorber": "Dragon Energy Siphon",
+  "block.spacefactory.dragon_energy_absorber": "Dragon Egg Energy Absorber",
 
   "item.spacefactory.copper_nugget": "Copper Nugget",
   "item.spacefactory.stone_dust": "Stone Dust",
@@ -58,7 +57,7 @@
   "item.spacefactory.refined_iron_ingot": "Refined Iron Ingot",
   "item.spacefactory.refined_iron_dust": "Refined Iron Dust",
   "item.spacefactory.refined_iron_machete": "Refined Iron Machete",
-  "item.spacefactory.refined_iron_unicutter": "Refined Iron Universal Cutter",
+  "item.spacefactory.refined_iron_unicutter": "Refined Iron All-Cutter",
   "item.spacefactory.refined_iron_wrench": "Refined Iron Wrench",
 
   "item.spacefactory.camouflage_cloth": "Camouflage Cloth",
@@ -77,27 +76,23 @@
   "item.spacefactory.small_iridium_dust": "Tiny Pile of Iridium Dust",
 
   "item.spacefactory.nano_steel_ingot": "Nano-Structured Steel Ingot",
-  "item.spacefactory.nano_steel_machete": "Nano Steel Machete",
-  "item.spacefactory.nano_steel_unicutter": "Nano Steel Universal Cutter",
-  "item.spacefactory.nano_steel_wrench": "Nano Steel Wrench",
+  "item.spacefactory.nano_steel_machete": "Nano-Steel Machete",
+  "item.spacefactory.nano_steel_unicutter": "Nano-Steel All-Cutter",
+  "item.spacefactory.nano_steel_wrench": "Nano-Steel Wrench",
 
   "item.spacefactory.ender_pearl_dust": "Ender Pearl Dust",
   "item.spacefactory.warp_prism": "Warp Prism",
-  "item.spacefactory.potato_battery": "Potato Battery",
 
   "recipe_info.spacefactory.raw_rubber": "Obtained by stripping a part of bark from an alive rubber tree.\nThe tree should have soil below trunk, leaves above and no more than one stripped block, or it will die.",
 
   "tooltip.spacefactory.generators": "%s EU/t (%s)",
-  "tooltip.spacefactory.conventional_fuel": "Conventional Fuels",
+  "tooltip.spacefactory.conventional_fuel": "Solid Fuel",
   "tooltip.spacefactory.sunlight": "Sunlight",
 
   "tooltip.spacefactory.energy" : "%s EU",
   "tooltip.spacefactory.energy_and_capacity" : "%s / %s EU",
   "tooltip.spacefactory.energy_per_tick" : "%s EU/t",
   "tooltip.spacefactory.energy_per_tick_and_limit" : "%s / %s EU/t",
-
-  "tooltip.spacefactory.battery_rate": "%s EU/t, -%s EU/s Discharge",
-  "tooltip.spacefactory.battery_capacity": "0-%s EU Capacity",
 
   "tooltip.spacefactory.self_regeneration": "Self Repair",
 
@@ -106,8 +101,8 @@
   "death.attack.spacefactory.uninsulated_wire_shock": "%s touched live uninsulated wire",
 
   "category.spacefactory.electric_smelting": "Electric Smelting",
-  "category.spacefactory.pulverizing": "Pulverizing",
+  "category.spacefactory.pulverizing": "Macerating",
   "category.spacefactory.compressing": "Compressing",
   "category.spacefactory.extracting": "Extracting",
-  "category.spacefactory.atomic_reassembly": "Atomic Reassembly"
+  "category.spacefactory.atomic_reassembly": "Atomic Reconstruction"
 }

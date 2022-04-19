@@ -3,6 +3,6 @@
   "textures": {
     "top": "spacefactory:block/dragon_energy_absorber_top",
     "side": "spacefactory:block/dragon_energy_absorber_side_on",
-    "bottom": "spacefactory:block/advanced_machine_bottom"
+    "bottom": "spacefactory:block/machine_bottom"
   }
 }

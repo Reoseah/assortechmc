@@ -61,14 +61,10 @@ import spacefactory.core.item.MacheteItem;
 import spacefactory.core.item.UnicutterItem;
 import spacefactory.core.item.WrenchItem;
 import spacefactory.core.recipe.SimpleMachineRecipe;
-import spacefactory.features.PotatoBatteryItem;
 import spacefactory.features.atomic_reassembler.AtomicReassemblerBlock;
 import spacefactory.features.atomic_reassembler.AtomicReassemblerBlockEntity;
 import spacefactory.features.atomic_reassembler.AtomicReassemblerRecipe;
 import spacefactory.features.atomic_reassembler.AtomicReassemblerScreenHandler;
-import spacefactory.features.battery.BatteryBlock;
-import spacefactory.features.battery.BatteryBlockEntity;
-import spacefactory.features.battery.BatteryBoxScreenHandler;
 import spacefactory.features.compressor.CompressorBlock;
 import spacefactory.features.compressor.CompressorBlockEntity;
 import spacefactory.features.compressor.CompressorRecipe;
@@ -190,13 +186,6 @@ public class SpaceFactory implements ModInitializer {
         @SerializedName("dragon_egg_siphon_production")
         public int dragonEggSiphonProduction = 250;
 
-        @SerializedName("redstone_battery_capacity")
-        public int redstoneBatteryCapacity = 100_000;
-        @SerializedName("redstone_battery_discharge")
-        public int redstoneBatteryDischarge = 1;
-        @SerializedName("redstone_battery_transfer_rate")
-        public int redstoneBatteryRate = 20;
-
         @SerializedName("copper_wire_transfer_rate")
         public int copperWireTransferRate = 100;
         @SerializedName("copper_bus_transfer_rate")
@@ -275,7 +264,6 @@ public class SpaceFactory implements ModInitializer {
         public static final Block MACHINE_FRAME = new Block(MACHINE_SETTINGS);
 
         public static final Block GENERATOR = new GeneratorBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 14 : 0));
-        public static final Block BATTERY_BOX = new BatteryBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS));
         public static final Block ELECTRIC_FURNACE = new ElectricFurnaceBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 14 : 0));
         public static final Block PULVERIZER = new PulverizerBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 12 : 0));
         public static final Block COMPRESSOR = new CompressorBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 12 : 0));
@@ -303,7 +291,7 @@ public class SpaceFactory implements ModInitializer {
         public static final Block RAW_IRIDIUM_BLOCK = new Block(FabricBlockSettings.of(Material.STONE, MapColor.WHITE).requiresTool().strength(7.0f, 10.0f));
         public static final Block IRIDIUM_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(5F, 20F).allowsSpawning(net.minecraft.block.Blocks::never));
 
-        public static final Block DRAGON_ENERGY_ABSORBER = new DragonEggSiphonBlock(FabricBlockSettings.copyOf(ADVANCED_MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 15 : 0));
+        public static final Block DRAGON_EGG_ENERGY_ABSORBER = new DragonEggSiphonBlock(FabricBlockSettings.copyOf(ADVANCED_MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 15 : 0));
 
         private static void register(String name, Block entry) {
             Registry.register(Registry.BLOCK, id(name), entry);
@@ -324,7 +312,6 @@ public class SpaceFactory implements ModInitializer {
             register("machine_frame", MACHINE_FRAME);
 
             register("generator", GENERATOR);
-            register("battery_box", BATTERY_BOX);
             register("electric_furnace", ELECTRIC_FURNACE);
             register("pulverizer", PULVERIZER);
             register("compressor", COMPRESSOR);
@@ -351,7 +338,7 @@ public class SpaceFactory implements ModInitializer {
             register("raw_iridium_block", RAW_IRIDIUM_BLOCK);
             register("iridium_block", IRIDIUM_BLOCK);
 
-            register("dragon_energy_absorber", DRAGON_ENERGY_ABSORBER);
+            register("dragon_energy_absorber", DRAGON_EGG_ENERGY_ABSORBER);
 
             FlammableBlockRegistry.getDefaultInstance().add(Blocks.RUBBER_LOG, 5, 5);
             FlammableBlockRegistry.getDefaultInstance().add(Blocks.ALIVE_RUBBER_LOG, 5, 5);
@@ -392,8 +379,6 @@ public class SpaceFactory implements ModInitializer {
 
         public static final Item GENERATOR = new BlockItem(Blocks.GENERATOR, settings());
 
-        public static final Item BATTERY_BOX = new BlockItem(Blocks.BATTERY_BOX, settings());
-
         public static final Item ELECTRIC_FURNACE = new BlockItem(Blocks.ELECTRIC_FURNACE, settings());
         public static final Item PULVERIZER = new BlockItem(Blocks.PULVERIZER, settings());
         public static final Item COMPRESSOR = new BlockItem(Blocks.COMPRESSOR, settings());
@@ -421,7 +406,7 @@ public class SpaceFactory implements ModInitializer {
         public static final Item RAW_CRYSTALITE_DUST = new Item(settings());
         public static final Item QUANTUM_CIRCUIT = new Item(settings().rarity(Rarity.UNCOMMON));
 
-        public static final Item ATOMIC_REASSEMBLER = new BlockItem(Blocks.ATOMIC_REASSEMBLER, settings().rarity(Rarity.RARE));
+        public static final Item ATOMIC_RECONSTRUCTOR = new BlockItem(Blocks.ATOMIC_REASSEMBLER, settings().rarity(Rarity.RARE));
 
         public static final Item NANO_STEEL_BLOCK = new BlockItem(Blocks.NANO_STEEL_BLOCK, settings().rarity(Rarity.RARE));
         public static final Item NANO_STEEL_INGOT = new Item(settings().rarity(Rarity.RARE));
@@ -449,9 +434,7 @@ public class SpaceFactory implements ModInitializer {
         public static final Item IRIDIUM_DUST = new Item(settings().rarity(Rarity.UNCOMMON));
         public static final Item SMALL_IRIDIUM_DUST = new Item(settings().rarity(Rarity.UNCOMMON));
 
-        public static final Item DRAGON_ENERGY_ABSORBER = new BlockItem(Blocks.DRAGON_ENERGY_ABSORBER, settings().rarity(Rarity.RARE));
-
-        public static final Item POTATO_BATTERY = new PotatoBatteryItem(settings().maxCount(1));
+        public static final Item DRAGON_EGG_ENERGY_ABSORBER = new BlockItem(Blocks.DRAGON_EGG_ENERGY_ABSORBER, settings().rarity(Rarity.RARE));
 
         public static final TagKey<Item> RUBBERS = TagKey.of(Registry.ITEM_KEY, new Identifier("c:rubbers"));
 
@@ -464,7 +447,31 @@ public class SpaceFactory implements ModInitializer {
         }
 
         public static void register() {
+            register("rubber_log", RUBBER_LOG);
+            register("stripped_rubber_log", STRIPPED_RUBBER_LOG);
+            register("rubber_wood", RUBBER_WOOD);
+            register("stripped_rubber_wood", STRIPPED_RUBBER_WOOD);
+            register("rubber_leaves", RUBBER_LEAVES);
+            register("rubber_sapling", RUBBER_SAPLING);
+
+            register("end_stone_iridium_ore", END_STONE_IRIDIUM_ORE);
+            register("raw_iridium_block", RAW_IRIDIUM_BLOCK);
+
+            register("nano_steel_block", NANO_STEEL_BLOCK);
+            register("crystalite_block", CRYSTALITE_BLOCK);
+            register("iridium_block", IRIDIUM_BLOCK);
+
+            register("raw_rubber", RAW_RUBBER);
+            register("rubber", RUBBER);
+
+            register("refined_iron_ingot", REFINED_IRON_INGOT);
+            register("nano_steel_ingot", NANO_STEEL_INGOT);
+            register("iridium_ingot", IRIDIUM_INGOT);
+
+            register("raw_iridium", RAW_IRIDIUM);
+
             register("copper_nugget", COPPER_NUGGET);
+            register("iridium_nugget", IRIDIUM_NUGGET);
 
             register("stone_dust", STONE_DUST);
             register("coal_dust", COAL_DUST);
@@ -472,60 +479,40 @@ public class SpaceFactory implements ModInitializer {
             register("iron_dust", IRON_DUST);
             register("gold_dust", GOLD_DUST);
             register("diamond_dust", DIAMOND_DUST);
+            register("ender_pearl_dust", ENDER_PEARL_DUST);
+            register("netherite_scrap_dust", NETHERITE_SCRAP_DUST);
+            register("nether_quartz_dust", NETHER_QUARTZ_DUST);
+            register("refined_iron_dust", REFINED_IRON_DUST);
+            register("iridium_dust", IRIDIUM_DUST);
 
-            register("rubber_log", RUBBER_LOG);
-            register("stripped_rubber_log", STRIPPED_RUBBER_LOG);
-            register("rubber_wood", RUBBER_WOOD);
-            register("stripped_rubber_wood", STRIPPED_RUBBER_WOOD);
-            register("rubber_leaves", RUBBER_LEAVES);
-            register("rubber_sapling", RUBBER_SAPLING);
-            register("raw_rubber", RAW_RUBBER);
-            register("rubber", RUBBER);
+            register("small_iridium_dust", SMALL_IRIDIUM_DUST);
+
+            register("circuit", CIRCUIT);
+            register("quantum_circuit", QUANTUM_CIRCUIT);
+            register("camouflage_cloth", CAMOUFLAGE_CLOTH);
+            register("silicon_ingot", SILICON_INGOT);
+            register("raw_crystalite_dust", RAW_CRYSTALITE_DUST);
+            register("crystalite_dust", CRYSTALITE_DUST);
+            register("crystalite_matrix", CRYSTALITE_MATRIX);
+            register("warp_prism", WARP_PRISM);
 
             register("copper_wire", COPPER_WIRE);
             register("copper_cable", COPPER_CABLE);
-            register("circuit", CIRCUIT);
+            register("copper_bus_bar", COPPER_BUS_BAR);
+            register("energy_conduit", ENERGY_CONDUIT);
 
             register("machine_frame", MACHINE_FRAME);
 
             register("generator", GENERATOR);
-
-            register("battery_box", BATTERY_BOX);
+            register("solar_panel", SOLAR_PANEL);
 
             register("electric_furnace", ELECTRIC_FURNACE);
             register("pulverizer", PULVERIZER);
             register("compressor", COMPRESSOR);
             register("extractor", EXTRACTOR);
 
-            register("nether_quartz_dust", NETHER_QUARTZ_DUST);
-            register("silicon_ingot", SILICON_INGOT);
-            register("solar_panel", SOLAR_PANEL);
-
-            register("copper_bus_bar", COPPER_BUS_BAR);
-            register("energy_conduit", ENERGY_CONDUIT);
-
-            register("refined_iron_ingot", REFINED_IRON_INGOT);
-            register("refined_iron_dust", REFINED_IRON_DUST);
-            register("refined_iron_machete", REFINED_IRON_MACHETE);
-            register("refined_iron_wrench", REFINED_IRON_WRENCH);
-            register("refined_iron_unicutter", REFINED_IRON_UNICUTTER);
-
-            register("camouflage_cloth", CAMOUFLAGE_CLOTH);
-            register("flak_vest", FLAK_VEST);
-
-            register("crystalite_block", CRYSTALITE_BLOCK);
-            register("crystalite_matrix", CRYSTALITE_MATRIX);
-            register("crystalite_dust", CRYSTALITE_DUST);
-            register("raw_crystalite_dust", RAW_CRYSTALITE_DUST);
-            register("quantum_circuit", QUANTUM_CIRCUIT);
-
-            register("atomic_reassembler", ATOMIC_REASSEMBLER);
-
-            register("nano_steel_block", NANO_STEEL_BLOCK);
-            register("nano_steel_ingot", NANO_STEEL_INGOT);
-            register("nano_steel_machete", NANO_STEEL_MACHETE);
-            register("nano_steel_wrench", NANO_STEEL_WRENCH);
-            register("nano_steel_unicutter", NANO_STEEL_UNICUTTER);
+            register("atomic_reassembler", ATOMIC_RECONSTRUCTOR);
+            register("dragon_energy_absorber", DRAGON_EGG_ENERGY_ABSORBER);
 
             register("reinforced_stone", REINFORCED_STONE);
             register("reinforced_stone_tiles", REINFORCED_STONE_TILES);
@@ -534,22 +521,13 @@ public class SpaceFactory implements ModInitializer {
             register("reinforced_stone_covered_conduit", REINFORCED_STONE_COVERED_CONDUIT);
             register("reinforced_glass", REINFORCED_GLASS);
 
-            register("ender_pearl_dust", ENDER_PEARL_DUST);
-            register("warp_prism", WARP_PRISM);
-
-            register("netherite_scrap_dust", NETHERITE_SCRAP_DUST);
-            register("end_stone_iridium_ore", END_STONE_IRIDIUM_ORE);
-            register("raw_iridium_block", RAW_IRIDIUM_BLOCK);
-            register("iridium_block", IRIDIUM_BLOCK);
-            register("raw_iridium", RAW_IRIDIUM);
-            register("iridium_ingot", IRIDIUM_INGOT);
-            register("iridium_nugget", IRIDIUM_NUGGET);
-            register("iridium_dust", IRIDIUM_DUST);
-            register("small_iridium_dust", SMALL_IRIDIUM_DUST);
-
-            register("dragon_energy_absorber", DRAGON_ENERGY_ABSORBER);
-
-            register("potato_battery", POTATO_BATTERY);
+            register("flak_vest", FLAK_VEST);
+            register("refined_iron_machete", REFINED_IRON_MACHETE);
+            register("refined_iron_wrench", REFINED_IRON_WRENCH);
+            register("refined_iron_unicutter", REFINED_IRON_UNICUTTER);
+            register("nano_steel_machete", NANO_STEEL_MACHETE);
+            register("nano_steel_wrench", NANO_STEEL_WRENCH);
+            register("nano_steel_unicutter", NANO_STEEL_UNICUTTER);
 
             FuelRegistry.INSTANCE.add(RUBBERS, 100);
 
@@ -561,14 +539,13 @@ public class SpaceFactory implements ModInitializer {
     public static class BlockEntityTypes {
         public static final BlockEntityType<GeneratorBlockEntity> GENERATOR = create("generator", GeneratorBlockEntity::new, Blocks.GENERATOR);
         public static final BlockEntityType<SolarPanelBlockEntity> SOLAR_PANEL = create("solar_panel", SolarPanelBlockEntity::new, Blocks.SOLAR_PANEL);
-        public static final BlockEntityType<DragonEggSiphonBlockEntity> DRAGON_ENERGY_ABSORBER = create("dragon_energy_absorber", DragonEggSiphonBlockEntity::new, Blocks.DRAGON_ENERGY_ABSORBER);
+        public static final BlockEntityType<DragonEggSiphonBlockEntity> DRAGON_ENERGY_ABSORBER = create("dragon_energy_absorber", DragonEggSiphonBlockEntity::new, Blocks.DRAGON_EGG_ENERGY_ABSORBER);
 
         public static final BlockEntityType<ElectricFurnaceBlockEntity> ELECTRIC_FURNACE = create("electric_furnace", ElectricFurnaceBlockEntity::new, Blocks.ELECTRIC_FURNACE);
         public static final BlockEntityType<PulverizerBlockEntity> PULVERIZER = create("pulverizer", PulverizerBlockEntity::new, Blocks.PULVERIZER);
         public static final BlockEntityType<CompressorBlockEntity> COMPRESSOR = create("compressor", CompressorBlockEntity::new, Blocks.COMPRESSOR);
         public static final BlockEntityType<ExtractorBlockEntity> EXTRACTOR = create("extractor", ExtractorBlockEntity::new, Blocks.EXTRACTOR);
         public static final BlockEntityType<AtomicReassemblerBlockEntity> ATOMIC_REASSEMBLER = create("atomic_reassembler", AtomicReassemblerBlockEntity::new, Blocks.ATOMIC_REASSEMBLER);
-        public static final BlockEntityType<BatteryBlockEntity> BATTERY = create("battery_box", BatteryBlockEntity::new, Blocks.BATTERY_BOX);
         public static final BlockEntityType<ConduitBlockEntity> CONDUIT = create("conduit", ConduitBlockEntity::new, Blocks.COPPER_WIRE, Blocks.COPPER_CABLE, Blocks.COPPER_BUS_BAR, Blocks.ENERGY_CONDUIT, Blocks.REINFORCED_STONE_COVERED_CONDUIT);
 
         public static <T extends BlockEntity> BlockEntityType<T> create(String name, FabricBlockEntityTypeBuilder.Factory<T> factory, Block... blocks) {
@@ -698,7 +675,6 @@ public class SpaceFactory implements ModInitializer {
         public static final ScreenHandlerType<CompressorScreenHandler> COMPRESSOR = register("compressor", new ScreenHandlerType<>(CompressorScreenHandler::new));
         public static final ScreenHandlerType<AtomicReassemblerScreenHandler> MOLECULAR_ASSEMBLER = register("atomic_reassembler", new ScreenHandlerType<>(AtomicReassemblerScreenHandler::new));
         public static final ScreenHandlerType<ExtractorScreenHandler> EXTRACTOR = register("extractor", new ScreenHandlerType<>(ExtractorScreenHandler::new));
-        public static final ScreenHandlerType<BatteryBoxScreenHandler> BATTERY_BOX = register("battery_box", new ScreenHandlerType<>(BatteryBoxScreenHandler::new));
 
         private static void init() {
         }

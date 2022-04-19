@@ -3,7 +3,7 @@
   "textures": {
     "top": "spacefactory:block/atomic_reassembler_top",
     "front": "spacefactory:block/atomic_reassembler_front",
-    "side": "spacefactory:block/advanced_machine_side",
-    "bottom": "spacefactory:block/advanced_machine_bottom"
+    "side": "spacefactory:block/machine_side",
+    "bottom": "spacefactory:block/machine_bottom"
   }
 }
