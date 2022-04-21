@@ -10,7 +10,6 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
-import spacefactory.core.item.UnicutterItem;
 import spacefactory.core.item.WrenchItem;
 
 import java.util.List;

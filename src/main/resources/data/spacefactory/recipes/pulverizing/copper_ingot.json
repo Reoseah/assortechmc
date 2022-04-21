@@ -1,9 +1,0 @@
-{
-  "type": "spacefactory:pulverizing",
-  "ingredient": {
-    "item": "minecraft:copper_ingot"
-  },
-  "result": {
-    "item": "spacefactory:copper_dust"
-  }
-}

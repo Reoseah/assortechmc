@@ -1,0 +1,9 @@
+{
+  "type": "spacefactory:macerating",
+  "ingredient": {
+    "item": "minecraft:coal"
+  },
+  "result": {
+    "item": "spacefactory:coal_dust"
+  }
+}

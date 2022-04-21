@@ -16,7 +16,7 @@ public class BlockRenderInfoMixin {
     @Shadow(remap = false)
     boolean defaultAo;
 
-    @Inject(method = "prepareForBlock", at = @At("RETURN"), remap = false)
+    @Inject(method = "prepareForBlock", at = @At("RETURN"), remap = false, require = 0)
     public void after_prepareForBlock(BlockState state, BlockPos pos, boolean modelAO, CallbackInfo ci) {
         if (state.getMaterial() == SpaceFactory.Materials.MACHINE) {
             this.defaultAo = modelAO && MinecraftClient.isAmbientOcclusionEnabled();

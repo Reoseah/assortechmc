@@ -1,0 +1,10 @@
+{
+  "type": "spacefactory:macerating",
+  "ingredient": {
+    "tag": "c:sandstone"
+  },
+  "result": {
+    "item": "minecraft:sand",
+    "count": 2
+  }
+}

@@ -1,9 +1,0 @@
-{
-  "type": "spacefactory:pulverizing",
-  "ingredient": {
-    "tag": "c:diamonds"
-  },
-  "result": {
-    "item": "spacefactory:diamond_dust"
-  }
-}

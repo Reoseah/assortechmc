@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ITI",
+    "CAC",
+    "I#I"
+  ],
+  "key": {
+    "#": {
+      "item": "spacefactory:machine_frame"
+    },
+    "I": {
+      "item": "spacefactory:refined_iron_ingot"
+    },
+    "C": {
+      "item": "spacefactory:quantum_circuit"
+    },
+    "T": {
+      "item": "minecraft:crafting_table"
+    },
+    "A": {
+      "item": "spacefactory:hyper_ai_core"
+    }
+  },
+  "result": {
+    "item": "spacefactory:fabricator_ai"
+  }
+}

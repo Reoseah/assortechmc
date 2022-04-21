@@ -1,0 +1,22 @@
+{
+  "type": "spacefactory:ai_fabrication",
+  "pattern": [
+    "XXX",
+    "R#R",
+    "XXX"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:iron_ingot"
+    },
+    "X": {
+      "item": "spacefactory:copper_cable"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "result": {
+    "item": "minecraft:bedrock"
+  }
+}

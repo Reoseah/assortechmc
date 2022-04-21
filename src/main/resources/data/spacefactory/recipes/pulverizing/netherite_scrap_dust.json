@@ -1,0 +1,9 @@
+{
+  "type": "spacefactory:macerating",
+  "ingredient": {
+    "item": "minecraft:netherite_scrap"
+  },
+  "result": {
+    "item": "spacefactory:netherite_scrap_dust"
+  }
+}

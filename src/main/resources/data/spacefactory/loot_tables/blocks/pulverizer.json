@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "spacefactory:pulverizer"
+          "name": "spacefactory:macerator"
         }
       ],
       "conditions": [

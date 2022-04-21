@@ -22,7 +22,7 @@ import java.util.Random;
 
 @Mixin(BlockModelRenderer.class)
 public class BlockModelRendererMixin {
-    @Inject(method = "render", at = @At(value = "HEAD"), cancellable = true)
+    @Inject(method = "render", at = @At(value = "HEAD"), cancellable = true, require = 0)
     public void render(BlockRenderView world, BakedModel model, BlockState state, BlockPos pos, MatrixStack matrix, VertexConsumer vertexConsumer, boolean cull, Random random, long seed, int overlay, CallbackInfoReturnable<Boolean> ci) {
         if (state.getMaterial() == SpaceFactory.Materials.MACHINE) {
             boolean ao = MinecraftClient.isAmbientOcclusionEnabled();

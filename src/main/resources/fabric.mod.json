@@ -19,7 +19,7 @@
       "spacefactory.SpaceFactory"
     ],
     "rei_plugins": [
-      "spacefactory.compatibility.roughlyenoughitems.SpaceFactoryPlugin"
+      "spacefactory.compatibility.rei.SpaceFactoryPlugin"
     ]
   },
   "accessWidener": "spacefactory.accesswidener",

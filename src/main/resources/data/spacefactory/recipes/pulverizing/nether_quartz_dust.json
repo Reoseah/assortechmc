@@ -1,0 +1,9 @@
+{
+  "type": "spacefactory:macerating",
+  "ingredient": {
+    "item": "minecraft:quartz"
+  },
+  "result": {
+    "item": "spacefactory:nether_quartz_dust"
+  }
+}

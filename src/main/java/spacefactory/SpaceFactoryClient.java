@@ -23,14 +23,15 @@ import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
 import spacefactory.api.EU;
-import spacefactory.api.Wrenchable;
-import spacefactory.features.atomic_reassembler.AtomicReassemblerScreen;
-import spacefactory.features.compressor.CompressorScreen;
-import spacefactory.features.electric_furnace.ElectricFurnaceScreen;
-import spacefactory.features.extractor.ExtractorScreen;
-import spacefactory.features.generator.GeneratorScreen;
-import spacefactory.features.pulverizer.PulverizerScreen;
-import spacefactory.features.solar_panel.SolarPanelScreen;
+import spacefactory.core.block.Wrenchable;
+import spacefactory.features.machine.atomic_reconstructor.AtomicReconstructorScreen;
+import spacefactory.features.machine.compressor.CompressorScreen;
+import spacefactory.features.machine.electric_furnace.ElectricFurnaceScreen;
+import spacefactory.features.machine.extractor.ExtractorScreen;
+import spacefactory.features.generator.fuel_generator.GeneratorScreen;
+import spacefactory.features.machine.fabricator_ai.FabricatorAIScreen;
+import spacefactory.features.machine.macerator.MaceratorScreen;
+import spacefactory.features.generator.solar_panel.SolarPanelScreen;
 
 @Environment(EnvType.CLIENT)
 public class SpaceFactoryClient implements ClientModInitializer {
@@ -56,14 +57,14 @@ public class SpaceFactoryClient implements ClientModInitializer {
                 return this.unclampedCall(stack, world, entity, seed);
             }
         });
-        UnclampedModelPredicateProvider wrenchOpenPredicate = (ItemStack stack, @Nullable ClientWorld world, @Nullable LivingEntity entity, int i) -> {
+        UnclampedModelPredicateProvider isWrenchOpen = (ItemStack stack, @Nullable ClientWorld world, @Nullable LivingEntity entity, int i) -> {
             if (entity instanceof PlayerEntity player) {
-                if ((player.getMainHandStack() == stack) || (player.getOffHandStack() == stack)) {
-                    @SuppressWarnings("resource")
+                if ((player.getMainHandStack() == stack) || (player.getOffHandStack() == stack)
+                        && MinecraftClient.getInstance().interactionManager != null) {
                     float reachDistance = MinecraftClient.getInstance().interactionManager.getReachDistance();
                     HitResult hit = player.raycast(reachDistance, 0, false);
-                    if (hit instanceof BlockHitResult blockhit) {
-                        BlockPos pos = blockhit.getBlockPos();
+                    if (hit instanceof BlockHitResult blockHit) {
+                        BlockPos pos = blockHit.getBlockPos();
                         if (entity.getEntityWorld().getBlockState(pos).getBlock() instanceof Wrenchable) {
                             return 1;
                         }
@@ -72,18 +73,17 @@ public class SpaceFactoryClient implements ClientModInitializer {
             }
             return 0;
         };
-        ModelPredicateProviderRegistry.register(SpaceFactory.Items.REFINED_IRON_WRENCH, SpaceFactory.id("open"),
-                wrenchOpenPredicate);
-        ModelPredicateProviderRegistry.register(SpaceFactory.Items.NANO_STEEL_WRENCH, SpaceFactory.id("open"),
-                wrenchOpenPredicate);
+        ModelPredicateProviderRegistry.register(SpaceFactory.Items.REFINED_IRON_WRENCH, SpaceFactory.id("open"), isWrenchOpen);
+        ModelPredicateProviderRegistry.register(SpaceFactory.Items.NANO_STEEL_WRENCH, SpaceFactory.id("open"), isWrenchOpen);
 
         HandledScreens.register(SpaceFactory.ScreenHandlerTypes.GENERATOR, GeneratorScreen::new);
         HandledScreens.register(SpaceFactory.ScreenHandlerTypes.SOLAR_PANEL, SolarPanelScreen::new);
         HandledScreens.register(SpaceFactory.ScreenHandlerTypes.ELECTRIC_FURNACE, ElectricFurnaceScreen::new);
-        HandledScreens.register(SpaceFactory.ScreenHandlerTypes.PULVERIZER, PulverizerScreen::new);
+        HandledScreens.register(SpaceFactory.ScreenHandlerTypes.MACERATOR, MaceratorScreen::new);
         HandledScreens.register(SpaceFactory.ScreenHandlerTypes.COMPRESSOR, CompressorScreen::new);
-        HandledScreens.register(SpaceFactory.ScreenHandlerTypes.MOLECULAR_ASSEMBLER, AtomicReassemblerScreen::new);
         HandledScreens.register(SpaceFactory.ScreenHandlerTypes.EXTRACTOR, ExtractorScreen::new);
+        HandledScreens.register(SpaceFactory.ScreenHandlerTypes.ATOMIC_RECONSTRUCTOR, AtomicReconstructorScreen::new);
+        HandledScreens.register(SpaceFactory.ScreenHandlerTypes.FABRICATOR_AI, FabricatorAIScreen::new);
 
         ClientPlayNetworking.registerGlobalReceiver(SpaceFactory.id("burnt_cable"), (client, handler, buf, responseSender) -> {
             BlockPos pos = buf.readBlockPos();

@@ -1,0 +1,9 @@
+{
+  "type": "spacefactory:macerating",
+  "ingredient":  {
+    "tag": "c:sandstone_slabs"
+  },
+  "result": {
+    "item": "minecraft:sand"
+  }
+}

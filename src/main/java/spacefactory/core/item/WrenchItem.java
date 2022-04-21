@@ -10,12 +10,11 @@ import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
-import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import spacefactory.api.Wrenchable;
+import spacefactory.core.block.Wrenchable;
 
 public class WrenchItem extends ToolItem {
     private final ToolMaterial material;

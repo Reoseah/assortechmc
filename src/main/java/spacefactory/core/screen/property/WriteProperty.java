@@ -4,6 +4,11 @@ import net.minecraft.screen.Property;
 
 import java.util.function.IntConsumer;
 
+/**
+ * Write-only {@link Property} that can be initialized with lambda-function.
+ *
+ * @see ReadProperty
+ */
 public class WriteProperty extends Property {
     protected final IntConsumer consumer;
 

@@ -1,0 +1,16 @@
+{
+  "type": "spacefactory:atomic_reassembly",
+  "input": [
+    {
+      "item": "spacefactory:crystalite_dust",
+      "count": 4
+    },
+    {
+      "item": "spacefactory:quantum_circuit",
+      "count": 3
+    }
+  ],
+  "result": { 
+    "item": "spacefactory:hyper_ai_core"
+  }
+}

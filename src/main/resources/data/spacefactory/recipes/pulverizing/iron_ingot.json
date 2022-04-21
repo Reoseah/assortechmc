@@ -1,9 +1,0 @@
-{
-  "type": "spacefactory:pulverizing",
-  "ingredient": {
-    "item": "minecraft:iron_ingot"
-  },
-  "result": {
-    "item": "spacefactory:iron_dust"
-  }
-}

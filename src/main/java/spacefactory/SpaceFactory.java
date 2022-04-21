@@ -57,46 +57,50 @@ import net.minecraft.world.gen.stateprovider.SimpleBlockStateProvider;
 import net.minecraft.world.gen.trunk.StraightTrunkPlacer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import spacefactory.core.item.MacheteItem;
-import spacefactory.core.item.UnicutterItem;
-import spacefactory.core.item.WrenchItem;
-import spacefactory.core.recipe.SimpleMachineRecipe;
-import spacefactory.features.atomic_reassembler.AtomicReassemblerBlock;
-import spacefactory.features.atomic_reassembler.AtomicReassemblerBlockEntity;
-import spacefactory.features.atomic_reassembler.AtomicReassemblerRecipe;
-import spacefactory.features.atomic_reassembler.AtomicReassemblerScreenHandler;
-import spacefactory.features.compressor.CompressorBlock;
-import spacefactory.features.compressor.CompressorBlockEntity;
-import spacefactory.features.compressor.CompressorRecipe;
-import spacefactory.features.compressor.CompressorScreenHandler;
-import spacefactory.features.conduit.ConduitBlock;
-import spacefactory.features.conduit.ConduitBlockEntity;
-import spacefactory.features.conduit.CoveredConduitBlock;
-import spacefactory.features.dragon_egg_siphon.DragonEggSiphonBlock;
-import spacefactory.features.dragon_egg_siphon.DragonEggSiphonBlockEntity;
-import spacefactory.features.electric_furnace.ElectricFurnaceBlock;
-import spacefactory.features.electric_furnace.ElectricFurnaceBlockEntity;
-import spacefactory.features.electric_furnace.ElectricFurnaceScreenHandler;
-import spacefactory.features.extractor.ExtractorBlock;
-import spacefactory.features.extractor.ExtractorBlockEntity;
-import spacefactory.features.extractor.ExtractorRecipe;
-import spacefactory.features.extractor.ExtractorScreenHandler;
-import spacefactory.features.generator.GeneratorBlock;
-import spacefactory.features.generator.GeneratorBlockEntity;
-import spacefactory.features.generator.GeneratorScreenHandler;
+import spacefactory.features.cables.CableBlockEntity;
+import spacefactory.features.cables.NormalCableBlock;
+import spacefactory.features.cables.HiddenCableBlock;
+import spacefactory.features.generator.dragon_egg_energy_absorber.DragonEggEnergyAbsorberBlockEntity;
+import spacefactory.features.generator.dragon_egg_energy_absorber.DragonEggSiphonBlock;
+import spacefactory.features.generator.fuel_generator.GeneratorBlock;
+import spacefactory.features.generator.fuel_generator.GeneratorBlockEntity;
+import spacefactory.features.generator.fuel_generator.GeneratorScreenHandler;
+import spacefactory.features.generator.solar_panel.SolarPanelBlock;
+import spacefactory.features.generator.solar_panel.SolarPanelBlockEntity;
+import spacefactory.features.generator.solar_panel.SolarPanelScreenHandler;
+import spacefactory.features.machine.MachineRecipe;
+import spacefactory.features.machine.atomic_reconstructor.AtomicReconstructorRecipe;
+import spacefactory.features.machine.atomic_reconstructor.AtomicReconstructorBlock;
+import spacefactory.features.machine.atomic_reconstructor.AtomicReconstructorBlockEntity;
+import spacefactory.features.machine.atomic_reconstructor.AtomicReconstructorScreenHandler;
+import spacefactory.features.machine.compressor.CompressorBlock;
+import spacefactory.features.machine.compressor.CompressorBlockEntity;
+import spacefactory.features.machine.compressor.CompressorRecipe;
+import spacefactory.features.machine.compressor.CompressorScreenHandler;
+import spacefactory.features.machine.electric_furnace.ElectricFurnaceBlock;
+import spacefactory.features.machine.electric_furnace.ElectricFurnaceBlockEntity;
+import spacefactory.features.machine.electric_furnace.ElectricFurnaceScreenHandler;
+import spacefactory.features.machine.extractor.ExtractorBlock;
+import spacefactory.features.machine.extractor.ExtractorBlockEntity;
+import spacefactory.features.machine.extractor.ExtractorRecipe;
+import spacefactory.features.machine.extractor.ExtractorScreenHandler;
+import spacefactory.features.machine.fabricator_ai.AIFabricationRecipe;
+import spacefactory.features.machine.fabricator_ai.FabricatorAIBlock;
+import spacefactory.features.machine.fabricator_ai.FabricatorAIBlockEntity;
+import spacefactory.features.machine.fabricator_ai.FabricatorAIScreenHandler;
+import spacefactory.features.machine.macerator.MaceratorBlock;
+import spacefactory.features.machine.macerator.MaceratorBlockEntity;
+import spacefactory.features.machine.macerator.MaceratorRecipe;
+import spacefactory.features.machine.macerator.MaceratorScreenHandler;
 import spacefactory.features.nano_steel.NanoSteelMacheteItem;
 import spacefactory.features.nano_steel.NanoSteelUnicutterItem;
 import spacefactory.features.nano_steel.NanoSteelWrenchItem;
-import spacefactory.features.pulverizer.PulverizerBlock;
-import spacefactory.features.pulverizer.PulverizerBlockEntity;
-import spacefactory.features.pulverizer.PulverizerRecipe;
-import spacefactory.features.pulverizer.PulverizerScreenHandler;
 import spacefactory.features.rubber_tree.AliveRubberLogBlock;
-import spacefactory.features.rubber_tree.RubberFoliagePlacer;
 import spacefactory.features.rubber_tree.RubberSaplingBlock;
-import spacefactory.features.solar_panel.SolarPanelBlock;
-import spacefactory.features.solar_panel.SolarPanelBlockEntity;
-import spacefactory.features.solar_panel.SolarPanelScreenHandler;
+import spacefactory.core.item.MacheteItem;
+import spacefactory.core.item.UnicutterItem;
+import spacefactory.core.item.WrenchItem;
+import spacefactory.features.rubber_tree.RubberFoliagePlacer;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -203,14 +207,16 @@ public class SpaceFactory implements ModInitializer {
 
         @SerializedName("electric_furnace_consumption")
         public int electricFurnaceConsumption = 3;
-        @SerializedName("pulverizer_consumption")
-        public int pulverizerConsumption = 2;
+        @SerializedName("macerator_consumption")
+        public int maceratorConsumption = 2;
         @SerializedName("compressor_consumption")
         public int compressorConsumption = 2;
         @SerializedName("extractor_consumption")
         public int extractorConsumption = 2;
-        @SerializedName("atomic_reassembler_consumption")
+        @SerializedName("atomic_reconstructor_consumption")
         public int atomicReassemblerConsumption = 10;
+        @SerializedName("fabricator_ai_consumption")
+        public int fabricatorAIConsumption = 10;
 
         public static Config load() {
             Path configPath = FabricLoader.getInstance().getConfigDir().resolve("spacefactory.json");
@@ -258,40 +264,37 @@ public class SpaceFactory implements ModInitializer {
         public static final Block RUBBER_LEAVES = new LeavesBlock(Settings.of(Material.LEAVES).strength(0.2F).ticksRandomly().sounds(BlockSoundGroup.GRASS).nonOpaque().allowsSpawning(net.minecraft.block.Blocks::canSpawnOnLeaves).suffocates(net.minecraft.block.Blocks::never).blockVision(net.minecraft.block.Blocks::never));
         public static final Block RUBBER_SAPLING = new RubberSaplingBlock(Settings.of(Material.PLANT).noCollision().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.GRASS));
 
-        public static final Block COPPER_WIRE = new ConduitBlock(1, false, FabricBlockSettings.of(Material.METAL).strength(0.5F).sounds(BlockSoundGroup.WOOL));
-        public static final Block COPPER_CABLE = new ConduitBlock(2, true, FabricBlockSettings.of(Material.METAL).strength(0.5F));
+        public static final Block END_STONE_IRIDIUM_ORE = new Block(FabricBlockSettings.of(Material.STONE, MapColor.PALE_YELLOW).strength(3F, 9F));
+        public static final Block RAW_IRIDIUM_BLOCK = new Block(FabricBlockSettings.of(Material.STONE, MapColor.WHITE).requiresTool().strength(7.0f, 10.0f));
+
+        public static final Block CRYSTALITE_BLOCK = new Block(FabricBlockSettings.of(Material.GLASS, MapColor.LIGHT_BLUE).luminance(15).strength(5F, 20F).slipperiness(0.98F).sounds(BlockSoundGroup.GLASS).allowsSpawning(net.minecraft.block.Blocks::never));
+        public static final Block NANO_STEEL_BLOCK = new Block(FabricBlockSettings.of(Material.METAL, MapColor.DARK_AQUA).strength(12F, 20F));
+        public static final Block IRIDIUM_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(5F, 20F).allowsSpawning(net.minecraft.block.Blocks::never));
+
+        public static final Block COPPER_WIRE = new NormalCableBlock(1, false, FabricBlockSettings.of(Material.METAL).strength(0.5F).sounds(BlockSoundGroup.WOOL));
+        public static final Block COPPER_CABLE = new NormalCableBlock(2, true, FabricBlockSettings.of(Material.METAL).strength(0.5F).sounds(BlockSoundGroup.WOOL));
+        public static final Block COPPER_BUS_BAR = new NormalCableBlock(3, false, FabricBlockSettings.of(Material.METAL).strength(2F, 5F));
+        public static final Block ENERGY_CONDUIT = new NormalCableBlock(4, true, FabricBlockSettings.of(Material.METAL).strength(5F, 20F));
 
         public static final Block MACHINE_FRAME = new Block(MACHINE_SETTINGS);
 
         public static final Block GENERATOR = new GeneratorBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 14 : 0));
+        public static final Block SOLAR_PANEL = new SolarPanelBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).mapColor(MapColor.LAPIS_BLUE));
         public static final Block ELECTRIC_FURNACE = new ElectricFurnaceBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 14 : 0));
-        public static final Block PULVERIZER = new PulverizerBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 12 : 0));
+        public static final Block MACERATOR = new MaceratorBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 12 : 0));
         public static final Block COMPRESSOR = new CompressorBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 12 : 0));
         public static final Block EXTRACTOR = new ExtractorBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 12 : 0));
-        public static final Block SOLAR_PANEL = new SolarPanelBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).mapColor(MapColor.LAPIS_BLUE));
-
-        public static final Block COPPER_BUS_BAR = new ConduitBlock(3, false, FabricBlockSettings.of(Material.METAL).strength(2F, 5F));
-        public static final Block ENERGY_CONDUIT = new ConduitBlock(4, true, FabricBlockSettings.of(Material.METAL).strength(5F, 20F));
-
-        public static final Block CRYSTALITE_BLOCK = new Block(FabricBlockSettings.of(Material.GLASS, MapColor.LIGHT_BLUE).luminance(15).strength(5F, 20F).slipperiness(0.98F).sounds(BlockSoundGroup.GLASS).allowsSpawning(net.minecraft.block.Blocks::never));
-
-        public static final Block ATOMIC_REASSEMBLER = new AtomicReassemblerBlock(FabricBlockSettings.copyOf(FabricBlockSettings.copyOf(ADVANCED_MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 14 : 0)));
-
-        public static final Block NANO_STEEL_BLOCK = new Block(FabricBlockSettings.of(Material.METAL, MapColor.DARK_AQUA).strength(12F, 20F));
+        public static final Block ATOMIC_RECONSTRUCTOR = new AtomicReconstructorBlock(FabricBlockSettings.copyOf(FabricBlockSettings.copyOf(ADVANCED_MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 14 : 0)));
+        public static final Block DRAGON_EGG_ENERGY_ABSORBER = new DragonEggSiphonBlock(FabricBlockSettings.copyOf(ADVANCED_MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 15 : 0));
+        public static final Block FABRICATOR_AI = new FabricatorAIBlock(FabricBlockSettings.copyOf(ADVANCED_MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 15 : 0));
 
         private static final AbstractBlock.Settings REINFORCED_STONE_SETTINGS = FabricBlockSettings.of(Material.STONE, MapColor.DARK_AQUA).strength(10F, 15F);
         public static final Block REINFORCED_STONE = new Block(REINFORCED_STONE_SETTINGS);
         public static final Block REINFORCED_STONE_TILES = new Block(REINFORCED_STONE_SETTINGS);
         public static final Block REINFORCED_STONE_STAIRS = new StairsBlock(REINFORCED_STONE_TILES.getDefaultState(), REINFORCED_STONE_SETTINGS);
         public static final Block REINFORCED_STONE_SLAB = new SlabBlock(REINFORCED_STONE_SETTINGS);
-        public static final Block REINFORCED_STONE_COVERED_CONDUIT = new CoveredConduitBlock(REINFORCED_STONE_SETTINGS);
+        public static final Block REINFORCED_STONE_COVERED_CONDUIT = new HiddenCableBlock(REINFORCED_STONE_SETTINGS);
         public static final Block REINFORCED_GLASS = new GlassBlock(FabricBlockSettings.of(Material.GLASS).strength(7F, 10F).nonOpaque().sounds(BlockSoundGroup.GLASS));
-
-        public static final Block END_STONE_IRIDIUM_ORE = new Block(FabricBlockSettings.of(Material.STONE, MapColor.PALE_YELLOW).strength(3F, 9F));
-        public static final Block RAW_IRIDIUM_BLOCK = new Block(FabricBlockSettings.of(Material.STONE, MapColor.WHITE).requiresTool().strength(7.0f, 10.0f));
-        public static final Block IRIDIUM_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(5F, 20F).allowsSpawning(net.minecraft.block.Blocks::never));
-
-        public static final Block DRAGON_EGG_ENERGY_ABSORBER = new DragonEggSiphonBlock(FabricBlockSettings.copyOf(ADVANCED_MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 15 : 0));
 
         private static void register(String name, Block entry) {
             Registry.register(Registry.BLOCK, id(name), entry);
@@ -306,26 +309,28 @@ public class SpaceFactory implements ModInitializer {
             register("rubber_leaves", RUBBER_LEAVES);
             register("rubber_sapling", RUBBER_SAPLING);
 
+            register("end_stone_iridium_ore", END_STONE_IRIDIUM_ORE);
+            register("raw_iridium_block", RAW_IRIDIUM_BLOCK);
+            register("iridium_block", IRIDIUM_BLOCK);
+            register("nano_steel_block", NANO_STEEL_BLOCK);
+            register("crystalite_block", CRYSTALITE_BLOCK);
+
             register("copper_wire", COPPER_WIRE);
             register("copper_cable", COPPER_CABLE);
+            register("copper_bus_bar", COPPER_BUS_BAR);
+            register("energy_conduit", ENERGY_CONDUIT);
 
             register("machine_frame", MACHINE_FRAME);
 
             register("generator", GENERATOR);
+            register("solar_panel", SOLAR_PANEL);
             register("electric_furnace", ELECTRIC_FURNACE);
-            register("pulverizer", PULVERIZER);
+            register("macerator", MACERATOR);
             register("compressor", COMPRESSOR);
             register("extractor", EXTRACTOR);
-            register("solar_panel", SOLAR_PANEL);
-
-            register("copper_bus_bar", COPPER_BUS_BAR);
-            register("energy_conduit", ENERGY_CONDUIT);
-
-            register("crystalite_block", CRYSTALITE_BLOCK);
-
-            register("atomic_reassembler", ATOMIC_REASSEMBLER);
-
-            register("nano_steel_block", NANO_STEEL_BLOCK);
+            register("atomic_reassembler", ATOMIC_RECONSTRUCTOR);
+            register("dragon_energy_absorber", DRAGON_EGG_ENERGY_ABSORBER);
+            register("fabricator_ai", FABRICATOR_AI);
 
             register("reinforced_stone", REINFORCED_STONE);
             register("reinforced_stone_tiles", REINFORCED_STONE_TILES);
@@ -333,12 +338,6 @@ public class SpaceFactory implements ModInitializer {
             register("reinforced_stone_slab", REINFORCED_STONE_SLAB);
             register("reinforced_stone_covered_conduit", REINFORCED_STONE_COVERED_CONDUIT);
             register("reinforced_glass", REINFORCED_GLASS);
-
-            register("end_stone_iridium_ore", END_STONE_IRIDIUM_ORE);
-            register("raw_iridium_block", RAW_IRIDIUM_BLOCK);
-            register("iridium_block", IRIDIUM_BLOCK);
-
-            register("dragon_energy_absorber", DRAGON_EGG_ENERGY_ABSORBER);
 
             FlammableBlockRegistry.getDefaultInstance().add(Blocks.RUBBER_LOG, 5, 5);
             FlammableBlockRegistry.getDefaultInstance().add(Blocks.ALIVE_RUBBER_LOG, 5, 5);
@@ -353,7 +352,32 @@ public class SpaceFactory implements ModInitializer {
     public static class Items {
         public static final ItemGroup MAIN = FabricItemGroupBuilder.build(id("main"), () -> new ItemStack(SpaceFactory.Items.QUANTUM_CIRCUIT));
 
+        public static final Item RUBBER_LOG = new BlockItem(Blocks.RUBBER_LOG, settings());
+        public static final Item STRIPPED_RUBBER_LOG = new BlockItem(Blocks.STRIPPED_RUBBER_LOG, settings());
+        public static final Item RUBBER_WOOD = new BlockItem(Blocks.RUBBER_WOOD, settings());
+        public static final Item STRIPPED_RUBBER_WOOD = new BlockItem(Blocks.STRIPPED_RUBBER_WOOD, settings());
+        public static final Item RUBBER_LEAVES = new BlockItem(Blocks.RUBBER_LEAVES, settings());
+        public static final Item RUBBER_SAPLING = new BlockItem(Blocks.RUBBER_SAPLING, settings());
+
+        public static final Item END_STONE_IRIDIUM_ORE = new BlockItem(Blocks.END_STONE_IRIDIUM_ORE, settings().rarity(Rarity.UNCOMMON));
+        public static final Item RAW_IRIDIUM_BLOCK = new BlockItem(Blocks.RAW_IRIDIUM_BLOCK, settings().rarity(Rarity.UNCOMMON));
+
+        public static final Item CRYSTALITE_BLOCK = new BlockItem(Blocks.CRYSTALITE_BLOCK, settings().rarity(Rarity.RARE));
+        public static final Item NANO_STEEL_BLOCK = new BlockItem(Blocks.NANO_STEEL_BLOCK, settings().rarity(Rarity.RARE));
+        public static final Item IRIDIUM_BLOCK = new BlockItem(Blocks.IRIDIUM_BLOCK, settings().rarity(Rarity.UNCOMMON));
+
+        public static final Item RAW_RUBBER = new Item(settings());
+        public static final Item RUBBER = new Item(settings());
+        public static final Item CAMOUFLAGE_CLOTH = new Item(settings());
+
+        public static final Item REFINED_IRON_INGOT = new Item(settings().rarity(Rarity.RARE));
+        public static final Item NANO_STEEL_INGOT = new Item(settings().rarity(Rarity.RARE));
+        public static final Item IRIDIUM_INGOT = new Item(settings().rarity(Rarity.UNCOMMON));
+
+        public static final Item RAW_IRIDIUM = new Item(settings().rarity(Rarity.UNCOMMON));
+
         public static final Item COPPER_NUGGET = new Item(settings());
+        public static final Item IRIDIUM_NUGGET = new Item(settings().rarity(Rarity.UNCOMMON));
 
         public static final Item STONE_DUST = new Item(settings());
         public static final Item COAL_DUST = new Item(settings());
@@ -361,58 +385,41 @@ public class SpaceFactory implements ModInitializer {
         public static final Item IRON_DUST = new Item(settings());
         public static final Item GOLD_DUST = new Item(settings());
         public static final Item DIAMOND_DUST = new Item(settings());
+        public static final Item ENDER_PEARL_DUST = new Item(settings());
+        public static final Item NETHERITE_SCRAP_DUST = new Item(settings());
+        public static final Item NETHER_QUARTZ_DUST = new Item(settings());
+        public static final Item REFINED_IRON_DUST = new Item(settings());
+        public static final Item IRIDIUM_DUST = new Item(settings().rarity(Rarity.UNCOMMON));
 
-        public static final Item RUBBER_LOG = new BlockItem(Blocks.RUBBER_LOG, settings());
-        public static final Item STRIPPED_RUBBER_LOG = new BlockItem(Blocks.STRIPPED_RUBBER_LOG, settings());
-        public static final Item RUBBER_WOOD = new BlockItem(Blocks.RUBBER_WOOD, settings());
-        public static final Item STRIPPED_RUBBER_WOOD = new BlockItem(Blocks.STRIPPED_RUBBER_WOOD, settings());
-        public static final Item RUBBER_LEAVES = new BlockItem(Blocks.RUBBER_LEAVES, settings());
-        public static final Item RUBBER_SAPLING = new BlockItem(Blocks.RUBBER_SAPLING, settings());
-        public static final Item RAW_RUBBER = new Item(settings());
-        public static final Item RUBBER = new Item(settings());
+        public static final Item SMALL_IRIDIUM_DUST = new Item(settings().rarity(Rarity.UNCOMMON));
+
+        public static final Item CIRCUIT = new Item(settings());
+        public static final Item QUANTUM_CIRCUIT = new Item(settings().rarity(Rarity.UNCOMMON));
+        public static final Item SILICON_INGOT = new Item(settings());
+        public static final Item RAW_CRYSTALITE_DUST = new Item(settings());
+        public static final Item CRYSTALITE_DUST = new Item(settings().rarity(Rarity.RARE));
+        public static final Item CRYSTALITE_MATRIX = new Item(settings().rarity(Rarity.RARE).maxCount(16));
+        public static final Item WARP_PRISM = new Item(settings().rarity(Rarity.EPIC).maxCount(16));
+        public static final Item HYPER_AI_CORE = new Item(settings().rarity(Rarity.EPIC).maxCount(1));
 
         public static final Item COPPER_WIRE = new BlockItem(Blocks.COPPER_WIRE, settings());
         public static final Item COPPER_CABLE = new BlockItem(Blocks.COPPER_CABLE, settings());
-        public static final Item CIRCUIT = new Item(settings());
+        public static final Item COPPER_BUS_BAR = new BlockItem(Blocks.COPPER_BUS_BAR, settings());
+        public static final Item ENERGY_CONDUIT = new BlockItem(Blocks.ENERGY_CONDUIT, settings());
 
         public static final Item MACHINE_FRAME = new BlockItem(Blocks.MACHINE_FRAME, settings());
 
         public static final Item GENERATOR = new BlockItem(Blocks.GENERATOR, settings());
+        public static final Item SOLAR_PANEL = new BlockItem(Blocks.SOLAR_PANEL, settings());
 
         public static final Item ELECTRIC_FURNACE = new BlockItem(Blocks.ELECTRIC_FURNACE, settings());
-        public static final Item PULVERIZER = new BlockItem(Blocks.PULVERIZER, settings());
+        public static final Item MACERATOR = new BlockItem(Blocks.MACERATOR, settings());
         public static final Item COMPRESSOR = new BlockItem(Blocks.COMPRESSOR, settings());
         public static final Item EXTRACTOR = new BlockItem(Blocks.EXTRACTOR, settings());
 
-        public static final Item NETHER_QUARTZ_DUST = new Item(settings());
-        public static final Item SILICON_INGOT = new Item(settings());
-        public static final Item SOLAR_PANEL = new BlockItem(Blocks.SOLAR_PANEL, settings());
-
-        public static final Item COPPER_BUS_BAR = new BlockItem(Blocks.COPPER_BUS_BAR, settings());
-        public static final Item ENERGY_CONDUIT = new BlockItem(Blocks.ENERGY_CONDUIT, settings());
-
-        public static final Item REFINED_IRON_INGOT = new Item(settings().rarity(Rarity.RARE));
-        public static final Item REFINED_IRON_DUST = new Item(settings());
-        public static final Item REFINED_IRON_MACHETE = new MacheteItem(ToolMaterials.REFINED_IRON, 2, -2.2F, settings());
-        public static final Item REFINED_IRON_WRENCH = new WrenchItem(ToolMaterials.REFINED_IRON, 0, -1.8F, settings());
-        public static final Item REFINED_IRON_UNICUTTER = new UnicutterItem(ToolMaterials.REFINED_IRON, -1, -1F, settings().maxDamage(250));
-
-        public static final Item CAMOUFLAGE_CLOTH = new Item(settings());
-        public static final Item FLAK_VEST = new ArmorItem(ArmorMaterials.FLAK, EquipmentSlot.CHEST, settings().rarity(Rarity.UNCOMMON));
-
-        public static final Item CRYSTALITE_BLOCK = new BlockItem(Blocks.CRYSTALITE_BLOCK, settings().rarity(Rarity.RARE));
-        public static final Item CRYSTALITE_MATRIX = new Item(settings().rarity(Rarity.RARE).maxCount(16));
-        public static final Item CRYSTALITE_DUST = new Item(settings().rarity(Rarity.RARE));
-        public static final Item RAW_CRYSTALITE_DUST = new Item(settings());
-        public static final Item QUANTUM_CIRCUIT = new Item(settings().rarity(Rarity.UNCOMMON));
-
-        public static final Item ATOMIC_RECONSTRUCTOR = new BlockItem(Blocks.ATOMIC_REASSEMBLER, settings().rarity(Rarity.RARE));
-
-        public static final Item NANO_STEEL_BLOCK = new BlockItem(Blocks.NANO_STEEL_BLOCK, settings().rarity(Rarity.RARE));
-        public static final Item NANO_STEEL_INGOT = new Item(settings().rarity(Rarity.RARE));
-        public static final Item NANO_STEEL_MACHETE = new NanoSteelMacheteItem(ToolMaterials.NANO_STRUCTURED_STEEL, 2, -2.2F, settings().rarity(Rarity.RARE));
-        public static final Item NANO_STEEL_WRENCH = new NanoSteelWrenchItem(ToolMaterials.NANO_STRUCTURED_STEEL, 0, -1.8F, settings().maxDamage(700).rarity(Rarity.RARE));
-        public static final Item NANO_STEEL_UNICUTTER = new NanoSteelUnicutterItem(ToolMaterials.NANO_STRUCTURED_STEEL, -1, -1F, settings().maxDamage(700).rarity(Rarity.RARE));
+        public static final Item ATOMIC_RECONSTRUCTOR = new BlockItem(Blocks.ATOMIC_RECONSTRUCTOR, settings().rarity(Rarity.RARE));
+        public static final Item DRAGON_EGG_ENERGY_ABSORBER = new BlockItem(Blocks.DRAGON_EGG_ENERGY_ABSORBER, settings().rarity(Rarity.RARE));
+        public static final Item FABRICATOR_AI = new BlockItem(Blocks.FABRICATOR_AI, settings().rarity(Rarity.RARE));
 
         public static final Item REINFORCED_STONE = new BlockItem(Blocks.REINFORCED_STONE, settings());
         public static final Item REINFORCED_STONE_TILES = new BlockItem(Blocks.REINFORCED_STONE_TILES, settings());
@@ -421,20 +428,14 @@ public class SpaceFactory implements ModInitializer {
         public static final Item REINFORCED_STONE_COVERED_CONDUIT = new BlockItem(Blocks.REINFORCED_STONE_COVERED_CONDUIT, settings());
         public static final Item REINFORCED_GLASS = new BlockItem(Blocks.REINFORCED_GLASS, settings());
 
-        public static final Item ENDER_PEARL_DUST = new Item(settings());
-        public static final Item WARP_PRISM = new Item(settings().rarity(Rarity.RARE).maxCount(16));
+        public static final Item FLAK_VEST = new ArmorItem(ArmorMaterials.FLAK, EquipmentSlot.CHEST, settings().rarity(Rarity.UNCOMMON));
+        public static final Item REFINED_IRON_MACHETE = new MacheteItem(ToolMaterials.REFINED_IRON, 2, -2.2F, settings());
+        public static final Item REFINED_IRON_WRENCH = new WrenchItem(ToolMaterials.REFINED_IRON, 0, -1.8F, settings());
+        public static final Item REFINED_IRON_UNICUTTER = new UnicutterItem(ToolMaterials.REFINED_IRON, -1, -1F, settings().maxDamage(250));
 
-        public static final Item NETHERITE_SCRAP_DUST = new Item(settings());
-        public static final Item END_STONE_IRIDIUM_ORE = new BlockItem(Blocks.END_STONE_IRIDIUM_ORE, settings().rarity(Rarity.UNCOMMON));
-        public static final Item RAW_IRIDIUM_BLOCK = new BlockItem(Blocks.RAW_IRIDIUM_BLOCK, settings().rarity(Rarity.UNCOMMON));
-        public static final Item IRIDIUM_BLOCK = new BlockItem(Blocks.IRIDIUM_BLOCK, settings().rarity(Rarity.UNCOMMON));
-        public static final Item RAW_IRIDIUM = new Item(settings().rarity(Rarity.UNCOMMON));
-        public static final Item IRIDIUM_INGOT = new Item(settings().rarity(Rarity.UNCOMMON));
-        public static final Item IRIDIUM_NUGGET = new Item(settings().rarity(Rarity.UNCOMMON));
-        public static final Item IRIDIUM_DUST = new Item(settings().rarity(Rarity.UNCOMMON));
-        public static final Item SMALL_IRIDIUM_DUST = new Item(settings().rarity(Rarity.UNCOMMON));
-
-        public static final Item DRAGON_EGG_ENERGY_ABSORBER = new BlockItem(Blocks.DRAGON_EGG_ENERGY_ABSORBER, settings().rarity(Rarity.RARE));
+        public static final Item NANO_STEEL_MACHETE = new NanoSteelMacheteItem(ToolMaterials.NANO_STRUCTURED_STEEL, 2, -2.2F, settings().rarity(Rarity.RARE));
+        public static final Item NANO_STEEL_WRENCH = new NanoSteelWrenchItem(ToolMaterials.NANO_STRUCTURED_STEEL, 0, -1.8F, settings().maxDamage(700).rarity(Rarity.RARE));
+        public static final Item NANO_STEEL_UNICUTTER = new NanoSteelUnicutterItem(ToolMaterials.NANO_STRUCTURED_STEEL, -1, -1F, settings().maxDamage(700).rarity(Rarity.RARE));
 
         public static final TagKey<Item> RUBBERS = TagKey.of(Registry.ITEM_KEY, new Identifier("c:rubbers"));
 
@@ -463,6 +464,7 @@ public class SpaceFactory implements ModInitializer {
 
             register("raw_rubber", RAW_RUBBER);
             register("rubber", RUBBER);
+            register("camouflage_cloth", CAMOUFLAGE_CLOTH);
 
             register("refined_iron_ingot", REFINED_IRON_INGOT);
             register("nano_steel_ingot", NANO_STEEL_INGOT);
@@ -489,12 +491,12 @@ public class SpaceFactory implements ModInitializer {
 
             register("circuit", CIRCUIT);
             register("quantum_circuit", QUANTUM_CIRCUIT);
-            register("camouflage_cloth", CAMOUFLAGE_CLOTH);
             register("silicon_ingot", SILICON_INGOT);
             register("raw_crystalite_dust", RAW_CRYSTALITE_DUST);
             register("crystalite_dust", CRYSTALITE_DUST);
             register("crystalite_matrix", CRYSTALITE_MATRIX);
             register("warp_prism", WARP_PRISM);
+            register("hyper_ai_core", HYPER_AI_CORE);
 
             register("copper_wire", COPPER_WIRE);
             register("copper_cable", COPPER_CABLE);
@@ -507,12 +509,13 @@ public class SpaceFactory implements ModInitializer {
             register("solar_panel", SOLAR_PANEL);
 
             register("electric_furnace", ELECTRIC_FURNACE);
-            register("pulverizer", PULVERIZER);
+            register("macerator", MACERATOR);
             register("compressor", COMPRESSOR);
             register("extractor", EXTRACTOR);
 
             register("atomic_reassembler", ATOMIC_RECONSTRUCTOR);
             register("dragon_energy_absorber", DRAGON_EGG_ENERGY_ABSORBER);
+            register("fabricator_ai", FABRICATOR_AI);
 
             register("reinforced_stone", REINFORCED_STONE);
             register("reinforced_stone_tiles", REINFORCED_STONE_TILES);
@@ -539,14 +542,15 @@ public class SpaceFactory implements ModInitializer {
     public static class BlockEntityTypes {
         public static final BlockEntityType<GeneratorBlockEntity> GENERATOR = create("generator", GeneratorBlockEntity::new, Blocks.GENERATOR);
         public static final BlockEntityType<SolarPanelBlockEntity> SOLAR_PANEL = create("solar_panel", SolarPanelBlockEntity::new, Blocks.SOLAR_PANEL);
-        public static final BlockEntityType<DragonEggSiphonBlockEntity> DRAGON_ENERGY_ABSORBER = create("dragon_energy_absorber", DragonEggSiphonBlockEntity::new, Blocks.DRAGON_EGG_ENERGY_ABSORBER);
+        public static final BlockEntityType<DragonEggEnergyAbsorberBlockEntity> DRAGON_EGG_ENERGY_ABSORBER = create("dragon_egg_energy_absorber", DragonEggEnergyAbsorberBlockEntity::new, Blocks.DRAGON_EGG_ENERGY_ABSORBER);
 
         public static final BlockEntityType<ElectricFurnaceBlockEntity> ELECTRIC_FURNACE = create("electric_furnace", ElectricFurnaceBlockEntity::new, Blocks.ELECTRIC_FURNACE);
-        public static final BlockEntityType<PulverizerBlockEntity> PULVERIZER = create("pulverizer", PulverizerBlockEntity::new, Blocks.PULVERIZER);
+        public static final BlockEntityType<MaceratorBlockEntity> MACERATOR = create("macerator", MaceratorBlockEntity::new, Blocks.MACERATOR);
         public static final BlockEntityType<CompressorBlockEntity> COMPRESSOR = create("compressor", CompressorBlockEntity::new, Blocks.COMPRESSOR);
         public static final BlockEntityType<ExtractorBlockEntity> EXTRACTOR = create("extractor", ExtractorBlockEntity::new, Blocks.EXTRACTOR);
-        public static final BlockEntityType<AtomicReassemblerBlockEntity> ATOMIC_REASSEMBLER = create("atomic_reassembler", AtomicReassemblerBlockEntity::new, Blocks.ATOMIC_REASSEMBLER);
-        public static final BlockEntityType<ConduitBlockEntity> CONDUIT = create("conduit", ConduitBlockEntity::new, Blocks.COPPER_WIRE, Blocks.COPPER_CABLE, Blocks.COPPER_BUS_BAR, Blocks.ENERGY_CONDUIT, Blocks.REINFORCED_STONE_COVERED_CONDUIT);
+        public static final BlockEntityType<AtomicReconstructorBlockEntity> ATOMIC_RECONSTRUCTOR = create("atomic_reconstructor", AtomicReconstructorBlockEntity::new, Blocks.ATOMIC_RECONSTRUCTOR);
+        public static final BlockEntityType<FabricatorAIBlockEntity> FABRICATOR_AI = create("fabricator_ai", FabricatorAIBlockEntity::new, Blocks.FABRICATOR_AI);
+        public static final BlockEntityType<CableBlockEntity> CABLE = create("cable", CableBlockEntity::new, Blocks.COPPER_WIRE, Blocks.COPPER_CABLE, Blocks.COPPER_BUS_BAR, Blocks.ENERGY_CONDUIT, Blocks.REINFORCED_STONE_COVERED_CONDUIT);
 
         public static <T extends BlockEntity> BlockEntityType<T> create(String name, FabricBlockEntityTypeBuilder.Factory<T> factory, Block... blocks) {
             BlockEntityType<T> type = FabricBlockEntityTypeBuilder.create(factory, blocks).build();
@@ -558,10 +562,11 @@ public class SpaceFactory implements ModInitializer {
     }
 
     public static class RecipeTypes {
-        public static final RecipeType<PulverizerRecipe> PULVERIZING = create("pulverizing");
+        public static final RecipeType<MaceratorRecipe> MACERATING = create("macerating");
         public static final RecipeType<CompressorRecipe> COMPRESSING = create("compressing");
         public static final RecipeType<ExtractorRecipe> EXTRACTING = create("extracting");
-        public static final RecipeType<AtomicReassemblerRecipe> ATOMIC_REASSEMBLY = create("atomic_reassembly");
+        public static final RecipeType<AtomicReconstructorRecipe> ATOMIC_REASSEMBLY = create("atomic_reassembly");
+        public static final RecipeType<AIFabricationRecipe> AI_FABRICATION = create("ai_fabrication");
 
         public static <T extends Recipe<?>> RecipeType<T> create(String name) {
             return Registry.register(Registry.RECIPE_TYPE, id(name), new RecipeType<T>() {
@@ -577,10 +582,11 @@ public class SpaceFactory implements ModInitializer {
     }
 
     public static class RecipeSerializers {
-        public static final RecipeSerializer<PulverizerRecipe> PULVERIZING = register("pulverizing", new SimpleMachineRecipe.Serializer<>(PulverizerRecipe::new, 300));
-        public static final RecipeSerializer<CompressorRecipe> COMPRESSING = register("compressing", new SimpleMachineRecipe.Serializer<>(CompressorRecipe::new, 400));
-        public static final RecipeSerializer<ExtractorRecipe> EXTRACTING = register("extracting", new SimpleMachineRecipe.Serializer<>(ExtractorRecipe::new, 400));
-        public static final RecipeSerializer<AtomicReassemblerRecipe> ATOMIC_REASSEMBLY = register("atomic_reassembly", new AtomicReassemblerRecipe.Serializer(1000));
+        public static final RecipeSerializer<MaceratorRecipe> MACERATING = register("macerating", new MachineRecipe.Serializer<>(MaceratorRecipe::new, 300));
+        public static final RecipeSerializer<CompressorRecipe> COMPRESSING = register("compressing", new MachineRecipe.Serializer<>(CompressorRecipe::new, 400));
+        public static final RecipeSerializer<ExtractorRecipe> EXTRACTING = register("extracting", new MachineRecipe.Serializer<>(ExtractorRecipe::new, 400));
+        public static final RecipeSerializer<AtomicReconstructorRecipe> ATOMIC_REASSEMBLY = register("atomic_reassembly", new AtomicReconstructorRecipe.Serializer(1000));
+        public static final RecipeSerializer<AIFabricationRecipe> AI_FABRICATION = register("ai_fabrication", new AIFabricationRecipe.Serializer());
 
         public static <T extends RecipeSerializer<?>> T register(String name, T entry) {
             return Registry.register(Registry.RECIPE_SERIALIZER, id(name), entry);
@@ -671,10 +677,11 @@ public class SpaceFactory implements ModInitializer {
         public static final ScreenHandlerType<GeneratorScreenHandler> GENERATOR = register("generator", new ScreenHandlerType<>(GeneratorScreenHandler::new));
         public static final ScreenHandlerType<SolarPanelScreenHandler> SOLAR_PANEL = register("solar_panel", new ScreenHandlerType<>(SolarPanelScreenHandler::new));
         public static final ScreenHandlerType<ElectricFurnaceScreenHandler> ELECTRIC_FURNACE = register("electric_furnace", new ScreenHandlerType<>(ElectricFurnaceScreenHandler::new));
-        public static final ScreenHandlerType<PulverizerScreenHandler> PULVERIZER = register("pulverizer", new ScreenHandlerType<>(PulverizerScreenHandler::new));
+        public static final ScreenHandlerType<MaceratorScreenHandler> MACERATOR = register("macerator", new ScreenHandlerType<>(MaceratorScreenHandler::new));
         public static final ScreenHandlerType<CompressorScreenHandler> COMPRESSOR = register("compressor", new ScreenHandlerType<>(CompressorScreenHandler::new));
-        public static final ScreenHandlerType<AtomicReassemblerScreenHandler> MOLECULAR_ASSEMBLER = register("atomic_reassembler", new ScreenHandlerType<>(AtomicReassemblerScreenHandler::new));
         public static final ScreenHandlerType<ExtractorScreenHandler> EXTRACTOR = register("extractor", new ScreenHandlerType<>(ExtractorScreenHandler::new));
+        public static final ScreenHandlerType<AtomicReconstructorScreenHandler> ATOMIC_RECONSTRUCTOR = register("atomic_reassembler", new ScreenHandlerType<>(AtomicReconstructorScreenHandler::new));
+        public static final ScreenHandlerType<FabricatorAIScreenHandler> FABRICATOR_AI = register("fabricator_ai", new ScreenHandlerType<>(FabricatorAIScreenHandler.Client::new));
 
         private static void init() {
         }
@@ -758,7 +765,8 @@ public class SpaceFactory implements ModInitializer {
     }
 
     public enum ToolMaterials implements ToolMaterial {
-        REFINED_IRON(2, 750, 6.5F, 3F, 8, Ingredient.ofItems(Items.REFINED_IRON_INGOT)), NANO_STRUCTURED_STEEL(3, 1500, 7.5F, 4F, 0, Ingredient.ofItems(Items.NANO_STEEL_INGOT));
+        REFINED_IRON(2, 750, 6.5F, 3F, 8, Ingredient.ofItems(Items.REFINED_IRON_INGOT)), //
+        NANO_STRUCTURED_STEEL(3, 1500, 7.5F, 4F, 0, Ingredient.ofItems(Items.NANO_STEEL_INGOT));
 
         private final int miningLevel;
         private final int itemDurability;

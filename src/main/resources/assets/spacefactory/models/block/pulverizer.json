@@ -1,9 +1,0 @@
-{
-  "parent": "minecraft:block/orientable_with_bottom",
-  "textures": {
-    "top": "spacefactory:block/pulverizer_top",
-    "front": "spacefactory:block/pulverizer_front",
-    "side": "spacefactory:block/machine_side",
-    "bottom": "spacefactory:block/machine_bottom"
-  }
-}

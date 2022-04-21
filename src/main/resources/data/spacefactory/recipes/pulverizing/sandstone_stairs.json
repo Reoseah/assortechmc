@@ -1,9 +1,0 @@
-{
-  "type": "spacefactory:pulverizing",
-  "ingredient": {
-    "tag": "c:sandstone_stairs"
-  },
-  "result": {
-    "item": "minecraft:sand"
-  }
-}

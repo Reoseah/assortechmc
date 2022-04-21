@@ -1,9 +1,0 @@
-{
-  "type": "spacefactory:pulverizing",
-  "ingredient": {
-    "item": "minecraft:quartz"
-  },
-  "result": {
-    "item": "spacefactory:nether_quartz_dust"
-  }
-}

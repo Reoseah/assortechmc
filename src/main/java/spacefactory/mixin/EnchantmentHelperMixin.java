@@ -15,10 +15,10 @@ import java.util.Map;
 
 @Mixin(EnchantmentHelper.class)
 public abstract class EnchantmentHelperMixin {
-	@Inject(at = @At("HEAD"), method = "set")
-	private static void set(Map<Enchantment, Integer> enchantments, ItemStack stack, CallbackInfo ci) {
-		if (stack.isOf(SpaceFactory.Items.FLAK_VEST)) {
-			enchantments.entrySet().removeIf(entry -> entry.getKey() instanceof ProtectionEnchantment|| !entry.getKey().canCombine(Enchantments.BLAST_PROTECTION));
-		}
-	}
+    @Inject(at = @At("HEAD"), method = "set")
+    private static void set(Map<Enchantment, Integer> enchantments, ItemStack stack, CallbackInfo ci) {
+        if (stack.isOf(SpaceFactory.Items.FLAK_VEST)) {
+            enchantments.entrySet().removeIf(entry -> entry.getKey() instanceof ProtectionEnchantment || !entry.getKey().canCombine(Enchantments.BLAST_PROTECTION));
+        }
+    }
 }

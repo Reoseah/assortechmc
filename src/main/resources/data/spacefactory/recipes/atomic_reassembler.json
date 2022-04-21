@@ -1,7 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "IGI",
+    "IEI",
     "CNC",
     "I#I"
   ],
@@ -15,8 +15,8 @@
     "C": {
       "item": "spacefactory:quantum_circuit"
     },
-    "G": {
-      "item": "minecraft:glass"
+    "E": {
+      "item": "spacefactory:energy_conduit"
     },
     "N": {
       "item": "minecraft:nether_star"

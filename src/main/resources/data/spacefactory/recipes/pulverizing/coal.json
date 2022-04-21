@@ -1,9 +1,0 @@
-{
-  "type": "spacefactory:pulverizing",
-  "ingredient": {
-    "item": "minecraft:coal"
-  },
-  "result": {
-    "item": "spacefactory:coal_dust"
-  }
-}
