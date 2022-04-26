@@ -214,7 +214,7 @@ public class SpaceFactory implements ModInitializer {
         @SerializedName("extractor_consumption")
         public int extractorConsumption = 2;
         @SerializedName("atomic_reconstructor_consumption")
-        public int atomicReassemblerConsumption = 10;
+        public int atomicReconstructorConsumption = 10;
         @SerializedName("fabricator_ai_consumption")
         public int fabricatorAIConsumption = 10;
 
@@ -328,7 +328,7 @@ public class SpaceFactory implements ModInitializer {
             register("macerator", MACERATOR);
             register("compressor", COMPRESSOR);
             register("extractor", EXTRACTOR);
-            register("atomic_reassembler", ATOMIC_RECONSTRUCTOR);
+            register("atomic_reconstructor", ATOMIC_RECONSTRUCTOR);
             register("dragon_energy_absorber", DRAGON_EGG_ENERGY_ABSORBER);
             register("fabricator_ai", FABRICATOR_AI);
 
@@ -513,7 +513,7 @@ public class SpaceFactory implements ModInitializer {
             register("compressor", COMPRESSOR);
             register("extractor", EXTRACTOR);
 
-            register("atomic_reassembler", ATOMIC_RECONSTRUCTOR);
+            register("atomic_reconstructor", ATOMIC_RECONSTRUCTOR);
             register("dragon_energy_absorber", DRAGON_EGG_ENERGY_ABSORBER);
             register("fabricator_ai", FABRICATOR_AI);
 
@@ -680,7 +680,7 @@ public class SpaceFactory implements ModInitializer {
         public static final ScreenHandlerType<MaceratorScreenHandler> MACERATOR = register("macerator", new ScreenHandlerType<>(MaceratorScreenHandler::new));
         public static final ScreenHandlerType<CompressorScreenHandler> COMPRESSOR = register("compressor", new ScreenHandlerType<>(CompressorScreenHandler::new));
         public static final ScreenHandlerType<ExtractorScreenHandler> EXTRACTOR = register("extractor", new ScreenHandlerType<>(ExtractorScreenHandler::new));
-        public static final ScreenHandlerType<AtomicReconstructorScreenHandler> ATOMIC_RECONSTRUCTOR = register("atomic_reassembler", new ScreenHandlerType<>(AtomicReconstructorScreenHandler::new));
+        public static final ScreenHandlerType<AtomicReconstructorScreenHandler> ATOMIC_RECONSTRUCTOR = register("atomic_reconstructor", new ScreenHandlerType<>(AtomicReconstructorScreenHandler::new));
         public static final ScreenHandlerType<FabricatorAIScreenHandler> FABRICATOR_AI = register("fabricator_ai", new ScreenHandlerType<>(FabricatorAIScreenHandler.Client::new));
 
         private static void init() {

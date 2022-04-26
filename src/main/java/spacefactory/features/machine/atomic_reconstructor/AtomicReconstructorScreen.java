@@ -15,7 +15,7 @@ import spacefactory.SpaceFactory;
 
 @Environment(EnvType.CLIENT)
 public class AtomicReconstructorScreen extends HandledScreen<AtomicReconstructorScreenHandler> {
-    private static final Identifier TEXTURE = SpaceFactory.id("textures/gui/atomic_reassembler.png");
+    private static final Identifier TEXTURE = SpaceFactory.id("textures/gui/atomic_reconstructor.png");
 
     public AtomicReconstructorScreen(AtomicReconstructorScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);

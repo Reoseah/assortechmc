@@ -19,11 +19,9 @@ public class AIFabricationRecipe implements Recipe<Inventory> {
     protected final DefaultedList<Ingredient> input;
     protected final ItemStack output;
     protected final Identifier id;
-    protected final String group;
 
-    public AIFabricationRecipe(Identifier id, String group, int width, int height, DefaultedList<Ingredient> input, ItemStack output) {
+    public AIFabricationRecipe(Identifier id, int width, int height, DefaultedList<Ingredient> input, ItemStack output) {
         this.id = id;
-        this.group = group;
         this.width = width;
         this.height = height;
         this.input = input;
@@ -48,11 +46,6 @@ public class AIFabricationRecipe implements Recipe<Inventory> {
     @Override
     public Identifier getId() {
         return this.id;
-    }
-
-    @Override
-    public String getGroup() {
-        return this.group;
     }
 
     @Override
@@ -120,34 +113,31 @@ public class AIFabricationRecipe implements Recipe<Inventory> {
     public static class Serializer implements RecipeSerializer<AIFabricationRecipe> {
         @Override
         public AIFabricationRecipe read(Identifier identifier, JsonObject json) {
-            String group = JsonHelper.getString(json, "group", "");
             Map<String, Ingredient> map = ShapedRecipe.readSymbols(JsonHelper.getObject(json, "key"));
             String[] pattern = ShapedRecipe.removePadding(ShapedRecipe.getPattern(JsonHelper.getArray(json, "pattern")));
             int width = pattern[0].length();
             int height = pattern.length;
             DefaultedList<Ingredient> ingredients = ShapedRecipe.createPatternMatrix(pattern, map, width, height);
             ItemStack output = ShapedRecipe.outputFromJson(JsonHelper.getObject(json, "result"));
-            return new AIFabricationRecipe(identifier, group, width, height, ingredients, output);
+            return new AIFabricationRecipe(identifier, width, height, ingredients, output);
         }
 
         @Override
         public AIFabricationRecipe read(Identifier identifier, PacketByteBuf buffer) {
             int width = buffer.readVarInt();
             int height = buffer.readVarInt();
-            String group = buffer.readString();
             DefaultedList<Ingredient> ingredients = DefaultedList.ofSize(width * height, Ingredient.EMPTY);
             for (int k = 0; k < ingredients.size(); ++k) {
                 ingredients.set(k, Ingredient.fromPacket(buffer));
             }
             ItemStack output = buffer.readItemStack();
-            return new AIFabricationRecipe(identifier, group, width, height, ingredients, output);
+            return new AIFabricationRecipe(identifier, width, height, ingredients, output);
         }
 
         @Override
         public void write(PacketByteBuf buffer, AIFabricationRecipe recipe) {
             buffer.writeVarInt(recipe.width);
             buffer.writeVarInt(recipe.height);
-            buffer.writeString(recipe.group);
             for (Ingredient ingredient : recipe.input) {
                 ingredient.write(buffer);
             }

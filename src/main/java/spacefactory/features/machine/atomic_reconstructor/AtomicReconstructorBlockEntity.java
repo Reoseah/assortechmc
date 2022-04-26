@@ -39,7 +39,7 @@ public class AtomicReconstructorBlockEntity extends CraftingMachineBlockEntity<A
 
     @Override
     protected int getEnergyPerTick() {
-        return SpaceFactory.config.atomicReassemblerConsumption;
+        return SpaceFactory.config.atomicReconstructorConsumption;
     }
 
     @Override

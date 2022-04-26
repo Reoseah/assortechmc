@@ -1,6 +1,7 @@
 package spacefactory.features.machine.fabricator_ai;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
@@ -11,6 +12,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import spacefactory.SpaceFactory;
 import spacefactory.api.EU;
@@ -96,5 +98,12 @@ public class FabricatorAIBlockEntity extends MachineBlockEntity implements Sided
     @Override
     public boolean canExtract(int slot, ItemStack stack, Direction dir) {
         return !EU.isElectricItem(stack);
+    }
+
+    @Override
+    public void tick(World world, BlockPos pos, BlockState state, BlockEntity be) {
+        super.tick(world, pos, state, be);
+
+        Optional<AIFabricationRecipe> optionalRecipe = world.getRecipeManager().getFirstMatch(SpaceFactory.RecipeTypes.AI_FABRICATION, this, world);
     }
 }

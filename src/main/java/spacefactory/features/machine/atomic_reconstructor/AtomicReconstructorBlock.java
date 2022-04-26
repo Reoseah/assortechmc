@@ -17,7 +17,7 @@ import spacefactory.core.block.OrientableMachineBlock;
 import java.util.List;
 
 public class AtomicReconstructorBlock extends OrientableMachineBlock {
-    public static final Text TOOLTIP = new TranslatableText("tooltip.spacefactory.energy_per_tick", SpaceFactory.config.atomicReassemblerConsumption).formatted(Formatting.GRAY);
+    public static final Text TOOLTIP = new TranslatableText("tooltip.spacefactory.energy_per_tick", SpaceFactory.config.atomicReconstructorConsumption).formatted(Formatting.GRAY);
 
     public AtomicReconstructorBlock(AbstractBlock.Settings settings) {
         super(settings);
