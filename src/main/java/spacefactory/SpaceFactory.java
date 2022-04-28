@@ -748,7 +748,6 @@ public class SpaceFactory implements ModInitializer {
         }
 
         @Override
-        @Environment(EnvType.CLIENT)
         public String getName() {
             return this.name;
         }
