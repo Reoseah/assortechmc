@@ -1,20 +1,14 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    " # ",
-    "#I#",
-    " # "
-  ],
-  "key": {
-    "#": {
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
       "item": "minecraft:smooth_stone"
     },
-    "I": {
-      "item": "spacefactory:nano_steel_ingot"
+    {
+      "tag": "c:nano_steel_ingot"
     }
-  },
+  ],
   "result": {
-    "item": "spacefactory:reinforced_stone",
-    "count": 4
+    "item": "spacefactory:reinforced_stone"
   }
 }
