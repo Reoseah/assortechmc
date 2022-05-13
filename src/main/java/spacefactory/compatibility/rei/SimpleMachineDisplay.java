@@ -3,7 +3,7 @@ package spacefactory.compatibility.rei;
 import me.shedaniel.rei.api.common.display.basic.BasicDisplay;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
 import net.minecraft.recipe.SmeltingRecipe;
-import spacefactory.features.machine.MachineRecipe;
+import spacefactory.recipe.MachineRecipe;
 
 import java.util.Collections;
 import java.util.Optional;

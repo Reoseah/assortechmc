@@ -24,14 +24,14 @@ import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
 import spacefactory.api.EU;
 import spacefactory.core.block.Wrenchable;
-import spacefactory.features.machine.atomic_reconstructor.AtomicReconstructorScreen;
-import spacefactory.features.machine.compressor.CompressorScreen;
-import spacefactory.features.machine.electric_furnace.ElectricFurnaceScreen;
-import spacefactory.features.machine.extractor.ExtractorScreen;
-import spacefactory.features.generator.fuel_generator.GeneratorScreen;
-import spacefactory.features.machine.fabricator_ai.FabricatorAIScreen;
-import spacefactory.features.machine.macerator.MaceratorScreen;
-import spacefactory.features.generator.solar_panel.SolarPanelScreen;
+import spacefactory.screen.client.AtomicReconstructorScreen;
+import spacefactory.screen.client.CompressorScreen;
+import spacefactory.screen.client.ElectricFurnaceScreen;
+import spacefactory.screen.client.ExtractorScreen;
+import spacefactory.screen.client.GeneratorScreen;
+import spacefactory.screen.client.FabricatorAIScreen;
+import spacefactory.screen.client.MaceratorScreen;
+import spacefactory.screen.client.SolarPanelScreen;
 
 @Environment(EnvType.CLIENT)
 public class SpaceFactoryClient implements ClientModInitializer {

@@ -27,7 +27,7 @@
   "block.spacefactory.raw_iridium_block": "Block of Raw Iridium",
   "block.spacefactory.iridium_block": "Block of Iridium",
 
-  "block.spacefactory.atomic_reconstructor": "Atomic Reconstructor",
+  "block.spacefactory.atomic_reconstructor": "Atomic Depositor Machine",
   "block.spacefactory.dragon_energy_absorber": "Dragon Egg Energy Absorber",
   "block.spacefactory.fabricator_ai": "Fabricator AI",
 
@@ -108,5 +108,5 @@
   "category.spacefactory.macerating": "Macerating",
   "category.spacefactory.compressing": "Compressing",
   "category.spacefactory.extracting": "Extracting",
-  "category.spacefactory.reconstruction": "Atomic Reconstruction"
+  "category.spacefactory.reconstruction": "Atomic Deposition"
 }

@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "id": "space-factory-core",
+  "version": "${version}",
+  "name": "Core",
+  "description": "Contains code used by other parts, but doesn't actually add anything to the game.",
+  "authors": [
+    "Reoseah"
+  ],
+  "contact": {},
+  "license": "MIT",
+  "environment": "*",
+  "depends": {
+    "fabric": "*"
+  },
+  "entrypoints": {
+  },
+  "accessWidener": "spacefactory.accesswidener",
+  "custom": {
+    "modmenu": {
+      "parent": "spacefactory"
+    }
+  }
+}

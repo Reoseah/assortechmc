@@ -22,13 +22,13 @@
       "spacefactory.compatibility.rei.SpaceFactoryPlugin"
     ]
   },
-  "accessWidener": "spacefactory.accesswidener",
   "mixins": [
     "spacefactory.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=0.12.12",
     "fabric": "*",
-    "minecraft": "1.18.2"
+    "minecraft": "1.18.2",
+    "space-factory-core": "*"
   }
 }
