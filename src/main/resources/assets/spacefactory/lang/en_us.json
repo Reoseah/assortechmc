@@ -27,7 +27,7 @@
   "block.spacefactory.raw_iridium_block": "Block of Raw Iridium",
   "block.spacefactory.iridium_block": "Block of Iridium",
 
-  "block.spacefactory.atomic_reconstructor": "Atomic Depositor Machine",
+  "block.spacefactory.atomic_reconstructor": "Atomic Construction Machine",
   "block.spacefactory.dragon_energy_absorber": "Dragon Egg Energy Absorber",
   "block.spacefactory.fabricator_ai": "Fabricator AI",
 
@@ -58,7 +58,7 @@
   "item.spacefactory.refined_iron_ingot": "Refined Iron Ingot",
   "item.spacefactory.refined_iron_dust": "Refined Iron Dust",
   "item.spacefactory.refined_iron_machete": "Refined Iron Machete",
-  "item.spacefactory.refined_iron_unicutter": "Refined Iron All-Cutter",
+  "item.spacefactory.refined_iron_unicutter": "Refined Iron All-Cutters",
   "item.spacefactory.refined_iron_wrench": "Refined Iron Wrench",
 
   "item.spacefactory.camouflage_cloth": "Camouflage Cloth",
@@ -68,7 +68,7 @@
   "item.spacefactory.crystalite_dust": "Crystalite",
   "item.spacefactory.raw_crystalite_dust": "Raw Crystalite Mix",
   "item.spacefactory.quantum_circuit": "Quantum Circuit",
-  "item.spacefactory.hyper_ai_core": "Hyper-AI Core",
+  "item.spacefactory.hyper_ai_core": "Advanced AI Core",
 
   "item.spacefactory.netherite_scrap_dust": "Pulverized Netherite Scrap",
   "item.spacefactory.raw_iridium": "Raw Iridium",
@@ -79,7 +79,7 @@
 
   "item.spacefactory.nano_steel_ingot": "Nano-Structured Steel Ingot",
   "item.spacefactory.nano_steel_machete": "Nano-Steel Machete",
-  "item.spacefactory.nano_steel_unicutter": "Nano-Steel All-Cutter",
+  "item.spacefactory.nano_steel_unicutter": "Nano-Steel All-Cutters",
   "item.spacefactory.nano_steel_wrench": "Nano-Steel Wrench",
 
   "item.spacefactory.ender_pearl_dust": "Ender Pearl Dust",
@@ -108,5 +108,5 @@
   "category.spacefactory.macerating": "Macerating",
   "category.spacefactory.compressing": "Compressing",
   "category.spacefactory.extracting": "Extracting",
-  "category.spacefactory.reconstruction": "Atomic Deposition"
+  "category.spacefactory.reconstruction": "Atomic Construction"
 }

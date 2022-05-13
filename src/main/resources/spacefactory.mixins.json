@@ -4,9 +4,6 @@
   "package": "spacefactory.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "EnchantmentHelperMixin",
-    "EnchantmentMixin",
-    "ItemStackMixin"
   ],
   "client": [
     "client.BlockModelRendererMixin",

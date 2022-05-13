@@ -90,9 +90,6 @@ import spacefactory.block.MaceratorBlock;
 import spacefactory.block.entity.MaceratorBlockEntity;
 import spacefactory.recipe.MaceratorRecipe;
 import spacefactory.screen.MaceratorScreenHandler;
-import spacefactory.item.NanoSteelMacheteItem;
-import spacefactory.item.NanoSteelUnicutterItem;
-import spacefactory.item.NanoSteelWrenchItem;
 import spacefactory.block.AliveRubberLogBlock;
 import spacefactory.block.RubberSaplingBlock;
 import spacefactory.item.MacheteItem;
@@ -431,9 +428,9 @@ public class SpaceFactory implements ModInitializer {
         public static final Item REFINED_IRON_WRENCH = new WrenchItem(ToolMaterials.REFINED_IRON, 0, -1.8F, settings());
         public static final Item REFINED_IRON_UNICUTTER = new UnicutterItem(ToolMaterials.REFINED_IRON, -1, -1F, settings().maxDamage(250));
 
-        public static final Item NANO_STEEL_MACHETE = new NanoSteelMacheteItem(ToolMaterials.NANO_STRUCTURED_STEEL, 2, -2.2F, settings().rarity(Rarity.RARE));
-        public static final Item NANO_STEEL_WRENCH = new NanoSteelWrenchItem(ToolMaterials.NANO_STRUCTURED_STEEL, 0, -1.8F, settings().maxDamage(700).rarity(Rarity.RARE));
-        public static final Item NANO_STEEL_UNICUTTER = new NanoSteelUnicutterItem(ToolMaterials.NANO_STRUCTURED_STEEL, -1, -1F, settings().maxDamage(700).rarity(Rarity.RARE));
+        public static final Item NANO_STEEL_MACHETE = new MacheteItem(ToolMaterials.NANO_STRUCTURED_STEEL, 2, -2.2F, settings().rarity(Rarity.RARE));
+        public static final Item NANO_STEEL_WRENCH = new WrenchItem(ToolMaterials.NANO_STRUCTURED_STEEL, 0, -1.8F, settings().maxDamage(700).rarity(Rarity.RARE));
+        public static final Item NANO_STEEL_UNICUTTER = new UnicutterItem(ToolMaterials.NANO_STRUCTURED_STEEL, -1, -1F, settings().maxDamage(700).rarity(Rarity.RARE));
 
         public static final TagKey<Item> RUBBERS = TagKey.of(Registry.ITEM_KEY, new Identifier("c:rubbers"));
 
@@ -696,7 +693,7 @@ public class SpaceFactory implements ModInitializer {
     }
 
     public enum ArmorMaterials implements ArmorMaterial {
-        FLAK("flak", 15, new int[]{2, 5, 6, 2}, 12, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 0.0F, 0.0F, Ingredient.empty());
+        FLAK("flak", 10, new int[]{3, 6, 8, 3}, 8, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 0.0F, 0.1F, Ingredient.empty());
 
         private static final int[] BASE_DURABILITY = {13, 15, 16, 11};
 
