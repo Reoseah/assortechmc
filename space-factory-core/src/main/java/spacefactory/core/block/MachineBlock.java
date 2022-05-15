@@ -12,12 +12,11 @@ import net.minecraft.state.property.Properties;
 import net.minecraft.util.BlockMirror;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.math.Direction;
-import spacefactory.api.EU;
 
 /**
  * Extends {@link ContainerBlock} with horizontal facing and normal/lit properties.
  */
-public abstract class MachineBlock extends ContainerBlock implements EU.ElectricBlock {
+public abstract class MachineBlock extends ContainerBlock {
 	public static final DirectionProperty FACING = HorizontalFacingBlock.FACING;
 	public static final BooleanProperty LIT = Properties.LIT;
 

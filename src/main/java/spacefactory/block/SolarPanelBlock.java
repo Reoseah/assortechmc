@@ -14,13 +14,12 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import spacefactory.SpaceFactory;
-import spacefactory.api.EU;
 import spacefactory.core.block.ContainerBlock;
 import spacefactory.block.entity.SolarPanelBlockEntity;
 
 import java.util.List;
 
-public class SolarPanelBlock extends ContainerBlock implements EU.ElectricBlock {
+public class SolarPanelBlock extends ContainerBlock {
 	public static final Text TOOLTIP = new TranslatableText("tooltip.spacefactory.generators", SpaceFactory.config.solarPanelProduction, new TranslatableText("tooltip.spacefactory.sunlight")).formatted(Formatting.GRAY);
 
 	public SolarPanelBlock(Settings settings) {

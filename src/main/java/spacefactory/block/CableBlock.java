@@ -24,7 +24,7 @@ import spacefactory.api.EU;
 import spacefactory.block.entity.CableBlockEntity;
 import spacefactory.block.entity.CableNetwork;
 
-public abstract class CableBlock extends BlockWithEntity implements EU.ElectricBlock {
+public abstract class CableBlock extends BlockWithEntity {
     public static final BooleanProperty DOWN = Properties.DOWN;
     public static final BooleanProperty UP = Properties.UP;
     public static final BooleanProperty NORTH = Properties.NORTH;

@@ -18,31 +18,6 @@ import java.util.function.Consumer;
  */
 public abstract class EU {
     /**
-     * Implement on a block that needs to interact with EU electricity
-     * and override methods if you need to customize behavior.
-     * <p>
-     * The default behavior is try to cast block entity to {@link EU.Receiver} or {@link EU.Sender}.
-     */
-    public interface ElectricBlock {
-        default @Nullable EU.Sender getEnergySender(BlockState state, WorldAccess world, BlockPos pos) {
-            BlockEntity be = world.getBlockEntity(pos);
-            if (be instanceof EU.Sender sender) {
-                return sender;
-            }
-            return null;
-        }
-
-
-        default @Nullable EU.Receiver getEnergyReceiver(BlockState state, WorldAccess world, BlockPos pos) {
-            BlockEntity be = world.getBlockEntity(pos);
-            if (be instanceof EU.Receiver receiver) {
-                return receiver;
-            }
-            return null;
-        }
-    }
-
-    /**
      * Something that will send energy using {@link EU#trySend} or {@link EU#findReceiver}.
      */
     public interface Sender {
@@ -81,32 +56,33 @@ public abstract class EU {
      */
     public static int trySend(int energy, WorldAccess world, BlockPos pos, Direction side) {
         BlockState state = world.getBlockState(pos);
-        if (state.getBlock() instanceof EU.ElectricBlock block) {
-            EU.Receiver receiver = block.getEnergyReceiver(state, world, pos);
-            if (receiver != null) {
-                return receiver.receiveEnergy(energy, side);
-            }
+        @Nullable Receiver receiver = null;
+        BlockEntity be = world.getBlockEntity(pos);
+        if (be instanceof Receiver receiver1) {
+            receiver = receiver1;
+        }
+        if (receiver != null) {
+            return receiver.receiveEnergy(energy, side);
         }
         return 0;
     }
 
     public static EU.Receiver findReceiver(WorldAccess world, BlockPos pos) {
         BlockState state = world.getBlockState(pos);
-        if (state.getBlock() instanceof EU.ElectricBlock block) {
-            return block.getEnergyReceiver(state, world, pos);
+        BlockEntity be = world.getBlockEntity(pos);
+        if (be instanceof Receiver receiver) {
+            return receiver;
         }
         return null;
     }
 
     public static boolean canInteract(WorldAccess world, BlockPos pos, Direction side) {
-        BlockState state = world.getBlockState(pos);
-        if (state.getBlock() instanceof EU.ElectricBlock block) {
-            EU.Receiver receiver = block.getEnergyReceiver(state, world, pos);
-            if (receiver != null && receiver.canReceiveEnergy(side)) {
-                return true;
-            }
-            EU.Sender sender = block.getEnergySender(state, world, pos);
-            return sender != null && sender.canSendEnergy(side);
+        BlockEntity be = world.getBlockEntity(pos);
+        if (be instanceof Receiver receiver && receiver.canReceiveEnergy(side)) {
+            return true;
+        }
+        if (be instanceof Sender sender && sender.canSendEnergy(side)) {
+            return true;
         }
         return false;
     }

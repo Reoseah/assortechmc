@@ -23,14 +23,13 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import spacefactory.SpaceFactory;
-import spacefactory.api.EU;
 import spacefactory.block.entity.DragonEggEnergySiphonBlockEntity;
 import spacefactory.core.block.ContainerBlock;
 
 import java.util.List;
 import java.util.Random;
 
-public class DragonEggEnergySiphonBlock extends ContainerBlock implements EU.ElectricBlock {
+public class DragonEggEnergySiphonBlock extends ContainerBlock {
     public static final Text TOOLTIP = new TranslatableText("tooltip.spacefactory.generators", SpaceFactory.config.dragonEggSiphonProduction, Items.DRAGON_EGG.getName()).formatted(Formatting.GRAY);
 
     public static final BooleanProperty LIT = Properties.LIT;
