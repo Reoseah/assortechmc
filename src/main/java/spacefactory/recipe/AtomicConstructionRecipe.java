@@ -16,13 +16,13 @@ import spacefactory.core.recipe.IngredientCount;
 
 public class AtomicConstructionRecipe implements Recipe<Inventory> {
     public final Identifier id;
-    public final IngredientCount input1;
-    public final IngredientCount input2;
+    public final Ingredient input1;
+    public final Ingredient input2;
     public final ItemStack output;
     public final float experience;
     public final int duration;
 
-    public AtomicConstructionRecipe(Identifier id, IngredientCount input1, IngredientCount input2, ItemStack output, float experience, int duration) {
+    public AtomicConstructionRecipe(Identifier id, Ingredient input1, Ingredient input2, ItemStack output, float experience, int duration) {
         this.id = id;
         this.input1 = input1;
         this.input2 = input2;
@@ -35,8 +35,8 @@ public class AtomicConstructionRecipe implements Recipe<Inventory> {
     public boolean matches(Inventory inventory, World world) {
         ItemStack first = inventory.getStack(0);
         ItemStack second = inventory.getStack(1);
-        return this.input1.test(first) && (this.input2.test(second) || this.input2 == IngredientCount.EMPTY)
-                || this.input1.test(second) && (this.input2.test(first) || this.input2 == IngredientCount.EMPTY);
+        return this.input1.test(first) && (this.input2.test(second) || this.input2 == Ingredient.EMPTY)
+                || this.input1.test(second) && (this.input2.test(first) || this.input2 == Ingredient.EMPTY);
     }
 
     @Override
@@ -66,7 +66,7 @@ public class AtomicConstructionRecipe implements Recipe<Inventory> {
 
     @Override
     public DefaultedList<Ingredient> getIngredients() {
-        return DefaultedList.copyOf(Ingredient.EMPTY, this.input1.ingredient, this.input2.ingredient);
+        return DefaultedList.copyOf(Ingredient.EMPTY, this.input1, this.input2);
     }
 
     @Override
@@ -92,8 +92,8 @@ public class AtomicConstructionRecipe implements Recipe<Inventory> {
                 throw new JsonParseException("Molecular Assembler recipe takes at most 2 items");
             }
 
-            IngredientCount input1 = IngredientCount.fromJson(ingredientsJson.get(0));
-            IngredientCount input2 = ingredientsJson.size() == 1 ? IngredientCount.EMPTY : IngredientCount.fromJson(ingredientsJson.get(1));
+            Ingredient input1 = IngredientCount.fromJson(ingredientsJson.get(0));
+            Ingredient input2 = ingredientsJson.size() == 1 ? Ingredient.EMPTY : IngredientCount.fromJson(ingredientsJson.get(1));
             ItemStack output = ShapedRecipe.outputFromJson(JsonHelper.getObject(json, "result"));
             float experience = JsonHelper.getFloat(json, "experience", 0.0F);
             int cost = JsonHelper.getInt(json, "duration", this.defaultDuration);
@@ -102,8 +102,8 @@ public class AtomicConstructionRecipe implements Recipe<Inventory> {
 
         @Override
         public AtomicConstructionRecipe read(Identifier id, PacketByteBuf buf) {
-            IngredientCount input1 = IngredientCount.fromPacket(buf);
-            IngredientCount input2 = IngredientCount.fromPacket(buf);
+            Ingredient input1 = Ingredient.fromPacket(buf);
+            Ingredient input2 = Ingredient.fromPacket(buf);
             ItemStack output = buf.readItemStack();
             float experience = buf.readFloat();
             int cost = buf.readVarInt();

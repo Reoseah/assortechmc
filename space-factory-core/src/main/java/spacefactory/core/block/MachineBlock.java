@@ -17,7 +17,7 @@ import spacefactory.api.EU;
 /**
  * Extends {@link ContainerBlock} with horizontal facing and normal/lit properties.
  */
-public abstract class MachineBlock extends ContainerBlock {
+public abstract class MachineBlock extends ContainerBlock implements EU.ElectricBlock {
 	public static final DirectionProperty FACING = HorizontalFacingBlock.FACING;
 	public static final BooleanProperty LIT = Properties.LIT;
 

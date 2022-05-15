@@ -111,17 +111,6 @@ public class SpaceFactoryPlugin implements REIClientPlugin {
 		));
 	}
 
-	public static List<EntryIngredient> toIngredientEntries(IngredientCount... inputs) {
-		return Arrays.stream(inputs)
-				.map(input -> EntryIngredient.of(
-						Arrays.stream(input.ingredient.getMatchingStacks())
-								.peek(stack -> stack.setCount(input.count))
-								.map(EntryStacks::of)
-								.toList()
-				))
-				.toList();
-	}
-
 	private static Text translateWithNewLines(String translationKey, Object... args) {
 		return new LiteralText(I18n.translate(translationKey, args).replace("\\n", "\n"));
 	}

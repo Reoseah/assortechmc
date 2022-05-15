@@ -67,8 +67,13 @@ public class AtomicConstructorBlockEntity extends CraftingMachineBlockEntity<Ato
             ItemStack slot = this.inventory.get(SLOT_OUTPUT);
             ItemStack output = recipe.getOutput();
 
-            input1.decrement(recipe.input1.test(input1) ? recipe.input1.count : recipe.input2.count);
-            input2.decrement(recipe.input2.test(input2) ? recipe.input2.count : recipe.input1.count);
+            if (recipe.input1.test(input1) && recipe.input2.test(input2)) {
+                this.consume(SLOT_INPUT_1, recipe.input1);
+                this.consume(SLOT_INPUT_2, recipe.input2);
+            } else {
+                this.consume(SLOT_INPUT_1, recipe.input2);
+                this.consume(SLOT_INPUT_2, recipe.input1);
+            }
 
             if (slot.isEmpty()) {
                 this.inventory.set(SLOT_OUTPUT, output.copy());

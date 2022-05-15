@@ -8,6 +8,7 @@ import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.recipe.Ingredient;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
@@ -46,6 +47,15 @@ public abstract class ContainerBlockEntity extends BlockEntity implements Invent
 		}
 		return ItemStack.canCombine(stackInSlot, offer)
 				&& stackInSlot.getCount() + offer.getCount() <= stackInSlot.getMaxCount();
+	}
+
+	protected void consume(int slot, Ingredient ingredient) {
+		ItemStack stackInSlot = this.getStack(slot);
+		for (ItemStack stack : ingredient.getMatchingStacks()) {
+			if (stackInSlot.isOf(stack.getItem())) {
+				stackInSlot.decrement(stack.getCount());
+			}
+		}
 	}
 
 	@Override
