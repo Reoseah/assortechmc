@@ -13,20 +13,20 @@ import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 import spacefactory.SpaceFactory;
 import spacefactory.api.EU;
-import spacefactory.block.entity.FabricatorAIBlockEntity;
-import spacefactory.core.screen.InventoryScreenHandler;
+import spacefactory.block.entity.EngineeringAIBlockEntity;
+import spacefactory.core.screen.ContainerScreenHandler;
 import spacefactory.core.screen.property.ReadProperty;
 import spacefactory.core.screen.property.WriteProperty;
 import spacefactory.recipe.AIFabricationRecipe;
 
 import java.util.Optional;
 
-public abstract class FabricatorAIScreenHandler extends InventoryScreenHandler {
+public abstract class FabricatorAIScreenHandler extends ContainerScreenHandler {
     protected final PlayerEntity player;
     protected final Inventory result;
 
     protected FabricatorAIScreenHandler(int syncId, Inventory inventory, Inventory result, PlayerInventory user) {
-        super(SpaceFactory.ScreenHandlerTypes.FABRICATOR_AI, syncId, inventory);
+        super(SpaceFactory.ScreenHandlerTypes.ENGINEERING_AI, syncId, inventory);
 
         this.player = user.player;
         this.result = result;
@@ -37,13 +37,13 @@ public abstract class FabricatorAIScreenHandler extends InventoryScreenHandler {
             }
         }
 
-        this.addSlot(new FabricatorAIScreenHandler.ResultSlot(player, inventory, result, 0, 134, 35));
+        this.addSlot(new ResultSlot(player, inventory, result, 0, 134, 35));
         this.addQuickTransferSlot(EU::isElectricItem, new Slot(inventory, 8, 9, 53));
         this.addPlayerSlots(user);
     }
 
     public static class Server extends FabricatorAIScreenHandler implements InventoryChangedListener {
-        public Server(int syncId, FabricatorAIBlockEntity be, PlayerEntity player) {
+        public Server(int syncId, EngineeringAIBlockEntity be, PlayerEntity player) {
             super(syncId, be, be.getResultInventory(), player.getInventory());
 
             this.addProperty(new ReadProperty(be::getEnergy));
@@ -54,16 +54,16 @@ public abstract class FabricatorAIScreenHandler extends InventoryScreenHandler {
 
         @Override
         public void close(PlayerEntity player) {
-            ((FabricatorAIBlockEntity) this.inventory).changeListeners.remove(this);
+            ((EngineeringAIBlockEntity) this.inventory).changeListeners.remove(this);
             super.close(player);
         }
 
         @Override
         public void onInventoryChanged(Inventory sender) {
-            updateResult(this.syncId, this.player.world, this.player, (FabricatorAIBlockEntity) this.inventory, this.result);
+            updateResult(this.syncId, this.player.world, this.player, (EngineeringAIBlockEntity) this.inventory, this.result);
         }
 
-        protected static void updateResult(int syncId, World world, PlayerEntity player, FabricatorAIBlockEntity craftingInventory,
+        protected static void updateResult(int syncId, World world, PlayerEntity player, EngineeringAIBlockEntity craftingInventory,
                                            Inventory resultInventory) {
             ItemStack result = ItemStack.EMPTY;
             Optional<AIFabricationRecipe> optional = world.getServer().getRecipeManager()
@@ -141,7 +141,7 @@ public abstract class FabricatorAIScreenHandler extends InventoryScreenHandler {
             if (player.getWorld().isClient) {
                 return;
             }
-            FabricatorAIBlockEntity inventory = (FabricatorAIBlockEntity) this.input;
+            EngineeringAIBlockEntity inventory = (EngineeringAIBlockEntity) this.input;
 
             AIFabricationRecipe recipe = player.world.getRecipeManager()
                     .getFirstMatch(SpaceFactory.RecipeTypes.AI_FABRICATION, inventory, player.world).orElseThrow();

@@ -1,0 +1,15 @@
+{
+  "type": "spacefactory:atomic_construction",
+  "input": [
+    {
+      "tag": "c:ender_pearl_dusts",
+      "count": 2
+    },
+    {
+      "item": "spacefactory:quantum_circuit"
+    }
+  ],
+  "result": { 
+    "item": "spacefactory:warp_prism"
+  }
+}

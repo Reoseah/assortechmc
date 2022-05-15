@@ -1,8 +1,8 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "ITI",
-    "CAC",
+    "IEI",
+    "CNC",
     "I#I"
   ],
   "key": {
@@ -15,14 +15,14 @@
     "C": {
       "item": "spacefactory:quantum_circuit"
     },
-    "T": {
-      "item": "minecraft:crafting_table"
+    "E": {
+      "item": "spacefactory:energy_conduit"
     },
-    "A": {
-      "item": "spacefactory:super_ai_core"
+    "N": {
+      "item": "minecraft:nether_star"
     }
   },
   "result": {
-    "item": "spacefactory:engineering_ai"
+    "item": "spacefactory:atomic_constructor"
   }
 }

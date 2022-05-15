@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/orientable_with_bottom",
+  "textures": {
+    "top": "spacefactory:block/engineering_ai_top",
+    "front": "spacefactory:block/engineering_ai_front",
+    "side": "spacefactory:block/advanced_machine",
+    "bottom": "spacefactory:block/machine_bottom"
+  }
+}

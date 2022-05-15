@@ -2,7 +2,7 @@ package spacefactory.screen;
 
 import spacefactory.SpaceFactory;
 import spacefactory.block.entity.GeneratorBlockEntity;
-import spacefactory.core.screen.InventoryScreenHandler;
+import spacefactory.core.screen.ContainerScreenHandler;
 import spacefactory.core.screen.property.ReadProperty;
 import spacefactory.core.screen.property.WriteProperty;
 import spacefactory.core.screen.slot.FuelSlot;
@@ -14,7 +14,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 
-public class GeneratorScreenHandler extends InventoryScreenHandler {
+public class GeneratorScreenHandler extends ContainerScreenHandler {
     protected int fuelLeft, fuelDuration, energy;
 
     protected GeneratorScreenHandler(int syncId, Inventory inventory, PlayerInventory user) {

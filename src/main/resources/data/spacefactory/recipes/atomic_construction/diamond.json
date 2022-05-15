@@ -1,0 +1,11 @@
+{
+  "type": "spacefactory:atomic_construction",
+  "input": [
+    {
+      "tag": "c:diamond_dusts"
+    }
+  ],
+  "result": { 
+    "item": "minecraft:diamond"
+  }
+}

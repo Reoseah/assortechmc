@@ -1,0 +1,11 @@
+{
+  "type": "spacefactory:atomic_construction",
+  "input": [
+    {
+      "tag": "c:nether_quartz_dusts"
+    }
+  ],
+  "result": { 
+    "item": "minecraft:quartz"
+  }
+}

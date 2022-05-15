@@ -79,7 +79,7 @@ public class MachineArrowWidget extends Arrow {
         PULVERIZING(16 + 17),
         COMPRESSING(16 + 17 * 2),
         EXTRACTING(16 + 17 * 3),
-        ATOMIC_REASSEMBLY(16 + 17 * 4);
+        ATOMIC_CONSTRUCTION(16 + 17 * 4);
 
         public final int uOffset;
 

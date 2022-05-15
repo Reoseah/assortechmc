@@ -9,12 +9,12 @@ import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.screen.slot.Slot;
 import spacefactory.SpaceFactory;
 import spacefactory.api.EU;
-import spacefactory.core.screen.InventoryScreenHandler;
+import spacefactory.core.screen.ContainerScreenHandler;
 import spacefactory.core.screen.property.ReadProperty;
 import spacefactory.core.screen.property.WriteProperty;
 import spacefactory.block.entity.SolarPanelBlockEntity;
 
-public class SolarPanelScreenHandler extends InventoryScreenHandler {
+public class SolarPanelScreenHandler extends ContainerScreenHandler {
     protected boolean generating, skyView;
 
     protected SolarPanelScreenHandler(int syncId, Inventory inventory, PlayerInventory user) {

@@ -8,10 +8,10 @@
         }
     },
     "textures": {
-        "particle": "spacefactory:block/extractor_front",
+        "particle": "spacefactory:block/extractor_front_on",
         "down": "spacefactory:block/machine_bottom",
-        "up": "spacefactory:block/extractor_top_on",
-        "north": "spacefactory:block/extractor_front",
+        "up": "spacefactory:block/extractor_top",
+        "north": "spacefactory:block/extractor_front_on",
         "east": "spacefactory:block/extractor_side_on",
         "south": "spacefactory:block/machine_side",
         "west": "spacefactory:block/extractor_side_on"

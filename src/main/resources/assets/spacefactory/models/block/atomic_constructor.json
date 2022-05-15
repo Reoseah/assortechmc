@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/orientable_with_bottom",
+  "textures": {
+    "top": "spacefactory:block/advanced_machine",
+    "front": "spacefactory:block/atomic_constructor_front",
+    "side": "spacefactory:block/machine_side",
+    "bottom": "spacefactory:block/machine_bottom"
+  }
+}

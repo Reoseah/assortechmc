@@ -27,9 +27,9 @@
   "block.spacefactory.raw_iridium_block": "Block of Raw Iridium",
   "block.spacefactory.iridium_block": "Block of Iridium",
 
-  "block.spacefactory.atomic_reconstructor": "Atomic Construction Machine",
-  "block.spacefactory.dragon_energy_absorber": "Dragon Egg Energy Absorber",
-  "block.spacefactory.fabricator_ai": "Fabricator AI",
+  "block.spacefactory.atomic_constructor": "Atomic Construction Machine",
+  "block.spacefactory.dragon_egg_energy_siphon": "Dragon Egg Energy Siphon",
+  "block.spacefactory.engineering_ai": "Engineering AI",
 
   "block.spacefactory.nano_steel_block": "Block of Nano-Steel",
   "block.spacefactory.reinforced_stone": "Reinforced Stone",
@@ -68,7 +68,7 @@
   "item.spacefactory.crystalite_dust": "Crystalite",
   "item.spacefactory.raw_crystalite_dust": "Raw Crystalite Mix",
   "item.spacefactory.quantum_circuit": "Quantum Circuit",
-  "item.spacefactory.hyper_ai_core": "Advanced AI Core",
+  "item.spacefactory.super_ai_core": "Super-AI Core",
 
   "item.spacefactory.netherite_scrap_dust": "Pulverized Netherite Scrap",
   "item.spacefactory.raw_iridium": "Raw Iridium",
@@ -98,8 +98,6 @@
 
   "tooltip.spacefactory.energy_transfer" : "%s EU/t Transfer",
 
-  "tooltip.spacefactory.self_regeneration": "Self Repair",
-
   "container.spacefactory.fuel_ticks": "%s ticks left",
 
   "death.attack.spacefactory.uninsulated_wire_shock": "%s touched live uninsulated wire",
@@ -108,5 +106,5 @@
   "category.spacefactory.macerating": "Macerating",
   "category.spacefactory.compressing": "Compressing",
   "category.spacefactory.extracting": "Extracting",
-  "category.spacefactory.reconstruction": "Atomic Construction"
+  "category.spacefactory.atomic_construction": "Atomic Construction"
 }

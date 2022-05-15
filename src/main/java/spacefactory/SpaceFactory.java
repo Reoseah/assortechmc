@@ -55,41 +55,26 @@ import net.minecraft.world.gen.stateprovider.SimpleBlockStateProvider;
 import net.minecraft.world.gen.trunk.StraightTrunkPlacer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import spacefactory.block.entity.CableBlockEntity;
+import spacefactory.block.entity.*;
 import spacefactory.block.NormalCableBlock;
 import spacefactory.block.HiddenCableBlock;
-import spacefactory.block.entity.DragonEggEnergyAbsorberBlockEntity;
-import spacefactory.block.DragonEggSiphonBlock;
+import spacefactory.block.entity.DragonEggEnergySiphonBlockEntity;
+import spacefactory.block.DragonEggEnergySiphonBlock;
 import spacefactory.block.GeneratorBlock;
-import spacefactory.block.entity.GeneratorBlockEntity;
-import spacefactory.screen.GeneratorScreenHandler;
+import spacefactory.screen.*;
 import spacefactory.block.SolarPanelBlock;
-import spacefactory.block.entity.SolarPanelBlockEntity;
-import spacefactory.screen.SolarPanelScreenHandler;
 import spacefactory.recipe.MachineRecipe;
-import spacefactory.recipe.AtomicReconstructorRecipe;
-import spacefactory.block.AtomicReconstructorBlock;
-import spacefactory.block.entity.AtomicReconstructorBlockEntity;
-import spacefactory.screen.AtomicReconstructorScreenHandler;
+import spacefactory.recipe.AtomicConstructionRecipe;
+import spacefactory.block.AtomicConstructorBlock;
 import spacefactory.block.CompressorBlock;
-import spacefactory.block.entity.CompressorBlockEntity;
 import spacefactory.recipe.CompressorRecipe;
-import spacefactory.screen.CompressorScreenHandler;
 import spacefactory.block.ElectricFurnaceBlock;
-import spacefactory.block.entity.ElectricFurnaceBlockEntity;
-import spacefactory.screen.ElectricFurnaceScreenHandler;
 import spacefactory.block.ExtractorBlock;
-import spacefactory.block.entity.ExtractorBlockEntity;
 import spacefactory.recipe.ExtractorRecipe;
-import spacefactory.screen.ExtractorScreenHandler;
 import spacefactory.recipe.AIFabricationRecipe;
-import spacefactory.block.FabricatorAIBlock;
-import spacefactory.block.entity.FabricatorAIBlockEntity;
-import spacefactory.screen.FabricatorAIScreenHandler;
+import spacefactory.block.EngineeringAIBlock;
 import spacefactory.block.MaceratorBlock;
-import spacefactory.block.entity.MaceratorBlockEntity;
 import spacefactory.recipe.MaceratorRecipe;
-import spacefactory.screen.MaceratorScreenHandler;
 import spacefactory.block.AliveRubberLogBlock;
 import spacefactory.block.RubberSaplingBlock;
 import spacefactory.item.MacheteItem;
@@ -208,9 +193,9 @@ public class SpaceFactory implements ModInitializer {
         public int compressorConsumption = 2;
         @SerializedName("extractor_consumption")
         public int extractorConsumption = 2;
-        @SerializedName("atomic_reconstructor_consumption")
+        @SerializedName("atomic_constructor_consumption")
         public int atomicReconstructorConsumption = 10;
-        @SerializedName("fabricator_ai_consumption")
+        @SerializedName("engineering_ai_consumption")
         public int fabricatorAIConsumption = 10;
 
         public static Config load() {
@@ -279,9 +264,9 @@ public class SpaceFactory implements ModInitializer {
         public static final Block MACERATOR = new MaceratorBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 12 : 0));
         public static final Block COMPRESSOR = new CompressorBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 12 : 0));
         public static final Block EXTRACTOR = new ExtractorBlock(FabricBlockSettings.copyOf(MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 12 : 0));
-        public static final Block ATOMIC_RECONSTRUCTOR = new AtomicReconstructorBlock(FabricBlockSettings.copyOf(FabricBlockSettings.copyOf(ADVANCED_MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 14 : 0)));
-        public static final Block DRAGON_EGG_ENERGY_ABSORBER = new DragonEggSiphonBlock(FabricBlockSettings.copyOf(ADVANCED_MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 15 : 0));
-        public static final Block FABRICATOR_AI = new FabricatorAIBlock(FabricBlockSettings.copyOf(ADVANCED_MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 15 : 0));
+        public static final Block ATOMIC_CONSTRUCTOR = new AtomicConstructorBlock(FabricBlockSettings.copyOf(FabricBlockSettings.copyOf(ADVANCED_MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 14 : 0)));
+        public static final Block DRAGON_EGG_ENERGY_SIPHON = new DragonEggEnergySiphonBlock(FabricBlockSettings.copyOf(ADVANCED_MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 15 : 0));
+        public static final Block ENGINEERING_AI = new EngineeringAIBlock(FabricBlockSettings.copyOf(ADVANCED_MACHINE_SETTINGS).luminance(state -> state.get(Properties.LIT) ? 15 : 0));
 
         private static final AbstractBlock.Settings REINFORCED_STONE_SETTINGS = FabricBlockSettings.of(Material.STONE, MapColor.DARK_AQUA).strength(10F, 15F);
         public static final Block REINFORCED_STONE = new Block(REINFORCED_STONE_SETTINGS);
@@ -323,9 +308,9 @@ public class SpaceFactory implements ModInitializer {
             register("macerator", MACERATOR);
             register("compressor", COMPRESSOR);
             register("extractor", EXTRACTOR);
-            register("atomic_reconstructor", ATOMIC_RECONSTRUCTOR);
-            register("dragon_energy_absorber", DRAGON_EGG_ENERGY_ABSORBER);
-            register("fabricator_ai", FABRICATOR_AI);
+            register("atomic_constructor", ATOMIC_CONSTRUCTOR);
+            register("dragon_egg_energy_siphon", DRAGON_EGG_ENERGY_SIPHON);
+            register("engineering_ai", ENGINEERING_AI);
 
             register("reinforced_stone", REINFORCED_STONE);
             register("reinforced_stone_tiles", REINFORCED_STONE_TILES);
@@ -395,7 +380,7 @@ public class SpaceFactory implements ModInitializer {
         public static final Item CRYSTALITE_DUST = new Item(settings().rarity(Rarity.RARE));
         public static final Item CRYSTALITE_MATRIX = new Item(settings().rarity(Rarity.RARE).maxCount(16));
         public static final Item WARP_PRISM = new Item(settings().rarity(Rarity.EPIC).maxCount(16));
-        public static final Item HYPER_AI_CORE = new Item(settings().rarity(Rarity.EPIC).maxCount(1));
+        public static final Item SUPER_AI_CORE = new Item(settings().rarity(Rarity.EPIC).maxCount(1));
 
         public static final Item COPPER_WIRE = new BlockItem(Blocks.COPPER_WIRE, settings());
         public static final Item COPPER_CABLE = new BlockItem(Blocks.COPPER_CABLE, settings());
@@ -412,9 +397,9 @@ public class SpaceFactory implements ModInitializer {
         public static final Item COMPRESSOR = new BlockItem(Blocks.COMPRESSOR, settings());
         public static final Item EXTRACTOR = new BlockItem(Blocks.EXTRACTOR, settings());
 
-        public static final Item ATOMIC_RECONSTRUCTOR = new BlockItem(Blocks.ATOMIC_RECONSTRUCTOR, settings().rarity(Rarity.RARE));
-        public static final Item DRAGON_EGG_ENERGY_ABSORBER = new BlockItem(Blocks.DRAGON_EGG_ENERGY_ABSORBER, settings().rarity(Rarity.RARE));
-        public static final Item FABRICATOR_AI = new BlockItem(Blocks.FABRICATOR_AI, settings().rarity(Rarity.RARE));
+        public static final Item ATOMIC_RECONSTRUCTOR = new BlockItem(Blocks.ATOMIC_CONSTRUCTOR, settings().rarity(Rarity.RARE));
+        public static final Item DRAGON_EGG_ENERGY_SIPHON = new BlockItem(Blocks.DRAGON_EGG_ENERGY_SIPHON, settings().rarity(Rarity.RARE));
+        public static final Item ENGINEERING_AI = new BlockItem(Blocks.ENGINEERING_AI, settings().rarity(Rarity.RARE));
 
         public static final Item REINFORCED_STONE = new BlockItem(Blocks.REINFORCED_STONE, settings());
         public static final Item REINFORCED_STONE_TILES = new BlockItem(Blocks.REINFORCED_STONE_TILES, settings());
@@ -491,7 +476,7 @@ public class SpaceFactory implements ModInitializer {
             register("crystalite_dust", CRYSTALITE_DUST);
             register("crystalite_matrix", CRYSTALITE_MATRIX);
             register("warp_prism", WARP_PRISM);
-            register("hyper_ai_core", HYPER_AI_CORE);
+            register("super_ai_core", SUPER_AI_CORE);
 
             register("copper_wire", COPPER_WIRE);
             register("copper_cable", COPPER_CABLE);
@@ -508,9 +493,9 @@ public class SpaceFactory implements ModInitializer {
             register("compressor", COMPRESSOR);
             register("extractor", EXTRACTOR);
 
-            register("atomic_reconstructor", ATOMIC_RECONSTRUCTOR);
-            register("dragon_energy_absorber", DRAGON_EGG_ENERGY_ABSORBER);
-            register("fabricator_ai", FABRICATOR_AI);
+            register("atomic_constructor", ATOMIC_RECONSTRUCTOR);
+            register("dragon_egg_energy_siphon", DRAGON_EGG_ENERGY_SIPHON);
+            register("engineering_ai", ENGINEERING_AI);
 
             register("reinforced_stone", REINFORCED_STONE);
             register("reinforced_stone_tiles", REINFORCED_STONE_TILES);
@@ -537,14 +522,14 @@ public class SpaceFactory implements ModInitializer {
     public static class BlockEntityTypes {
         public static final BlockEntityType<GeneratorBlockEntity> GENERATOR = create("generator", GeneratorBlockEntity::new, Blocks.GENERATOR);
         public static final BlockEntityType<SolarPanelBlockEntity> SOLAR_PANEL = create("solar_panel", SolarPanelBlockEntity::new, Blocks.SOLAR_PANEL);
-        public static final BlockEntityType<DragonEggEnergyAbsorberBlockEntity> DRAGON_EGG_ENERGY_ABSORBER = create("dragon_egg_energy_absorber", DragonEggEnergyAbsorberBlockEntity::new, Blocks.DRAGON_EGG_ENERGY_ABSORBER);
+        public static final BlockEntityType<DragonEggEnergySiphonBlockEntity> DRAGON_EGG_ENERGY_SIPHON = create("dragon_egg_energy_absorber", DragonEggEnergySiphonBlockEntity::new, Blocks.DRAGON_EGG_ENERGY_SIPHON);
 
         public static final BlockEntityType<ElectricFurnaceBlockEntity> ELECTRIC_FURNACE = create("electric_furnace", ElectricFurnaceBlockEntity::new, Blocks.ELECTRIC_FURNACE);
         public static final BlockEntityType<MaceratorBlockEntity> MACERATOR = create("macerator", MaceratorBlockEntity::new, Blocks.MACERATOR);
         public static final BlockEntityType<CompressorBlockEntity> COMPRESSOR = create("compressor", CompressorBlockEntity::new, Blocks.COMPRESSOR);
         public static final BlockEntityType<ExtractorBlockEntity> EXTRACTOR = create("extractor", ExtractorBlockEntity::new, Blocks.EXTRACTOR);
-        public static final BlockEntityType<AtomicReconstructorBlockEntity> ATOMIC_RECONSTRUCTOR = create("atomic_reconstructor", AtomicReconstructorBlockEntity::new, Blocks.ATOMIC_RECONSTRUCTOR);
-        public static final BlockEntityType<FabricatorAIBlockEntity> FABRICATOR_AI = create("fabricator_ai", FabricatorAIBlockEntity::new, Blocks.FABRICATOR_AI);
+        public static final BlockEntityType<AtomicConstructorBlockEntity> ATOMIC_CONSTRUCTOR = create("atomic_constructor", AtomicConstructorBlockEntity::new, Blocks.ATOMIC_CONSTRUCTOR);
+        public static final BlockEntityType<EngineeringAIBlockEntity> ENGINEERING_AI = create("engineering_ai", EngineeringAIBlockEntity::new, Blocks.ENGINEERING_AI);
         public static final BlockEntityType<CableBlockEntity> CABLE = create("cable", CableBlockEntity::new, Blocks.COPPER_WIRE, Blocks.COPPER_CABLE, Blocks.COPPER_BUS_BAR, Blocks.ENERGY_CONDUIT, Blocks.REINFORCED_STONE_COVERED_CONDUIT);
 
         public static <T extends BlockEntity> BlockEntityType<T> create(String name, FabricBlockEntityTypeBuilder.Factory<T> factory, Block... blocks) {
@@ -560,7 +545,7 @@ public class SpaceFactory implements ModInitializer {
         public static final RecipeType<MaceratorRecipe> MACERATING = create("macerating");
         public static final RecipeType<CompressorRecipe> COMPRESSING = create("compressing");
         public static final RecipeType<ExtractorRecipe> EXTRACTING = create("extracting");
-        public static final RecipeType<AtomicReconstructorRecipe> ATOMIC_REASSEMBLY = create("atomic_reassembly");
+        public static final RecipeType<AtomicConstructionRecipe> ATOMIC_CONSTRUCTION = create("atomic_construction");
         public static final RecipeType<AIFabricationRecipe> AI_FABRICATION = create("ai_fabrication");
 
         public static <T extends Recipe<?>> RecipeType<T> create(String name) {
@@ -580,7 +565,7 @@ public class SpaceFactory implements ModInitializer {
         public static final RecipeSerializer<MaceratorRecipe> MACERATING = register("macerating", new MachineRecipe.Serializer<>(MaceratorRecipe::new, 300));
         public static final RecipeSerializer<CompressorRecipe> COMPRESSING = register("compressing", new MachineRecipe.Serializer<>(CompressorRecipe::new, 400));
         public static final RecipeSerializer<ExtractorRecipe> EXTRACTING = register("extracting", new MachineRecipe.Serializer<>(ExtractorRecipe::new, 400));
-        public static final RecipeSerializer<AtomicReconstructorRecipe> ATOMIC_REASSEMBLY = register("atomic_reassembly", new AtomicReconstructorRecipe.Serializer(1000));
+        public static final RecipeSerializer<AtomicConstructionRecipe> ATOMIC_CONSTRUCTION = register("atomic_construction", new AtomicConstructionRecipe.Serializer(1000));
         public static final RecipeSerializer<AIFabricationRecipe> AI_FABRICATION = register("ai_fabrication", new AIFabricationRecipe.Serializer());
 
         public static <T extends RecipeSerializer<?>> T register(String name, T entry) {
@@ -675,8 +660,8 @@ public class SpaceFactory implements ModInitializer {
         public static final ScreenHandlerType<MaceratorScreenHandler> MACERATOR = register("macerator", new ScreenHandlerType<>(MaceratorScreenHandler::new));
         public static final ScreenHandlerType<CompressorScreenHandler> COMPRESSOR = register("compressor", new ScreenHandlerType<>(CompressorScreenHandler::new));
         public static final ScreenHandlerType<ExtractorScreenHandler> EXTRACTOR = register("extractor", new ScreenHandlerType<>(ExtractorScreenHandler::new));
-        public static final ScreenHandlerType<AtomicReconstructorScreenHandler> ATOMIC_RECONSTRUCTOR = register("atomic_reconstructor", new ScreenHandlerType<>(AtomicReconstructorScreenHandler::new));
-        public static final ScreenHandlerType<FabricatorAIScreenHandler> FABRICATOR_AI = register("fabricator_ai", new ScreenHandlerType<>(FabricatorAIScreenHandler.Client::new));
+        public static final ScreenHandlerType<AtomicConstructorScreenHandler> ATOMIC_RECONSTRUCTOR = register("atomic_constructor", new ScreenHandlerType<>(AtomicConstructorScreenHandler::new));
+        public static final ScreenHandlerType<FabricatorAIScreenHandler> ENGINEERING_AI = register("fabricator_ai", new ScreenHandlerType<>(FabricatorAIScreenHandler.Client::new));
 
         private static void init() {
         }

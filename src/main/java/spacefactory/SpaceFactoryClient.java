@@ -24,7 +24,7 @@ import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
 import spacefactory.api.EU;
 import spacefactory.core.block.Wrenchable;
-import spacefactory.screen.client.AtomicReconstructorScreen;
+import spacefactory.screen.client.AtomicConstructorScreen;
 import spacefactory.screen.client.CompressorScreen;
 import spacefactory.screen.client.ElectricFurnaceScreen;
 import spacefactory.screen.client.ExtractorScreen;
@@ -82,8 +82,8 @@ public class SpaceFactoryClient implements ClientModInitializer {
         HandledScreens.register(SpaceFactory.ScreenHandlerTypes.MACERATOR, MaceratorScreen::new);
         HandledScreens.register(SpaceFactory.ScreenHandlerTypes.COMPRESSOR, CompressorScreen::new);
         HandledScreens.register(SpaceFactory.ScreenHandlerTypes.EXTRACTOR, ExtractorScreen::new);
-        HandledScreens.register(SpaceFactory.ScreenHandlerTypes.ATOMIC_RECONSTRUCTOR, AtomicReconstructorScreen::new);
-        HandledScreens.register(SpaceFactory.ScreenHandlerTypes.FABRICATOR_AI, FabricatorAIScreen::new);
+        HandledScreens.register(SpaceFactory.ScreenHandlerTypes.ATOMIC_RECONSTRUCTOR, AtomicConstructorScreen::new);
+        HandledScreens.register(SpaceFactory.ScreenHandlerTypes.ENGINEERING_AI, FabricatorAIScreen::new);
 
         ClientPlayNetworking.registerGlobalReceiver(SpaceFactory.id("burnt_cable"), (client, handler, buf, responseSender) -> {
             BlockPos pos = buf.readBlockPos();

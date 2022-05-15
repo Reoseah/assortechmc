@@ -67,7 +67,7 @@ public class SimpleMachineCategory implements DisplayCategory<SimpleMachineDispl
 	}
 
 	private MachineArrowWidget.Type getArrowType() {
-		if (this.id == SpaceFactoryPlugin.macerator) {
+		if (this.id == SpaceFactoryPlugin.MACERATING) {
 			return MachineArrowWidget.Type.PULVERIZING;
 		}
 		if (this.id == SpaceFactoryPlugin.COMPRESSING) {
